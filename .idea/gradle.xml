@@ -10,7 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/animatedfab" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/cview" />
+            <option value="$PROJECT_DIR$/customview" />
+            <option value="$PROJECT_DIR$/paintingview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

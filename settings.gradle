@@ -1,1 +1,1 @@
-include ':app', ':cview', ':animatedfab'
+include ':app', ':customview', ':animatedfab', ':paintingview'
