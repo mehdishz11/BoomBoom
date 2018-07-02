@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:orientation="vertical"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="40dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rel_handle"
+        android:layout_marginTop="-25dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bgr_pallet">
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/btn_left"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/space_small"
+            android:paddingRight="@dimen/space_normal"
+            android:paddingTop="@dimen/space_small"
+            android:src="@drawable/btn_left" />
+
+        <ImageView
+            android:id="@+id/btn_right"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/space_small"
+            android:paddingLeft="@dimen/space_normal"
+            android:paddingTop="@dimen/space_small"
+            android:src="@drawable/btn_right" />
+
+        <RelativeLayout
+            android:id="@+id/rel_color_picker"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_toLeftOf="@+id/btn_right"
+            android:layout_toRightOf="@+id/btn_left"
+            android:background="@drawable/pallet_drop">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_small"
+                android:layout_marginRight="@dimen/space_small"
+                android:orientation="horizontal"
+                android:weightSum="12">
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_1" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_2" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_3" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_4" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_5" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_6" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_8" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_10" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_13" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_14" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_16" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+                <!--color-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <psb.com.cview.SquareRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bgr_color_picker">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:src="@drawable/color_20" />
+
+                    </psb.com.cview.SquareRelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_below="@+id/rel_color_picker"
+            android:layout_marginBottom="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_small"
+            android:layout_toLeftOf="@+id/btn_right">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/btn_minos_thick"
+                android:layout_alignRight="@+id/text_font_size"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="-5dp"
+                android:background="@drawable/pallet_drop"
+                />
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/text_font_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white_1"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_small"
+                android:textSize="@dimen/text_size_normal"
+                android:text="سایز"
+                />
+
+
+            <ImageView
+                android:id="@+id/btn_minos_thick"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toLeftOf="@+id/rel_size"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_minos" />
+
+
+            <RelativeLayout
+                android:id="@+id/rel_size"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_small"
+                android:layout_toLeftOf="@id/btn_plus_thick"
+                >
+                <!--size-->
+                <ImageView
+                    android:id="@+id/img_size_1"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:src="@drawable/color_3" />
+
+                <!--size-->
+                <ImageView
+                    android:id="@+id/img_size_2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:layout_toRightOf="@+id/img_size_1"
+                    android:src="@drawable/color_3" />
+
+                <!--size-->
+                <ImageView
+                    android:id="@+id/img_size_3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:layout_toRightOf="@+id/img_size_2"
+                    android:src="@drawable/color_3" />
+
+                <!--size-->
+                <ImageView
+                    android:id="@+id/img_size_4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:layout_toRightOf="@+id/img_size_3"
+                    android:src="@drawable/color_3" />
+
+                <!--size-->
+                <ImageView
+                    android:id="@+id/img_size_5"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:layout_toRightOf="@+id/img_size_4"
+                    android:src="@drawable/bgr_color_picker" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/btn_plus_thick"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toLeftOf="@+id/text_font_size"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_small"
+                android:src="@drawable/btn_plus" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_handle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/handle" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_small"
+            android:src="@drawable/arrow_up" />
+
+    </RelativeLayout>
+</RelativeLayout>
