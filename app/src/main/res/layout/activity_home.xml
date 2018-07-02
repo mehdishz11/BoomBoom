@@ -44,7 +44,7 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <!--tabs-->
+        <!--tabs ر -->
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
