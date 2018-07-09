@@ -5,11 +5,28 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="800dp">
+        <View
+            android:id="@+id/view_header"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/bgr_pallet" />
 
 
-    </LinearLayout>
+
+
+        <View
+            android:id="@+id/view_footer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bgr_pallet" />
+
+
+    </RelativeLayout>
+
+
 </android.support.v4.widget.NestedScrollView>

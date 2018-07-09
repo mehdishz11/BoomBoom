@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/space_small"
+        android:paddingRight="@dimen/space_small"
+        android:paddingLeft="@dimen/space_small"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_category"
+            android:padding="5dp"
+            app:srcCompat="@drawable/icon_close_normal"
+            android:layout_alignParentRight="true"/>
+
+        <psb.com.cview.CustomTextViewBold
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:text="نام دسته بندی"
+            android:padding="@dimen/space_small"
+            android:id="@+id/text_category"
+            android:layout_toLeftOf="@+id/img_category"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="#717171"/>
+
+</RelativeLayout>
