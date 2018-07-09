@@ -7,4 +7,19 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="white_1">#ffffff</color>
+
+
+    <color name="palette_color_0">#6e5643</color>
+    <color name="palette_color_1">#6e2526</color>
+    <color name="palette_color_2">#db5426</color>
+    <color name="palette_color_3">#dc8827</color>
+    <color name="palette_color_4">#f2d211</color>
+    <color name="palette_color_5">#a2b83a</color>
+    <color name="palette_color_6">#167e3f</color>
+    <color name="palette_color_7">#00b2da</color>
+    <color name="palette_color_8">#3c2869</color>
+    <color name="palette_color_9">#5a2869</color>
+    <color name="palette_color_10">#ce489a</color>
+    <color name="palette_color_11">#343434</color>
+
 </resources>

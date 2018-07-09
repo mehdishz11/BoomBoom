@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".painting.palette.color.PaletteFragment">
+
+    <RelativeLayout
+        android:id="@+id/rel_color_picker"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/pallet_drop">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_small"
+            android:layout_marginRight="@dimen/space_small"
+            android:orientation="horizontal"
+            android:weightSum="12">
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_0"
+                    app:imageResource="@drawable/color_1"></psb.com.paintingview.CircleColorPicker>
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_1"
+                    app:imageResource="@drawable/color_2"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_2"
+                    app:imageResource="@drawable/color_3"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_3"
+                    app:imageResource="@drawable/color_4"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_4"
+                    app:imageResource="@drawable/color_5"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_5"
+                    app:imageResource="@drawable/color_6"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_6"
+                    app:imageResource="@drawable/color_8"></psb.com.paintingview.CircleColorPicker>
+
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_7"
+                    app:imageResource="@drawable/color_10"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_8"
+                    app:imageResource="@drawable/color_13"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_9"
+                    app:imageResource="@drawable/color_14"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_10"
+                    app:imageResource="@drawable/color_16"></psb.com.paintingview.CircleColorPicker>
+
+            </RelativeLayout>
+
+            <!--color-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <psb.com.paintingview.CircleColorPicker
+                    android:id="@+id/color_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    app:colorResource="@color/palette_color_11"
+                    app:imageResource="@drawable/color_20"></psb.com.paintingview.CircleColorPicker>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_below="@+id/rel_color_picker"
+        android:layout_marginBottom="@dimen/space_small"
+        android:layout_marginTop="@dimen/space_small"
+        android:layout_toRightOf="@+id/rel_paint_type"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/btn_minos_thick"
+            android:layout_alignRight="@+id/text_font_size"
+            android:layout_marginLeft="-5dp"
+            android:layout_marginRight="-5dp"
+            android:background="@drawable/pallet_drop"
+
+            />
+
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/text_font_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_small"
+            android:text="سایز"
+            android:textColor="@color/white_1"
+            android:textSize="@dimen/text_size_normal" />
+
+
+        <ImageView
+            android:id="@+id/btn_minos_thick"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/rel_size"
+            android:src="@drawable/btn_minos" />
+
+
+        <RelativeLayout
+            android:id="@+id/rel_size"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/space_small"
+            android:layout_toLeftOf="@id/btn_plus_thick">
+            <!--size-->
+            <ImageView
+                android:id="@+id/img_size_1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_small"
+                android:src="@drawable/color_3" />
+
+            <!--size-->
+            <ImageView
+                android:id="@+id/img_size_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_small"
+                android:layout_toRightOf="@+id/img_size_1"
+                android:src="@drawable/color_3" />
+
+            <!--size-->
+            <ImageView
+                android:id="@+id/img_size_3"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_small"
+                android:layout_toRightOf="@+id/img_size_2"
+                android:src="@drawable/color_3" />
+
+            <!--size-->
+            <ImageView
+                android:id="@+id/img_size_4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_small"
+                android:layout_toRightOf="@+id/img_size_3"
+                android:src="@drawable/color_3" />
+
+            <!--size-->
+            <ImageView
+                android:id="@+id/img_size_5"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_small"
+                android:layout_toRightOf="@+id/img_size_4"
+                android:src="@drawable/bgr_color_picker" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/btn_plus_thick"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_small"
+            android:layout_toLeftOf="@+id/text_font_size"
+            android:src="@drawable/btn_plus" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_paint_type"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_below="@id/rel_color_picker"
+        android:layout_marginBottom="@dimen/space_small"
+        android:layout_marginTop="@dimen/space_small"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignRight="@+id/text_paint_type"
+            android:background="@drawable/pallet_drop"
+
+            />
+
+        <ImageView
+            android:id="@+id/image_type_eraser"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/space_small"
+            android:src="@drawable/icon_type_eraser_normal"
+            />
+        <ImageView
+            android:id="@+id/image_type_brush"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/image_type_eraser"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:src="@drawable/icon_type_brush_normal"
+            />
+        <ImageView
+            android:id="@+id/image_type_pencil"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/image_type_brush"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:src="@drawable/icon_type_pencil_selected"
+            />
+
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/text_paint_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image_type_pencil"
+            android:paddingRight="@dimen/space_small"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_small"
+            android:text="نوع قلم"
+            android:textColor="@color/white_1"
+            android:textSize="@dimen/text_size_normal" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CircleColorPicker">
+        <attr name="imageResource" format="integer" />
+        <attr name="colorResource" format="string" />
+    </declare-styleable>
+</resources>

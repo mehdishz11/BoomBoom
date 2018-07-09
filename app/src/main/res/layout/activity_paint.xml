@@ -1,105 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_1"
-    tools:context=".paint.PaintActivity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <psb.com.cview.CustomTextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="محتوا"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+    tools:context=".painting.PaintActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/rel_btn"
+        <RelativeLayout
+            android:id="@+id/rel_drawing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:padding="@dimen/space_small"
+            android:background="@color/white_1"
             >
 
-
-
-            <ImageView
-                android:id="@+id/btn_save"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="top|left"
-                android:paddingTop="@dimen/space_normal"
-                android:layout_marginLeft="@dimen/space_small"
-                android:paddingBottom="@dimen/space_normal"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_close"
+            <psb.com.paintingview.DrawView
+                android:id="@+id/paint_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
                 />
 
-            <ImageView
-                android:id="@+id/btn_save1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="top|left"
-                android:paddingTop="@dimen/space_normal"
-                android:paddingBottom="@dimen/space_normal"
-                android:layout_marginLeft="@dimen/space_small"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_close"
 
-                />
+            <psb.com.kidpaint.painting.canvas.sticker.StickerCanvas
+                android:id="@+id/sticker_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                ></psb.com.kidpaint.painting.canvas.sticker.StickerCanvas>
 
-            <ImageView
-                android:id="@+id/btn_save2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="top|left"
-                android:paddingTop="@dimen/space_normal"
-                android:paddingBottom="@dimen/space_normal"
-                android:layout_marginLeft="@dimen/space_small"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_close"
+        </RelativeLayout>
 
-                />
 
-            <ImageView
-                android:id="@+id/btn_save3"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="top|left"
-                android:paddingTop="@dimen/space_normal"
-                android:paddingBottom="@dimen/space_normal"
-                android:layout_marginLeft="@dimen/space_small"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_close"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                />
+            <FrameLayout
+                android:id="@+id/rel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/space_small">
 
-            <ImageView
-                android:id="@+id/btn_more"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="top|left"
-                android:src="@drawable/btn_more"
-                />
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/btn_save"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_close"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_save1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_close"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_save2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_close"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_save3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_close"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_more"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top|left"
+                    android:src="@drawable/btn_more" />
+            </FrameLayout>
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
-
-</RelativeLayout>
 
     <include layout="@layout/bottom_sheet_painting" />
 

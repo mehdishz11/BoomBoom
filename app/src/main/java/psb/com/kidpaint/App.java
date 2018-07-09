@@ -7,6 +7,8 @@ import android.support.multidex.MultiDex;
 public class App extends Application {
     protected static Context context = null;
 
+    public static final String TAG="KidPainting";
+
     @Override
     public void onCreate() {
 //        Fabric.with(this, new Crashlytics());
