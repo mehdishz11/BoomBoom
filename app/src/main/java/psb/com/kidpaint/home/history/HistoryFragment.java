@@ -1,7 +1,6 @@
 package psb.com.kidpaint.home.history;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +14,12 @@ import psb.com.kidpaint.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentHistory.OnFragmentInteractionListener} interface
+ * {@link HistoryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentHistory#newInstance} factory method to
+ * Use the {@link HistoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentHistory extends Fragment {
+public class HistoryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +31,7 @@ public class FragmentHistory extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentHistory() {
+    public HistoryFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +41,11 @@ public class FragmentHistory extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentHistory.
+     * @return A new instance of fragment HistoryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHistory newInstance(String param1, String param2) {
-        FragmentHistory fragment = new FragmentHistory();
+    public static HistoryFragment newInstance(String param1, String param2) {
+        HistoryFragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,10 +69,10 @@ public class FragmentHistory extends Fragment {
         view=inflater.inflate(R.layout.fragment_history, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
-        AdapterReccategory  adapterReccategory = new AdapterReccategory();
+        HistoryAdapter historyAdapter = new HistoryAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapterReccategory);
+        recyclerView.setAdapter(historyAdapter);
         return view;
 
 

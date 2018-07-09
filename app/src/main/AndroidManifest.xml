@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"></activity>
         <activity
-            android:name=".home.ActivityHome"
+            android:name=".home.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme">
@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--
-        <activity android:name=".home.ActivityHome"></activity>
--->
+        <activity android:name=".painting.PaintActivity"
+            android:screenOrientation="landscape"
+            ></activity>
     </application>
 
 </manifest>

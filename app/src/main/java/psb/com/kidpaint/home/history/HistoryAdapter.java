@@ -13,24 +13,24 @@ import psb.com.kidpaint.R;
  * Created by AMiR Ehsan on 4/11/2017 AD.
  */
 
-public class AdapterReccategory extends RecyclerView.Adapter<ViewHolderCategory> {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
 
     private Context context;
     private int lastPosition = -1;
 
-    public AdapterReccategory() {
+    public HistoryAdapter() {
     }
 
     @Override
-    public ViewHolderCategory onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_category, parent, false);
-        ViewHolderCategory recViewHolderNews = new ViewHolderCategory(view);
+        HistoryViewHolder recViewHolderNews = new HistoryViewHolder(view);
         return recViewHolderNews;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolderCategory holder, int position) {
+    public void onBindViewHolder(HistoryViewHolder holder, int position) {
        // pCategory.onBindView(holder, position);
         //setAnimation(holder.itemView, position);
     }
