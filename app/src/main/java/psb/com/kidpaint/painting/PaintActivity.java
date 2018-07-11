@@ -17,11 +17,13 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.painting.bucket.BucketCanvas;
 import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
 import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
 import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
 import psb.com.paintingview.DrawView;
 
@@ -29,7 +31,8 @@ import static android.view.View.LAYER_TYPE_HARDWARE;
 
 
 public class PaintActivity extends AppCompatActivity implements
-        PaletteFragment.OnFragmentInteractionListener {
+        PaletteFragment.OnFragmentInteractionListener,
+        BucketCanvas.OnBucketPointSelected {
 
 
     private static final String FRAGMENT_PALETTE = "FRAGMENT_PALETTE";
@@ -45,6 +48,13 @@ public class PaintActivity extends AppCompatActivity implements
     private DrawView paintCanvas;
 
 
+    public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
+    private int outlineResource = 0;
+
+
+    private BucketCanvas bucketCanvas;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +68,11 @@ public class PaintActivity extends AppCompatActivity implements
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
+
+        outlineResource = getIntent().getIntExtra(KEY_RESOURCE_OUTLINE, 0);
+
         stackViews();
         initView();
-
     }
 
     private void initView() {
@@ -68,11 +80,19 @@ public class PaintActivity extends AppCompatActivity implements
         btnMore = findViewById(R.id.btn_more);
         stickerCanvas = findViewById(R.id.sticker_canvas);
         paintCanvas = findViewById(R.id.paint_canvas);
+        bucketCanvas = findViewById(R.id.bucket_canvas);
+
+        if (outlineResource != 0 && outlineResource != R.drawable.picture_0) {
+            bucketCanvas.setImageResource(outlineResource);
+            bucketCanvas.setOnBucketPointSelected(this);
+
+
+        }
 
         paintCanvas.setLayerType(LAYER_TYPE_HARDWARE, null);
         paintCanvas.setBaseColor(Color.TRANSPARENT);
 
-        ImageView btnUndo=findViewById(R.id.btn_save);
+        ImageView btnUndo = findViewById(R.id.btn_save);
 
         btnUndo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,19 +126,28 @@ public class PaintActivity extends AppCompatActivity implements
             public void onPageSelected(int position) {
                 if (position == 0) {
                     paintCanvas.setEnableDrawing(true);
-                    if(stickerCanvas.getVisibility()==View.VISIBLE){
+                    bucketCanvas.removeTouchListener();
+
+                    if (stickerCanvas.getVisibility() == View.VISIBLE) {
                         stickerCanvas.hideShowController(false);
                         paintCanvas.drawCustomBitmap(getStickerBitmap());
+
                         stickerCanvas.removeAllStickers();
                         stickerCanvas.setVisibility(View.GONE);
+
                     }
-                } else {
+
+                } else if (position == 1) {
+
                     paintCanvas.setEnableDrawing(false);
                     stickerCanvas.setVisibility(View.VISIBLE);
 
-                    StickerImageView stickerImageView=new StickerImageView(PaintActivity.this);
+                    StickerImageView stickerImageView = new StickerImageView(PaintActivity.this);
                     stickerImageView.setImageResource(R.drawable.icon_plus_normal);
                     stickerCanvas.addSticker(stickerImageView);
+
+//                        disable bucket
+                    bucketCanvas.removeTouchListener();
 
                 }
             }
@@ -128,10 +157,7 @@ public class PaintActivity extends AppCompatActivity implements
 
             }
         });
-
-//        getSupportFragmentManager().beginTransaction().add(R.id.frame_palette, new PaletteFragment().newInstance(), FRAGMENT_PALETTE).commit();
     }
-
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -144,7 +170,6 @@ public class PaintActivity extends AppCompatActivity implements
         FrameLayout parentFrame = findViewById(R.id.rel_btn);
         for (int i = 0; i < parentFrame.getChildCount(); i++) {
             View childView = parentFrame.getChildAt(i);
-
             views.add(childView);
         }
     }
@@ -245,6 +270,17 @@ public class PaintActivity extends AppCompatActivity implements
 
     }
 
+    private Bitmap getBucketBitmap() {
+
+        bucketCanvas.setDrawingCacheEnabled(true);
+        bucketCanvas.buildDrawingCache();
+        Bitmap bitmapSticker = Bitmap.createBitmap(bucketCanvas.getDrawingCache());
+        bucketCanvas.setDrawingCacheEnabled(false);
+
+        return bitmapSticker;
+
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Color palette view
@@ -257,12 +293,32 @@ public class PaintActivity extends AppCompatActivity implements
 
     @Override
     public void onPaintTypeSelected(PaintType paintType) {
+
+        paintCanvas.setEnableDrawing(true);
+        bucketCanvas.removeTouchListener();
+        paintCanvas.setMode(DrawView.Mode.DRAW);
+        paintCanvas.setDrawer(DrawView.Drawer.PEN);
+
+        if (stickerCanvas.getVisibility() == View.VISIBLE) {
+            stickerCanvas.hideShowController(false);
+            paintCanvas.drawCustomBitmap(getStickerBitmap());
+
+            stickerCanvas.removeAllStickers();
+            stickerCanvas.setVisibility(View.GONE);
+        }
+
+
         if (paintType == PaintType.ERASER) {
             paintCanvas.setMode(DrawView.Mode.ERASER);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
-        } else {
-            paintCanvas.setMode(DrawView.Mode.DRAW);
-            paintCanvas.setDrawer(DrawView.Drawer.PEN);
+
+        } else if(paintType == PaintType.BRUSH){
+            paintCanvas.drawBitmapOutline(getBucketBitmap());
+            bucketCanvas.initOntouchListener();
+            paintCanvas.setEnableDrawing(false);
+
+        }else{
+
         }
 
     }
@@ -272,4 +328,22 @@ public class PaintActivity extends AppCompatActivity implements
         paintCanvas.setPaintStrokeWidth(10.0f + (22.5f * size));
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Bucket implements
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onPointSelected(int x, int y) {
+
+        paintCanvas.setDrawingCacheEnabled(true);
+        paintCanvas.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(paintCanvas.getDrawingCache());
+        paintCanvas.setDrawingCacheEnabled(false);
+
+
+        QueueLinearFloodFiller filler = new QueueLinearFloodFiller(bitmap, bitmap.getPixel(x, y), paintCanvas.getPaintStrokeColor());
+        filler.setTolerance(10);
+        filler.floodFill(x, y);
+        paintCanvas.drawCustomBitmap(bitmap);
+    }
 }

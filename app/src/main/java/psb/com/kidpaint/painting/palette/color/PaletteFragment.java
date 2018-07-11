@@ -22,6 +22,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     private ImageView btnIncreaseSize, btnDecreaseSize;
     private ImageView[] circleSize = new ImageView[5];
     private ImageView btnTypePencil, btnTypeBrush, btnTypeEraser;
+    private PaintType paintType = PaintType.PENCIL;
 
     private int selectedSize = 3;
     private int colorResource;
@@ -170,6 +171,14 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     }
 
     private void onTypeChanged(PaintType paintType) {
+        setTypeViews(paintType);
+        if (mListener != null) {
+            mListener.onPaintTypeSelected(paintType);
+        }
+    }
+
+    private void setTypeViews(PaintType paintType) {
+        this.paintType = paintType;
 
         btnTypeBrush.setImageResource(R.drawable.icon_type_brush_normal);
         btnTypePencil.setImageResource(R.drawable.icon_type_pencil_normal);
@@ -182,10 +191,10 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
         } else if (paintType == PaintType.ERASER) {
             btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_selected);
         }
+    }
 
-        if (mListener != null) {
-            mListener.onPaintTypeSelected(paintType);
-        }
+    private PaintType getPaintType() {
+        return this.paintType;
     }
 
 
@@ -196,6 +205,14 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
 
 
         this.colorResource = colorResource;
+
+        if (getPaintType() == PaintType.ERASER) {
+            setTypeViews(PaintType.PENCIL);
+            if (mListener != null) {
+                mListener.onPaintTypeSelected(getPaintType());
+            }
+        }
+
         if (mListener != null) {
             mListener.onColorSelected(colorResource);
         }
