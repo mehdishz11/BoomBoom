@@ -5,4 +5,19 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="notebook">دفترچه</string>
 
+    <string name="error_network_connection">اشکال در اتصال به اینترنت</string>
+    <string name="error_get_data_try_again">اشکال در دریافت اطلاعات، مجددا تلاش نمایید</string>
+    <string name="error_server_not_found">سرور در دسترس نمی باشد، مجددا تلاش نمایید</string>
+    <string name="error_server_side">بروز خطا در سرور مجددا تلاش نمایید</string>
+
+    <string name="message_sms_access">با دسترسی دادن به خواندن پیامک، ورود به صورت خودکار صورت خواهد پذیرفت</string>
+    <string name="request_sms_access">اجازه دسترسی می دهید؟</string>
+    <string name="messaged_code">کد پیامک شده</string>
+    <string name="error_insert_sms_code">کد پیامک شده را وارد نمایید</string>
+    <string name="confirm">تایید</string>
+    <string name="message_get_data">درحال دریافت اطلاعات...</string>
+    <string name="retry">تلاش مجدد</string>
+    <string name="hint_send_key">ما برای شماره موبایل شما کد تاییدیه ارسال نموده ایم\nبرای ادامه ، کد را وارد نمایید</string>
+    <string name="resend_key">ارسال مجدد کد فعالسازی</string>
+
 </resources>

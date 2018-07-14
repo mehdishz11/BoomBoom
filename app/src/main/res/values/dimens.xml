@@ -7,4 +7,29 @@
     <dimen name="space_20">20dp</dimen>
     <dimen name="space_3">3dp</dimen>
 
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_25">25dp</dimen>
+    <dimen name="margin_50">50dp</dimen>
+    <dimen name="margin_100">100dp</dimen>
+    <dimen name="font_size_23">23sp</dimen>
+    <dimen name="font_size_22">22sp</dimen>
+    <dimen name="font_size_21">21sp</dimen>
+    <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_size_19">19sp</dimen>
+    <dimen name="font_size_18">18sp</dimen>
+    <dimen name="font_size_17">17sp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_13">13sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_11">11sp</dimen>
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_9">9sp</dimen>
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
 </resources>

@@ -1,0 +1,212 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/White">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/White"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@color/White">
+
+
+            <RelativeLayout
+                android:id="@+id/rel_toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/colorPrimaryDark">
+
+                <psb.com.cview.IconFont
+                    android:id="@+id/icon_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_5"
+                    android:text=""
+                    android:textColor="@color/White"
+                    android:textSize="20sp" />
+
+                <psb.com.cview.CustomTextView
+                    android:id="@+id/text_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/icon_back"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/font_size_14" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="احراز هویت"
+                    android:textColor="@color/White"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_top"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/rel_toolbar_title">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="50dp"
+                    android:background="@color/colorPrimaryDark" />
+
+
+                <ImageView
+                    android:id="@+id/image_logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/margin_5"
+                    android:src="@drawable/image_email" />
+
+            </RelativeLayout>
+
+
+            <psb.com.cview.CustomTextView
+                android:id="@+id/text_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_top"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="80dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center"
+                android:text="@string/hint_send_key"
+                android:textSize="@dimen/font_size_16" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_hint"
+                android:layout_centerHorizontal="true">
+
+                <psb.com.cview.CEditTextBold
+                    android:id="@+id/text_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="خطایی رخ داده است"
+                    android:textColor="@color/md_red_900"
+                    android:textSize="@dimen/font_size_12"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/rel_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_error"
+                    android:layout_marginLeft="@dimen/margin_50"
+                    android:layout_marginRight="@dimen/margin_50"
+                    android:layout_marginTop="@dimen/margin_10">
+
+                    <psb.com.cview.CEditText
+                        android:id="@+id/text_message_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin_50"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:layout_toLeftOf="@+id/icon_phone_number"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="کد دریافت شده"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:paddingLeft="25dp"
+                        android:textColor="@color/Black"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.IconFont
+                        android:id="@+id/icon_phone_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text=""
+                        android:textColor="@color/md_grey_600"
+                        android:textSize="25dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignLeft="@+id/text_message_code"
+                        android:layout_alignRight="@+id/icon_phone_number"
+                        android:layout_below="@+id/text_message_code"
+                        android:layout_marginTop="@dimen/margin_5"
+                        android:background="@color/md_blue_700" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignLeft="@+id/rel_phone_number"
+                    android:layout_alignRight="@+id/rel_phone_number"
+                    android:layout_below="@+id/rel_phone_number"
+                    android:background="@color/White" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar7"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/rel_phone_number"
+                    android:layout_alignLeft="@+id/rel_phone_number"
+                    android:layout_alignTop="@+id/rel_phone_number"
+                    android:indeterminate="true"
+                    android:visibility="gone" />
+
+                <psb.com.cview.CButton
+                    android:id="@+id/frg_sendPhoneNumber_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/rel_phone_number"
+                    android:layout_marginLeft="@dimen/margin_50"
+                    android:layout_marginRight="@dimen/margin_50"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="ارسال"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/font_size_14" />
+
+                <psb.com.cview.CustomTextView
+                    android:id="@+id/text_resend_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/frg_sendPhoneNumber_btn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/margin_50"
+                    android:text="@string/resend_key"
+                    android:textColor="@color/md_red_700"
+                    android:textSize="@dimen/font_size_12" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

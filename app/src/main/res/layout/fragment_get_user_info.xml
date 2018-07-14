@@ -1,0 +1,222 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/rel_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="5dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/text_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="ثبت نام"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/frg_registerUserInfo_sendBtn"
+        android:layout_below="@+id/rel_toolbar">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/md_yellow_600"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="خطایی رخ داده است"
+                    android:textColor="@color/md_red_700"
+                    android:textSize="@dimen/font_size_12"
+                    android:visibility="gone" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/image_user_info_avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_below="@+id/text_error"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:src="@drawable/user_empty_gray"
+                    app:riv_corner_radius="40dp" />
+
+                <ImageView
+                    android:id="@+id/image_user_info_edit"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignBottom="@+id/image_user_info_avatar"
+                    android:layout_alignLeft="@+id/image_user_info_avatar"
+                    android:background="@drawable/circle_red"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/camera_shutter" />
+
+                <View
+                    android:id="@+id/spacer_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/image_user_info_edit"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/light_level_2" />
+
+                <RelativeLayout
+                    android:id="@+id/rel_user_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spacer_0">
+
+                    <psb.com.cview.IconFont
+                        android:id="@+id/icon_user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:paddingBottom="@dimen/margin_5"
+                        android:paddingLeft="@dimen/margin_5"
+                        android:paddingRight="@dimen/margin_5"
+                        android:paddingTop="@dimen/margin_5"
+                        android:text=""
+                        android:textColor="@color/md_grey_600"
+                        android:textSize="25dp" />
+
+                    <psb.com.cview.CustomTextView
+                        android:id="@+id/text_phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:layout_toLeftOf="@+id/icon_user_phone"
+                        android:backgroundTint="@color/light_level_1"
+                        android:gravity="right"
+                        android:hint="شماره موبایل"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/margin_5"
+                        android:textSize="@dimen/font_size_14" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/spacer_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/rel_user_phone"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:background="@color/light_level_2" />
+
+                <RelativeLayout
+                    android:id="@+id/rel_user_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spacer_3">
+
+                    <psb.com.cview.IconFont
+                        android:id="@+id/icon_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:text=""
+                        android:textColor="@color/light_level_2"
+                        android:textSize="35dp" />
+
+                    <psb.com.cview.CEditText
+                        android:id="@+id/edit_text_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:layout_toLeftOf="@+id/icon_user_name"
+                        android:backgroundTint="@color/light_level_1"
+                        android:hint="نام"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/margin_5"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.CEditText
+                        android:id="@+id/edit_text_last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_text_name"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:layout_toLeftOf="@+id/icon_user_name"
+                        android:backgroundTint="@color/light_level_1"
+                        android:hint="نام خانوادگی"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/margin_5"
+                        android:textSize="@dimen/font_size_14" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/spacer_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/rel_user_info"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:background="@color/light_level_2" />
+
+
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
+    <psb.com.cview.CButton
+        android:id="@+id/frg_registerUserInfo_sendBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:text="ارسال"
+        android:textColor="@color/White"
+        android:textSize="@dimen/font_size_16" />
+
+    <ProgressBar
+        android:id="@+id/frg_registerUserInfo_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="4dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/White"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/image_crop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <psb.com.cview.CButton
+        android:id="@+id/button_do_crop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/White"
+        android:text="انتخاب" />
+
+</RelativeLayout>

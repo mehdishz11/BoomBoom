@@ -1,22 +1,33 @@
 package psb.com.kidpaint.painting;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.bucket.BucketCanvas;
@@ -24,6 +35,7 @@ import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
 import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
 import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
+import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
@@ -36,6 +48,7 @@ public class PaintActivity extends AppCompatActivity implements
         PaletteFragment.OnFragmentInteractionListener,
         BucketCanvas.OnBucketPointSelected {
 
+    private int REQUEST_STORAGE_PERMISSIONS=100;
 
     private static final String FRAGMENT_PALETTE = "FRAGMENT_PALETTE";
     private boolean isAnimating;
@@ -47,6 +60,7 @@ public class PaintActivity extends AppCompatActivity implements
     private PaletteViewPagerAdapter adapter;
     private ImageView btnLeft;
     private ImageView btnRight;
+    private ImageView btnSave;
 
     private StickerCanvas stickerCanvas;
     private DrawView paintCanvas;
@@ -90,8 +104,21 @@ public class PaintActivity extends AppCompatActivity implements
         btnLeft = findViewById(R.id.btn_left);
         btnRight = findViewById(R.id.btn_right);
         relHandle = findViewById(R.id.rel_handle);
+        btnSave = findViewById(R.id.btn_save1);
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "onClick: "+Utils.gstoragePermissionIsGranted(PaintActivity.this));
+                if (Utils.gstoragePermissionIsGranted(PaintActivity.this)) {
+                    saveTempBitmap(getPaintCanvasBitmap());
 
+                }else {
+                    requestForGrantStoragePermission();
+                }
+
+            }
+        });
         RelativeLayout paletteBottomSheet = findViewById(R.id.bottom_sheet);
 
 // init the bottom sheet behavior
@@ -99,9 +126,9 @@ public class PaintActivity extends AppCompatActivity implements
         relHandle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_COLLAPSED){
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }else{
+                } else {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
             }
@@ -341,7 +368,66 @@ public class PaintActivity extends AppCompatActivity implements
 
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // save main bitmap
+    ///////////////////////////////////////////////////////////////////////////
 
+    private Bitmap getPaintCanvasBitmap() {
+
+        paintCanvas.setDrawingCacheEnabled(true);
+        paintCanvas.buildDrawingCache();
+        Bitmap bitmapSticker = Bitmap.createBitmap(paintCanvas.getDrawingCache());
+        paintCanvas.setDrawingCacheEnabled(false);
+
+        return bitmapSticker;
+
+    }
+
+     void saveTempBitmap(Bitmap bitmap) {
+        if (isExternalStorageWritable()) {
+            saveImage(bitmap);
+        } else {
+            //prompt the user or do something
+        }
+    }
+
+     void saveImage(Bitmap finalBitmap) {
+
+        String folder_main = "kidPaint";
+        File mydir = new File(Environment.getExternalStorageDirectory(), folder_main);
+        if (!mydir.exists()) {
+            mydir.mkdirs();
+        }
+
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String fname = "paint_" + timeStamp + ".jpg";
+
+        File file = new File(mydir, fname);
+        if (file.exists()) file.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+            Log.d("TAG", "saveImage success: ");
+
+            finish();
+        } catch (Exception e) {
+            Log.d("TAG", "saveImage failed: ");
+            e.printStackTrace();
+        }
+    }
+
+     boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+//        File file = new File(Environment.getExternalStorageDirectory() + "/dorsaBazar/" + fileName);
     ///////////////////////////////////////////////////////////////////////////
     // Color palette view
     ///////////////////////////////////////////////////////////////////////////
@@ -405,5 +491,37 @@ public class PaintActivity extends AppCompatActivity implements
         filler.setTolerance(10);
         filler.floodFill(x, y);
         paintCanvas.drawCustomBitmap(bitmap);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // permission granted
+    ///////////////////////////////////////////////////////////////////////////
+    public void requestForGrantStoragePermission() {
+        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permission2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED || permission2 != PackageManager.PERMISSION_GRANTED ) {
+            requestPermission();
+        }
+    }
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSIONS);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_STORAGE_PERMISSIONS) {
+
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+                btnSave.performClick();
+
+            }else {
+
+            }
+
+        }
     }
 }

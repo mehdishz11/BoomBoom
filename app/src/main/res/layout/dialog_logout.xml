@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="25dp"
+    android:layoutDirection="ltr"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bgr_round_ff"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="15dp"
+        android:layout_alignParentStart="true">
+
+        <psb.com.cview.CustomTextViewLight
+            android:id="@+id/titleerg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="آیا مطمئن هستید؟"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title" />
+
+        <psb.com.cview.CustomTextViewLight
+            android:id="@+id/textView24w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/titleerg"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="از حساب کاربری خود خارج می شوید!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+        <psb.com.cview.CButton
+            android:id="@+id/buttonTaiid"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:stateListAnimator="@null"
+            android:background="@drawable/button_round_gradiyant"
+            android:text="تایید"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/md_white_1000"
+            android:layout_below="@+id/textView24w"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp" />
+
+        <psb.com.cview.CButton
+            android:id="@+id/buttonCancel"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:stateListAnimator="@null"
+            android:background="@drawable/button_round_gradiyant"
+            android:text="انصراف"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/md_white_1000"
+            android:layout_alignBottom="@+id/buttonTaiid"
+            android:layout_alignParentLeft="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

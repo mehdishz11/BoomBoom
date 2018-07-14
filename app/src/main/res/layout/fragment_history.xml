@@ -18,9 +18,11 @@
 
 
     <psb.com.cview.CustomTextViewBold
+        android:id="@+id/emptyView"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_centerInParent="true"
-        android:text="dffdfdfdfd"
+        android:text="شما نقاشی نکشیده اید"
         android:gravity="center"
         android:layout_height="wrap_content" />
 
