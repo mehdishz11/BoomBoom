@@ -42,9 +42,11 @@ public class SoundHelper {
         createSound();
         int position=-1;
         for (int i=0;i<arrSound.size();i++) {
+
             if(arrSound.get(i).getResId()==resId){
                 position=i;
                 break;
+
             }
         }
 
