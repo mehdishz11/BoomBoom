@@ -7,12 +7,14 @@ import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
-import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.paintingview.DrawView;
 
 import static android.view.View.LAYER_TYPE_HARDWARE;
@@ -43,9 +45,13 @@ public class PaintActivity extends AppCompatActivity implements
 
     private ViewPager mPager;
     private PaletteViewPagerAdapter adapter;
+    private ImageView btnLeft;
+    private ImageView btnRight;
 
     private StickerCanvas stickerCanvas;
     private DrawView paintCanvas;
+
+    private RelativeLayout relHandle;
 
 
     public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
@@ -81,6 +87,53 @@ public class PaintActivity extends AppCompatActivity implements
         stickerCanvas = findViewById(R.id.sticker_canvas);
         paintCanvas = findViewById(R.id.paint_canvas);
         bucketCanvas = findViewById(R.id.bucket_canvas);
+        btnLeft = findViewById(R.id.btn_left);
+        btnRight = findViewById(R.id.btn_right);
+        relHandle = findViewById(R.id.rel_handle);
+
+
+        RelativeLayout paletteBottomSheet = findViewById(R.id.bottom_sheet);
+
+// init the bottom sheet behavior
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(paletteBottomSheet);
+        relHandle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_COLLAPSED){
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }else{
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
+
+
+        btnLeft.setImageResource(R.drawable.icon_left_disable);
+
+        btnLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPager.getCurrentItem() > 0) {
+                    mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+                    SoundHelper.playSound(R.raw.click_bubbles_1);
+                } else {
+                    SoundHelper.playSound(R.raw.lock_1);
+                }
+            }
+        });
+
+        btnRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPager.getCurrentItem() < mPager.getAdapter().getCount() - 1) {
+                    mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+                    SoundHelper.playSound(R.raw.click_bubbles_1);
+                } else {
+                    SoundHelper.playSound(R.raw.lock_1);
+                }
+            }
+        });
+
 
         if (outlineResource != 0 && outlineResource != R.drawable.picture_0) {
             bucketCanvas.setImageResource(outlineResource);
@@ -124,27 +177,34 @@ public class PaintActivity extends AppCompatActivity implements
 
             @Override
             public void onPageSelected(int position) {
+                btnRight.setImageResource(R.drawable.btn_right);
+                btnLeft.setImageResource(R.drawable.btn_left);
+
+
                 if (position == 0) {
+                    btnLeft.setImageResource(R.drawable.icon_left_disable);
+
                     paintCanvas.setEnableDrawing(true);
                     bucketCanvas.removeTouchListener();
 
                     if (stickerCanvas.getVisibility() == View.VISIBLE) {
-                        stickerCanvas.hideShowController(false);
+                      /*  stickerCanvas.hideShowController(false);
                         paintCanvas.drawCustomBitmap(getStickerBitmap());
 
-                        stickerCanvas.removeAllStickers();
+                        stickerCanvas.removeAllStickers();*/
                         stickerCanvas.setVisibility(View.GONE);
 
                     }
 
                 } else if (position == 1) {
+                    btnRight.setImageResource(R.drawable.icon_right_disable);
 
                     paintCanvas.setEnableDrawing(false);
                     stickerCanvas.setVisibility(View.VISIBLE);
 
-                    StickerImageView stickerImageView = new StickerImageView(PaintActivity.this);
+                /*    StickerImageView stickerImageView = new StickerImageView(PaintActivity.this);
                     stickerImageView.setImageResource(R.drawable.icon_plus_normal);
-                    stickerCanvas.addSticker(stickerImageView);
+                    stickerCanvas.addSticker(stickerImageView);*/
 
 //                        disable bucket
                     bucketCanvas.removeTouchListener();
@@ -312,12 +372,12 @@ public class PaintActivity extends AppCompatActivity implements
             paintCanvas.setMode(DrawView.Mode.ERASER);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
 
-        } else if(paintType == PaintType.BRUSH){
+        } else if (paintType == PaintType.BRUSH) {
             paintCanvas.drawBitmapOutline(getBucketBitmap());
             bucketCanvas.initOntouchListener();
             paintCanvas.setEnableDrawing(false);
 
-        }else{
+        } else {
 
         }
 

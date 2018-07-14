@@ -216,6 +216,13 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/rel_overlay_color_picker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -255,6 +262,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerVertical="true"
+            android:soundEffectsEnabled="false"
             android:layout_toLeftOf="@+id/rel_size"
             android:src="@drawable/btn_minos" />
 
@@ -322,6 +330,7 @@
             android:layout_height="45dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_small"
+            android:soundEffectsEnabled="false"
             android:layout_toLeftOf="@+id/text_font_size"
             android:src="@drawable/btn_plus" />
 
@@ -360,7 +369,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/image_type_eraser"
             android:layout_marginLeft="@dimen/space_normal"
-            android:src="@drawable/icon_type_brush_normal"
+            android:src="@drawable/icon_type_bucket_normal"
             />
         <ImageView
             android:id="@+id/image_type_pencil"

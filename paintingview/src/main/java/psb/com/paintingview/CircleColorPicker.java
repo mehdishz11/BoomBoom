@@ -17,6 +17,7 @@ public class CircleColorPicker extends SquareRelativeLayout {
     private Drawable imageDrawable;
     private ColorPickerClickListener colorPickerClickListener;
     private ImageView imgColorPicker;
+    private int soundResId;
 
 
 
@@ -87,6 +88,22 @@ public class CircleColorPicker extends SquareRelativeLayout {
         return imgColorPicker.getDrawable();
     }
 
+    public void setImageDrawable(Drawable imageDrawable){
+        imgColorPicker.setImageDrawable(imageDrawable);
+    }
+
+    public void setImageResource(int resId){
+        imgColorPicker.setImageResource(resId);
+    }
+
+
+    public int getSoundResId() {
+        return soundResId;
+    }
+
+    public void setSoundResId(int soundResId) {
+        this.soundResId = soundResId;
+    }
 
     public interface ColorPickerClickListener {
         void onColorPickerClicked(View view, int color);

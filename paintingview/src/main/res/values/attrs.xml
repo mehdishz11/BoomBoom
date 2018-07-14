@@ -4,5 +4,6 @@
     <declare-styleable name="CircleColorPicker">
         <attr name="imageResource" format="integer" />
         <attr name="colorResource" format="string" />
+        <attr name="soundResource" format="integer" />
     </declare-styleable>
 </resources>
