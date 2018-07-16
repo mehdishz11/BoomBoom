@@ -9,6 +9,7 @@ public class DrawHelper {
     private Path path;
     private Bitmap bitmap;
     private Paint paint;
+    private BucketModel bucket;
     private boolean isUndoAble=true;
 
     public Path getPath() {
@@ -41,5 +42,13 @@ public class DrawHelper {
 
     public void setUndoAble(boolean undoAble) {
         isUndoAble = undoAble;
+    }
+
+    public BucketModel getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(BucketModel bucket) {
+        this.bucket = bucket;
     }
 }

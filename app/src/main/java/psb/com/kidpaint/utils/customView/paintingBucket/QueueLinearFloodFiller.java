@@ -4,18 +4,22 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import psb.com.paintingview.BucketModel;
 
 public class QueueLinearFloodFiller {
 
     protected Bitmap image = null;
-    protected int[] tolerance = new int[] { 0, 0, 0 };
+    protected int[] tolerance = new int[]{0, 0, 0};
     protected int width = 0;
     protected int height = 0;
     protected int[] pixels = null;
+    protected int[] oldPixels = null;
     protected int fillColor = 0;
-    protected int[] startColor = new int[] { 0, 0, 0 };
+    protected int[] startColor = new int[]{0, 0, 0};
     protected boolean[] pixelsChecked;
     protected Queue<FloodFillRange> ranges;
 
@@ -56,7 +60,7 @@ public class QueueLinearFloodFiller {
     }
 
     public void setTolerance(int value) {
-        tolerance = new int[] { value, value, value };
+        tolerance = new int[]{value, value, value};
     }
 
     public Bitmap getImage() {
@@ -89,6 +93,7 @@ public class QueueLinearFloodFiller {
         pixels = new int[width * height];
 
         image.getPixels(pixels, 0, width, 1, 1, width - 1, height - 1);
+        oldPixels = Arrays.copyOf(pixels,pixels.length) ;
     }
 
     protected void prepare() {
@@ -100,11 +105,11 @@ public class QueueLinearFloodFiller {
     // Fills the specified point on the bitmap with the currently selected fill
     // color.
     // int x, int y: The starting coords for the fill
-    public void floodFill(int x, int y) {
+    public BucketModel floodFill(int x, int y) {
         // Setup
         prepare();
 
-        if (startColor[0] == 0 && startColor[1]!=0  &&startColor[2]!=0) {
+        if (startColor[0] == 0 && startColor[1] != 0 && startColor[2] != 0) {
             // ***Get starting color.
             int startPixel = pixels[(width * y) + x];
             startColor[0] = (startPixel >> 16) & 0xff;
@@ -149,7 +154,18 @@ public class QueueLinearFloodFiller {
             }
         }
 
-        image.setPixels(pixels, 0, width, 1, 1, width - 1, height - 1);
+        BucketModel bucketModel = new BucketModel();
+        bucketModel.setPixels(pixels);
+        bucketModel.setOldPixels(oldPixels);
+        bucketModel.setOffset(0);
+        bucketModel.setStride(width);
+        bucketModel.setX(1);
+        bucketModel.setY(1);
+        bucketModel.setWidth(width);
+        bucketModel.setHeight(height);
+
+//        image.setPixels(pixels, 0, width, 1, 1, width - 1, height - 1);
+        return bucketModel;
     }
 
     // Finds the furthermost left and right boundaries of the fill area
@@ -223,7 +239,7 @@ public class QueueLinearFloodFiller {
                 && red <= (startColor[0] + tolerance[0])
                 && green >= (startColor[1] - tolerance[1])
                 && green <= (startColor[1] + tolerance[1])
-                && blue >= (startColor[2] - tolerance[2]) && blue <= (startColor[2] + tolerance[2])) && pixels[px]!=Color.BLACK ;
+                && blue >= (startColor[2] - tolerance[2]) && blue <= (startColor[2] + tolerance[2])) && pixels[px] != Color.BLACK;
     }
 
     // Represents a linear range to be filled and branched from.

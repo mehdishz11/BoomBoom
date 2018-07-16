@@ -8,7 +8,9 @@ import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -41,6 +43,7 @@ import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.DialogPaintingSettings;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
+import psb.com.paintingview.BucketModel;
 import psb.com.paintingview.DrawView;
 
 import static android.view.View.LAYER_TYPE_HARDWARE;
@@ -50,7 +53,7 @@ public class PaintActivity extends AppCompatActivity implements
         PaletteFragment.OnFragmentInteractionListener,
         BucketCanvas.OnBucketPointSelected {
 
-    private int REQUEST_STORAGE_PERMISSIONS=100;
+    private int REQUEST_STORAGE_PERMISSIONS = 100;
 
     private static final String FRAGMENT_PALETTE = "FRAGMENT_PALETTE";
     private boolean isAnimating;
@@ -113,7 +116,7 @@ public class PaintActivity extends AppCompatActivity implements
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogPaintingSettings dialogPaintingSettings=new DialogPaintingSettings(PaintActivity.this);
+                DialogPaintingSettings dialogPaintingSettings = new DialogPaintingSettings(PaintActivity.this);
                 dialogPaintingSettings.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
@@ -135,7 +138,7 @@ public class PaintActivity extends AppCompatActivity implements
                 if (Utils.gstoragePermissionIsGranted(PaintActivity.this)) {
                     saveTempBitmap(getPaintCanvasBitmap());
 
-                }else {
+                } else {
                     requestForGrantStoragePermission();
                 }
 
@@ -269,7 +272,6 @@ public class PaintActivity extends AppCompatActivity implements
     }
 
 
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -381,21 +383,28 @@ public class PaintActivity extends AppCompatActivity implements
 
     }
 
-    private Bitmap getBucketBitmap() {
-
+    private Bitmap getOutlineBitmap() {
         bucketCanvas.setDrawingCacheEnabled(true);
         bucketCanvas.buildDrawingCache();
-        Bitmap bitmapSticker = Bitmap.createBitmap(bucketCanvas.getDrawingCache());
+        Bitmap bitmap = Bitmap.createBitmap(bucketCanvas.getDrawingCache());
         bucketCanvas.setDrawingCacheEnabled(false);
 
-        return bitmapSticker;
+        return bitmap;
 
+    }
+
+    private Bitmap getCanvasBitmap() {
+        paintCanvas.setDrawingCacheEnabled(true);
+        paintCanvas.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(paintCanvas.getDrawingCache());
+        paintCanvas.setDrawingCacheEnabled(false);
+
+        return bitmap;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // save main bitmap
     ///////////////////////////////////////////////////////////////////////////
-
     private Bitmap getPaintCanvasBitmap() {
 
         paintCanvas.setDrawingCacheEnabled(true);
@@ -407,7 +416,7 @@ public class PaintActivity extends AppCompatActivity implements
 
     }
 
-     void saveTempBitmap(Bitmap bitmap) {
+    void saveTempBitmap(Bitmap bitmap) {
         if (isExternalStorageWritable()) {
             saveImage(bitmap);
         } else {
@@ -415,7 +424,7 @@ public class PaintActivity extends AppCompatActivity implements
         }
     }
 
-     void saveImage(Bitmap finalBitmap) {
+    void saveImage(Bitmap finalBitmap) {
 
         String folder_main = "kidPaint";
         File mydir = new File(Environment.getExternalStorageDirectory(), folder_main);
@@ -443,7 +452,7 @@ public class PaintActivity extends AppCompatActivity implements
         }
     }
 
-     boolean isExternalStorageWritable() {
+    boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             return true;
@@ -451,7 +460,6 @@ public class PaintActivity extends AppCompatActivity implements
         return false;
     }
 
-//        File file = new File(Environment.getExternalStorageDirectory() + "/dorsaBazar/" + fileName);
     ///////////////////////////////////////////////////////////////////////////
     // Color palette view
     ///////////////////////////////////////////////////////////////////////////
@@ -462,7 +470,7 @@ public class PaintActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onPaintTypeSelected(PaintType paintType) {
+    public void onPaintTypeSelected(final PaintType paintType) {
 
         paintCanvas.setEnableDrawing(true);
         bucketCanvas.removeTouchListener();
@@ -483,10 +491,9 @@ public class PaintActivity extends AppCompatActivity implements
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
 
         } else if (paintType == PaintType.BRUSH) {
-            paintCanvas.drawBitmapOutline(getBucketBitmap());
+//            paintCanvas.drawBitmapOutline(getOutlineBitmap());
             bucketCanvas.initOntouchListener();
             paintCanvas.setEnableDrawing(false);
-
         } else {
 
         }
@@ -505,16 +512,19 @@ public class PaintActivity extends AppCompatActivity implements
     @Override
     public void onPointSelected(int x, int y) {
 
-        paintCanvas.setDrawingCacheEnabled(true);
-        paintCanvas.buildDrawingCache();
-        Bitmap bitmap = Bitmap.createBitmap(paintCanvas.getDrawingCache());
-        paintCanvas.setDrawingCacheEnabled(false);
+        Bitmap bitmapCanvas = getCanvasBitmap();
+        Bitmap bitmapOutline = getOutlineBitmap();
 
+        Canvas c = new Canvas(bitmapCanvas);
 
-        QueueLinearFloodFiller filler = new QueueLinearFloodFiller(bitmap, bitmap.getPixel(x, y), paintCanvas.getPaintStrokeColor());
+        c.drawBitmap(bitmapOutline, 0, 0, new Paint());
+
+        QueueLinearFloodFiller filler = new QueueLinearFloodFiller(bitmapCanvas, bitmapCanvas.getPixel(x, y), paintCanvas.getPaintStrokeColor());
         filler.setTolerance(10);
-        filler.floodFill(x, y);
-        paintCanvas.drawCustomBitmap(bitmap);
+
+        BucketModel bucketModel = filler.floodFill(x, y);
+        paintCanvas.drawBucket(bucketModel);
+
     }
 
 
@@ -524,13 +534,14 @@ public class PaintActivity extends AppCompatActivity implements
     public void requestForGrantStoragePermission() {
         int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
         int permission2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED || permission2 != PackageManager.PERMISSION_GRANTED ) {
+        if (permission != PackageManager.PERMISSION_GRANTED || permission2 != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
         }
     }
+
     private void requestPermission() {
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSIONS);
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSIONS);
     }
 
     @Override
@@ -538,11 +549,11 @@ public class PaintActivity extends AppCompatActivity implements
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_STORAGE_PERMISSIONS) {
 
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED
-                    && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 btnSave.performClick();
 
-            }else {
+            } else {
 
             }
 

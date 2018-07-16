@@ -183,7 +183,7 @@ public class DrawView extends View {
     }
 
 
-    private Paint makeNormalPaint(){
+    private Paint makeNormalPaint() {
         Paint paint = new Paint();
 
 
@@ -224,7 +224,8 @@ public class DrawView extends View {
         if (drawHelper.getPaint() == null) {
             drawHelper.setPaint(this.createPaint());
         }
-        if (pathLists.size() > 2) {
+
+        if (pathLists.size() > 0) {
             addFirstPathToBaseBitmap();
         }
 
@@ -233,20 +234,25 @@ public class DrawView extends View {
 
     private void addFirstPathToBaseBitmap() {
         if (bitmapBase == null) {
-            bitmapBase=Bitmap.createBitmap(getBitmap());
+            bitmapBase = Bitmap.createBitmap(getBitmap());
         }
-
-
         Canvas canvas = new Canvas(bitmapBase);
 
         Path path = this.pathLists.get(0).getPath();
         Bitmap bitmap = this.pathLists.get(0).getBitmap();
+        BucketModel bucket = this.pathLists.get(0).getBucket();
         Paint paint = this.pathLists.get(0).getPaint();
 
         if (path != null) {
             canvas.drawPath(path, paint);
-        } else if (bitmap != null) {
+        }
+        if (bitmap != null) {
             canvas.drawBitmap(bitmap, 0, 0, paint);
+        }
+
+        if (bucket != null && !bucket.isDrawn) {
+            bucket.setDrawn(true);
+            bitmapBase.setPixels(bucket.getPixels(), bucket.getOffset(), bucket.width, bucket.getX(), bucket.getY(), bucket.getWidth() - 1, bucket.getHeight() - 1);
         }
 
         pathLists.remove(0);
@@ -273,6 +279,17 @@ public class DrawView extends View {
     public void drawCustomBitmap(Bitmap bitmap) {
         DrawHelper drawHelper = new DrawHelper();
         drawHelper.setBitmap(bitmap);
+        drawHelper.setPaint(createPaint());
+        updateHistory(drawHelper);
+        this.invalidate();
+    }
+
+    public void drawBucket(BucketModel bucket) {
+        if(bitmapBase==null){
+            bitmapBase=Bitmap.createBitmap(getBitmap());
+        }
+        DrawHelper drawHelper = new DrawHelper();
+        drawHelper.setBucket(bucket);
         drawHelper.setPaint(createPaint());
         updateHistory(drawHelper);
         this.invalidate();
@@ -475,11 +492,10 @@ public class DrawView extends View {
             canvas.drawBitmap(this.bitmapBase, 0F, 0F, makeNormalPaint());
         }
 
-
-
         for (int i = 0; i < this.pathLists.size(); i++) {
             Path path = this.pathLists.get(i).getPath();
             Bitmap bitmap = this.pathLists.get(i).getBitmap();
+            BucketModel bucket = this.pathLists.get(i).getBucket();
             Paint paint = this.pathLists.get(i).getPaint();
 
             if (path != null) {
@@ -487,15 +503,22 @@ public class DrawView extends View {
             } else if (bitmap != null) {
                 canvas.drawBitmap(bitmap, 0, 0, paint);
             }
+
+            if (bucket != null && !bucket.isDrawn && this.bitmapBase != null) {
+                bucket.isDrawn = true;
+                bitmapBase.setPixels(bucket.getPixels(), bucket.getOffset(), bucket.width, bucket.getX(), bucket.getY(), bucket.getWidth() - 1, bucket.getHeight() - 1);
+            }
         }
+
 
         if (this.bitmapOutline != null) {
             canvas.drawBitmap(this.bitmapOutline, 0, 0, createPaint());
 
+            /*bitmapOutline.recycle();
+            bitmapOutline=null;*/
         }
 
         this.drawText(canvas);
-
 
 
         this.canvas = canvas;
@@ -583,6 +606,11 @@ public class DrawView extends View {
     public boolean undo() {
 
         if (pathLists.size() > 0) {
+            if (pathLists.get(pathLists.size() - 1).getBucket() != null && bitmapBase != null) {
+                BucketModel bucket = pathLists.get(pathLists.size() - 1).getBucket();
+                bucket.setDrawn(true);
+                bitmapBase.setPixels(bucket.getOldPixels(), bucket.getOffset(), bucket.width, bucket.getX(), bucket.getY(), bucket.getWidth() - 1, bucket.getHeight() - 1);
+            }
             pathLists.remove(pathLists.size() - 1);
             invalidate();
             return true;
@@ -884,7 +912,7 @@ public class DrawView extends View {
     }
 
     public void drawBitmapOutline(Bitmap bitmap) {
-        bitmapOutline=bitmap;
+        bitmapOutline = bitmap;
         invalidate();
     }
 
