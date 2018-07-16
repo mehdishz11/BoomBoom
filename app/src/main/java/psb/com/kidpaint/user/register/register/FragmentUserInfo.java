@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -45,10 +47,10 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
 
     private View view;
     private EditText editTextName, editTextLastName;
-    private ImageView imageViewUserImg,camera;
+    private ImageView imageViewUserImg, camera;
     private Button buttonUserInfo;
     private PUserInfo pUserInfo;
-    private TextView text_phone_number,error,title;
+    private TextView text_phone_number, error, title;
     private ProgressBar progressBar;
 
     private static final int REQUEST_SELECT_IMAGE = 20;
@@ -58,6 +60,10 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
     private String encodedImageData;
 
     private ParamsRegister paramsRegister;
+
+    private ImageView girlImage, boyImage;
+    private TextView girlText, boyText, birthDay, selectBirthDay;
+
 
     public FragmentUserInfo() {
         // Required empty public constructor
@@ -78,11 +84,19 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         return view;
     }
 
-    private void setView(){
+    private void setView() {
         title = view.findViewById(R.id.text_toolbar_title);
         title.setText("ثبت نام");
         editTextName = view.findViewById(R.id.edit_text_name);
         editTextLastName = view.findViewById(R.id.edit_text_last_name);
+        paramsRegister = new ParamsRegister();
+
+        girlImage = view.findViewById(R.id.image_girl_normal);
+        girlText = view.findViewById(R.id.text_girl);
+        boyImage = view.findViewById(R.id.image_boy_normal);
+        boyText = view.findViewById(R.id.text_boy);
+        birthDay = view.findViewById(R.id.text_birthday);
+        selectBirthDay = view.findViewById(R.id.selectBirthDay);
 
         imageViewUserImg = view.findViewById(R.id.image_user_info_avatar);
         camera = view.findViewById(R.id.image_user_info_edit);
@@ -115,30 +129,66 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         buttonUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (paramsRegister.getMale()==null) {
+                    Toast.makeText(getContext(), "لطفا جنسیت خود را انتخاب کنید", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!validateName()) {
                     return;
                 }
                 if (!validateLastName()) {
                     return;
                 }
+                if (paramsRegister.getBirthDay()==null) {
+                    Toast.makeText(getContext(), "لطفا تاریخ تولد خود را انتخاب کنید", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
 
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
-                    paramsRegister = new ParamsRegister();
-                    paramsRegister.setPhoneNumber(Utils.getStringPreference(getContext(),
-                            Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, "-1"));
-                    paramsRegister.setEmail("");
-                    paramsRegister.setFirstName(editTextName.getText().toString());
-                    paramsRegister.setLastName(editTextLastName.getText().toString());
-                    paramsRegister.setImageUrl(encodedImageData);
-                    pUserInfo.setUserInfo(paramsRegister);
+                paramsRegister.setPhoneNumber(Utils.getStringPreference(getContext(),
+                        Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, "-1"));
+                paramsRegister.setEmail("");
+                paramsRegister.setFirstName(editTextName.getText().toString());
+                paramsRegister.setLastName(editTextLastName.getText().toString());
+                paramsRegister.setImageUrl(encodedImageData);
+                pUserInfo.setUserInfo(paramsRegister);
 
             }
         });
 
       /*  pUserInfo.getUserInfo(Utils.getStringPreference(getContext(),Utils.KEY_REGISTER,
                 Utils.KEY_PHONENUMBER,"-1"));*/
+
+
+        girlImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setSex(false);
+            }
+        });
+        boyImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setSex(true);
+            }
+        });
+
+        selectBirthDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDatePicker();
+            }
+        });
+        birthDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDatePicker();
+            }
+        });
     }
 
     private boolean validateName() {
@@ -167,6 +217,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
 
         }
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -202,12 +253,12 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         buttonUserInfo.setEnabled(true);
     }
 
-    public void retryGetProfile(){
+    public void retryGetProfile() {
         pUserInfo.getUserInfo(Utils.getStringPreference(getContext(),
-                Utils.KEY_REGISTER,Utils.KEY_PHONENUMBER, "-1"));
+                Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, "-1"));
     }
 
-    public void retrySetProfile(){
+    public void retrySetProfile() {
         paramsRegister = new ParamsRegister();
         paramsRegister.setPhoneNumber(Utils.getStringPreference(getContext(),
                 Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, "-1"));
@@ -227,7 +278,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
     public void getUserInfoSuccess(UserInfo userInfo) {
         editTextName.setText(userInfo.getFirstName());
         editTextLastName.setText(userInfo.getLastName());
-        if(!userInfo.getImageUrl().isEmpty() || userInfo.getImageUrl() != null){
+        if (!userInfo.getImageUrl().isEmpty() || userInfo.getImageUrl() != null) {
             Picasso.get().load(userInfo.getImageUrl()).into(imageViewUserImg, new Callback() {
                 @Override
                 public void onSuccess() {
@@ -244,23 +295,27 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         }
         imageViewUserImg.buildDrawingCache();
         Bitmap bmap = imageViewUserImg.getDrawingCache();
-        encodedImageData ="data:image/.*?;base64," + getEncoded64ImageStringFromBitmap(bmap);
+        encodedImageData = "data:image/.*?;base64," + getEncoded64ImageStringFromBitmap(bmap);
         mListener.getUserInfoSuccess();
     }
 
     @Override
     public void getUserInfoFailed(String msg) {
-        Toast.makeText(getContext(),msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
         mListener.getUserInfoFailed(msg);
     }
 
     public interface OnFragmentInteractionListener {
         void onStartGetUserInfo();
+
         void getUserInfoSuccess();
+
         void getUserInfoFailed(String msg);
 
         void onStartSetUserInfo();
+
         void setUserInfoSuccess();
+
         void setUserInfoFailed(String msg);
     }
 
@@ -282,15 +337,15 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_SELECT_IMAGE && resultCode== Activity.RESULT_OK){
+        if (requestCode == REQUEST_SELECT_IMAGE && resultCode == Activity.RESULT_OK) {
             byte[] byteArray = data.getByteArrayExtra("image");
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageViewUserImg.setImageBitmap(bmp);
-            uriUserImage=getUri(bmp,"userimage");
-            bitmapUserImage=bmp;
+            uriUserImage = getUri(bmp, "userimage");
+            bitmapUserImage = bmp;
             imageViewUserImg.buildDrawingCache();
             Bitmap bmap = imageViewUserImg.getDrawingCache();
-            encodedImageData ="data:image/.*?;base64," + getEncoded64ImageStringFromBitmap(bmap);
+            encodedImageData = "data:image/.*?;base64," + getEncoded64ImageStringFromBitmap(bmap);
         }
     }
 
@@ -300,5 +355,39 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         byte[] byteFormat = stream.toByteArray();
         // get the base 64 string
         return Base64.encodeToString(byteFormat, Base64.NO_WRAP);
+    }
+
+
+    /////////
+
+    void setSex(boolean isMale) {
+        paramsRegister.setMale(isMale);
+        boyImage.setImageResource(isMale ? R.drawable.icon_boy_selected : R.drawable.icon_boy_normal);
+        girlImage.setImageResource(isMale ? R.drawable.icon_gir_normal : R.drawable.icon_gir_selected);
+        boyText.setTextColor(isMale ? getActivity().getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.md_grey_600));
+        girlText.setTextColor(isMale ? getActivity().getResources().getColor(R.color.md_grey_600) : getResources().getColor(R.color.colorPrimary));
+
+
+    }
+
+    public void dialogDatePicker() {
+        PersianCalendar now = new PersianCalendar();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        birthDay.setVisibility(View.VISIBLE);
+                        paramsRegister.setBirthDay(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        birthDay.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        selectBirthDay.setVisibility(View.GONE);
+
+                    }
+                },
+                now.getPersianYear(),
+                now.getPersianMonth(),
+                now.getPersianDay()
+        );
+        dpd.setThemeDark(true);
+        dpd.show(getChildFragmentManager(), "DatePickerDialog");
     }
 }

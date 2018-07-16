@@ -21,9 +21,15 @@ public class ParamsRegister implements Serializable
     @SerializedName("phoneNumber")
     @Expose
     private String phoneNumber;
+    @SerializedName("birthDay")
+    @Expose
+    private String birthDay;
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("IsMale")
+    @Expose
+    private Boolean isMale;
     private final static long serialVersionUID = 127028251780726041L;
 
     public String getFirstName() {
@@ -66,4 +72,19 @@ public class ParamsRegister implements Serializable
         this.email = email;
     }
 
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public Boolean getMale() {
+        return isMale;
+    }
+
+    public void setMale(Boolean male) {
+        isMale = male;
+    }
 }

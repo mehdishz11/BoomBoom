@@ -21,6 +21,8 @@ public class UserProfile {
     private static String KEY_IMG_URL = "KEY_IMG_URL";
     private static String KEY_FCM = "KEY_FCM";
     private static String KEY_JWT = "KEY_JWT";
+    private static String KEY_SEX = "KEY_SEX";
+    private static String KEY_BRITH_DAY = "KEY_BRITH_DAY";
 
     ///////////////////////////////////////////////////////////////////////////
     // getter
@@ -38,6 +40,8 @@ public class UserProfile {
         editor.putString(KEY_LAST_NAME, userInfo.getLastName());
         editor.putString(KEY_PHONE_NUMBER, userInfo.getPhoneNumber());
         editor.putString(KEY_IMG_URL, userInfo.getImageUrl());
+        editor.putString(KEY_BRITH_DAY, userInfo.getBirthDay());
+        editor.putBoolean(KEY_SEX, userInfo.getMale());
         editor.apply();
     }
 
@@ -93,6 +97,8 @@ public class UserProfile {
         editor.remove(KEY_IMG_URL);
         editor.remove(KEY_JWT);
         editor.remove(KEY_FCM);
+        editor.remove(KEY_BRITH_DAY);
+        editor.remove(KEY_SEX);
         editor.apply();
     }
 
@@ -128,6 +134,15 @@ public class UserProfile {
     public  String get_KEY_JWT(String defeult) {
         SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
         return settings.getString(KEY_JWT, defeult);
+    }
+
+    public  String get_KEY_BRITH_DAY(String defeult) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        return settings.getString(KEY_BRITH_DAY, defeult);
+    }
+    public  boolean get_KEY_SEX(boolean defeult) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        return settings.getBoolean(KEY_SEX, defeult);
     }
 
 }

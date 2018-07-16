@@ -24,6 +24,14 @@ public class UserInfo implements Serializable
     @SerializedName("phoneNumber")
     @Expose
     private String phoneNumber;
+
+    @SerializedName("birthDay")
+    @Expose
+    private String birthDay;
+
+    @SerializedName("IsMale")
+    @Expose
+    private Boolean isMale;
     private final static long serialVersionUID = -6311471700453404222L;
 
     public String getFirstName() {
@@ -66,4 +74,19 @@ public class UserInfo implements Serializable
         this.phoneNumber = phoneNumber;
     }
 
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public Boolean getMale() {
+        return isMale;
+    }
+
+    public void setMale(Boolean male) {
+        isMale = male;
+    }
 }

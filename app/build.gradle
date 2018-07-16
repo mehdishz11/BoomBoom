@@ -43,4 +43,6 @@ dependencies {
     implementation project(':customview')
     implementation project(':animatedfab')
     implementation project(':paintingview')
+    implementation project(':persianmaterialdatetimepicker')
+
 }
