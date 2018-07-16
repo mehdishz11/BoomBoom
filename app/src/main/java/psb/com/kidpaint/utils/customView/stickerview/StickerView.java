@@ -97,7 +97,7 @@ public abstract class StickerView extends FrameLayout {
 
         this.iv_scale.setImageResource(R.drawable.zoominout);
         this.iv_delete.setImageResource(R.drawable.remove);
-        this.iv_check.setImageResource(R.drawable.btn_check);
+        this.iv_check.setImageResource(R.drawable.img_btn_check);
         this.iv_flip.setImageResource(R.drawable.flip);
 
 

@@ -19,5 +19,8 @@
     <string name="retry">تلاش مجدد</string>
     <string name="hint_send_key">ما برای شماره موبایل شما کد تاییدیه ارسال نموده ایم\nبرای ادامه ، کد را وارد نمایید</string>
     <string name="resend_key">ارسال مجدد کد فعالسازی</string>
+    <string name="on">روشن</string>
+    <string name="off">خاموش</string>
+    <string name="settings">تنظیمات</string>
 
 </resources>

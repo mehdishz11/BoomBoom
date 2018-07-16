@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.dialog.DialogPaintingSettings;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.paintingview.DrawView;
@@ -61,6 +63,7 @@ public class PaintActivity extends AppCompatActivity implements
     private ImageView btnLeft;
     private ImageView btnRight;
     private ImageView btnSave;
+    private ImageView btnSettings;
 
     private StickerCanvas stickerCanvas;
     private DrawView paintCanvas;
@@ -104,12 +107,31 @@ public class PaintActivity extends AppCompatActivity implements
         btnLeft = findViewById(R.id.btn_left);
         btnRight = findViewById(R.id.btn_right);
         relHandle = findViewById(R.id.rel_handle);
-        btnSave = findViewById(R.id.btn_save1);
+        btnSave = findViewById(R.id.btn_save);
+        btnSettings = findViewById(R.id.btn_settings);
+
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogPaintingSettings dialogPaintingSettings=new DialogPaintingSettings(PaintActivity.this);
+                dialogPaintingSettings.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+                    }
+                });
+                dialogPaintingSettings.show();
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "onClick: "+Utils.gstoragePermissionIsGranted(PaintActivity.this));
                 if (Utils.gstoragePermissionIsGranted(PaintActivity.this)) {
                     saveTempBitmap(getPaintCanvasBitmap());
 
@@ -172,7 +194,7 @@ public class PaintActivity extends AppCompatActivity implements
         paintCanvas.setLayerType(LAYER_TYPE_HARDWARE, null);
         paintCanvas.setBaseColor(Color.TRANSPARENT);
 
-        ImageView btnUndo = findViewById(R.id.btn_save);
+        ImageView btnUndo = findViewById(R.id.btn_cancel);
 
         btnUndo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,6 +267,8 @@ public class PaintActivity extends AppCompatActivity implements
             }
         });
     }
+
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

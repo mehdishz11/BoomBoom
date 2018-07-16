@@ -15,17 +15,15 @@ import static android.content.Context.AUDIO_SERVICE;
 
 public class SoundHelper {
 
-
     private static SoundPool sound;
 
-    private static ArrayList<SoundModel> arrSound=new ArrayList<>();
-    private static int periority=0;
+    private static ArrayList<SoundModel> arrSound = new ArrayList<>();
 
     public SoundHelper() {
         createSound();
     }
 
-    private static void createSound(){
+    private static void createSound() {
         if (sound == null) {
             sound = createSoundPool();
             sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
@@ -38,40 +36,39 @@ public class SoundHelper {
         }
     }
 
-    public static void playSound(int resId){
+    public static void playSound(int resId) {
         createSound();
-        int position=-1;
-        for (int i=0;i<arrSound.size();i++) {
+        int position = -1;
+        for (int i = 0; i < arrSound.size(); i++) {
 
-            if(arrSound.get(i).getResId()==resId){
-                position=i;
+            if (arrSound.get(i).getResId() == resId) {
+                position = i;
                 break;
 
             }
         }
 
-        if(position==-1){
-            int soundId=sound.load(App.getContext(), resId, 1);
-            SoundModel soundModel=new SoundModel();
+        if (position == -1) {
+            int soundId = sound.load(App.getContext(), resId, 1);
+            SoundModel soundModel = new SoundModel();
             soundModel.setResId(resId);
             soundModel.setSoundID(soundId);
             arrSound.add(soundModel);
-        }else{
-            if(arrSound.get(position).isLoaded()) {
+        } else {
+            if (arrSound.get(position).isLoaded()) {
                 play(arrSound.get(position).getSoundID());
             }
         }
     }
 
-    private static void setSoundLoaded(int soundId){
-        for (int i=0;i<arrSound.size();i++) {
-            if(arrSound.get(i).getSoundID()==soundId){
+    private static void setSoundLoaded(int soundId) {
+        for (int i = 0; i < arrSound.size(); i++) {
+            if (arrSound.get(i).getSoundID() == soundId) {
                 arrSound.get(i).setLoaded(true);
                 break;
             }
         }
     }
-
 
     protected static SoundPool createSoundPool() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -106,7 +103,7 @@ public class SoundHelper {
     }
 
     protected static void play(int soundId) {
-        Log.d(App.TAG, "play sound Id is : "+soundId);
+        Log.d(App.TAG, "play sound Id is : " + soundId);
         sound.play(soundId, getVolume(), getVolume(), 1, 0, 1F);
     }
 

@@ -31,6 +31,7 @@
         </activity>
         <activity android:name=".painting.PaintActivity"
             android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme"
             ></activity>
 
 

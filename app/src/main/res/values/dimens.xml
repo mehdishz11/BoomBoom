@@ -2,7 +2,10 @@
 <resources>
     <dimen name="space_small">5dp</dimen>
     <dimen name="space_normal">10dp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="text_size_too_large">18sp</dimen>
     <dimen name="height_status_bar">0dp</dimen>
     <dimen name="space_20">20dp</dimen>
     <dimen name="space_3">3dp</dimen>

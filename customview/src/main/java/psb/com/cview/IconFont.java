@@ -13,7 +13,7 @@ public class IconFont extends android.support.v7.widget.AppCompatTextView {
 
     public IconFont(Context context) {
         super(context);
-            Typeface face= Typeface.createFromAsset(context.getAssets(), "fonts/icon_font.ttf");
+            Typeface face= Typeface.createFromAsset(context.getAssets(), "fonts/KidsPaint.ttf");
 
         this.setTypeface(face);
 
@@ -21,14 +21,14 @@ public class IconFont extends android.support.v7.widget.AppCompatTextView {
 
     public IconFont(Context context, AttributeSet attrs) {
         super(context, attrs);
-            Typeface face= Typeface.createFromAsset(context.getAssets(), "fonts/icon_font.ttf");
+            Typeface face= Typeface.createFromAsset(context.getAssets(), "fonts/KidsPaint.ttf");
 
         this.setTypeface(face);
     }
 
     public IconFont(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-            Typeface face= Typeface.createFromAsset(context.getAssets(), "fonts/icon_font.ttf");
+            Typeface face= Typeface.createFromAsset(context.getAssets(), "fonts/KidsPaint.ttf");
 
         this.setTypeface(face);
     }
