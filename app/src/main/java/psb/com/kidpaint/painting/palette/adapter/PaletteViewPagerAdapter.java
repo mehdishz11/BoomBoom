@@ -4,25 +4,37 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import psb.com.kidpaint.painting.palette.bucket.BucketFragment;
+import java.util.ArrayList;
+
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.painting.palette.sticker.StickerFragment;
 
 
 public class PaletteViewPagerAdapter extends FragmentStatePagerAdapter {
+    ArrayList<Fragment> arrFragment = new ArrayList<>();
+    PaletteFragment paletteFragment;
+    StickerFragment stickerFragment;
+
     public PaletteViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
+
     @Override
     public Fragment getItem(int position) {
-        if(position==0){
-            return new PaletteFragment().newInstance();
-        }else if(position==1){
-            return new StickerFragment().newInstance();
-        }else{
-            return new BucketFragment().newInstance();
+        if (position == 0) {
+            if (paletteFragment == null) {
+                paletteFragment = new PaletteFragment().newInstance();
+            }
+            return paletteFragment;
+        } else if (position == 1) {
+            if (stickerFragment == null) {
+                stickerFragment = new StickerFragment().newInstance();
+            }
+            return stickerFragment;
         }
+
+        return null;
     }
 
     @Override

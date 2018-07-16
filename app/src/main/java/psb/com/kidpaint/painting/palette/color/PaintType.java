@@ -1,7 +1,8 @@
 package psb.com.kidpaint.painting.palette.color;
 
 public enum PaintType {
-    BRUSH,
+    BUCKET,
     PENCIL,
-    ERASER
+    ERASER,
+    STICKER
 }

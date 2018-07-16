@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
@@ -40,7 +42,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
 
     private RelativeLayout relOverlayPaletteColor;
 
-    private Drawable selectedColoePickerDrawable;
+    private Drawable selectedColorPickerDrawable;
 
 
     public PaletteFragment() {
@@ -73,7 +75,9 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
 
     private void initView() {
 
-        selectedColoePickerDrawable = getResources().getDrawable(R.drawable.color_2);
+        Log.d(App.TAG, "initView: 2345676544356");
+
+        selectedColorPickerDrawable = getResources().getDrawable(R.drawable.color_2);
 
         for (int i = 0; i < arrCircleColorPicker.length; i++) {
             String buttonID = "color_" + i;
@@ -144,7 +148,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
         btnTypeBucket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onTypeChanged(PaintType.BRUSH);
+                onTypeChanged(PaintType.BUCKET);
             }
         });
 
@@ -183,7 +187,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
         }
 
         for (int i = 0; i <= selectedSize; i++) {
-            circleSize[i].setImageDrawable(selectedColoePickerDrawable);
+            circleSize[i].setImageDrawable(selectedColorPickerDrawable);
         }
 
 
@@ -200,21 +204,28 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
         }
     }
 
-    private void setTypeViews(PaintType paintType) {
-        this.paintType = paintType;
+    public void setTypeViews(PaintType paintType) {
 
-        btnTypeBucket.setImageResource(R.drawable.icon_type_bucket_normal);
-        btnTypePencil.setImageResource(R.drawable.icon_type_pencil_normal);
-        btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_normal);
+        try {
 
-        if (paintType == PaintType.PENCIL) {
-            btnTypePencil.setImageResource(R.drawable.icon_type_pencil_selected);
-        } else if (paintType == PaintType.BRUSH) {
-            btnTypeBucket.setImageResource(R.drawable.icon_type_bucket_selected);
-        } else if (paintType == PaintType.ERASER) {
-            btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_selected);
+            this.paintType = paintType;
+
+            btnTypeBucket.setImageResource(R.drawable.icon_type_bucket_normal);
+            btnTypePencil.setImageResource(R.drawable.icon_type_pencil_normal);
+            btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_normal);
+
+            if (paintType == PaintType.PENCIL) {
+                btnTypePencil.setImageResource(R.drawable.icon_type_pencil_selected);
+            } else if (paintType == PaintType.BUCKET) {
+                btnTypeBucket.setImageResource(R.drawable.icon_type_bucket_selected);
+            } else if (paintType == PaintType.ERASER) {
+                btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_selected);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
+
 
     private PaintType getPaintType() {
         return this.paintType;
@@ -228,7 +239,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
         SoundHelper.playSound(((CircleColorPicker)view).getSoundResId());
         showAnimation(view);
 
-        selectedColoePickerDrawable = ((CircleColorPicker) view).getImageDrawable();
+        selectedColorPickerDrawable = ((CircleColorPicker) view).getImageDrawable();
         onSizeChanged(selectedSize);
 
 

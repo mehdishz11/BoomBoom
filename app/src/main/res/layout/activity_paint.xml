@@ -23,18 +23,19 @@
 
                 />
 
-
-            <psb.com.kidpaint.painting.canvas.sticker.StickerCanvas
-                android:id="@+id/sticker_canvas"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"></psb.com.kidpaint.painting.canvas.sticker.StickerCanvas>
-
             <psb.com.kidpaint.painting.bucket.BucketCanvas
                 android:id="@+id/bucket_canvas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter" />
+
+
+            <psb.com.kidpaint.painting.canvas.sticker.StickerCanvas
+                android:id="@+id/sticker_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                ></psb.com.kidpaint.painting.canvas.sticker.StickerCanvas>
 
 
         </RelativeLayout>

@@ -42,6 +42,7 @@ import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.DialogPaintingSettings;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
+import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.paintingview.BucketModel;
 import psb.com.paintingview.DrawView;
@@ -112,6 +113,10 @@ public class PaintActivity extends AppCompatActivity implements
         relHandle = findViewById(R.id.rel_handle);
         btnSave = findViewById(R.id.btn_save);
         btnSettings = findViewById(R.id.btn_settings);
+        mPager = findViewById(R.id.view_pager);
+
+
+        mPager.setOffscreenPageLimit(2);
 
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +151,7 @@ public class PaintActivity extends AppCompatActivity implements
         });
         RelativeLayout paletteBottomSheet = findViewById(R.id.bottom_sheet);
 
-// init the bottom sheet behavior
+
         final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(paletteBottomSheet);
         relHandle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,7 +222,6 @@ public class PaintActivity extends AppCompatActivity implements
             }
         });
 
-        mPager = findViewById(R.id.view_pager);
         adapter = new PaletteViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(adapter);
 
@@ -235,31 +239,15 @@ public class PaintActivity extends AppCompatActivity implements
 
                 if (position == 0) {
                     btnLeft.setImageResource(R.drawable.icon_left_disable);
-
-                    paintCanvas.setEnableDrawing(true);
-                    bucketCanvas.removeTouchListener();
-
-                    if (stickerCanvas.getVisibility() == View.VISIBLE) {
-                      /*  stickerCanvas.hideShowController(false);
-                        paintCanvas.drawCustomBitmap(getStickerBitmap());
-
-                        stickerCanvas.removeAllStickers();*/
-                        stickerCanvas.setVisibility(View.GONE);
-
-                    }
+                    onPaintTypeSelected(PaintType.PENCIL);
 
                 } else if (position == 1) {
                     btnRight.setImageResource(R.drawable.icon_right_disable);
 
-                    paintCanvas.setEnableDrawing(false);
-                    stickerCanvas.setVisibility(View.VISIBLE);
-
-                /*    StickerImageView stickerImageView = new StickerImageView(PaintActivity.this);
+                    onPaintTypeSelected(PaintType.STICKER);
+                    StickerImageView stickerImageView = new StickerImageView(PaintActivity.this);
                     stickerImageView.setImageResource(R.drawable.icon_plus_normal);
-                    stickerCanvas.addSticker(stickerImageView);*/
-
-//                        disable bucket
-                    bucketCanvas.removeTouchListener();
+                    stickerCanvas.addSticker(stickerImageView);
 
                 }
             }
@@ -269,8 +257,10 @@ public class PaintActivity extends AppCompatActivity implements
 
             }
         });
-    }
 
+
+        onPaintTypeSelected(PaintType.PENCIL);
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -394,12 +384,7 @@ public class PaintActivity extends AppCompatActivity implements
     }
 
     private Bitmap getCanvasBitmap() {
-        paintCanvas.setDrawingCacheEnabled(true);
-        paintCanvas.buildDrawingCache();
-        Bitmap bitmap = Bitmap.createBitmap(paintCanvas.getDrawingCache());
-        paintCanvas.setDrawingCacheEnabled(false);
-
-        return bitmap;
+        return paintCanvas.getBitmap();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -472,28 +457,67 @@ public class PaintActivity extends AppCompatActivity implements
     @Override
     public void onPaintTypeSelected(final PaintType paintType) {
 
-        paintCanvas.setEnableDrawing(true);
-        bucketCanvas.removeTouchListener();
-        paintCanvas.setMode(DrawView.Mode.DRAW);
-        paintCanvas.setDrawer(DrawView.Drawer.PEN);
-
-        if (stickerCanvas.getVisibility() == View.VISIBLE) {
-            stickerCanvas.hideShowController(false);
-            paintCanvas.drawCustomBitmap(getStickerBitmap());
-
-            stickerCanvas.removeAllStickers();
-            stickerCanvas.setVisibility(View.GONE);
+        if (adapter.getItem(0) != null) {
+            ((PaletteFragment) adapter.getItem(0)).setTypeViews(paintType);
         }
 
 
         if (paintType == PaintType.ERASER) {
+            //enable and set paint canvas
             paintCanvas.setMode(DrawView.Mode.ERASER);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
+            paintCanvas.setEnableDrawing(true);
 
-        } else if (paintType == PaintType.BRUSH) {
-//            paintCanvas.drawBitmapOutline(getOutlineBitmap());
+            //disable bucket canvas
+            bucketCanvas.removeTouchListener();
+
+            // disable sticker canvas
+            if (stickerCanvas.isClickable()) {
+                stickerCanvas.enableDisableCanvas(false);
+                stickerCanvas.hideShowController(false);
+            }
+
+
+        } else if (paintType == PaintType.BUCKET) {
+            //ENABLE BUCKET
             bucketCanvas.initOntouchListener();
+
+            //DISABLE PAIN CANVAS
             paintCanvas.setEnableDrawing(false);
+
+            // disable sticker canvas
+            if (stickerCanvas.isClickable()) {
+                stickerCanvas.enableDisableCanvas(false);
+                stickerCanvas.hideShowController(false);
+            }
+
+
+        } else if (paintType == PaintType.STICKER) {
+
+            //ENABLE STICKER
+            stickerCanvas.enableDisableCanvas(true);
+
+            //disable pain canvas
+            paintCanvas.setEnableDrawing(false);
+
+            //disable bucket
+            bucketCanvas.removeTouchListener();
+
+        } else if (paintType == PaintType.PENCIL) {
+            //enable and set paint canvas
+            paintCanvas.setMode(DrawView.Mode.DRAW);
+            paintCanvas.setDrawer(DrawView.Drawer.PEN);
+            paintCanvas.setEnableDrawing(true);
+
+            //disable bucket canvas
+            bucketCanvas.removeTouchListener();
+
+            // disable sticker canvas
+            if (stickerCanvas.isClickable()) {
+                stickerCanvas.enableDisableCanvas(false);
+                stickerCanvas.hideShowController(false);
+            }
+
         } else {
 
         }

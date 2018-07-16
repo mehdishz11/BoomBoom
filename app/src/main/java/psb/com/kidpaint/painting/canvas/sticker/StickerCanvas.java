@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
@@ -71,6 +72,29 @@ public class StickerCanvas extends FrameLayout implements
     public void removeAllStickers() {
         arrStickers.clear();
         removeAllViews();
+    }
+
+    public void enableDisableCanvas(boolean enable){
+        this.setEnabled(enable);
+        for (StickerView stickerView :
+                arrStickers) {
+            stickerView.setEnabled(enable);
+            stickerView.setEnabled(enable);
+        }
+        setClickable(enable);
+        //enableDisableViewGroup(this,enable);
+    }
+
+    private void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
+        int childCount = viewGroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = viewGroup.getChildAt(i);
+//            view.setEnabled(enabled);
+            view.setClickable(enabled);
+            if (view instanceof ViewGroup) {
+                enableDisableViewGroup((ViewGroup) view, enabled);
+            }
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////

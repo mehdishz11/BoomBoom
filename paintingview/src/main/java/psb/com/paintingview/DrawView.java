@@ -233,6 +233,7 @@ public class DrawView extends View {
     }
 
     private void addFirstPathToBaseBitmap() {
+
         if (bitmapBase == null) {
             bitmapBase = Bitmap.createBitmap(getBitmap());
         }
@@ -246,6 +247,7 @@ public class DrawView extends View {
         if (path != null) {
             canvas.drawPath(path, paint);
         }
+
         if (bitmap != null) {
             canvas.drawBitmap(bitmap, 0, 0, paint);
         }
