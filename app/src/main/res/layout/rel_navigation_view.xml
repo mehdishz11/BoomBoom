@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_level_0">
+
+
+        <RelativeLayout
+            android:id="@+id/drawer_top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/act_user_image"
+                android:layout_marginBottom="45dp"
+                android:scaleType="centerCrop" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue_3"
+                    >
+
+                    <ImageView
+                        android:id="@+id/image_cloud_top_4"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="320dp"
+                        android:src="@drawable/could_top_4" />
+
+                    <ImageView
+                        android:id="@+id/image_cloud_top_2"
+                        android:layout_width="70dp"
+                        android:layout_height="65dp"
+                        android:layout_marginLeft="100dp"
+                        android:src="@drawable/could_top_2" />
+
+
+                    <ImageView
+                        android:id="@+id/image_cloud_top_1"
+                        android:layout_width="98dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/could_top_1" />
+
+
+                    <ImageView
+                        android:id="@+id/image_cloud_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_alignParentBottom="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/cloud_2" />
+
+                    <ImageView
+                        android:id="@+id/image_sun"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/sun" />
+
+                    <ImageView
+                        android:id="@+id/image_cloud_top_3"
+                        android:layout_width="90dp"
+                        android:layout_height="125dp"
+                        android:layout_marginLeft="230dp"
+                        android:src="@drawable/could_top_3" />
+
+                    <ImageView
+                        android:id="@+id/image_cloud_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_alignParentBottom="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/cloud_1" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <psb.com.cview.IconFont
+                android:id="@+id/act_sign_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/margin_5"
+                android:padding="@dimen/margin_10"
+                android:text=""
+                android:textColor="@color/light_level_0"
+                android:textSize="20dp" />
+
+            <psb.com.cview.CustomTextView
+                android:id="@+id/text_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reg_or_login"
+                android:layout_centerHorizontal="true"
+                android:text="ویرایش"
+                android:textColor="@color/blue_3"
+                android:textSize="@dimen/font_size_14" />
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/reg_or_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/act_user_image"
+                android:layout_marginTop="@dimen/margin_10"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="ثبت نام | ورود"
+                android:textColor="@color/blue_3"
+                android:textSize="@dimen/font_size_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/act_user_image"
+                android:layout_alignLeft="@+id/act_user_image"
+                android:layout_alignRight="@+id/act_user_image"
+                android:layout_alignTop="@+id/act_user_image"
+                android:background="@drawable/circle_blue" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/act_user_image"
+                app:riv_corner_radius="40dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:padding="5dp"
+                android:src="@drawable/user_empty_gray"
+                android:tint="@color/light_level_0" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/drawer_top_layout"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/drawer_top_layout"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/ManageAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <psb.com.cview.CustomTextViewLight
+                        android:id="@+id/textView17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/imageButton4"
+                        android:gravity="right|center"
+                        android:text="نقاشی های من"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imageButton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/margin_10" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/md_grey_300"
+                        />
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textColor="@color/md_grey_700"
+                        android:text="جایزه های شما"
+                        />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:weightSum="3"
+                    android:layout_marginRight="@dimen/space_small"
+                    android:layout_marginLeft="@dimen/space_small"
+                    >
+                    <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/img_prize_1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:riv_corner_radius="80dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/temp_fabercastle"
+                        />
+                    <me.itangqi.waveloadingview.WaveLoadingView
+                        android:id="@+id/wave_prize_1"
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
+                        android:layout_centerHorizontal="true"
+                        app:wlv_borderColor="@color/blue_3"
+                        app:wlv_borderWidth="1dp"
+                        app:wlv_progressValue="100"
+                        app:wlv_shapeType="circle"
+                        app:wlv_round_rectangle="true"
+                        app:wlv_triangle_direction="north"
+                        app:wlv_waveAmplitude="70"
+                        app:wlv_waveColor="@color/blue_3"
+                        android:alpha="0.7"
+                        />
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/text_prize_1_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_prize_1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:textColor="@color/blue_3"
+                        android:textSize="@dimen/text_size_normal"
+                        android:gravity="center"
+                        android:text="مداد رنگی"
+                        />
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/text_prize_1_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_prize_1_title"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:textColor="@color/blue_2"
+                        android:textSize="@dimen/text_size_small"
+                        android:text="۱۲۰ امتیاز"
+                        />
+                        <psb.com.cview.CButton
+                            android:id="@+id/btn_prize_1"
+                            android:layout_width="70dp"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/text_prize_1_point"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/btn_rect"
+                            android:textColor="@color/white_1"
+                            android:textSize="@dimen/text_size_small"
+                            android:paddingBottom="3dp"
+                            android:text="دریافت"
+                            android:enabled="true"
+                            />
+
+                </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        >
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/img_prize_2"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:riv_corner_radius="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/temp_tablet"
+                            />
+                        <me.itangqi.waveloadingview.WaveLoadingView
+                            android:id="@+id/wave_prize_2"
+                            android:layout_width="62dp"
+                            android:layout_height="62dp"
+                            android:layout_centerHorizontal="true"
+                            app:wlv_borderColor="@color/md_grey_400"
+                            app:wlv_borderWidth="1dp"
+                            app:wlv_progressValue="40"
+                            app:wlv_shapeType="circle"
+                            app:wlv_round_rectangle="true"
+                            app:wlv_triangle_direction="north"
+                            app:wlv_waveAmplitude="70"
+                            app:wlv_waveColor="@color/md_grey_400"
+                            android:alpha="0.7"
+                            />
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/text_prize_2_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_prize_2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/space_small"
+                            android:textColor="@color/md_grey_400"
+                            android:textSize="@dimen/text_size_normal"
+                            android:gravity="center"
+                            android:text="تبلت"
+                            />
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/text_prize_2_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/text_prize_2_title"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:textColor="@color/md_grey_300"
+                            android:textSize="@dimen/text_size_small"
+                            android:text="۴۰۰ امتیاز"
+                            />
+                        <psb.com.cview.CButton
+                            android:id="@+id/btn_prize_2"
+                            android:layout_width="70dp"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/text_prize_2_point"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/btn_rect"
+                            android:textColor="@color/white_1"
+                            android:textSize="@dimen/text_size_small"
+                            android:paddingBottom="3dp"
+                            android:text="دریافت"
+                            android:enabled="false"
+                            />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        >
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/img_prize_3"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:riv_corner_radius="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/temp_bicycle"
+                            />
+                        <me.itangqi.waveloadingview.WaveLoadingView
+                            android:id="@+id/wave_prize_3"
+                            android:layout_width="62dp"
+                            android:layout_height="62dp"
+                            android:layout_centerHorizontal="true"
+                            app:wlv_borderColor="@color/md_grey_400"
+                            app:wlv_borderWidth="1dp"
+                            app:wlv_progressValue="0"
+                            app:wlv_shapeType="circle"
+                            app:wlv_round_rectangle="true"
+                            app:wlv_triangle_direction="north"
+                            app:wlv_waveAmplitude="70"
+                            app:wlv_waveColor="@color/md_grey_400"
+                            android:alpha="0.7"
+                            />
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/text_prize_3_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_prize_3"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/space_small"
+                            android:textColor="@color/md_grey_400"
+                            android:textSize="@dimen/text_size_normal"
+                            android:gravity="center"
+                            android:text="دوچرخه"
+                            />
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/text_prize_3_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/text_prize_3_title"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:textColor="@color/md_grey_300"
+                            android:textSize="@dimen/text_size_small"
+                            android:text="۲۰۰۰ امتیاز"
+                            />
+                        <psb.com.cview.CButton
+                            android:id="@+id/btn_prize_3"
+                            android:layout_width="70dp"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/text_prize_3_point"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/btn_rect"
+                            android:textColor="@color/white_1"
+                            android:textSize="@dimen/text_size_small"
+                            android:paddingBottom="3dp"
+                            android:text="دریافت"
+                            android:enabled="false"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    <!--footer-->
+    <RelativeLayout
+        android:id="@+id/rel_bottom_boat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/image_boat"
+            android:layout_marginTop="-30dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ocean_1"
+
+            />
+
+        <ImageView
+            android:id="@+id/image_boat"
+            android:layout_width="75dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="150dp"
+            android:src="@drawable/boat"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="100dp"
+            android:src="@drawable/fish"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/image_boat"
+            android:layout_marginTop="-30dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ocean_2" />
+    </RelativeLayout>
+</RelativeLayout>

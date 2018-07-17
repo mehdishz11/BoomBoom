@@ -8,11 +8,19 @@
 
     <color name="white_1">#ffffff</color>
 
+    <color name="brown_1">#f6e1a9</color>
     <color name="brown_2">#c9ab51</color>
     <color name="brown_3">#9f7a0c</color>
+    <color name="brown_4">#eecf6e</color>
+
+
 
 
     <color name="green_2">#99CA3D</color>
+
+
+    <color name="blue_2">#82E2EC</color>
+    <color name="blue_3">#42C3F2</color>
 
 
     <color name="palette_color_0">#6e5643</color>

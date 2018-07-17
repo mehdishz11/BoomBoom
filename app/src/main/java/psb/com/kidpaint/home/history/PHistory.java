@@ -8,10 +8,10 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Random;
 
-import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
-import psb.com.kidpaint.home.newPaint.PaintingOutlinEnum;
+import psb.com.kidpaint.utils.Value;
 
 public class PHistory implements  IPHistory {
     private Context context;
@@ -48,10 +48,16 @@ public class PHistory implements  IPHistory {
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
      final File filePath=mHistory.getPositionAt(position);
+
+        if(position%2==0){
+            holder.parentView.setRotation(new Random().nextInt(8));
+        }else{
+            holder.parentView.setRotation(-new Random().nextInt(8));
+        }
         Picasso
                 .get()
                 .load(filePath)
-                .resize(300,300)
+                .resize(Value.dp(200),Value.dp(200))
                 .onlyScaleDown()
                 .into(holder.imgOutline, new Callback() {
                     @Override
@@ -67,11 +73,7 @@ public class PHistory implements  IPHistory {
                     }
                 });
 
-        if(position%2==0){
-            holder.relParent.setBackgroundResource(R.drawable.bgr_white_1);
-        }else{
-            holder.relParent.setBackgroundResource(R.drawable.bgr_white_2);
-        }
+
         holder.relParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,4 +86,5 @@ public class PHistory implements  IPHistory {
     public int getArrSize() {
         return mHistory.getArrSize();
     }
+
 }

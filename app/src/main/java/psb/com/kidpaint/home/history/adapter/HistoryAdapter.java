@@ -1,6 +1,5 @@
 package psb.com.kidpaint.home.history.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.PHistory;
-import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 
 
 /**
@@ -24,12 +22,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
         this.pHistory = pHistory;
     }
 
-
-
     @Override
     public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_outline_template, parent, false);
+                .inflate(R.layout.row_history, parent, false);
         HistoryViewHolder recViewHolderNews = new HistoryViewHolder(view);
         return recViewHolderNews;
     }
@@ -45,4 +41,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
     public int getItemCount() {
         return pHistory.getArrSize();
     }
+
+
+
 }

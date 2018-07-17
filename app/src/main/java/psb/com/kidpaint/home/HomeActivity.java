@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
         ToolbarHandler.makeTansluteToolbar(this, getWindow(), getWindow().getDecorView());
 
-        CButton btnCompetition = findViewById(R.id.competition);
+        Button btnCompetition = findViewById(R.id.competition);
         btnCompetition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

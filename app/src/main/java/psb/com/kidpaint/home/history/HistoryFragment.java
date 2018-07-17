@@ -11,19 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
 
 public class HistoryFragment extends Fragment implements IVHistory {
 
- private View view;
- private TextView emptyView;
+    private View view;
+    private TextView emptyView;
 
 
     private OnFragmentInteractionListener mListener;
     private PHistory pHistory;
     private HistoryAdapter historyAdapter;
- private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -49,17 +52,15 @@ public class HistoryFragment extends Fragment implements IVHistory {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_history, container, false);
-         recyclerView = view.findViewById(R.id.recyclerView);
+        view = inflater.inflate(R.layout.fragment_history, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
         emptyView = view.findViewById(R.id.emptyView);
-        pHistory=new PHistory(this);
+        pHistory = new PHistory(this);
         pHistory.getMyPaintHistory();
         return view;
 
 
-
     }
-
 
 
     @Override
@@ -86,10 +87,16 @@ public class HistoryFragment extends Fragment implements IVHistory {
     @Override
     public void onGetMyPaintHistorySuccess() {
         historyAdapter = new HistoryAdapter(pHistory);
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),2);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(historyAdapter);
-        emptyView.setVisibility(historyAdapter.getItemCount()>0?View.GONE:View.VISIBLE);
+
+        AnimationAdapter animationAdapter=new SlideInBottomAnimationAdapter(historyAdapter);
+        animationAdapter.setDuration(100);
+        animationAdapter.setFirstOnly(false);
+
+        recyclerView.setAdapter(animationAdapter);
+
+        emptyView.setVisibility(historyAdapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
     }
 
     @Override
