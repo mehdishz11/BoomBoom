@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
@@ -75,8 +73,6 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
 
     private void initView() {
 
-        Log.d(App.TAG, "initView: 2345676544356");
-
         selectedColorPickerDrawable = getResources().getDrawable(R.drawable.color_2);
 
         for (int i = 0; i < arrCircleColorPicker.length; i++) {
@@ -103,9 +99,6 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
         }
 
         relOverlayPaletteColor= pView.findViewById(R.id.rel_overlay_color_picker);
-
-
-        // TODO: 7/4/2018 AD change resource with selected color in sharepreference
 
         btnIncreaseSize = pView.findViewById(R.id.btn_plus_thick);
         btnDecreaseSize = pView.findViewById(R.id.btn_minos_thick);
@@ -205,11 +198,8 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     }
 
     public void setTypeViews(PaintType paintType) {
-
         try {
-
             this.paintType = paintType;
-
             btnTypeBucket.setImageResource(R.drawable.icon_type_bucket_normal);
             btnTypePencil.setImageResource(R.drawable.icon_type_pencil_normal);
             btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_normal);
@@ -222,7 +212,6 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
                 btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_selected);
             }
         }catch (Exception ex){
-            ex.printStackTrace();
         }
     }
 
@@ -234,7 +223,6 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
 
     @Override
     public void onColorPickerClicked(View view, int colorResource) {
-
 
         SoundHelper.playSound(((CircleColorPicker)view).getSoundResId());
         showAnimation(view);

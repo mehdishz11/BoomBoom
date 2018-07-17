@@ -5,11 +5,11 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 import psb.com.kidpaint.App;
+import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 
 import static android.content.Context.AUDIO_SERVICE;
 
@@ -103,7 +103,7 @@ public class SoundHelper {
     }
 
     protected static void play(int soundId) {
-        Log.d(App.TAG, "play sound Id is : " + soundId);
+        if(!SharePrefrenceHelper.getSoundEffect())return;
         sound.play(soundId, getVolume(), getVolume(), 1, 0, 1F);
     }
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true">
+
+    <RelativeLayout
+        android:id="@+id/rel_speaker"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/pallet_drop"
+        android:padding="@dimen/space_normal">
+
+        <psb.com.cview.IconFont
+            android:id="@+id/icon_speaker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textColor="@color/brown_3"
+            android:textSize="30dp" />
+
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/text_title_speaker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="@dimen/space_small"
+            android:layout_toLeftOf="@+id/icon_speaker"
+            android:text="صدا"
+            android:textColor="@color/brown_3"
+            android:textSize="@dimen/text_size_large" />
+
+        <com.nightonke.jellytogglebutton.JellyToggleButton
+            android:id="@+id/toggle_speaker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:soundEffectsEnabled="false"
+            app:jtbDuration="400"
+            app:jtbJelly="lazy_tremble_body_slim_jim"
+            app:jtbLeftBackgroundColor="@color/brown_2"
+            app:jtbLeftThumbColor="@color/green_2"
+            app:jtbRightBackgroundColor="@color/brown_2"
+            app:jtbRightThumbColor="@color/md_red_400" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rel_speaker"
+        android:layout_marginTop="@dimen/space_small"
+        android:background="@drawable/pallet_drop"
+        android:padding="@dimen/space_normal">
+
+        <psb.com.cview.IconFont
+            android:id="@+id/icon_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textColor="@color/brown_3"
+            android:textSize="30dp" />
+
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/text_title_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="@dimen/space_small"
+            android:layout_toLeftOf="@+id/icon_sound"
+            android:text="موسیقی"
+            android:textColor="@color/brown_3"
+            android:textSize="@dimen/text_size_large" />
+
+        <com.nightonke.jellytogglebutton.JellyToggleButton
+            android:id="@+id/toggle_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:soundEffectsEnabled="false"
+            app:jtbDuration="400"
+            app:jtbJelly="lazy_tremble_body_slim_jim"
+            app:jtbLeftBackgroundColor="@color/brown_2"
+            app:jtbLeftThumbColor="@color/green_2"
+            app:jtbRightBackgroundColor="@color/brown_2"
+            app:jtbRightThumbColor="@color/md_red_400" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -5,7 +5,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -20,8 +19,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,9 +39,13 @@ import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
-import psb.com.kidpaint.utils.customView.dialog.DialogPaintingSettings;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
+import psb.com.kidpaint.utils.musicHelper.MusicHelper;
+import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.paintingview.BucketModel;
 import psb.com.paintingview.DrawView;
@@ -67,6 +70,8 @@ public class PaintActivity extends AppCompatActivity implements
     private ImageView btnLeft;
     private ImageView btnRight;
     private ImageView btnSave;
+    private ImageView btnCancel;
+    private ImageView btnUndo;
     private ImageView btnSettings;
 
     private StickerCanvas stickerCanvas;
@@ -100,6 +105,29 @@ public class PaintActivity extends AppCompatActivity implements
 
         stackViews();
         initView();
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicHelper.stopMusic();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        MusicHelper.stopMusic();
+        MusicHelper.playMusic(R.raw.bgr_be_happy);
     }
 
     private void initView() {
@@ -111,35 +139,47 @@ public class PaintActivity extends AppCompatActivity implements
         btnLeft = findViewById(R.id.btn_left);
         btnRight = findViewById(R.id.btn_right);
         relHandle = findViewById(R.id.rel_handle);
-        btnSave = findViewById(R.id.btn_save);
-        btnSettings = findViewById(R.id.btn_settings);
         mPager = findViewById(R.id.view_pager);
 
+        btnCancel = findViewById(R.id.btn_cancel);
+        btnSave = findViewById(R.id.btn_save);
+        btnUndo = findViewById(R.id.btn_undo);
+        btnSettings = findViewById(R.id.btn_settings);
 
-        mPager.setOffscreenPageLimit(2);
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogPaintingSettings dialogPaintingSettings = new DialogPaintingSettings(PaintActivity.this);
-                dialogPaintingSettings.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                SoundHelper.playSound(R.raw.click_bubbles_1);
+                animatePopRightCollapse();
+
+                MessageDialog dialog = new MessageDialog(PaintActivity.this);
+                dialog.setMessage("مطمئنی می خوای خارج بشی ؟");
+                dialog.setOnCLickListener(new CDialog.OnCLickListener() {
                     @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+                    public void onPosetiveClicked() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+
                     }
                 });
-                dialogPaintingSettings.show();
+                dialog.setSoundId(R.raw.are_you_sure_exit);
+                dialog.setAcceptButtonMessage(PaintActivity.this.getString(R.string.yes));
+                dialog.setTitle(getString(R.string.exit));
+                dialog.show();
+
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
             }
         });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_bubbles_1);
                 if (Utils.gstoragePermissionIsGranted(PaintActivity.this)) {
                     saveTempBitmap(getPaintCanvasBitmap());
 
@@ -149,6 +189,40 @@ public class PaintActivity extends AppCompatActivity implements
 
             }
         });
+        btnUndo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.undo);
+                paintCanvas.undo();
+            }
+        });
+
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SoundHelper.playSound(R.raw.click_1);
+                animatePopRightCollapse();
+
+                DialogSettings cDialog = new DialogSettings(PaintActivity.this);
+
+                cDialog.show();
+            }
+        });
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+                if (!isExpanded) {
+                    animatePopRightExpand();
+                } else {
+                    animatePopRightCollapse();
+                }
+            }
+        });
+
+
         RelativeLayout paletteBottomSheet = findViewById(R.id.bottom_sheet);
 
 
@@ -192,35 +266,20 @@ public class PaintActivity extends AppCompatActivity implements
         });
 
 
-        if (outlineResource != 0 && outlineResource != R.drawable.picture_0) {
+        if (outlineResource != 0) {
             bucketCanvas.setImageResource(outlineResource);
-            bucketCanvas.setOnBucketPointSelected(this);
 
-
+        }else{
+            bucketCanvas.setImageResource(R.drawable.picture_0);
         }
+
+        bucketCanvas.setOnBucketPointSelected(this);
 
         paintCanvas.setLayerType(LAYER_TYPE_HARDWARE, null);
         paintCanvas.setBaseColor(Color.TRANSPARENT);
+        paintCanvas.setPaintStrokeWidth(10.0f + (22.5f * SharePrefrenceHelper.getSize()));
+        paintCanvas.setPaintStrokeColor(SharePrefrenceHelper.getColor());
 
-        ImageView btnUndo = findViewById(R.id.btn_cancel);
-
-        btnUndo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                paintCanvas.undo();
-            }
-        });
-
-        btnMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isExpanded) {
-                    animatePopRightExpand();
-                } else {
-                    animatePopRightCollapse();
-                }
-            }
-        });
 
         adapter = new PaletteViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(adapter);
@@ -260,6 +319,7 @@ public class PaintActivity extends AppCompatActivity implements
 
 
         onPaintTypeSelected(PaintType.PENCIL);
+
     }
 
     @Override
@@ -268,6 +328,7 @@ public class PaintActivity extends AppCompatActivity implements
 
 
     }
+
 
     private void stackViews() {
         FrameLayout parentFrame = findViewById(R.id.rel_btn);
@@ -392,12 +453,16 @@ public class PaintActivity extends AppCompatActivity implements
     ///////////////////////////////////////////////////////////////////////////
     private Bitmap getPaintCanvasBitmap() {
 
-        paintCanvas.setDrawingCacheEnabled(true);
-        paintCanvas.buildDrawingCache();
-        Bitmap bitmapSticker = Bitmap.createBitmap(paintCanvas.getDrawingCache());
-        paintCanvas.setDrawingCacheEnabled(false);
+        Bitmap bitmapCanvas = getCanvasBitmap();
+        Bitmap bitmapOutline = getOutlineBitmap();
+        Bitmap bitmapStickers = getStickerBitmap();
 
-        return bitmapSticker;
+        Canvas c = new Canvas(bitmapCanvas);
+
+        c.drawBitmap(bitmapOutline, 0, 0, new Paint());
+        c.drawBitmap(bitmapStickers, 0, 0, new Paint());
+
+        return bitmapCanvas;
 
     }
 
@@ -428,11 +493,10 @@ public class PaintActivity extends AppCompatActivity implements
             finalBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
-            Log.d("TAG", "saveImage success: ");
 
             finish();
         } catch (Exception e) {
-            Log.d("TAG", "saveImage failed: ");
+
             e.printStackTrace();
         }
     }
@@ -451,6 +515,7 @@ public class PaintActivity extends AppCompatActivity implements
     @Override
     public void onColorSelected(int color) {
         paintCanvas.setPaintStrokeColor(color);
+        SharePrefrenceHelper.setColor(color);
 
     }
 
@@ -463,6 +528,7 @@ public class PaintActivity extends AppCompatActivity implements
 
 
         if (paintType == PaintType.ERASER) {
+            SoundHelper.playSound(R.raw.sf_eraser);
             //enable and set paint canvas
             paintCanvas.setMode(DrawView.Mode.ERASER);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
@@ -479,6 +545,7 @@ public class PaintActivity extends AppCompatActivity implements
 
 
         } else if (paintType == PaintType.BUCKET) {
+            SoundHelper.playSound(R.raw.paint_bucket);
             //ENABLE BUCKET
             bucketCanvas.initOntouchListener();
 
@@ -504,6 +571,7 @@ public class PaintActivity extends AppCompatActivity implements
             bucketCanvas.removeTouchListener();
 
         } else if (paintType == PaintType.PENCIL) {
+            SoundHelper.playSound(R.raw.pencil);
             //enable and set paint canvas
             paintCanvas.setMode(DrawView.Mode.DRAW);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
@@ -527,6 +595,7 @@ public class PaintActivity extends AppCompatActivity implements
     @Override
     public void onPaintSizeSelected(int size) {
         paintCanvas.setPaintStrokeWidth(10.0f + (22.5f * size));
+        SharePrefrenceHelper.setSize(size);
     }
 
 
@@ -571,6 +640,12 @@ public class PaintActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         if (requestCode == REQUEST_STORAGE_PERMISSIONS) {
 
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED

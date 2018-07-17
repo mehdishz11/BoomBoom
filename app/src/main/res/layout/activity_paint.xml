@@ -54,6 +54,31 @@
                 android:padding="@dimen/space_small">
 
                 <ImageView
+                    android:id="@+id/btn_settings"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_settings"
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_undo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/space_normal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_undo"
+
+                    />
+
+                <ImageView
                     android:id="@+id/btn_cancel"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -76,32 +101,6 @@
                     android:paddingTop="@dimen/space_normal"
                     android:scaleType="fitCenter"
                     android:src="@drawable/btn_check"
-
-                    />
-
-                <ImageView
-                    android:id="@+id/btn_undo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="top|left"
-                    android:layout_marginLeft="@dimen/space_small"
-                    android:paddingBottom="@dimen/space_normal"
-                    android:paddingTop="@dimen/space_normal"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/btn_undo"
-
-                    />
-
-                <ImageView
-                    android:id="@+id/btn_settings"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="top|left"
-                    android:layout_marginLeft="@dimen/space_small"
-                    android:paddingBottom="@dimen/space_normal"
-                    android:paddingTop="@dimen/space_normal"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/btn_settings"
 
                     />
 

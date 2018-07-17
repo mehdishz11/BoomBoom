@@ -22,5 +22,8 @@
     <string name="on">روشن</string>
     <string name="off">خاموش</string>
     <string name="settings">تنظیمات</string>
+    <string name="accept">قبول</string>
+    <string name="yes">بله</string>
+    <string name="exit">خروج</string>
 
 </resources>
