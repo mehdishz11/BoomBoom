@@ -37,6 +37,7 @@ import java.util.Locale;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.ActivityCropImage;
+import psb.com.kidpaint.utils.CalendarTool;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.ParamsRegister;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
@@ -377,9 +378,12 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
                     @Override
                     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                         birthDay.setVisibility(View.VISIBLE);
-                        paramsRegister.setBirthDay(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        CalendarTool calendarTool=new CalendarTool();
+                        calendarTool.setIranianDate(year,(monthOfYear+1),dayOfMonth);
+                        paramsRegister.setBirthDay(calendarTool.getGregorianYear() + "-" + (calendarTool.getGregorianMonth()<10?("0"+calendarTool.getGregorianMonth()):calendarTool.getGregorianMonth()) + "-" + calendarTool.getGregorianDay());
                         birthDay.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
                         selectBirthDay.setVisibility(View.GONE);
+
 
                     }
                 },

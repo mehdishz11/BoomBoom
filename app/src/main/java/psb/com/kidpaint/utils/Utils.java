@@ -21,6 +21,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import psb.com.kidpaint.App;
@@ -223,6 +226,22 @@ public class Utils {
 
     public static String getDeviceId(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID) + 2;
+    }
+
+    public static String getIraninTimeCommentSlash(String time) {
+
+        String result = "";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(simpleDateFormat.parse(time));
+            CalendarTool calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+            result = calendarTool.getIranianDay()+ " " + calendarTool.getIranianMonthName() + " "+calendarTool.getIranianYear();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

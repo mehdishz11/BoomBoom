@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class WebService {
-    public static final String BASE_URL = "http://79.175.155.143/DorsaKetab/api/";
+    public static final String BASE_URL = "http://79.175.155.143/naghashi/api/";
     private static Retrofit retrofit;
     private static UserProfile userProfile;
 
@@ -31,7 +31,7 @@ public class WebService {
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS).addInterceptor(loggingInterceptor)
-                /*.addInterceptor(new Interceptor() {
+                .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request.Builder ongoing = chain.request().newBuilder();
@@ -42,7 +42,7 @@ public class WebService {
                         }
                         return chain.proceed(ongoing.build());
                     }
-                })*/
+                })
                 .build();
 
         if (retrofit == null) {

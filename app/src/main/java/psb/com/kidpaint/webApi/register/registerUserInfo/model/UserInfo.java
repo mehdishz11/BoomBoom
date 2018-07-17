@@ -25,11 +25,11 @@ public class UserInfo implements Serializable
     @Expose
     private String phoneNumber;
 
-    @SerializedName("birthDay")
+    @SerializedName("birthday")
     @Expose
     private String birthDay;
 
-    @SerializedName("IsMale")
+    @SerializedName("isMale")
     @Expose
     private Boolean isMale;
     private final static long serialVersionUID = -6311471700453404222L;

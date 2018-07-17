@@ -33,12 +33,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.ActivityCropImage;
+import psb.com.kidpaint.utils.CalendarTool;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.ParamsRegister;
@@ -114,7 +117,21 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
         }else{
             selectBirthDay.setVisibility(View.GONE);
             birthDay.setVisibility(View.VISIBLE);
-            birthDay.setText(userProfile.get_KEY_BRITH_DAY(""));
+            /////////////////
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+            try {
+                calendar.setTime(simpleDateFormat.parse(userProfile.get_KEY_BRITH_DAY("")));
+                CalendarTool calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+                birthDay.setText(calendarTool.getIranianYear()+"/"+calendarTool.getIranianMonth()+"/"+ calendarTool.getIranianDay());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+           // calendarTool.setIranianDate(year,(monthOfYear+1),dayOfMonth);
+
             paramsRegister.setBirthDay(userProfile.get_KEY_BRITH_DAY(""));
         }
 
@@ -193,7 +210,7 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
                 paramsRegister.setLastName(editTextLastName.getText().toString());
                 paramsRegister.setImageUrl(encodedImageData);
                 pUserInfo.setUserInfo(paramsRegister);
-              //  Log.d("TAG", "onClickEdit: "+new Gson().toJson(paramsRegister));
+                Log.d("TAG", "onClickEdit: "+new Gson().toJson(paramsRegister));
 
             }
         });
@@ -404,13 +421,15 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
     }
 
     public void dialogDatePicker() {
-        PersianCalendar now = new PersianCalendar();
+        final PersianCalendar now = new PersianCalendar();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                         birthDay.setVisibility(View.VISIBLE);
-                        paramsRegister.setBirthDay(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        CalendarTool calendarTool=new CalendarTool();
+                        calendarTool.setIranianDate(year,(monthOfYear+1),dayOfMonth);
+                        paramsRegister.setBirthDay(calendarTool.getGregorianYear() + "-" + (calendarTool.getGregorianMonth()<10?("0"+calendarTool.getGregorianMonth()):calendarTool.getGregorianMonth()) + "-" + calendarTool.getGregorianDay());
                         birthDay.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
                         selectBirthDay.setVisibility(View.GONE);
 

@@ -21,7 +21,7 @@ public class ParamsRegister implements Serializable
     @SerializedName("phoneNumber")
     @Expose
     private String phoneNumber;
-    @SerializedName("birthDay")
+    @SerializedName("birthday")
     @Expose
     private String birthDay;
     @SerializedName("email")

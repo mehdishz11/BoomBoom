@@ -79,6 +79,13 @@ public class UserProfile {
         editor.putString(KEY_FCM, value);
         editor.apply();
     }
+    public  void set_KEY_BIRTH_DAY(String value) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(KEY_BRITH_DAY, value);
+        editor.apply();
+        editor.commit();
+    }
 
     public  void set_KEY_JWT(String value) {
         SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
