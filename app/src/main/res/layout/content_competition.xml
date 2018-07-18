@@ -21,7 +21,6 @@
         android:background="@color/colorPrimary"
         app:tabIndicatorColor="@color/White"
         app:tabSelectedTextColor="@color/white_1"
-        app:tabTextAppearance="@style/MineCustomTabText"
         app:tabTextColor="@color/Black" />
 
     <FrameLayout

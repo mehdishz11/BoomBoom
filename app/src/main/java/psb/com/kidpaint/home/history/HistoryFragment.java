@@ -183,7 +183,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
     public void showUserRegisterDialog(final int position) {
         sendPosition = position;
         final MessageDialog dialog = new MessageDialog(getContext());
-        dialog.setMessage("برای ارسال نقاشی باید ثبت نام کنید. آیامیخواهید ثبت نام کنید؟");
+        dialog.setMessage("برای ارسال نقاشی باید ثبت نام کنید یا وارد شوید!");
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
@@ -199,9 +199,9 @@ public class HistoryFragment extends Fragment implements IVHistory {
 
             }
         });
-        dialog.setSoundId(R.raw.are_you_sure_exit);
-        dialog.setAcceptButtonMessage(getContext().getString(R.string.login_register_hint));
-        dialog.setTitle(getString(R.string.login_register_hint));
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.enter));
+        dialog.setTitle(getString(R.string.register_login));
         dialog.show();
     }
 
