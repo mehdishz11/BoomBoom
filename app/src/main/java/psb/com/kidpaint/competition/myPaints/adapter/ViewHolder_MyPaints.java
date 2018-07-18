@@ -1,4 +1,4 @@
-package psb.com.kidpaint.competition.paints.adapter;
+package psb.com.kidpaint.competition.myPaints.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 
 import psb.com.kidpaint.R;
 
-public class ViewHolder_AllPaints extends RecyclerView.ViewHolder {
+public class ViewHolder_MyPaints extends RecyclerView.ViewHolder {
 
     public RelativeLayout relParent;
     public ImageView imgOutline;
@@ -16,7 +16,7 @@ public class ViewHolder_AllPaints extends RecyclerView.ViewHolder {
     public View parentView;
     public Button delete,edit,competition;
 
-    public ViewHolder_AllPaints(View itemView) {
+    public ViewHolder_MyPaints(View itemView) {
         super(itemView);
 
         parentView=itemView;

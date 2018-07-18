@@ -14,18 +14,21 @@ import android.widget.TextView;
 
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.competition.allPaint.FragmentAllPaints;
 import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
-import psb.com.kidpaint.competition.paints.FragmentPaints;
+import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 
 
 public class ActivityCompetition extends AppCompatActivity implements IVCompetition,
-        FragmentPaints.OnFragmentInteractionListener,
+        FragmentMyPaints.OnFragmentInteractionListener,
+        FragmentAllPaints.OnFragmentInteractionListener,
         FragmentLeaderBoard.OnFragmentInteractionListener
 {
     private static final String TAG_FRAGMENT_PAINTS = "TAG_FRAGMENT_PAINTS";
+    private static final String TAG_FRAGMENT_All_PAINTS = "TAG_FRAGMENT_All_PAINTS";
     private static final String TAG_FRAGMENT_LEADER_BOARD = "TAG_FRAGMENT_LEADER_BOARD";
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -64,9 +67,11 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     void setFragment(int position){
 
         if (position==0) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentPaints().newInstance(mResponseGetMyPaints,mResponseGetAllPaints), TAG_FRAGMENT_PAINTS).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_PAINTS).commit();
         }else if (position==1) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance("",""), TAG_FRAGMENT_LEADER_BOARD).commit();
+        }else if (position==2) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentAllPaints().newInstance(mResponseGetAllPaints), TAG_FRAGMENT_All_PAINTS).commit();
         }
 
     }
@@ -90,8 +95,9 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
     void setTabLayout(){
 
-        tabLayout.addTab(tabLayout.newTab().setText("عکس ها"),true);
-        tabLayout.addTab(tabLayout.newTab().setText("رده بندی"));
+        tabLayout.addTab(tabLayout.newTab().setText("عکس های من"));
+        tabLayout.addTab(tabLayout.newTab().setText("رده بندی"),true);
+        tabLayout.addTab(tabLayout.newTab().setText("همه عکس ها"));
         changeTabsFont();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -117,7 +123,7 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
             }
         });
 
-        setFragment(0);
+        setFragment(1);
 
     }
 

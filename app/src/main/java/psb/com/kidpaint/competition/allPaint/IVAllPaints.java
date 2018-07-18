@@ -1,11 +1,10 @@
-package psb.com.kidpaint.competition.paints;
+package psb.com.kidpaint.competition.allPaint;
 
 import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 
-public interface IVPaints {
+public interface IVAllPaints {
 
     Context getContext();
 
@@ -14,6 +13,5 @@ public interface IVPaints {
     void onFailedGetAllPaints(int errorCode, String errorMessage);
 
 
-    void onSuccessDeleteMyPaints(int position);
 
 }

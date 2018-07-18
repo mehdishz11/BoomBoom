@@ -1,4 +1,4 @@
-package psb.com.kidpaint.competition.paints.adapter;
+package psb.com.kidpaint.competition.myPaints.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.competition.paints.PPaints;
+import psb.com.kidpaint.competition.myPaints.PMyPaints;
 
 
 /**
@@ -16,9 +16,9 @@ import psb.com.kidpaint.competition.paints.PPaints;
 public class Adapter_MyPaints extends RecyclerView.Adapter<ViewHolder_MyPaints> {
 
 
-   private PPaints pPaints;
+   private PMyPaints pPaints;
 
-    public Adapter_MyPaints(PPaints pPaints) {
+    public Adapter_MyPaints(PMyPaints pPaints) {
         this.pPaints = pPaints;
     }
 

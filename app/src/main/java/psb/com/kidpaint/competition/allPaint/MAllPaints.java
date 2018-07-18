@@ -1,4 +1,4 @@
-package psb.com.kidpaint.competition.paints;
+package psb.com.kidpaint.competition.allPaint;
 
 import android.content.Context;
 
@@ -9,16 +9,15 @@ import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.MyPaint;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 
-public class MPaints implements IMPaints {
+public class MAllPaints implements IMAllPaints {
 
     private Context context;
-    private IPPaints ipPaints;
+    private IPAllPaints ipAllPaints;
     private ResponseGetAllPaints mResponseGetAllPaints;
-    private ResponseGetMyPaints mResponseGetMyPaints;
 
-    public MPaints(IPPaints ipPaints) {
-        this.ipPaints = ipPaints;
-        this.context=ipPaints.getContext();
+    public MAllPaints(IPAllPaints ipAllPaints) {
+        this.ipAllPaints = ipAllPaints;
+        this.context= ipAllPaints.getContext();
 
     }
 
@@ -27,10 +26,7 @@ public class MPaints implements IMPaints {
         return context;
     }
 
-    @Override
-    public void setResponseGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
-         mResponseGetMyPaints=responseGetMyPaints;
-    }
+
 
     @Override
     public void onGetAllPaints(String text, final int page, int size) {
@@ -40,16 +36,16 @@ public class MPaints implements IMPaints {
 
                 if (page==1) {
                     mResponseGetAllPaints=responseGetAllPaints;
-                    ipPaints.onSuccessGetAllPaints(mResponseGetAllPaints);
+                    ipAllPaints.onSuccessGetAllPaints(mResponseGetAllPaints);
                 }else {
                     mResponseGetAllPaints.getExtra().getAllPaintModel().addAll(responseGetAllPaints.getExtra().getAllPaintModel());
-                    ipPaints.onSuccessGetAllPaints(mResponseGetAllPaints);
+                    ipAllPaints.onSuccessGetAllPaints(mResponseGetAllPaints);
                 }
             }
 
             @Override
             public void onFailedGetAllPaints(int errorId, String ErrorMessage) {
-                ipPaints.onFailedGetAllPaints(errorId, ErrorMessage);
+                ipAllPaints.onFailedGetAllPaints(errorId, ErrorMessage);
 
             }
         }).doGetAllPaints(text,page,size);
@@ -61,16 +57,9 @@ public class MPaints implements IMPaints {
 
     }
 
-    @Override
-    public void deleteMyPaints(int position) {
-
-    }
 
 
-    @Override
-    public int getArrSizeMyPaints() {
-        return mResponseGetMyPaints.getMyPaint().size();
-    }
+
 
     @Override
     public int getArrSizeAllPaints() {
@@ -82,10 +71,6 @@ public class MPaints implements IMPaints {
         return mResponseGetAllPaints.getExtra().getTotal();
     }
 
-    @Override
-    public MyPaint getMyPaintsPositionAt(int position) {
-        return mResponseGetMyPaints.getMyPaint().get(position);
-    }
 
     @Override
     public AllPaintModel getAllPaintsPositionAt(int position) {
