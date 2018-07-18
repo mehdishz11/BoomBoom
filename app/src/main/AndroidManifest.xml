@@ -14,11 +14,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        android:theme="@style/AppTheme"
+        android:largeHeap="true"
+        >
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".home.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -40,7 +41,10 @@
         <activity
             android:name=".user.register.ActivityRegisterUser"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
         <activity
             android:name=".user.edit.ActivityEditProfile"
             android:label=""
@@ -54,6 +58,8 @@
         </receiver>
 
         <activity android:name=".competition.ActivityCompetition"></activity>
+
+
     </application>
 
 </manifest>

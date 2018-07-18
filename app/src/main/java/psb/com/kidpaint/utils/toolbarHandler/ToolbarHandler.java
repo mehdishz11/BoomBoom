@@ -26,11 +26,34 @@ public class ToolbarHandler {
 
         }
     }
+
+    public static void setNavigationColor(Context context,Window w,View view,int colorResource,boolean isDark){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            if(isDark){
+                int flags = view.getSystemUiVisibility();
+                flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                view.setSystemUiVisibility(flags);
+            }else{
+                w.clearFlags(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+
+
+            w.setNavigationBarColor(ContextCompat.getColor(context, colorResource));
+
+        }
+    }
+
     public static void makeTansluteToolbar(Context context,Window w,View view){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             w.setStatusBarColor(ContextCompat.getColor(context, android.R.color.transparent));
         }
     }
-
+    public static void makeTansluteNavigation (Context context,Window w,View view){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            w.setStatusBarColor(ContextCompat.getColor(context, android.R.color.transparent));
+        }
+    }
 }

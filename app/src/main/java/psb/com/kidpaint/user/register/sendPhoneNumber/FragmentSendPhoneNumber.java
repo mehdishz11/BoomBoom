@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,8 @@ public class FragmentSendPhoneNumber extends Fragment implements iVSendPhoneNumb
     private EditText editTextPhoneNumber;
     private Button buttonSendPhoneNumber;
     private PSendPhoneNumber pSendPhoneNumber;
-    private TextView back,textError;
+    private ImageView back;
+    private TextView textError;
     private ProgressBar progressBar;
 
     public FragmentSendPhoneNumber() {
@@ -52,6 +55,7 @@ public class FragmentSendPhoneNumber extends Fragment implements iVSendPhoneNumb
         return view;
     }
 
+
     private void setView(){
 
         textError = view.findViewById(R.id.text_error);
@@ -69,7 +73,6 @@ public class FragmentSendPhoneNumber extends Fragment implements iVSendPhoneNumb
                 if (!validatePhoneNumber()) {
                     return;
                 }
-                Log.d("ffff", "onClick: " + Utils.getSmsPermission(getActivity()));
                 if (Utils.getSmsPermission(getActivity())) {
                     pSendPhoneNumber.sendPhoneNumber(editTextPhoneNumber.getText().toString());
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
@@ -82,6 +85,31 @@ public class FragmentSendPhoneNumber extends Fragment implements iVSendPhoneNumb
                 }
             }
         });
+
+        editTextPhoneNumber.setImeActionLabel("Done", EditorInfo.IME_ACTION_DONE);
+        editTextPhoneNumber.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (!validatePhoneNumber()) {
+                        return false ;
+                    }
+                    if (Utils.getSmsPermission(getActivity())) {
+                        pSendPhoneNumber.sendPhoneNumber(editTextPhoneNumber.getText().toString());
+                        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(editTextPhoneNumber.getWindowToken(), 0);
+                    } else {
+                        int permission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECEIVE_SMS);
+                        if (permission != PackageManager.PERMISSION_GRANTED) {
+                            requestPermission();
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
       back.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -137,6 +165,8 @@ public class FragmentSendPhoneNumber extends Fragment implements iVSendPhoneNumb
     public void onStartSendPhoneNumber() {
         progressBar.setVisibility(View.VISIBLE);
         editTextPhoneNumber.setEnabled(false);
+        buttonSendPhoneNumber.setEnabled(false);
+
         mListener.onStartSendPhoneNumber(editTextPhoneNumber.getText().toString());
     }
 
@@ -152,13 +182,14 @@ public class FragmentSendPhoneNumber extends Fragment implements iVSendPhoneNumb
     public void sendPhoneNumberSuccess() {
         progressBar.setVisibility(View.GONE);
         editTextPhoneNumber.setEnabled(true);
+        buttonSendPhoneNumber.setEnabled(true);
         mListener.sendPhoneNumberSuccess();
     }
 
     @Override
     public void sendPhoneNumberFailed(String msg) {
-        Log.d("TAG", "sendPhoneNumberFailed: "+msg);
-
+        editTextPhoneNumber.setEnabled(true);
+        buttonSendPhoneNumber.setEnabled(true);
         progressBar.setVisibility(View.GONE);
         textError.setText(msg);
         textError.setVisibility(View.VISIBLE);

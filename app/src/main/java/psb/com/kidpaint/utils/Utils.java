@@ -5,30 +5,21 @@ package psb.com.kidpaint.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
-
-import psb.com.kidpaint.App;
-
-import static android.content.Context.ACTIVITY_SERVICE;
 
 public class Utils {
 
@@ -121,73 +112,11 @@ public class Utils {
         return true;
     }
 
-    public static void requestPermission(Activity activity) {
-        ActivityCompat.requestPermissions(activity,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                RECORD_REQUEST_CODE);
+
+    public static void closeKeyboard(){
+
     }
 
-    public static boolean isPackageInstalled(String packageName, PackageManager packageManager) {
-        try {
-            packageManager.getPackageInfo(packageName, 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
- /*   public static void createNotification(final Context context, final int key, final String title, final String messageBody, final String imageUr, final int icon, String extra) {
-        Intent intent = new Intent(context , ActivityHome.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        if(extra!=null){
-            if(extra.contains("http") || extra.contains("https")){
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(extra));
-            }else{
-                intent.putExtra(extra,true);
-            }
-        }
-
-        final PendingIntent resultIntent = PendingIntent.getActivity( context , 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-        final Uri notificationSoundURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                NotificationCompat.Builder   mNotificationBuilder;
-                mNotificationBuilder = new NotificationCompat.Builder( context)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle(title)
-                        .setContentText(messageBody)
-                        .setColor(context.getResources().getColor(R.color.md_black_1000))
-                        .setColorized(true)
-                        .setAutoCancel(true)
-                        .setDefaults(DEFAULT_SOUND | DEFAULT_VIBRATE)
-                        .setSound(notificationSoundURI)
-                        .setContentIntent(resultIntent);
-
-                Bitmap imageBitmap = null;
-                if (imageUr != null && !imageUr.equals("")){
-                    imageBitmap=getBitmapFromURL(imageUr);
-                }
-
-                if(imageBitmap!=null){
-                    mNotificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                            .bigPicture(imageBitmap)
-                            .setSummaryText(messageBody)
-                            .setBigContentTitle(title));
-                }
-
-                NotificationManager notificationManager =(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(key, mNotificationBuilder.build());
-            }
-        }).start();
-    }
-*/
     public static Bitmap getBitmapFromURL(String strURL) {
         try {
             URL url = new URL(strURL);

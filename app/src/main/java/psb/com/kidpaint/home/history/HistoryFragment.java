@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 
 public class HistoryFragment extends Fragment implements IVHistory {
-    private static final int REQUEST_CODE_REGISTER=120;
+    private static final int REQUEST_CODE_REGISTER = 120;
 
     private View view;
     private TextView emptyView;
@@ -37,7 +36,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
 
-    private int sendPosition=-1;
+    private int sendPosition = -1;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -65,7 +64,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history, container, false);
-        progressDialog=new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("لطفا کمی صبر کنید...");
         progressDialog.setCancelable(false);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -83,7 +82,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else  if (getParentFragment() instanceof OnFragmentInteractionListener) {
+        } else if (getParentFragment() instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) getParentFragment();
         }
     }
@@ -105,7 +104,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        AnimationAdapter animationAdapter=new SlideInBottomAnimationAdapter(historyAdapter);
+        AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(historyAdapter);
         animationAdapter.setDuration(100);
         animationAdapter.setFirstOnly(false);
 
@@ -133,10 +132,10 @@ public class HistoryFragment extends Fragment implements IVHistory {
 
     @Override
     public void onSuccessPostPaint(ResponsePostPaint responsePostPaint) {
-       progressDialog.cancel();
+        progressDialog.cancel();
 
         final MessageDialog dialog = new MessageDialog(getContext());
-        dialog.setMessage("نقاشی شما با موفقیت ارسال شد کد پیگیری نقاشی شما "+responsePostPaint.getExtra()+" میباشد");
+        dialog.setMessage("نقاشی شما با موفقیت ارسال شد کد پیگیری نقاشی شما " + responsePostPaint.getExtra() + " میباشد");
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
@@ -175,55 +174,51 @@ public class HistoryFragment extends Fragment implements IVHistory {
         });
         dialog.setSoundId(R.raw.are_you_sure_exit);
         dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
-        dialog.setTitle(getString(R.string.dangger));
+        dialog.setTitle(getString(R.string.danger));
         dialog.show();
 
     }
 
     @Override
     public void showUserRegisterDialog(final int position) {
-        sendPosition=position;
+        sendPosition = position;
         final MessageDialog dialog = new MessageDialog(getContext());
         dialog.setMessage("برای ارسال نقاشی باید ثبت نام کنید. آیامیخواهید ثبت نام کنید؟");
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-                startActivityForResult(new Intent(getContext(), ActivityRegisterUser.class),REQUEST_CODE_REGISTER);
+                startActivityForResult(new Intent(getContext(), ActivityRegisterUser.class), REQUEST_CODE_REGISTER);
 
                 dialog.cancel();
             }
 
             @Override
             public void onNegativeClicked() {
-                sendPosition=-1;
+                sendPosition = -1;
                 dialog.cancel();
 
             }
         });
         dialog.setSoundId(R.raw.are_you_sure_exit);
-        dialog.setAcceptButtonMessage(getContext().getString(R.string.register));
-        dialog.setTitle(getString(R.string.register));
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.login_register_hint));
+        dialog.setTitle(getString(R.string.login_register_hint));
         dialog.show();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // super.onActivityResult(requestCode, resultCode, data);
-        Log.d("TAG", "onActivityResult requestCode: "+requestCode);
-        Log.d("TAG", "onActivityResult resultCode: "+resultCode);
-        Log.d("TAG", "onActivityResult sendPosition: "+sendPosition);
-        if (requestCode==REQUEST_CODE_REGISTER && resultCode== Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_REGISTER && resultCode == Activity.RESULT_OK) {
             mListener.setupDrawer();
-            if (sendPosition!=-1) {
+            if (sendPosition != -1) {
                 pHistory.postPaint(sendPosition);
             }
-            sendPosition=-1;
-        }else{
-            sendPosition=-1;
+            sendPosition = -1;
+        } else {
+            sendPosition = -1;
         }
     }
 
     public interface OnFragmentInteractionListener {
-          void setupDrawer();
+        void setupDrawer();
     }
 }

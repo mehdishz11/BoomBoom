@@ -22,6 +22,7 @@ import psb.com.kidpaint.user.register.verifyCode.FragmentVerifyCode;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.customView.ProgressView;
+import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
@@ -50,7 +51,11 @@ public class ActivityRegisterUser extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
+            if(getSupportFragmentManager().findFragmentByTag(KEY_FRGUserInfo)!=null){
+                finish();
+            }else {
+                getSupportFragmentManager().popBackStack();
+            }
         } else {
             finish();
         }
@@ -101,10 +106,10 @@ public class ActivityRegisterUser extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-    /*    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.md_blue_700));
 
-        }*/
+        ToolbarHandler.setToolbarColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
+        ToolbarHandler.setNavigationColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Window window = this.getWindow();
             clearLightStatusBar(window.getDecorView());
@@ -276,5 +281,11 @@ public class ActivityRegisterUser extends AppCompatActivity implements
                 fragmentUserInfo.retrySetProfile();
             }
         });
+    }
+
+    @Override
+    public void cancelRegister() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 }
