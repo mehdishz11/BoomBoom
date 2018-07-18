@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         MusicHelper.playMusic(R.raw.bgr_happy_sunshine);
     }
 
-    void setupDrawer() {
+    public void setupDrawer() {
         Log.d("TAG", "setupDrawer: ");
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -287,11 +287,13 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
       /*  if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         }*/
+         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult home: "+requestCode);
         if (requestCode == CODE_REGISTER) {
             if (resultCode == Activity.RESULT_OK) {
                setupDrawer();
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                finish();
+                //finish();
             }
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {

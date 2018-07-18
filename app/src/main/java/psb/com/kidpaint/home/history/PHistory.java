@@ -12,6 +12,7 @@ import java.util.Random;
 
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.webApi.paint.postPaint.ResponsePostPaint;
 
 public class PHistory implements  IPHistory {
     private Context context;
@@ -27,6 +28,12 @@ public class PHistory implements  IPHistory {
     @Override
     public Context getContext() {
         return context;
+    }
+
+    @Override
+    public void postPaint(int position) {
+        ivHistory.onStartPostPaint();
+        mHistory.postPaint(position);
     }
 
     @Override
@@ -46,7 +53,7 @@ public class PHistory implements  IPHistory {
     }
 
     @Override
-    public void onBindViewHolder(HistoryViewHolder holder, int position) {
+    public void onBindViewHolder(HistoryViewHolder holder, final int position) {
      final File filePath=mHistory.getPositionAt(position);
 
         if(position%2==0){
@@ -80,11 +87,36 @@ public class PHistory implements  IPHistory {
                ivHistory.onSelecteditem(filePath.getAbsolutePath());
             }
         });
+
+        holder.competition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mHistory.userIsRegistered()) {
+                    ivHistory.onStartPostPaint();
+                    mHistory.postPaint(position);
+                }else {
+                    ivHistory.showUserRegisterDialog(position);
+                }
+            }
+        });
+
+
     }
 
     @Override
     public int getArrSize() {
         return mHistory.getArrSize();
+    }
+
+    @Override
+    public void onSuccessPostPaint(ResponsePostPaint responsePostPaint) {
+        ivHistory.onSuccessPostPaint(responsePostPaint);
+    }
+
+    @Override
+    public void onFailedPostPaint(int errorCode, String errorMessage) {
+        ivHistory.onFailedPostPaint(errorCode, errorMessage);
+
     }
 
 }

@@ -9,7 +9,11 @@ public interface IMHistory {
     Context getContext();
     void getMyPaintHistory();
 
+    void postPaint(int position);
+
     File getPositionAt(int position);
     int getArrSize();
+
+    boolean userIsRegistered();
 
 }
