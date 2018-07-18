@@ -2,8 +2,7 @@ package psb.com.kidpaint.home.history;
 
 import android.content.Context;
 
-import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
-import psb.com.kidpaint.webApi.paint.postPaint.ResponsePostPaint;
+import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 
 public interface IVHistory {
 

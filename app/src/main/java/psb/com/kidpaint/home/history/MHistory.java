@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import psb.com.kidpaint.utils.UserProfile;
-import psb.com.kidpaint.webApi.paint.PostPaint;
-import psb.com.kidpaint.webApi.paint.iPostPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.ParamsPostPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.ResponsePostPaint;
+import psb.com.kidpaint.webApi.paint.Paint;
+import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
+import psb.com.kidpaint.webApi.paint.postPaint.model.ParamsPostPaint;
+import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 
 public class MHistory implements IMHistory {
     private Context context;
@@ -56,7 +56,7 @@ public class MHistory implements IMHistory {
 
         Bitmap bitmap= BitmapFactory.decodeFile(imageList.get(position).getAbsolutePath());
 
-        new PostPaint(new iPostPaint.iResult() {
+        new Paint().postPaint(new iPostPaint.iResult() {
             @Override
             public void onSuccessPostPaint(ResponsePostPaint responsePostPaint) {
                 ipHistory.onSuccessPostPaint(responsePostPaint);

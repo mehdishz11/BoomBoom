@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layoutDirection="ltr"
+    android:background="@color/White"
+    tools:showIn="@layout/activity_competition">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layoutDirection="ltr"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        android:elevation="2dp"
+        android:background="@color/colorPrimary"
+        app:tabIndicatorColor="@color/White"
+        app:tabSelectedTextColor="@color/white_1"
+        app:tabTextAppearance="@style/MineCustomTabText"
+        app:tabTextColor="@color/Black" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabLayout"
+        android:id="@+id/frameLayout" />
+
+</RelativeLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    tools:context=".competition.ActivityCompetition">
+
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="?actionBarSize"
+                        android:id="@+id/icon_drawer"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/margin_15"
+                        android:tint="@color/White"
+                        android:src="@drawable/img_icon_right_arrow"
+                        android:layout_height="?actionBarSize" />
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="رقابت"
+                        android:layout_toLeftOf="@+id/icon_drawer"
+                        android:textColor="@color/White"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/content_competition" />
+
+
+    <psb.com.kidpaint.utils.customView.ProgressView
+        android:id="@+id/progressView"
+        android:layout_width="match_parent"
+        app:mode="0"
+        android:layout_height="match_parent"></psb.com.kidpaint.utils.customView.ProgressView>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

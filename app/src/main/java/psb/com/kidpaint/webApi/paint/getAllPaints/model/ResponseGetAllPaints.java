@@ -1,16 +1,14 @@
 
-package psb.com.kidpaint.webApi.paint.postPaint;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+package psb.com.kidpaint.webApi.paint.getAllPaints.model;
 
 import java.io.Serializable;
 import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import psb.com.kidpaint.webApi.shareModel.Message;
 
-
-public class ResponsePostPaint implements Serializable
+public class ResponseGetAllPaints implements Serializable
 {
 
     @SerializedName("ok")
@@ -21,8 +19,8 @@ public class ResponsePostPaint implements Serializable
     private List<Message> messages = null;
     @SerializedName("extra")
     @Expose
-    private Integer extra;
-    private final static long serialVersionUID = -6976072409833187691L;
+    private Extra extra;
+    private final static long serialVersionUID = -7660781646842205922L;
 
     public Boolean getOk() {
         return ok;
@@ -32,8 +30,6 @@ public class ResponsePostPaint implements Serializable
         this.ok = ok;
     }
 
-
-
     public List<Message> getMessages() {
         return messages;
     }
@@ -42,16 +38,12 @@ public class ResponsePostPaint implements Serializable
         this.messages = messages;
     }
 
-
-
-    public Integer getExtra() {
+    public Extra getExtra() {
         return extra;
     }
 
-    public void setExtra(Integer extra) {
+    public void setExtra(Extra extra) {
         this.extra = extra;
     }
-
-
 
 }

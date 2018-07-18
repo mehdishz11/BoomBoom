@@ -1,5 +1,5 @@
 
-package psb.com.kidpaint.webApi.paint.postPaint;
+package psb.com.kidpaint.webApi.paint.postPaint.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

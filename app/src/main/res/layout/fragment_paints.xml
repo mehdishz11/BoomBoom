@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".competition.paints.FragmentPaints">
+
+    <psb.com.kidpaint.utils.customView.cSearchView
+        android:id="@+id/search"
+        style="@style/SearchViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layoutDirection="rtl"
+        android:queryHint="نام برنامه"
+        android:textSize="@dimen/font_size_14"
+        app:defaultQueryHint="نام کودک ، کد عکس"
+        app:searchHintIcon="@null" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/search"
+        android:background="@color/md_grey_600"
+        android:layout_height="0.5dp"/>
+
+    <RelativeLayout
+        android:id="@+id/relMyPaints"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/view1"
+        android:background="@color/md_grey_200"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_height="120dp">
+
+        <RelativeLayout
+            android:id="@+id/relUserInfo"
+            android:padding="@dimen/margin_5"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content">
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/act_user_image"
+                android:layout_marginTop="@dimen/margin_5"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="نام کاربری"
+                android:textColor="@color/blue_3"
+                android:textSize="@dimen/font_size_13" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/act_user_image"
+                android:layout_alignLeft="@+id/act_user_image"
+                android:layout_alignRight="@+id/act_user_image"
+                android:layout_alignTop="@+id/act_user_image"
+                android:background="@drawable/circle_blue" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/act_user_image"
+                app:riv_corner_radius="40dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:src="@drawable/user_empty_gray"
+                android:tint="@color/light_level_0" />
+
+        </RelativeLayout>
+        <psb.com.cview.CustomTextViewBold
+            android:layout_width="match_parent"
+            android:id="@+id/emptyViewMyPaints"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:layout_toLeftOf="@+id/relUserInfo"
+            android:visibility="gone"
+            android:textSize="@dimen/font_size_12"
+            android:text="شما نقاشی ارسال نکردید"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewMyPaints"
+            android:layout_toLeftOf="@+id/relUserInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_below="@+id/relMyPaints"
+        android:layout_above="@+id/progressBar"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewAllPaints"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <psb.com.cview.CustomTextViewBold
+        android:layout_width="match_parent"
+        android:id="@+id/emptyViewAllPaints"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="@dimen/margin_10"
+        android:textSize="@dimen/font_size_14"
+        android:text="لیست نقاشی ها خالی است"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/margin_5"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

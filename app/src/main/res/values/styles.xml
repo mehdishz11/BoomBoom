@@ -22,5 +22,19 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.Light.SearchView">
+        <!-- Gets rid of the search icon -->
+        <item name="searchIcon">@drawable/ic_search3</item>
+        <item name="closeIcon">@drawable/ic_close2</item>
+        <item name="queryBackground">@color/colorPrimary</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textColorHint">@color/md_grey_400</item>
+        <item name="android:textCursorDrawable">@drawable/line_red_ver_1_dp</item>
+    </style>
 </resources>

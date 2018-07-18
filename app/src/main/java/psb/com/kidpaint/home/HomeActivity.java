@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import psb.com.cview.CButton;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.HistoryFragment;
 import psb.com.kidpaint.home.newPaint.NewPaintFragment;
 import psb.com.kidpaint.painting.PaintActivity;
@@ -98,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         btnCompetition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeActivity.this.startActivity(new Intent(HomeActivity.this, PaintActivity.class));
+                startActivity(new Intent(HomeActivity.this, ActivityCompetition.class));
             }
         });
 

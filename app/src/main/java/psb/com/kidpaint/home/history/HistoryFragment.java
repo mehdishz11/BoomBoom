@@ -19,11 +19,10 @@ import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
-import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
-import psb.com.kidpaint.webApi.paint.postPaint.ResponsePostPaint;
+import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 
 public class HistoryFragment extends Fragment implements IVHistory {
     private static final int REQUEST_CODE_REGISTER=120;
