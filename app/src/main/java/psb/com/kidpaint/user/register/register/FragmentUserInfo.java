@@ -65,6 +65,8 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
     private ImageView girlImage, boyImage;
     private TextView girlText, boyText, birthDay, selectBirthDay;
 
+    private ImageView imgBack;
+
 
     public FragmentUserInfo() {
         // Required empty public constructor
@@ -80,16 +82,32 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         pUserInfo = new PUserInfo(this);
-        view = inflater.inflate(R.layout.fragment_get_user_info, container, false);
+        view = inflater.inflate(R.layout.fragment_user_info, container, false);
         setView();
         return view;
     }
 
     private void setView() {
-        title = view.findViewById(R.id.text_toolbar_title);
-        title.setText("ثبت نام");
+
+        TextView title1 = view.findViewById(R.id.text_title_1);
+        TextView title2 = view.findViewById(R.id.text_title_2);
+        title1.setText("ثبت نام");
+        title2.setText("ثبت نام");
+
         editTextName = view.findViewById(R.id.edit_text_name);
         editTextLastName = view.findViewById(R.id.edit_text_last_name);
+
+        imgBack= view.findViewById(R.id.icon_back);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.cancelRegister();
+                }
+            }
+        });
+
+
         paramsRegister = new ParamsRegister();
 
         girlImage = view.findViewById(R.id.image_girl_normal);
@@ -306,19 +324,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         mListener.getUserInfoFailed(msg);
     }
 
-    public interface OnFragmentInteractionListener {
-        void onStartGetUserInfo();
 
-        void getUserInfoSuccess();
-
-        void getUserInfoFailed(String msg);
-
-        void onStartSetUserInfo();
-
-        void setUserInfoSuccess();
-
-        void setUserInfoFailed(String msg);
-    }
 
     private Uri getUri(Bitmap bitmap, String name) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
@@ -393,5 +399,22 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         );
         dpd.setThemeDark(true);
         dpd.show(getChildFragmentManager(), "DatePickerDialog");
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        void onStartGetUserInfo();
+
+        void getUserInfoSuccess();
+
+        void getUserInfoFailed(String msg);
+
+        void onStartSetUserInfo();
+
+        void setUserInfoSuccess();
+
+        void setUserInfoFailed(String msg);
+
+        void cancelRegister();
     }
 }

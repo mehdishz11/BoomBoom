@@ -18,11 +18,11 @@ public class IconButton extends AppCompatButton {
 
     public IconButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/KidsPaint.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/KidsPaint_2.ttf"));
     }
 
     public IconButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/KidsPaint.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/KidsPaint_2.ttf"));
     }
 }

@@ -85,14 +85,17 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
         // Inflate the layout for this fragment
         pUserInfo = new PEditUserInfo(this);
         userProfile=new UserProfile(getContext());
-        view = inflater.inflate(R.layout.fragment_get_user_info, container, false);
+        view = inflater.inflate(R.layout.fragment_user_info, container, false);
         setView();
         return view;
     }
 
     private void setView(){
-        title = view.findViewById(R.id.text_toolbar_title);
-        title.setText("ویرایش اطلاعات کاربری");
+        TextView title1 = view.findViewById(R.id.text_title_1);
+        TextView title2 = view.findViewById(R.id.text_title_2);
+        title1.setText("ویرایش");
+        title2.setText("ویرایش");
+
         editTextName = view.findViewById(R.id.edit_text_name);
         editTextLastName = view.findViewById(R.id.edit_text_last_name);
 
@@ -414,8 +417,8 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
         paramsRegister.setMale(isMale);
         boyImage.setImageResource(isMale ? R.drawable.icon_boy_selected : R.drawable.icon_boy_normal);
         girlImage.setImageResource(isMale ? R.drawable.icon_gir_normal : R.drawable.icon_gir_selected);
-        boyText.setTextColor(isMale ? getActivity().getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.md_grey_600));
-        girlText.setTextColor(isMale ? getActivity().getResources().getColor(R.color.md_grey_600) : getResources().getColor(R.color.colorPrimary));
+        boyText.setTextColor(isMale ? getActivity().getResources().getColor(R.color.colorPrimaryDark) : getResources().getColor(R.color.md_grey_600));
+        girlText.setTextColor(isMale ? getActivity().getResources().getColor(R.color.md_grey_600) : getResources().getColor(R.color.colorPrimaryDark));
 
 
     }

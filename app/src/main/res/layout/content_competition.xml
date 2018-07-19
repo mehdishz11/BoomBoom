@@ -18,10 +18,9 @@
         app:tabIndicatorHeight="2dp"
         app:tabMode="fixed"
         android:elevation="2dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/blue_3"
         app:tabIndicatorColor="@color/White"
         app:tabSelectedTextColor="@color/white_1"
-        app:tabTextAppearance="@style/MineCustomTabText"
         app:tabTextColor="@color/Black" />
 
     <FrameLayout

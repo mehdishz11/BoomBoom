@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,10 +37,10 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
     private EditText textMessageCode;
     private ProgressBar progress;
     private TextView textError;
-    private TextView send;
+    private Button send;
 
     private TextView textPhoneNumber;
-    private TextView iconBack;
+    private ImageView iconBack;
 
     private TextView textResendCode;
 
@@ -190,15 +190,15 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
         progress.setVisibility(View.VISIBLE);
         textError.setVisibility(View.GONE);
         textMessageCode.setEnabled(false);
+        send.setEnabled(false);
         mListener.onStartVerifyCode(textMessageCode.getText().toString());
     }
 
     @Override
     public void VerifyCodeSuccess() {
-
-
         progress.setVisibility(View.GONE);
         textMessageCode.setEnabled(true);
+        send.setEnabled(true);
         mListener.VerifyCodeSuccess();
     }
 
@@ -206,6 +206,7 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
     public void VerifyCodeFailed(String msg) {
         progress.setVisibility(View.GONE);
         textMessageCode.setEnabled(true);
+        send.setEnabled(true);
         textError.setText(msg);
         textError.setVisibility(View.VISIBLE);
     }
@@ -233,7 +234,7 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
                 try{
                     textResendCode.setText(R.string.resend_key);
                     textResendCode.setEnabled(true);
-                    textResendCode.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_700));
+                    textResendCode.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
                 }catch (Exception ex){
 
                 }
@@ -247,7 +248,7 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
             @Override
             public void run() {
                 try {
-                    textResendCode.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_700));
+                    textResendCode.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
                     textResendCode.setEnabled(false);
                     textResendCode.setText(getString(R.string.resend_key) + " " + timerCounter);
                 }catch (Exception ex){
