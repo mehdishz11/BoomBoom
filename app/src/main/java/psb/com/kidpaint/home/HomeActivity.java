@@ -28,6 +28,7 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.HistoryFragment;
 import psb.com.kidpaint.home.newPaint.NewPaintFragment;
+import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
@@ -37,8 +38,8 @@ import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 
 public class HomeActivity extends AppCompatActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
-        NewPaintFragment.OnFragmentInteractionListener
-{
+        NewPaintFragment.OnFragmentInteractionListener,
+        SplashFragment.OnFragmentInteractionListener{
 
     public static int CODE_REGISTER = 107;
     public static int CODE_EDIT = 108;
@@ -48,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     private final String TAG_FRAGMENT_HISTORY = "TAG_FRAGMENT_HISTORY";
     private final String TAG_FRAGMENT_NEW_PAINTING = "TAG_FRAGMENT_NEW_PAINTING";
+    private final String TAG_FRAGMENT_SPLASH = "TAG_FRAGMENT_SPLASH";
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -64,8 +66,8 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        pHome=new PHome(this);
-        userProfile=new UserProfile(this);
+        pHome = new PHome(this);
+        userProfile = new UserProfile(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
@@ -108,6 +110,8 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         btnNewPainting.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
         btnHistory.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new NewPaintFragment().newInstance(), TAG_FRAGMENT_NEW_PAINTING).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, new SplashFragment().newInstance(), TAG_FRAGMENT_SPLASH).commit();
 
         drawerIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +161,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             editUser.setVisibility(View.GONE);
             registerOrLogin.setText("ثبت نام | ورود");
 
-        }else{
+        } else {
             editUser.setVisibility(View.VISIBLE);
             logOut.setVisibility(View.VISIBLE);
             myPaint.setVisibility(View.VISIBLE);
@@ -177,7 +181,6 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                 }
             });
         }
-
 
 
         editUser.setOnClickListener(new View.OnClickListener() {
@@ -227,11 +230,10 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     }
 
 
-
     @Override
     public void onOutlineSelected(int resId) {
-        Intent intent=new Intent(HomeActivity.this, PaintActivity.class);
-        intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE,resId);
+        Intent intent = new Intent(HomeActivity.this, PaintActivity.class);
+        intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
         HomeActivity.this.startActivity(intent);
     }
 
@@ -248,7 +250,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     @Override
     public void onLogoutSuccess() {
         progressDialog.cancel();
-       // finish();
+        // finish();
         setupDrawer();
 
 
@@ -259,6 +261,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
     }
+
     public void exitProfileDialog() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         View promptView = layoutInflater.inflate(R.layout.dialog_logout, null);
@@ -288,19 +291,39 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
       /*  if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         }*/
-         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("TAG", "onActivityResult home: "+requestCode);
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult home: " + requestCode);
         if (requestCode == CODE_REGISTER) {
             if (resultCode == Activity.RESULT_OK) {
-               setupDrawer();
+                setupDrawer();
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();
             }
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
-               setupDrawer();
+                setupDrawer();
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // splashFragment
+    ///////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void startGetStickers() {
+
+    }
+
+    @Override
+    public void splashSuccess() {
+        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
+    }
+
+    @Override
+    public void splashFailed(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

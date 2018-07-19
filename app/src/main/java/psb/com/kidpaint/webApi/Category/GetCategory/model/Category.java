@@ -20,7 +20,7 @@ public class Category implements Serializable
     private Integer order;
     @SerializedName("parentId")
     @Expose
-    private Object parentId;
+    private Integer parentId;
     @SerializedName("imageUrl")
     @Expose
     private String imageUrl;
@@ -59,11 +59,11 @@ public class Category implements Serializable
         this.order = order;
     }
 
-    public Object getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Object parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 

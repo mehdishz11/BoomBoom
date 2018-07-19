@@ -410,4 +410,10 @@
 
     </android.support.design.widget.NavigationView>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/frameLayoutSplash"
+        android:elevation="5dp"
+        android:layout_height="match_parent" />
+
 </android.support.v4.widget.DrawerLayout>

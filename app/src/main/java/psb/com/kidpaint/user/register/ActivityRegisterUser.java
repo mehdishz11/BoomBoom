@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -106,7 +107,9 @@ public class ActivityRegisterUser extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         ToolbarHandler.setToolbarColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
         ToolbarHandler.setNavigationColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
 

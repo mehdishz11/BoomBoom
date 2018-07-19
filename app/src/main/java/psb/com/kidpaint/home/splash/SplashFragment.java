@@ -13,12 +13,6 @@ import psb.com.kidpaint.R;
 
 public class SplashFragment extends Fragment implements IV_Splash {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -32,11 +26,9 @@ public class SplashFragment extends Fragment implements IV_Splash {
         // Required empty public constructor
     }
 
-    public static SplashFragment newInstance(String param1, String param2) {
+    public static SplashFragment newInstance() {
         SplashFragment fragment = new SplashFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,8 +37,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -61,7 +51,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
     }
 
     private void setContent(){
-
+        pSplash.getStickers();
     }
 
 
