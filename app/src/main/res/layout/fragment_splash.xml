@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     tools:context=".home.splash.SplashFragment">
 
 
@@ -10,6 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
         android:id="@+id/prg"
+        android:layout_height="wrap_content" />
+
+    <psb.com.cview.CustomTextViewLight
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/prg"
+        android:layout_centerHorizontal="true"
+        android:text="لطفا صبر کنید"
         android:layout_height="wrap_content" />
 
 </RelativeLayout>
