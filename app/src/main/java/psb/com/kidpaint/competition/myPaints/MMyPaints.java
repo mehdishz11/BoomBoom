@@ -48,7 +48,7 @@ public class MMyPaints implements IMMyPaints {
     public PaintModel getMyPaintsPositionAt(int position) {
         return mResponseGetMyPaints.getMyPaint().get(position);
     }
-//
+////
     @Override
     public User getUser() {
         User user=new User();
