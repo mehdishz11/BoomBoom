@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,6 +63,8 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private ProgressDialog progressDialog;
     private PHome pHome;
 
+    private FrameLayout frameLayoutSplash;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
 
         btnNewPainting = findViewById(R.id.btn_new_painting);
+        frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
         btnHistory = findViewById(R.id.btn_history);
         drawerIcon = findViewById(R.id.btn_more);
 
@@ -319,6 +323,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     @Override
     public void splashSuccess() {
+        frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
     }
 
