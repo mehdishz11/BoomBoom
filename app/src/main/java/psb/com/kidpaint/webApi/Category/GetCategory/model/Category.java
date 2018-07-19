@@ -33,6 +33,8 @@ public class Category implements Serializable
     @SerializedName("stickers")
     @Expose
     private List<Sticker> stickers = null;
+
+    private boolean isSelected = false;
     private final static long serialVersionUID = 1755529676887640109L;
 
     public Integer getId() {
@@ -99,4 +101,11 @@ public class Category implements Serializable
         this.stickers = stickers;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

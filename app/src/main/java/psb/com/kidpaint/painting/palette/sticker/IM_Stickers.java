@@ -6,4 +6,6 @@ public interface IM_Stickers {
     Context getContext();
 
     void getStickers();
+
+    void onCatSelected(int id);
 }

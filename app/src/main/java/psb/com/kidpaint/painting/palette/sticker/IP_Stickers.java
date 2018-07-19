@@ -8,4 +8,6 @@ public interface IP_Stickers {
     void getStickers();
     void getStickersSuccess();
     void getStickersFailed();
+
+    void showStickers();
 }

@@ -7,4 +7,6 @@ public interface IV_Stickers {
 
     void getStickersSuccess();
     void getStickersFailed();
+
+    void showStickers();
 }

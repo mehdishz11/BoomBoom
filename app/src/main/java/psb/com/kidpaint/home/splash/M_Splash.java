@@ -1,6 +1,7 @@
 package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,8 @@ public class M_Splash implements IM_Splash {
         for (int i = 0; i < stickerList.size(); i++) {
             tblStickers.insert(stickerList.get(i));
         }
+        Log.d("sizeis", "addStickersToDataBase: " + tblStickers.getStickersById(3).getImageUrl());
+        Log.d("sizeis", "addStickersToDataBase: " + tblStickers.getAllStickers().size());
     }
 
     private void addCategoryToDataBase(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList){

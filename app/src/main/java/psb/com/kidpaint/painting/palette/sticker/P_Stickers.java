@@ -1,9 +1,16 @@
 package psb.com.kidpaint.painting.palette.sticker;
 
 import android.content.Context;
+import android.view.View;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
+import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.palette.sticker.adapter.CategoryViewHolder;
 import psb.com.kidpaint.painting.palette.sticker.adapter.StickersViewHolder;
+import psb.com.kidpaint.webApi.Category.GetCategory.model.Category;
+import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 
 public class P_Stickers implements IP_Stickers {
 
@@ -37,6 +44,11 @@ public class P_Stickers implements IP_Stickers {
         ivStickers.getStickersFailed();
     }
 
+    @Override
+    public void showStickers() {
+        ivStickers.showStickers();
+    }
+
     public int getStickersSize(){
         return mStickers.getStickersSize();
     }
@@ -46,9 +58,53 @@ public class P_Stickers implements IP_Stickers {
     }
 
 
-    public void onBindViewHolderStickers(StickersViewHolder holder, int position) {
+    public void onBindViewHolderStickers(final StickersViewHolder holder, int position) {
+        final Sticker sticker = mStickers.getStickerAtPos(position);
+        Picasso.get().load(sticker.getImageUrl()).into(holder.imageViewStickers, new Callback() {
+            @Override
+            public void onSuccess() {
+                holder.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+
+        holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
-    public void onBindViewHolderCategory(CategoryViewHolder holder, int position) {
+    public void onBindViewHolderCategory(final CategoryViewHolder holder, int position) {
+        final Category category = mStickers.getCategoryAtPos(position);
+        Picasso.get().load(category.getImageUrl()).into(holder.imageViewCat, new Callback() {
+            @Override
+            public void onSuccess() {
+                holder.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+
+        if (category.isSelected()){
+            holder.imageViewCat.setBackgroundResource(R.color.green_1);
+        } else {
+            holder.imageViewCat.setBackgroundResource(0);
+        }
+
+        holder.imageViewCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStickers.onCatSelected(category.getId());
+            }
+        });
     }
 }
