@@ -3,6 +3,7 @@ package psb.com.kidpaint.competition;
 import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 
 public interface IVCompetition {
@@ -18,7 +19,7 @@ public interface IVCompetition {
     void onFailedGetAllPaints(int errorCode,String errorMessage);
 
     void onStartGetLeaderBoard();
-    void onSuccessGetLeaderBoard();
+    void onSuccessGetLeaderBoard(ResponseGetLeaderShip responseGetLeaderShip);
     void onFailedGetLeaderBoard(int errorCode,String errorMessage);
 
 }

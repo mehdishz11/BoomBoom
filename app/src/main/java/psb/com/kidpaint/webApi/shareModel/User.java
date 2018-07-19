@@ -1,5 +1,5 @@
 
-package psb.com.kidpaint.webApi.paint.getAllPaints.model;
+package psb.com.kidpaint.webApi.shareModel;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;

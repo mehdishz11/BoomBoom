@@ -27,6 +27,7 @@ import psb.com.kidpaint.competition.myPaints.adapter.Adapter_MyPaints;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class FragmentMyPaints extends Fragment implements IVMyPaints {
@@ -129,6 +130,15 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         recyclerViewMyPaints.getAdapter().notifyDataSetChanged();
     }
 
+    @Override
+    public void onSelectPaint(PaintModel paintModel) {
+        if (mListener!=null) {
+            mListener.onSelectPaint(paintModel);
+        }
+    }
+
     public interface OnFragmentInteractionListener {
+        void onSelectPaint(PaintModel paintModel);
+
     }
 }

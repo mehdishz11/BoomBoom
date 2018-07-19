@@ -20,7 +20,7 @@ public class Category implements Serializable
     private Integer order;
     @SerializedName("parentId")
     @Expose
-    private Object parentId;
+    private Integer parentId;
     @SerializedName("imageUrl")
     @Expose
     private String imageUrl;
@@ -33,6 +33,8 @@ public class Category implements Serializable
     @SerializedName("stickers")
     @Expose
     private List<Sticker> stickers = null;
+
+    private boolean isSelected = false;
     private final static long serialVersionUID = 1755529676887640109L;
 
     public Integer getId() {
@@ -59,11 +61,11 @@ public class Category implements Serializable
         this.order = order;
     }
 
-    public Object getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Object parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
@@ -99,4 +101,11 @@ public class Category implements Serializable
         this.stickers = stickers;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

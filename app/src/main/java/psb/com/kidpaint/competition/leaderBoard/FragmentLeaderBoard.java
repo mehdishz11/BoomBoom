@@ -4,50 +4,54 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.competition.allPaint.PAllPaints;
+import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
+import psb.com.kidpaint.competition.leaderBoard.adapter.Adapter_LeaderShip;
+import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentLeaderBoard.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentLeaderBoard#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentLeaderBoard extends Fragment {
+
+public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_RESPONSE = "ARG_RESPONSE";
+    private ResponseGetLeaderShip mResponseGetLeaderShip;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private View view;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView emptyView;
+    private ProgressBar progressBarLoading;
+
+    private PLeaderShip pLeaderShip;
+    private Adapter_LeaderShip adapter_leaderShip;
 
     public FragmentLeaderBoard() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentLeaderBoard.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentLeaderBoard newInstance(String param1, String param2) {
+
+    public static FragmentLeaderBoard newInstance(ResponseGetLeaderShip responseGetLeaderShip) {
         FragmentLeaderBoard fragment = new FragmentLeaderBoard();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_RESPONSE, responseGetLeaderShip);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,20 +60,49 @@ public class FragmentLeaderBoard extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mResponseGetLeaderShip = (ResponseGetLeaderShip) getArguments().getSerializable(ARG_RESPONSE);
+            getArguments().clear();
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leader_board, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        view=inflater.inflate(R.layout.fragment_leader_board, container, false);
+
+        pLeaderShip = new PLeaderShip(this);
+        pLeaderShip.setResponseGetLeaderShip(mResponseGetLeaderShip);
+
+
+        initView();
+        return view;
     }
 
 
+    void initView() {
 
+        emptyView = view.findViewById(R.id.emptyView);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        progressBarLoading = view.findViewById(R.id.progressBar);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                 pLeaderShip.onGetLeaderShip(1, 20);
+            }
+        });
+
+        adapter_leaderShip = new Adapter_LeaderShip(pLeaderShip);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter_leaderShip);
+        animationAdapter.setDuration(100);
+        animationAdapter.setFirstOnly(false);
+        recyclerView.setAdapter(animationAdapter);
+
+        emptyView.setVisibility(adapter_leaderShip.getItemCount()>0?View.GONE:View.VISIBLE);
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -86,17 +119,36 @@ public class FragmentLeaderBoard extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onStartGetLeaderShip() {
+
+    }
+
+    @Override
+    public void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip) {
+
+        swipeRefreshLayout.setRefreshing(false);
+        progressBarLoading.setVisibility(View.GONE);
+        mResponseGetLeaderShip = responseGetLeaderShip;
+        if (mListener != null) {
+            mListener.setResponseLeaderShip(mResponseGetLeaderShip);
+        }
+        recyclerView.getAdapter().notifyDataSetChanged();
+        emptyView.setVisibility(recyclerView.getAdapter().getItemCount() > 0 ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onFailedGetLeaderShip(int errorCode, String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+        progressBarLoading.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+
+
+
     public interface OnFragmentInteractionListener {
+        void setResponseLeaderShip(ResponseGetLeaderShip responseLeaderShip);
 
     }
 }

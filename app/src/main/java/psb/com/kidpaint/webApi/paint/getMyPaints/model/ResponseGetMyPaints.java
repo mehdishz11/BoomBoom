@@ -7,6 +7,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import psb.com.kidpaint.webApi.shareModel.Message;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 public class ResponseGetMyPaints implements Serializable
 {
@@ -19,7 +20,7 @@ public class ResponseGetMyPaints implements Serializable
     private List<Message> messages = null;
     @SerializedName("extra")
     @Expose
-    private List<MyPaint> myPaint;
+    private List<PaintModel> myPaint;
     private final static long serialVersionUID = 8868412178320185013L;
 
     public Boolean getOk() {
@@ -38,11 +39,11 @@ public class ResponseGetMyPaints implements Serializable
         this.messages = messages;
     }
 
-    public List<MyPaint> getMyPaint() {
+    public List<PaintModel> getMyPaint() {
         return myPaint;
     }
 
-    public void setMyPaint(List<MyPaint> myPaint) {
+    public void setMyPaint(List<PaintModel> myPaint) {
         this.myPaint = myPaint;
     }
 }

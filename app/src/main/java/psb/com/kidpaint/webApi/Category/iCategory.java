@@ -12,6 +12,8 @@ import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
 
 public interface iCategory {
 
+   String apiAddress = "Category/";
+
    GetCategory getCategory();
    GetCategory getCategory(iGetCategory.iResult iResult);
 

@@ -25,7 +25,7 @@ public class MyPaint implements Serializable
     private String url;
     @SerializedName("score")
     @Expose
-    private Integer score;
+    private Double score;
     private final static long serialVersionUID = -7677873273154069256L;
 
     public Integer getId() {
@@ -68,11 +68,11 @@ public class MyPaint implements Serializable
         this.url = url;
     }
 
-    public Integer getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 

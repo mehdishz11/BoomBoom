@@ -41,7 +41,6 @@
         <activity
             android:name=".user.register.ActivityRegisterUser"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:theme="@style/TranslucentTheme"
             >
         </activity>
