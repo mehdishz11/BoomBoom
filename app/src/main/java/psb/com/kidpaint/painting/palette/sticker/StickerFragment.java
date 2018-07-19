@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
 
-public class StickerFragment extends Fragment{
+public class StickerFragment extends Fragment implements IV_Stickers{
     private View pView;
 
     public static StickerFragment newInstance() {
@@ -30,5 +30,15 @@ public class StickerFragment extends Fragment{
                              Bundle savedInstanceState) {
         pView = inflater.inflate(R.layout.fragment_sticker, container, false);
         return pView;
+    }
+
+    @Override
+    public void getStickersSuccess() {
+
+    }
+
+    @Override
+    public void getStickersFailed() {
+
     }
 }

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import psb.com.kidpaint.utils.database.Sql;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 
@@ -57,6 +60,32 @@ public class TblStickers {
         db.close();
         sql.close();
         return content;
+    }
+
+    public List<Sticker> getAllStickers() {
+        // Log.d(TAG, "getSubCategoryList: "+storeId+" "+parentId);
+        List<Sticker> stickerList = new ArrayList<>();
+        Sql sql = new Sql(mContext);
+        SQLiteDatabase db = sql.getReadableDatabase();
+        String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId"};
+        Cursor c = db.query("tbl_Stickers", columns, null, null, null, null,null);
+        if (c.getCount() > 0) {
+            if (c.moveToFirst()) {
+                for (int i = 0; i < c.getCount(); i++) {
+                    Sticker content = new Sticker();
+                    content.setId(c.getInt(0));
+                    content.setImageUrl(c.getString(1));
+                    content.setPrice(c.getInt(2));
+                    content.setSongUrl(c.getString(3));
+                    content.setCategoryId(c.getInt(4));
+                    stickerList.add(content);
+                    c.moveToNext();
+                }
+            }
+        }
+        db.close();
+        sql.close();
+        return stickerList;
     }
 
     public void delete(int id) {
