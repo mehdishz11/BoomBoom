@@ -1,0 +1,68 @@
+
+package psb.com.kidpaint.webApi.Category.GetCategory.model;
+
+import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Sticker implements Serializable
+{
+
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("imageUrl")
+    @Expose
+    private String imageUrl;
+    @SerializedName("price")
+    @Expose
+    private Integer price;
+    @SerializedName("songUrl")
+    @Expose
+    private String songUrl;
+    @SerializedName("categoryId")
+    @Expose
+    private Integer categoryId;
+    private final static long serialVersionUID = 4384354529835827522L;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getSongUrl() {
+        return songUrl;
+    }
+
+    public void setSongUrl(String songUrl) {
+        this.songUrl = songUrl;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+}
