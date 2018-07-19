@@ -1,5 +1,7 @@
 package psb.com.kidpaint.webApi.paint.getAllPaints;
 
+import android.util.Log;
+
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
@@ -54,6 +56,8 @@ public class GetAllPaints implements iGetAllPaints {
 
             @Override
             public void onFailure(Call<ResponseGetAllPaints> call, Throwable t) {
+                Log.d("TAG", "onFailure: ");
+                t.printStackTrace();
                 if (iResult != null && !call.isCanceled()) {
                     iResult.onFailedGetAllPaints(0, ErrorMessage.ERROR_NETWORK_UNAVALABLE.getErrorMessage());
                 }

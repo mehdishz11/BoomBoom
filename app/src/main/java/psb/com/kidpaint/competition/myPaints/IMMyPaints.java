@@ -2,10 +2,10 @@ package psb.com.kidpaint.competition.myPaints;
 
 import android.content.Context;
 
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.AllPaintModel;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.MyPaint;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
+import psb.com.kidpaint.webApi.shareModel.User;
 
 public interface IMMyPaints {
 
@@ -17,6 +17,7 @@ public interface IMMyPaints {
 
      int getArrSizeMyPaints();
 
-    MyPaint getMyPaintsPositionAt(int position);
+    PaintModel getMyPaintsPositionAt(int position);
+    User getUser();
 
 }

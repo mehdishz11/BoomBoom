@@ -1,5 +1,5 @@
 
-package psb.com.kidpaint.webApi.paint.getMyPaints.model;
+package psb.com.kidpaint.webApi.paint.score.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,9 +7,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import psb.com.kidpaint.webApi.shareModel.Message;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
-public class ResponseGetMyPaints implements Serializable
+public class ResponseScore implements Serializable
 {
 
     @SerializedName("ok")
@@ -20,8 +19,8 @@ public class ResponseGetMyPaints implements Serializable
     private List<Message> messages = null;
     @SerializedName("extra")
     @Expose
-    private List<PaintModel> myPaint;
-    private final static long serialVersionUID = 8868412178320185013L;
+    private Double extra;
+    private final static long serialVersionUID = 946241060542535005L;
 
     public Boolean getOk() {
         return ok;
@@ -39,11 +38,12 @@ public class ResponseGetMyPaints implements Serializable
         this.messages = messages;
     }
 
-    public List<PaintModel> getMyPaint() {
-        return myPaint;
+    public Double getExtra() {
+        return extra;
     }
 
-    public void setMyPaint(List<PaintModel> myPaint) {
-        this.myPaint = myPaint;
+    public void setExtra(Double extra) {
+        this.extra = extra;
     }
+
 }

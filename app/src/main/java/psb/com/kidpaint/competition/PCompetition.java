@@ -3,6 +3,7 @@ package psb.com.kidpaint.competition;
 import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 
 public class PCompetition implements IPCompetition {
@@ -63,8 +64,8 @@ public class PCompetition implements IPCompetition {
     }
 
     @Override
-    public void onSuccessGetLeaderBoard() {
-        ivCompetition.onSuccessGetLeaderBoard();
+    public void onSuccessGetLeaderBoard(ResponseGetLeaderShip responseGetLeaderShip) {
+        ivCompetition.onSuccessGetLeaderBoard(responseGetLeaderShip);
 
     }
 

@@ -6,6 +6,8 @@ import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 
@@ -59,6 +61,17 @@ public class MCompetition implements IMCompetition {
 
     @Override
     public void onGetLeaderBoard() {
+       new Paint().getLeaderShip(new iGetLeaderShip.iResult() {
+           @Override
+           public void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip) {
+                ipCompetition.onSuccessGetLeaderBoard(responseGetLeaderShip);
+           }
 
+           @Override
+           public void onFailedGetLeaderShip(int errorId, String ErrorMessage) {
+               ipCompetition.onFailedGetLeaderBoard(errorId, ErrorMessage);
+
+           }
+       }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,20);
     }
 }

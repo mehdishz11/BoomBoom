@@ -23,12 +23,12 @@ import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class FragmentAllPaints extends Fragment implements IVAllPaints {
 
     private static final String ARG_All_PAINTS = "ARG_LL_PAINTS";
-    private ResponseGetMyPaints mResponseGetMyPaints;
     private ResponseGetAllPaints mResponseGetAllPaints;
 
     private OnFragmentInteractionListener mListener;
@@ -188,10 +188,17 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    public void onSelectPaint(PaintModel paintModel) {
+        if (mListener!=null) {
+            mListener.onSelectPaint(paintModel);
+        }
+    }
 
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints);
+        void onSelectPaint(PaintModel paintModel);
     }
 }

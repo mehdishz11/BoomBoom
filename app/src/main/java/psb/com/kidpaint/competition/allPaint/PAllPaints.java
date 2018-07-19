@@ -2,6 +2,7 @@ package psb.com.kidpaint.competition.allPaint;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -10,7 +11,7 @@ import java.util.Random;
 
 import psb.com.kidpaint.competition.allPaint.adapter.ViewHolder_AllPaints;
 import psb.com.kidpaint.utils.Value;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.AllPaintModel;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 
 public class PAllPaints implements IPAllPaints {
@@ -56,7 +57,7 @@ public class PAllPaints implements IPAllPaints {
 
     @Override
     public void onBindViewHolder_AllPaints(ViewHolder_AllPaints holder, int position) {
-        AllPaintModel paintModel=mPaints.getAllPaintsPositionAt(position);
+        final PaintModel paintModel=mPaints.getAllPaintsPositionAt(position);
 
         if(position%2==0){
             holder.parentView.setRotation(new Random().nextInt(8));
@@ -81,6 +82,13 @@ public class PAllPaints implements IPAllPaints {
                         e.printStackTrace();
                     }
                 });
+
+        holder.parentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivAllPaints.onSelectPaint(paintModel);
+            }
+        });
     }
 
 

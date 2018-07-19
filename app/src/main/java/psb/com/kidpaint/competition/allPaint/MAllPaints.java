@@ -4,10 +4,8 @@ import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.AllPaintModel;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.MyPaint;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 
 public class MAllPaints implements IMAllPaints {
 
@@ -38,7 +36,7 @@ public class MAllPaints implements IMAllPaints {
                     mResponseGetAllPaints=responseGetAllPaints;
                     ipAllPaints.onSuccessGetAllPaints(mResponseGetAllPaints);
                 }else {
-                    mResponseGetAllPaints.getExtra().getAllPaintModel().addAll(responseGetAllPaints.getExtra().getAllPaintModel());
+                    mResponseGetAllPaints.getExtra().getPaintModel().addAll(responseGetAllPaints.getExtra().getPaintModel());
                     ipAllPaints.onSuccessGetAllPaints(mResponseGetAllPaints);
                 }
             }
@@ -63,7 +61,7 @@ public class MAllPaints implements IMAllPaints {
 
     @Override
     public int getArrSizeAllPaints() {
-        return mResponseGetAllPaints.getExtra().getAllPaintModel().size();
+        return mResponseGetAllPaints.getExtra().getPaintModel().size();
     }
 
     @Override
@@ -73,7 +71,7 @@ public class MAllPaints implements IMAllPaints {
 
 
     @Override
-    public AllPaintModel getAllPaintsPositionAt(int position) {
-        return mResponseGetAllPaints.getExtra().getAllPaintModel().get(position);
+    public PaintModel getAllPaintsPositionAt(int position) {
+        return mResponseGetAllPaints.getExtra().getPaintModel().get(position);
     }
 }

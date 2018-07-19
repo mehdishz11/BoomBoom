@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,19 +16,24 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.FragmentAllPaints;
 import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
 import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
+import psb.com.kidpaint.competition.score.FragmentScore;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class ActivityCompetition extends AppCompatActivity implements IVCompetition,
         FragmentMyPaints.OnFragmentInteractionListener,
+        FragmentScore.OnFragmentInteractionListener,
         FragmentAllPaints.OnFragmentInteractionListener,
         FragmentLeaderBoard.OnFragmentInteractionListener {
     private static final String TAG_FRAGMENT_PAINTS = "TAG_FRAGMENT_PAINTS";
     private static final String TAG_FRAGMENT_All_PAINTS = "TAG_FRAGMENT_All_PAINTS";
     private static final String TAG_FRAGMENT_LEADER_BOARD = "TAG_FRAGMENT_LEADER_BOARD";
+    private static final String TAG_FRAGMENT_SCORE = "TAG_FRAGMENT_SCORE";
 
     private TabLayout tabLayout;
     private ImageView back;
@@ -36,6 +42,9 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
     private ResponseGetMyPaints mResponseGetMyPaints;
     private ResponseGetAllPaints mResponseGetAllPaints;
+    private ResponseGetLeaderShip mResponseGetLeaderShip;
+
+    private FrameLayout frameLayoutScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +81,7 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         if (position == 0) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_PAINTS).commit();
         } else if (position == 1) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance("", ""), TAG_FRAGMENT_LEADER_BOARD).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip), TAG_FRAGMENT_LEADER_BOARD).commit();
         } else if (position == 2) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentAllPaints().newInstance(mResponseGetAllPaints), TAG_FRAGMENT_All_PAINTS).commit();
         }
@@ -84,15 +93,16 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
 //        back = findViewById(R.id.icon_drawer);
         progressView = findViewById(R.id.progressView);
-
+        frameLayoutScore = findViewById(R.id.frameLayoutScore);
+        frameLayoutScore.setVisibility(View.GONE);
         // UIHelper.changeToolbarFont(toolbar, this);
         tabLayout = findViewById(R.id.tabLayout);
-        back.setOnClickListener(new View.OnClickListener() {
+        /*back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
+        });*/
 
     }
 
@@ -166,10 +176,9 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     @Override
     public void onSuccessGetAllPaints(ResponseGetAllPaints responseGetAllPaints) {
         mResponseGetAllPaints = responseGetAllPaints;
-        // pCompetition.onGetLeaderBoard();
+         pCompetition.onGetLeaderBoard();
 
-        progressView.setVisibility(View.GONE);
-        setTabLayout();
+
     }
 
     @Override
@@ -189,7 +198,8 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     }
 
     @Override
-    public void onSuccessGetLeaderBoard() {
+    public void onSuccessGetLeaderBoard(ResponseGetLeaderShip responseGetLeaderShip) {
+        mResponseGetLeaderShip=responseGetLeaderShip;
         progressView.setVisibility(View.GONE);
         setTabLayout();
     }
@@ -207,5 +217,29 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     @Override
     public void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints) {
         mResponseGetAllPaints = responseGetAllPaints;
+    }
+
+    @Override
+    public void onSelectPaint(PaintModel paintModel) {
+        frameLayoutScore.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutScore, new FragmentScore().newInstance(paintModel), TAG_FRAGMENT_SCORE).commit();
+
+    }
+
+    @Override
+    public void setResponseLeaderShip(ResponseGetLeaderShip responseLeaderShip) {
+        mResponseGetLeaderShip=responseLeaderShip;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if ( getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE)!=null) {
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE)).commit();
+            frameLayoutScore.setVisibility(View.GONE);
+
+        }else{
+            super.onBackPressed();
+        }
     }
 }

@@ -3,38 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="rtl"
     tools:context=".competition.ActivityCompetition">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/rel_top"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/blue_2">
 
-        <ImageView
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:layout_alignParentLeft="true"
-            android:padding="15dp"
-            android:scaleX="-1"
-            android:src="@drawable/img_icon_right_arrow" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-
-
-    </RelativeLayout>
-</RelativeLayout>
-
-    <!--  <android.support.design.widget.AppBarLayout
+      <android.support.design.widget.AppBarLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:theme="@style/AppTheme.AppBarOverlay"
@@ -42,7 +15,7 @@
 
           <android.support.design.widget.CollapsingToolbarLayout
               android:layout_width="match_parent"
-              android:layout_height="100dp"
+              android:layout_height="?actionBarSize"
               app:layout_scrollFlags="scroll|enterAlways">
 
               <RelativeLayout
@@ -65,93 +38,7 @@
 
                       />
 
-                  <ImageView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:src="@drawable/glow_overlay"
-                      android:layout_marginTop="-100dp"
-                      android:layout_marginLeft="-100dp"
-                      android:layout_marginRight="-400dp"
-                      android:layout_marginBottom="-100dp"
-                      android:scaleType="fitXY"
-                      android:alpha="0.7"
-                      />
 
-                  <RelativeLayout
-                      android:id="@+id/rel_user_image"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentRight="true"
-                      android:layout_margin="@dimen/space_small"
-                      android:layout_centerVertical="true"
-                      >
-
-                      <com.makeramen.roundedimageview.RoundedImageView
-                          android:id="@+id/img_bgr_user_icon_bgr_1"
-                          android:layout_width="80dp"
-                          android:layout_height="80dp"
-                          android:layout_alignParentTop="true"
-                          android:src="@color/md_blue_900"
-                          app:riv_corner_radius="40dp"
-                          android:layout_marginTop="5dp" />
-
-                      <RelativeLayout
-                          android:layout_width="80dp"
-                          android:layout_height="80dp"
-                          android:layout_alignParentTop="true">
-
-                          <com.makeramen.roundedimageview.RoundedImageView
-                              android:id="@+id/img_bgr_user_icon_bgr_2"
-                              android:layout_width="match_parent"
-                              android:layout_height="match_parent"
-                              android:src="@color/md_blue_500"
-                              app:riv_corner_radius="40dp" />
-
-                          <com.makeramen.roundedimageview.RoundedImageView
-                              android:id="@+id/img_bgr_user_icon"
-                              android:layout_width="match_parent"
-                              android:layout_height="match_parent"
-                              android:padding="4dp"
-                              app:riv_border_color="@color/md_blue_900"
-                              app:riv_border_width="1dp"
-                              android:src="@drawable/temp_kid_1"
-                              app:riv_corner_radius="40dp" />
-                      </RelativeLayout>
-
-
-
-                  </RelativeLayout>
-
-
-                  <RelativeLayout
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_toLeftOf="@+id/rel_user_image"
-                      android:layout_marginRight="@dimen/space_small"
-                      android:layout_centerVertical="true"
-                      >
-                      <psb.com.cview.CustomTextViewBold
-                          android:id="@+id/text_user_name"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_marginTop="@dimen/space_small"
-                          android:textSize="@dimen/text_size_normal"
-                          android:textColor="@color/md_blue_800"
-                          android:text="مهدی شجاعیان"
-                          />
-
-                      <psb.com.cview.CustomTextViewBold
-                          android:id="@+id/text_user_position"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_below="@+id/text_user_name"
-                          android:layout_marginRight="@dimen/space_small"
-                          android:layout_marginTop="@dimen/space_small"
-                          android:textColor="@color/md_blue_50"
-                          android:textSize="@dimen/text_size_small"
-                          android:text="بهترین رتبه شما ۱۸۵"
-                          />
-                  </RelativeLayout>
 
               </RelativeLayout>
 
@@ -169,7 +56,13 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:visibility="gone"
-          app:mode="0"></psb.com.kidpaint.utils.customView.ProgressView>-->
+          app:mode="0"></psb.com.kidpaint.utils.customView.ProgressView>
+
+
+    <FrameLayout
+        android:id="@+id/frameLayoutScore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

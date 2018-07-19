@@ -1,11 +1,13 @@
 
-package psb.com.kidpaint.webApi.paint.getAllPaints.model;
+package psb.com.kidpaint.webApi.shareModel;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AllPaintModel implements Serializable
+import psb.com.kidpaint.webApi.shareModel.User;
+
+public class PaintModel implements Serializable
 {
 
     @SerializedName("id")
@@ -28,7 +30,7 @@ public class AllPaintModel implements Serializable
     private String url;
     @SerializedName("score")
     @Expose
-    private Integer score;
+    private Double score;
     private final static long serialVersionUID = 788457169065957875L;
 
     public Integer getId() {
@@ -79,11 +81,11 @@ public class AllPaintModel implements Serializable
         this.url = url;
     }
 
-    public Integer getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 

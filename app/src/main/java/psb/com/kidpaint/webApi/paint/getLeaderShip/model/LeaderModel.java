@@ -1,19 +1,27 @@
 
-package psb.com.kidpaint.webApi.paint.getMyPaints.model;
+package psb.com.kidpaint.webApi.paint.getLeaderShip.model;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MyPaint implements Serializable
+import psb.com.kidpaint.webApi.shareModel.User;
+
+public class LeaderModel implements Serializable
 {
 
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("rank")
+    @Expose
+    private Integer rank;
     @SerializedName("createDate")
     @Expose
     private String createDate;
+    @SerializedName("user")
+    @Expose
+    private User user;
     @SerializedName("code")
     @Expose
     private Integer code;
@@ -26,7 +34,7 @@ public class MyPaint implements Serializable
     @SerializedName("score")
     @Expose
     private Double score;
-    private final static long serialVersionUID = -7677873273154069256L;
+    private final static long serialVersionUID = -2499051059531575793L;
 
     public Integer getId() {
         return id;
@@ -36,12 +44,28 @@ public class MyPaint implements Serializable
         this.id = id;
     }
 
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
     public String getCreateDate() {
         return createDate;
     }
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getCode() {
