@@ -82,7 +82,7 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     private void setViewContent() {
 
 
-        back = findViewById(R.id.icon_drawer);
+//        back = findViewById(R.id.icon_drawer);
         progressView = findViewById(R.id.progressView);
 
         // UIHelper.changeToolbarFont(toolbar, this);
