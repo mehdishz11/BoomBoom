@@ -12,15 +12,20 @@
     <color name="brown_2">#c9ab51</color>
     <color name="brown_3">#9f7a0c</color>
     <color name="brown_4">#eecf6e</color>
+    <color name="brown_5">#c18906</color>
 
 
 
-
+    <color name="green_1">#80C950</color>
     <color name="green_2">#99c93c</color>
 
 
     <color name="blue_2">#82E2EC</color>
     <color name="blue_3">#42C3F2</color>
+    <color name="blue_4">#C5F3E9</color>
+
+    <color name="color_black_trans">#71000000</color>
+
 
 
     <color name="palette_color_0">#6e5643</color>
@@ -341,7 +346,7 @@
     <color name="White">#ffffff</color>
 
     <color name="Black">#000000</color>
-    <color name="color_black_trans">#71000000</color>
+
 
 
 </resources>
