@@ -81,19 +81,22 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void startGetStickers() {
-
+        mListener.startGetStickers();
     }
 
     @Override
     public void getStickersSuccess() {
-
+        mListener.splashSuccess();
     }
 
     @Override
     public void getStickersFailed(String msg) {
-
+        mListener.splashFailed(msg);
     }
 
     public interface OnFragmentInteractionListener {
+        void startGetStickers();
+        void splashSuccess();
+        void splashFailed(String msg);
     }
 }
