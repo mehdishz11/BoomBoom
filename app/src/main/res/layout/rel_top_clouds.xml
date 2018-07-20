@@ -8,7 +8,7 @@
         android:id="@+id/image_cloud_top_4"
         android:layout_width="100dp"
         android:layout_height="70dp"
-        android:layout_marginLeft="320dp"
+        android:layout_alignParentRight="true"
         android:scaleType="fitEnd"
         android:src="@drawable/could_top_4" />
 
@@ -17,6 +17,7 @@
         android:layout_width="70dp"
         android:layout_height="65dp"
         android:layout_marginLeft="100dp"
+        android:layout_alignParentLeft="true"
         android:src="@drawable/could_top_2" />
 
 
@@ -24,6 +25,7 @@
         android:id="@+id/image_cloud_top_1"
         android:layout_width="98dp"
         android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
         android:src="@drawable/could_top_1" />
 
 
@@ -47,7 +49,8 @@
         android:id="@+id/image_cloud_top_3"
         android:layout_width="90dp"
         android:layout_height="125dp"
-        android:layout_marginLeft="230dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
         android:src="@drawable/could_top_3" />
 
     <ImageView

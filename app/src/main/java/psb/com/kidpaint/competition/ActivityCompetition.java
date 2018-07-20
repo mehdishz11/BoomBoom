@@ -1,15 +1,12 @@
 package psb.com.kidpaint.competition;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import psb.com.kidpaint.R;
@@ -35,7 +32,6 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     private static final String TAG_FRAGMENT_LEADER_BOARD = "TAG_FRAGMENT_LEADER_BOARD";
     private static final String TAG_FRAGMENT_SCORE = "TAG_FRAGMENT_SCORE";
 
-    private TabLayout tabLayout;
     private ImageView back;
     private PCompetition pCompetition;
     private ProgressView progressView;
@@ -46,12 +42,17 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
     private FrameLayout frameLayoutScore;
 
+
+    private TextView tabMe;
+    private TextView tabAll;
+    private TextView tabCompetition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
 
-        ToolbarHandler.setToolbarColor(this,getWindow(),getWindow().getDecorView(),R.color.blue_3,false);
+        ToolbarHandler.setToolbarColor(this, getWindow(), getWindow().getDecorView(), R.color.blue_4, false);
 
         pCompetition = new PCompetition(this);
         setViewContent();
@@ -59,25 +60,9 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         pCompetition.onGetMyPaints();
     }
 
-    private void changeTabsFont() {
-
-        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
-        int tabsCount = vg.getChildCount();
-        for (int j = 0; j < tabsCount; j++) {
-            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
-            int tabChildsCount = vgTab.getChildCount();
-            for (int i = 0; i < tabChildsCount; i++) {
-                View tabViewChild = vgTab.getChildAt(i);
-                if (tabViewChild instanceof TextView) {
-                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile(FaNum)_Light.ttf"));
-                }
-            }
-        }
-    }
-
 
     void setFragment(int position) {
-
+        setTabBgr(position);
         if (position == 0) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_PAINTS).commit();
         } else if (position == 1) {
@@ -85,64 +70,76 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         } else if (position == 2) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentAllPaints().newInstance(mResponseGetAllPaints), TAG_FRAGMENT_All_PAINTS).commit();
         }
+    }
+
+
+    private void setTabBgr(int position) {
+        tabAll.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+        tabMe.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+        tabCompetition.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+
+        tabAll.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_2));
+        tabMe.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_2));
+        tabCompetition.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_2));
+
+        if (position == 0) {
+            tabMe.setBackgroundResource(R.drawable.pallet_drop);
+            tabMe.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_3));
+        } else if (position == 1) {
+            tabCompetition.setBackgroundResource(R.drawable.pallet_drop);
+            tabCompetition.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_3));
+        } else {
+            tabAll.setBackgroundResource(R.drawable.pallet_drop);
+            tabAll.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_3));
+        }
 
     }
 
     private void setViewContent() {
 
-
-//        back = findViewById(R.id.icon_drawer);
         progressView = findViewById(R.id.progressView);
         frameLayoutScore = findViewById(R.id.frameLayoutScore);
-        frameLayoutScore.setVisibility(View.GONE);
-        // UIHelper.changeToolbarFont(toolbar, this);
-        tabLayout = findViewById(R.id.tabLayout);
-        /*back.setOnClickListener(new View.OnClickListener() {
+
+        tabAll = findViewById(R.id.text_All);
+        tabMe = findViewById(R.id.text_me);
+        tabCompetition = findViewById(R.id.text_competition);
+
+        tabAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-            }
-        });*/
-
-    }
-
-    void setTabLayout() {
-
-        tabLayout.addTab(tabLayout.newTab().setText("عکس های من"));
-        tabLayout.addTab(tabLayout.newTab().setText("رده بندی"), true);
-        tabLayout.addTab(tabLayout.newTab().setText("همه عکس ها"));
-        changeTabsFont();
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                setFragment(tab.getPosition());
-
-                LinearLayout tabLayoutL = (LinearLayout) ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
-                TextView tabTextView = (TextView) tabLayoutL.getChildAt(1);
-                tabTextView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile(FaNum)_Medium.ttf"));
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                LinearLayout tabLayoutL = (LinearLayout) ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
-                TextView tabTextView = (TextView) tabLayoutL.getChildAt(1);
-                tabTextView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile(FaNum)_Light.ttf"));
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+                setFragment(2);
             }
         });
 
-        setFragment(1);
+        tabMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFragment(0);
+            }
+        });
+
+        tabCompetition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFragment(1);
+            }
+        });
+
+
+        frameLayoutScore.setVisibility(View.GONE);
 
     }
+
 
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ToolbarHandler.makeFullScreen(getWindow());
     }
 
     @Override
@@ -176,7 +173,7 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     @Override
     public void onSuccessGetAllPaints(ResponseGetAllPaints responseGetAllPaints) {
         mResponseGetAllPaints = responseGetAllPaints;
-         pCompetition.onGetLeaderBoard();
+        pCompetition.onGetLeaderBoard();
 
 
     }
@@ -199,9 +196,9 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
     @Override
     public void onSuccessGetLeaderBoard(ResponseGetLeaderShip responseGetLeaderShip) {
-        mResponseGetLeaderShip=responseGetLeaderShip;
+        mResponseGetLeaderShip = responseGetLeaderShip;
         progressView.setVisibility(View.GONE);
-        setTabLayout();
+        setFragment(1);
     }
 
     @Override
@@ -228,17 +225,17 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
     @Override
     public void setResponseLeaderShip(ResponseGetLeaderShip responseLeaderShip) {
-        mResponseGetLeaderShip=responseLeaderShip;
+        mResponseGetLeaderShip = responseLeaderShip;
     }
 
     @Override
     public void onBackPressed() {
 
-        if ( getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE)!=null) {
+        if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE)).commit();
             frameLayoutScore.setVisibility(View.GONE);
 
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

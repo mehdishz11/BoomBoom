@@ -40,7 +40,7 @@ import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 public class HomeActivity extends AppCompatActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
         NewPaintFragment.OnFragmentInteractionListener,
-        SplashFragment.OnFragmentInteractionListener{
+        SplashFragment.OnFragmentInteractionListener {
 
     public static int CODE_REGISTER = 107;
     public static int CODE_EDIT = 108;
@@ -137,14 +137,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     @Override
     protected void onResume() {
         super.onResume();
-
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-
+        ToolbarHandler.makeFullScreen(getWindow());
         MusicHelper.stopMusic();
         MusicHelper.playMusic(R.raw.bgr_happy_sunshine);
     }

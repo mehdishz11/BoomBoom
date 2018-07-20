@@ -1,13 +1,8 @@
 package psb.com.kidpaint.competition.leaderBoard;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
-import java.util.Random;
-
 
 import psb.com.kidpaint.competition.leaderBoard.adapter.ViewHolder_LeaderShip;
 import psb.com.kidpaint.utils.Value;
@@ -60,30 +55,28 @@ public class PLeaderShip implements IPLeaderShip {
     public void onBindViewHolder_GetLeaderShip(ViewHolder_LeaderShip holder, int position) {
         LeaderModel leaderModel=mPaints.getLeaderShipPositionAt(position);
 
-        if(position%2==0){
-            holder.parentView.setRotation(new Random().nextInt(4));
-        }else{
-            holder.parentView.setRotation(-new Random().nextInt(4));
+        if (leaderModel.getUrl() != null && !leaderModel.getUrl().isEmpty()) {
+            Picasso
+                    .get()
+                    .load(leaderModel.getUrl())
+                    .resize(Value.dp(200),Value.dp(200))
+                    .onlyScaleDown()
+                    .into(holder.imgPaint);
         }
-        Picasso
-                .get()
-                .load(leaderModel.getUrl())
-                .resize(Value.dp(200),Value.dp(200))
-                .onlyScaleDown()
-                .into(holder.imgOutline, new Callback() {
-                    @Override
-                    public void onSuccess() {
+        if(leaderModel.getUser().getImageUrl()!=null && !leaderModel.getUser().getImageUrl().isEmpty()){
+            Picasso
+                    .get()
+                    .load(leaderModel.getUser().getImageUrl())
+                    .resize(Value.dp(200),Value.dp(200))
+                    .onlyScaleDown()
+                    .into(holder.imgUser);
+        }
 
-                    }
+//        holder.imgPaint.setRotation(new Random().nextInt(8)+1);
 
-                    @Override
-                    public void onError(Exception e) {
-
-                        Log.d("TAG", "onError: ");
-                        e.printStackTrace();
-                    }
-                });
-
+        holder.textRate.setText(""+leaderModel.getRank());
+        holder.textUserName.setText(leaderModel.getUser().getFirstName()+" "+leaderModel.getUser().getLastName());
+        holder.textUserPoints.setText((leaderModel.getScore())+" امتیاز");
     }
 
     @Override

@@ -22,8 +22,9 @@
 
     <color name="blue_2">#82E2EC</color>
     <color name="blue_3">#42C3F2</color>
-    <color name="blue_4">#C5F3E9</color>
+    <color name="blue_4">#00cde8</color>
 
+    <color name="color_black_trans_1">#85000000</color>
     <color name="color_black_trans">#71000000</color>
 
 

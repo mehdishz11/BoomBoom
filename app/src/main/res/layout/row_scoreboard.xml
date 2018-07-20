@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rel_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_small"
+    android:layout_marginRight="@dimen/space_small"
+    android:layout_marginTop="@dimen/space_small"
+    android:alpha="0.95">
+
+
+    <RelativeLayout
+        android:id="@+id/rel_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <psb.com.cview.CustomTextView
+            android:id="@+id/text_rank"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/brown_3"
+            android:textSize="40dp" />
+
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/img_user"
+            android:layout_alignTop="@+id/img_user"
+            android:layout_marginRight="100dp"
+            android:background="@color/brown_1" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_user"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/text_rank"
+            android:src="@drawable/temp_kid_2"
+            app:riv_border_color="@color/white_1"
+            app:riv_border_width="5dp"
+            app:riv_corner_radius="50dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_small"
+            android:layout_toLeftOf="@+id/img_user"
+            android:layout_toRightOf="@+id/img_paint">
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/text_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:lines="1"
+                android:text="مهدی شجاعیان"
+                android:textColor="@color/brown_3"
+
+                android:textSize="16sp" />
+            <psb.com.cview.CustomTextView
+                android:id="@+id/text_user_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_user_name"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:lines="1"
+                android:text="۱۲۶۵ امتیاز"
+                android:textColor="@color/brown_3"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_paint"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:elevation="5dp"
+            android:padding="@dimen/space_small"
+            android:src="@drawable/temp_tablet"
+            app:riv_corner_radius="5dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

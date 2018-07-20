@@ -57,7 +57,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".competition.ActivityCompetition"></activity>
+        <activity android:name=".competition.ActivityCompetition"
+            android:theme="@style/FullscreenTheme"></activity>
 
 
     </application>

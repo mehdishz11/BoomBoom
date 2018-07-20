@@ -25,7 +25,7 @@ public class Adapter_AllPaints extends RecyclerView.Adapter<ViewHolder_AllPaints
     @Override
     public ViewHolder_AllPaints onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_history, parent, false);
+                .inflate(R.layout.row_all_users, parent, false);
         ViewHolder_AllPaints recViewHolderNews = new ViewHolder_AllPaints(view);
         return recViewHolderNews;
     }

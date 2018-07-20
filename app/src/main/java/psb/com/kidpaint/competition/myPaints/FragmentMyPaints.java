@@ -11,21 +11,14 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.myPaints.adapter.Adapter_MyPaints;
 import psb.com.kidpaint.utils.UserProfile;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
@@ -96,7 +89,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
 
 
         adapter_myPaints=new Adapter_MyPaints(pPaints);
-        LinearLayoutManager linearLayoutManager2 = new GridLayoutManager(getContext(), 2);
+        LinearLayoutManager linearLayoutManager2 = new GridLayoutManager(getContext(), 1);
         recyclerViewMyPaints.setLayoutManager(linearLayoutManager2);
         AnimationAdapter animationAdapter2 = new SlideInBottomAnimationAdapter(adapter_myPaints);
         animationAdapter2.setDuration(100);

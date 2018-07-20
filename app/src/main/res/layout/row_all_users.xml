@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rel_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.95">
+
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_bgr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_user"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="-40dp"
+        app:cardBackgroundColor="@color/brown_1"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp">
+
+            <RelativeLayout
+                android:id="@+id/rel_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_marginRight="@dimen/space_normal"
+                android:padding="@dimen/space_small">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/text_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:text="مهدی شجاعیان"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <psb.com.cview.CustomTextView
+                        android:id="@+id/text_image_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/text_user_name"
+                        android:text="کد عکس ۱۲۳"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_small" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <psb.com.cview.SquareRelativeLayout
+                android:id="@+id/rel_images"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_below="@+id/rel_user"
+                android:layout_centerInParent="true">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_outline_bgr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:paddingBottom="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@color/white_1"
+                    app:riv_corner_radius="10dp" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_outline_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:paddingBottom="2dp"
+                    android:scaleType="centerCrop"
+                    app:riv_border_color="@color/md_grey_200"
+                    app:riv_border_width="0.5dp"
+                    app:riv_corner_radius="10dp" />
+            </psb.com.cview.SquareRelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_alignLeft="@+id/rel_btns"
+                android:layout_alignRight="@+id/rel_btns"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginRight="-2dp"
+                android:layout_below="@+id/rel_images"
+                android:layout_marginTop="-27dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/image_bgr_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@color/brown_1"
+                    app:riv_corner_radius="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_btns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_images"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-25dp">
+
+                <RelativeLayout
+                    android:id="@+id/rel_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <psb.com.cview.CButton
+                        android:id="@+id/btn_delete"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/btn_sqr_green"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_normal" />
+
+                    <psb.com.cview.IconFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:elevation="5dp"
+                        android:text=""
+                        android:textColor="@color/white_1"
+                        android:textSize="20dp" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/img_user"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        app:riv_border_width="4dp"
+        app:riv_border_color="@color/brown_1"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/temp_kid_2"
+        app:riv_corner_radius="40dp"
+        android:elevation="3dp"
+        />
+
+
+</RelativeLayout>

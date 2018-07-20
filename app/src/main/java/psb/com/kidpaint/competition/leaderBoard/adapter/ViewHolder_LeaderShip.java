@@ -2,30 +2,30 @@ package psb.com.kidpaint.competition.leaderBoard.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import psb.com.kidpaint.R;
 
 public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
 
-    public RelativeLayout relParent;
-    public ImageView imgOutline;
-    public ImageView imgMask;
+    public ImageView imgUser;
+    public ImageView imgPaint;
+    public TextView textRate;
+    public TextView textUserName;
+    public TextView textUserPoints;
     public View parentView;
-    public Button delete,edit,competition;
 
     public ViewHolder_LeaderShip(View itemView) {
         super(itemView);
 
         parentView=itemView;
-        relParent=itemView.findViewById(R.id.rel_parent);
-        imgOutline=itemView.findViewById(R.id.img_outline_template);
-        imgMask=itemView.findViewById(R.id.img_mask);
-        delete=itemView.findViewById(R.id.btn_delete);
-        edit=itemView.findViewById(R.id.btn_edit);
-        competition=itemView.findViewById(R.id.btn_competition);
+
+        imgUser=itemView.findViewById(R.id.img_user);
+        imgPaint=itemView.findViewById(R.id.img_paint);
+        textRate=itemView.findViewById(R.id.text_rank);
+        textUserName=itemView.findViewById(R.id.text_user_name);
+        textUserPoints=itemView.findViewById(R.id.text_user_points);
 
     }
 }

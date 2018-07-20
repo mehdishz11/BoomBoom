@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.competition.allPaint.PAllPaints;
-import psb.com.kidpaint.competition.allPaint.adapter.ViewHolder_AllPaints;
 import psb.com.kidpaint.competition.leaderBoard.PLeaderShip;
 
 
@@ -27,7 +25,7 @@ public class Adapter_LeaderShip extends RecyclerView.Adapter<ViewHolder_LeaderSh
     @Override
     public ViewHolder_LeaderShip onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_history, parent, false);
+                .inflate(R.layout.row_scoreboard, parent, false);
         ViewHolder_LeaderShip recViewHolderNews = new ViewHolder_LeaderShip(view);
         return recViewHolderNews;
     }

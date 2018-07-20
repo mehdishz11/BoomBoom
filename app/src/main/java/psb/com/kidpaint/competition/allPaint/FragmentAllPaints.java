@@ -7,11 +7,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +26,6 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
@@ -38,7 +41,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView emptyViewAllPaints;
     private ProgressBar progressBarLoading;
-    private SearchView searchView;
+    private EditText searchView;
     private UserProfile userProfile;
     private PAllPaints pPaints;
      private Adapter_AllPaints adapter_allPaints;
@@ -88,7 +91,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                pPaints.onGetAllPaints(searchView.getQuery().toString(), 1, 20);
+                pPaints.onGetAllPaints(searchView.getText().toString(), 1, 20);
             }
         });
 
@@ -101,9 +104,55 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         recyclerViewAllPaints.setAdapter(animationAdapter);
 
 
+        searchView.setImeActionLabel("Done", EditorInfo.IME_ACTION_DONE);
+        searchView.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    InputMethodManager inputMethodManager =
+                            (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.toggleSoftInputFromWindow(
+                            searchView.getApplicationWindowToken(),
+                            InputMethodManager.SHOW_IMPLICIT, 0);
+                    pPaints.onGetAllPaints(searchView.getText().toString().trim(), 1, 20);
+                    progressBarLoading.setVisibility(View.VISIBLE);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int spaceCount = 0;
+                char[] characters = editable.toString().toCharArray();
+                for (int i = 0; i < characters.length; i++) {
+                    if (characters[i] == ' ') {
+                        spaceCount++;
+                    }
+                }
+                if (spaceCount == characters.length) {
+                } else if (spaceCount < characters.length && characters[(characters.length - 1)] == ' ') {
+                    pPaints.onGetAllPaints(editable.toString().trim(), 1, 20);
+                    progressBarLoading.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
 
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+     /*   searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
                 int spaceCount = 0;
@@ -134,14 +183,8 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
 
                 return true;
             }
-        });
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        });*/
 
-        searchView.setIconified(false);
 
 
     }
