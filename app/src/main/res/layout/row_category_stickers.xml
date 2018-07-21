@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="50dp"
-    android:layout_height="50dp">
+<psb.com.cview.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <ProgressBar
-            android:layout_width="50dp"
-            android:padding="@dimen/margin_10"
             android:id="@+id/prg"
-            android:layout_height="50dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/margin_10" />
 
         <ImageView
+            android:id="@+id/image_bgr_selected"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/space_small" />
+
+        <ImageView
             android:id="@+id/img_cat"
-            android:padding="5dp"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp" />
 
 
-    </RelativeLayout>
-
-</RelativeLayout>
+</psb.com.cview.SquareRelativeLayout>

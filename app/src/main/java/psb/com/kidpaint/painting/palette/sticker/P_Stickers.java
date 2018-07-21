@@ -95,9 +95,9 @@ public class P_Stickers implements IP_Stickers {
         });
 
         if (category.isSelected()){
-            holder.imageViewCat.setBackgroundResource(R.color.green_1);
+            holder.imageBgr.setBackgroundResource(R.drawable.circle_border_white);
         } else {
-            holder.imageViewCat.setBackgroundResource(0);
+            holder.imageBgr.setBackgroundResource(0);
         }
 
         holder.imageViewCat.setOnClickListener(new View.OnClickListener() {

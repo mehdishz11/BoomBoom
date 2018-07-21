@@ -81,6 +81,8 @@ public class PaintActivity extends AppCompatActivity implements
 
     private RelativeLayout relHandle;
 
+    private BottomSheetBehavior bottomSheetBehavior;
+
 
     public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
     private int outlineResource = 0;
@@ -228,7 +230,7 @@ public class PaintActivity extends AppCompatActivity implements
         RelativeLayout paletteBottomSheet = findViewById(R.id.bottom_sheet);
 
 
-        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(paletteBottomSheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(paletteBottomSheet);
         relHandle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -670,5 +672,10 @@ public class PaintActivity extends AppCompatActivity implements
     @Override
     public void onStickerSelected(StickerView sticker) {
         stickerCanvas.addSticker(sticker);
+        if (bottomSheetBehavior != null) {
+            if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        }
     }
 }
