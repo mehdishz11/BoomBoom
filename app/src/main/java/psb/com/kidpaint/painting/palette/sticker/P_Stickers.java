@@ -2,11 +2,13 @@ package psb.com.kidpaint.painting.palette.sticker;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.View;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.palette.sticker.adapter.CategoryViewHolder;
 import psb.com.kidpaint.painting.palette.sticker.adapter.StickersViewHolder;
@@ -61,23 +63,30 @@ public class P_Stickers implements IP_Stickers {
 
     public void onBindViewHolderStickers(final StickersViewHolder holder, int position) {
         final Sticker sticker = mStickers.getStickerAtPos(position);
-        Picasso.get().load(sticker.getImageUrl()).into(holder.imageViewStickers, new Callback() {
-            @Override
-            public void onSuccess() {
-                holder.progressBar.setVisibility(View.GONE);
-                holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ivStickers.onStickerSelected(((BitmapDrawable)holder.imageViewStickers.getDrawable()).getBitmap());
-                    }
-                });
-            }
 
-            @Override
-            public void onError(Exception e) {
+        if (sticker.getImageUrl() != null && !sticker.getImageUrl().isEmpty()) {
+            Picasso.get().load(sticker.getImageUrl()).into(holder.imageViewStickers, new Callback() {
+                @Override
+                public void onSuccess() {
+                    holder.progressBar.setVisibility(View.GONE);
+                    holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ivStickers.onStickerSelected(((BitmapDrawable)holder.imageViewStickers.getDrawable()).getBitmap());
+                        }
+                    });
+                }
 
-            }
-        });
+                @Override
+                public void onError(Exception e) {
+
+                    holder.progressBar.setVisibility(View.GONE);
+                }
+            });
+        }else{
+            Log.d(App.TAG, "onBindViewHolderStickers: "+sticker.getImageUrl());
+        }
+
     }
 
     public void onBindViewHolderCategory(final CategoryViewHolder holder, int position) {

@@ -5,12 +5,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
+
 import psb.com.kidpaint.R;
 
 public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
 
     public ImageView imgUser;
-    public ImageView imgPaint;
+    public RoundedImageView imgPaint;
     public TextView textRate;
     public TextView textUserName;
     public TextView textUserPoints;

@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/space_small"
     android:layout_marginRight="@dimen/space_small"
+    android:layout_marginLeft="@dimen/space_small"
     android:layout_marginTop="@dimen/space_small"
     android:alpha="0.95">
 
@@ -33,6 +34,8 @@
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/img_user"
             android:layout_alignTop="@+id/img_user"
+            android:layout_toRightOf="@+id/img_paint"
+            android:layout_marginLeft="-40dp"
             android:layout_marginRight="100dp"
             android:background="@color/brown_1" />
 
@@ -86,9 +89,11 @@
             android:layout_height="80dp"
             android:layout_centerVertical="true"
             android:elevation="5dp"
-            android:padding="@dimen/space_small"
             android:src="@drawable/temp_tablet"
-            app:riv_corner_radius="5dp" />
+            app:riv_corner_radius="40dp"
+            app:riv_border_color="@color/brown_1"
+            app:riv_border_width="5dp"
+             />
     </RelativeLayout>
 
 </RelativeLayout>
