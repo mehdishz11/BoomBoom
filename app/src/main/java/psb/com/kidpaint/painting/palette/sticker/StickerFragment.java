@@ -52,14 +52,15 @@ public class StickerFragment extends Fragment implements IV_Stickers{
 
     private void setContent(){
         recyclerViewCat = pView.findViewById(R.id.rec_cat);
-        linearLayoutManagerCat = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManagerCat = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
+//        linearLayoutManagerCat.setStackFromEnd(true);
         categoryAdapter = new CategoryAdapter(pStickers);
         recyclerViewCat.setLayoutManager(linearLayoutManagerCat);
         recyclerViewCat.setAdapter(categoryAdapter);
 
         recyclerViewStickers = pView.findViewById(R.id.rec_stickers);
         stickersAdapter = new StickersAdapter(pStickers);
-        linearLayoutManagerStickers = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManagerStickers = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         recyclerViewStickers.setLayoutManager(linearLayoutManagerStickers);
         recyclerViewStickers.setAdapter(stickersAdapter);
         pStickers.getStickers();
