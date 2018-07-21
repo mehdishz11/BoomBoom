@@ -18,5 +18,10 @@ public interface IPMyPaints {
 
     void onSuccessDeleteMyPaints(int position);
 
+    void onGetMyPaints(int loadMode);
+    void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
+    void onFailedGetMyPaints(int errorCode,String errorMessage);
+
+
 
 }

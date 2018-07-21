@@ -44,4 +44,10 @@
         android:layout_margin="@dimen/margin_5"
         android:layout_height="wrap_content" />
 
+    <psb.com.kidpaint.utils.customView.ProgressView
+        android:id="@+id/progressView"
+        android:layout_width="match_parent"
+        app:mode="0"
+        android:layout_height="match_parent"></psb.com.kidpaint.utils.customView.ProgressView>
+
 </RelativeLayout>

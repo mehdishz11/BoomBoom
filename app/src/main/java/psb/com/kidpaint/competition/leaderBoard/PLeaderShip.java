@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.squareup.picasso.Picasso;
 
+import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.leaderBoard.adapter.ViewHolder_LeaderShip;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
@@ -77,6 +78,19 @@ public class PLeaderShip implements IPLeaderShip {
         holder.textRate.setText(""+leaderModel.getRank());
         holder.textUserName.setText(leaderModel.getUser().getFirstName()+" "+leaderModel.getUser().getLastName());
         holder.textUserPoints.setText((leaderModel.getScore())+" امتیاز");
+
+        if (position==0) {
+            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_yellow_300));
+        }else if (position==1) {
+            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_grey_300));
+
+        }else if (position==2) {
+            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_orange_300));
+
+        }else  {
+            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.brown_1));
+
+        }
     }
 
     @Override

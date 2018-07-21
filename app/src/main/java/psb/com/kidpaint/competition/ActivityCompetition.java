@@ -1,19 +1,28 @@
 package psb.com.kidpaint.competition;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.FragmentAllPaints;
 import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
 import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.competition.score.FragmentScore;
+import psb.com.kidpaint.home.HomeActivity;
+import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
@@ -32,7 +41,10 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     private static final String TAG_FRAGMENT_LEADER_BOARD = "TAG_FRAGMENT_LEADER_BOARD";
     private static final String TAG_FRAGMENT_SCORE = "TAG_FRAGMENT_SCORE";
 
-    private ImageView back;
+    public static int CODE_REGISTER = 107;
+
+
+    private ImageView back,userImage;
     private PCompetition pCompetition;
     private ProgressView progressView;
 
@@ -46,6 +58,10 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     private TextView tabMe;
     private TextView tabAll;
     private TextView tabCompetition;
+    private TextView text_user_name;
+    private UserProfile userProfile;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +69,17 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         setContentView(R.layout.activity_competition);
 
         ToolbarHandler.setToolbarColor(this, getWindow(), getWindow().getDecorView(), R.color.blue_4, false);
-
+        userProfile=new UserProfile(this);
         pCompetition = new PCompetition(this);
         setViewContent();
+        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            pCompetition.onGetMyPaints();
+        }else{
+            pCompetition.onGetAllPaints();
+        }
 
-        pCompetition.onGetMyPaints();
+        setUserInfo();
+
     }
 
 
@@ -70,6 +92,37 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         } else if (position == 2) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentAllPaints().newInstance(mResponseGetAllPaints), TAG_FRAGMENT_All_PAINTS).commit();
         }
+    }
+
+    void setUserInfo(){
+        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            text_user_name.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
+            text_user_name.setOnClickListener(null);
+        }else{
+            text_user_name.setText("ثبت نام کنید");
+            text_user_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ActivityCompetition.this, ActivityRegisterUser.class);
+                    startActivityForResult(intent, CODE_REGISTER);
+                }
+            });
+        }
+
+
+        if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
+        Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(Exception e) {
+                userImage.setImageResource(R.drawable.user_empty_gray);
+            }
+        });
+    }
     }
 
 
@@ -103,6 +156,8 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         tabAll = findViewById(R.id.text_All);
         tabMe = findViewById(R.id.text_me);
         tabCompetition = findViewById(R.id.text_competition);
+        userImage = findViewById(R.id.userImage);
+        text_user_name = findViewById(R.id.text_user_name);
 
         tabAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,6 +279,11 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     }
 
     @Override
+    public void setResponseMyPaint(ResponseGetMyPaints responseGetMyPaints) {
+        mResponseGetMyPaints=responseGetMyPaints;
+    }
+
+    @Override
     public void setResponseLeaderShip(ResponseGetLeaderShip responseLeaderShip) {
         mResponseGetLeaderShip = responseLeaderShip;
     }
@@ -239,4 +299,30 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
             super.onBackPressed();
         }
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult competition: " + requestCode);
+        if (requestCode == CODE_REGISTER) {
+            if (resultCode == Activity.RESULT_OK) {
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_OK, intent);
+                setUserInfo();
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS) != null) {
+                    ((FragmentMyPaints)getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS)).getMyPaints();
+                }
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
+                    ((FragmentLeaderBoard)getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip();
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                //finish();
+            }
+        }
+    }
+
+
 }

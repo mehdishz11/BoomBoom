@@ -14,7 +14,7 @@ public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
     public TextView textRate;
     public TextView textUserName;
     public TextView textUserPoints;
-    public View parentView;
+    public View parentView,viewBackground;
 
     public ViewHolder_LeaderShip(View itemView) {
         super(itemView);
@@ -26,6 +26,7 @@ public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
         textRate=itemView.findViewById(R.id.text_rank);
         textUserName=itemView.findViewById(R.id.text_user_name);
         textUserPoints=itemView.findViewById(R.id.text_user_points);
+        viewBackground=itemView.findViewById(R.id.viewBackground);
 
     }
 }

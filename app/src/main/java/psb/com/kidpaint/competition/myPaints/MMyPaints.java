@@ -3,6 +3,8 @@ package psb.com.kidpaint.competition.myPaints;
 import android.content.Context;
 
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.webApi.paint.Paint;
+import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.MyPaint;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
@@ -41,7 +43,7 @@ public class MMyPaints implements IMMyPaints {
 
     @Override
     public int getArrSizeMyPaints() {
-        return mResponseGetMyPaints.getMyPaint().size();
+        return mResponseGetMyPaints!=null?mResponseGetMyPaints.getMyPaint().size():0;
     }
 
   @Override
@@ -59,6 +61,22 @@ public class MMyPaints implements IMMyPaints {
         user.setBirthday(userProfile.get_KEY_BRITH_DAY("2000-12-12"));
         user.setPhoneNumber(userProfile.get_KEY_PHONE_NUMBER("100"));
         return user;
+    }
+
+    @Override
+    public void onGetMyPaints() {
+        new Paint().getMyPaints(new iGetMyPaints.iResult() {
+            @Override
+            public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
+                mResponseGetMyPaints=responseGetMyPaints;
+                ipMyPaints.onSuccessGetMyPaints(responseGetMyPaints);
+            }
+
+            @Override
+            public void onFailedGetMyPaints(int errorId, String ErrorMessage) {
+                ipMyPaints.onFailedGetMyPaints(errorId, ErrorMessage);
+            }
+        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"));
     }
 
 
