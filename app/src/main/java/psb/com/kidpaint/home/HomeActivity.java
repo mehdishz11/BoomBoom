@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,6 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import me.itangqi.waveloadingview.WaveLoadingView;
 import psb.com.cview.CButton;
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.HistoryFragment;
