@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -84,10 +85,12 @@ public class PaintActivity extends AppCompatActivity implements
     private BottomSheetBehavior bottomSheetBehavior;
 
 
+
     public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
     private int outlineResource = 0;
-    private String editPath="";
+    private String editPath;
 
+    private ImageView imageHistory;
 
     private BucketCanvas bucketCanvas;
 
@@ -97,7 +100,9 @@ public class PaintActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_paint);
+
         editPath=getIntent().getStringExtra("Path");
+
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -145,6 +150,7 @@ public class PaintActivity extends AppCompatActivity implements
         btnRight = findViewById(R.id.btn_right);
         relHandle = findViewById(R.id.rel_handle);
         mPager = findViewById(R.id.view_pager);
+        imageHistory = findViewById(R.id.image_history);
 
         btnCancel = findViewById(R.id.btn_cancel);
         btnSave = findViewById(R.id.btn_save);
@@ -316,6 +322,11 @@ public class PaintActivity extends AppCompatActivity implements
 
             }
         });
+
+        if(editPath!=null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(editPath);
+            imageHistory.setImageBitmap(bitmap);
+        }
 
 
         onPaintTypeSelected(PaintType.PENCIL);
@@ -492,9 +503,15 @@ public class PaintActivity extends AppCompatActivity implements
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String fname = "paint_" + timeStamp + ".jpg";
-
         File file = new File(mydir, fname);
+
+        if (editPath != null) {
+            fname=editPath;
+             file = new File(fname);
+        }
+
         if (file.exists()) file.delete();
+
         try {
             FileOutputStream out = new FileOutputStream(file);
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
