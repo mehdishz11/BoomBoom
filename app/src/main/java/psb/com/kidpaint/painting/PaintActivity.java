@@ -37,13 +37,14 @@ import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
 import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
 import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
+import psb.com.kidpaint.painting.palette.sticker.StickerFragment;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
-import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
+import psb.com.kidpaint.utils.customView.stickerview.StickerView;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
@@ -55,6 +56,7 @@ import static android.view.View.LAYER_TYPE_HARDWARE;
 
 public class PaintActivity extends AppCompatActivity implements
         PaletteFragment.OnFragmentInteractionListener,
+        StickerFragment.OnFragmentInteractionListener,
         BucketCanvas.OnBucketPointSelected {
 
     private int REQUEST_STORAGE_PERMISSIONS = 100;
@@ -302,12 +304,7 @@ public class PaintActivity extends AppCompatActivity implements
 
                 } else if (position == 1) {
                     btnRight.setImageResource(R.drawable.icon_right_disable);
-
                     onPaintTypeSelected(PaintType.STICKER);
-                    StickerImageView stickerImageView = new StickerImageView(PaintActivity.this);
-                    stickerImageView.setImageResource(R.drawable.icon_plus_normal);
-                    stickerCanvas.addSticker(stickerImageView);
-
                 }
             }
 
@@ -453,6 +450,12 @@ public class PaintActivity extends AppCompatActivity implements
     ///////////////////////////////////////////////////////////////////////////
     private Bitmap getPaintCanvasBitmap() {
 
+        RelativeLayout relPaint=findViewById(R.id.rel_drawing);
+        relPaint.setDrawingCacheEnabled(true);
+        relPaint.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(relPaint.getDrawingCache());
+        relPaint.setDrawingCacheEnabled(false);
+/*
         Bitmap bitmapCanvas = getCanvasBitmap();
         Bitmap bitmapOutline = getOutlineBitmap();
         Bitmap bitmapStickers = getStickerBitmap();
@@ -461,8 +464,9 @@ public class PaintActivity extends AppCompatActivity implements
 
         c.drawBitmap(bitmapOutline, 0, 0, new Paint());
         c.drawBitmap(bitmapStickers, 0, 0, new Paint());
+*/
 
-        return bitmapCanvas;
+        return bitmap;
 
     }
 
@@ -490,7 +494,7 @@ public class PaintActivity extends AppCompatActivity implements
         if (file.exists()) file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
 
@@ -650,12 +654,21 @@ public class PaintActivity extends AppCompatActivity implements
 
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                     && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                btnSave.performClick();
+                saveTempBitmap(getPaintCanvasBitmap());
 
             } else {
 
             }
 
         }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // on sticker selected
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onStickerSelected(StickerView sticker) {
+        stickerCanvas.addSticker(sticker);
     }
 }
