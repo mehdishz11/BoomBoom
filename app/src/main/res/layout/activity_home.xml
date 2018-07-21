@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:clickable="true"
+    tools:openDrawer="right"
     android:focusableInTouchMode="true"
     tools:context=".home.HomeActivity">
 

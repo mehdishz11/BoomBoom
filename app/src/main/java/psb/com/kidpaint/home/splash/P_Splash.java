@@ -3,6 +3,7 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 
 public class P_Splash implements IP_Splash {
 
@@ -50,5 +51,20 @@ public class P_Splash implements IP_Splash {
     @Override
     public void getRankFailed(String msg) {
         ivSplash.getRankFailed(msg);
+    }
+
+    @Override
+    public void getPirze() {
+        mSplash.getPirze();
+    }
+
+    @Override
+    public void getPirzeSuccess(ResponsePrize responsePrize) {
+        ivSplash.getPirzeSuccess(responsePrize);
+    }
+
+    @Override
+    public void getPrizeFailed(String msg) {
+        ivSplash.getPrizeFailed(msg);
     }
 }
