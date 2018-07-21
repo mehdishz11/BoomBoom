@@ -250,15 +250,12 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         }
     }
 
-
-
     @Override
     public void onSuccessSendScore(int position) {
         progressDialog.cancel();
         recyclerViewAllPaints.getAdapter().notifyItemChanged(position);
 
         final MessageDialog dialog = new MessageDialog(getContext());
-
         dialog.setMessage("امتیاز شما با موفقیت ثبت شد.");
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
@@ -282,7 +279,25 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     @Override
     public void onFailedSendScore(int errorCode, String errorMessage) {
         progressDialog.cancel();
-        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage(errorMessage);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                sendPosition = -1;
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getContext().getString(R.string.danger));
+        dialog.show();
     }
 
     @Override
