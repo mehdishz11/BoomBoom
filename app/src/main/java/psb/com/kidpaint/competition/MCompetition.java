@@ -72,6 +72,6 @@ public class MCompetition implements IMCompetition {
                ipCompetition.onFailedGetLeaderBoard(errorId, ErrorMessage);
 
            }
-       }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,20);
+       }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,15);
     }
 }

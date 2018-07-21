@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.PAllPaints;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.competition.leaderBoard.adapter.Adapter_LeaderShip;
+import psb.com.kidpaint.utils.GridLayoutManager_EndlessRecyclerOnScrollListener;
+import psb.com.kidpaint.utils.LinearLayoutManager_EndlessRecyclerOnScrollListener;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -48,6 +51,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
     private Adapter_LeaderShip adapter_leaderShip;
 
     private ImageView img_winner_1,img_winner_2,img_winner_3;
+    private RecyclerView.LayoutManager layoutManager;
 
     public FragmentLeaderBoard() {
         // Required empty public constructor
@@ -107,12 +111,12 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                 pLeaderShip.onGetLeaderShip(1, 20);
+                 pLeaderShip.onGetLeaderShip(1, 15);
             }
         });
 
         adapter_leaderShip = new Adapter_LeaderShip(pLeaderShip);
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),1);
         recyclerView.setLayoutManager(linearLayoutManager);
         AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter_leaderShip);
         animationAdapter.setDuration(100);
@@ -120,6 +124,17 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         recyclerView.setAdapter(animationAdapter);
 
         emptyView.setVisibility(adapter_leaderShip.getItemCount()>0?View.GONE:View.VISIBLE);
+
+        Log.d("TAG", "initView: "+pLeaderShip.getServerGetLeaderShipSize());
+        recyclerView.setOnScrollListener(new GridLayoutManager_EndlessRecyclerOnScrollListener((GridLayoutManager) linearLayoutManager,pLeaderShip.getServerGetLeaderShipSize()) {
+            @Override
+            public void onLoadMore(int load_count,int page) {
+                if (progressBarLoading.getVisibility()==View.GONE) {
+                    progressBarLoading.setVisibility(View.VISIBLE);
+                    pLeaderShip.onGetLeaderShip(page, 15);
+                }
+            }
+        });
     }
 
     void setWinnersAndUserRate(){

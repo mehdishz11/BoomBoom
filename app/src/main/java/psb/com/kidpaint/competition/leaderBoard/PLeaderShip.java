@@ -101,7 +101,7 @@ public class PLeaderShip implements IPLeaderShip {
 
     @Override
     public int getServerGetLeaderShipSize() {
-        return mPaints.getArrSizeLeaderShip();
+        return mPaints.getServerLeaderShipSize();
     }
 
 
