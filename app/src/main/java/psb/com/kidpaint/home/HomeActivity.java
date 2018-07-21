@@ -563,7 +563,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     private void setPrizeLayout() {
         waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(0).getNeedScore());
-        if (waveLoadingViewLeft.getProgressValue() > 100) {
+        if (waveLoadingViewLeft.getProgressValue() >= 100) {
             waveLoadingViewLeft.setProgressValue(100);
             waveLoadingViewLeft.setWaveColor(getResources().getColor(R.color.blue_3));
             waveLoadingViewLeft.setBorderColor(getResources().getColor(R.color.blue_3));
@@ -579,7 +579,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         Log.d("wave ", "setPrizes: " + waveLoadingViewLeft.getProgressValue());
 
         waveLoadingViewCenter.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(1).getNeedScore());
-        if (waveLoadingViewCenter.getProgressValue() > 100) {
+        if (waveLoadingViewCenter.getProgressValue() >= 100) {
             waveLoadingViewCenter.setProgressValue(100);
             waveLoadingViewCenter.setWaveColor(getResources().getColor(R.color.blue_3));
             waveLoadingViewCenter.setBorderColor(getResources().getColor(R.color.blue_3));
@@ -595,7 +595,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         Log.d("wave ", "setPrizes: " + waveLoadingViewCenter.getProgressValue());
 
         waveLoadingViewRight.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(2).getNeedScore());
-        if (waveLoadingViewRight.getProgressValue() > 100) {
+        if (waveLoadingViewRight.getProgressValue() >= 100) {
             waveLoadingViewRight.setProgressValue(100);
             waveLoadingViewRight.setWaveColor(getResources().getColor(R.color.blue_3));
             waveLoadingViewRight.setBorderColor(getResources().getColor(R.color.blue_3));
