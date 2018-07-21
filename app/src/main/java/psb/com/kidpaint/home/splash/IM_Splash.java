@@ -6,4 +6,6 @@ public interface IM_Splash {
     Context getContext();
 
     void getStickers();
+
+    void getRank();
 }

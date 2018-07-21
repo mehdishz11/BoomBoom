@@ -101,13 +101,17 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="30">
 
-                                    <ImageView
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
                                         android:layout_width="45dp"
                                         android:layout_height="45dp"
                                         android:layout_alignParentBottom="true"
                                         android:layout_marginBottom="15dp"
                                         android:rotation="-10"
+                                        app:riv_border_color="@color/White"
+                                        android:id="@+id/img_winner_2"
                                         android:src="@drawable/temp_kid_1" />
+
                                 </RelativeLayout>
 
                                 <RelativeLayout
@@ -115,10 +119,12 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="45">
 
-                                    <ImageView
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
                                         android:id="@+id/img_winner_1"
                                         android:layout_width="match_parent"
                                         android:layout_height="70dp"
+                                        app:riv_border_color="@color/White"
                                         android:layout_alignParentBottom="true"
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginBottom="34dp"
@@ -132,7 +138,8 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="25">
 
-                                    <ImageView
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
                                         android:layout_width="35dp"
                                         android:layout_height="35dp"
                                         android:layout_alignParentBottom="true"
@@ -140,6 +147,8 @@
                                         android:layout_marginBottom="3dp"
                                         android:layout_marginRight="5dp"
                                         android:rotation="10"
+                                        app:riv_border_color="@color/white_1"
+                                        android:id="@+id/img_winner_3"
                                         android:src="@drawable/temp_kid_3" />
                                 </RelativeLayout>
                             </LinearLayout>
