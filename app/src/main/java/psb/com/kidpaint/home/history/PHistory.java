@@ -92,7 +92,7 @@ public class PHistory implements  IPHistory {
                ivHistory.onSelecteditem(filePath.getAbsolutePath());
             }
         });
-
+//
         holder.competition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
