@@ -9,6 +9,7 @@ import java.util.List;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
+import psb.com.kidpaint.utils.prizePrefrence.SavePrize;
 import psb.com.kidpaint.webApi.Category.Category;
 import psb.com.kidpaint.webApi.Category.GetCategory.iGetCategory;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
@@ -30,11 +31,14 @@ public class M_Splash implements IM_Splash {
     private TblStickers tblStickers;
     private TblCategory tblCategory;
 
+    private SavePrize savePrize;
+
     public M_Splash(IP_Splash ipSplash) {
         this.context = ipSplash.getContext();
         this.ipSplash = ipSplash;
         tblStickers = new TblStickers(getContext());
         tblCategory = new TblCategory(getContext());
+        savePrize = new SavePrize(getContext());
     }
 
     @Override
@@ -103,12 +107,13 @@ public class M_Splash implements IM_Splash {
         new GetPrize(new iGetPrize.iResult() {
             @Override
             public void onSuccessGetPrize(ResponsePrize responsePrize) {
+                savePrize.savePrizeToPrefrence(responsePrize);
                 ipSplash.getPirzeSuccess(responsePrize);
             }
 
             @Override
             public void onFailedGetPrize(int errorId, String ErrorMessage) {
-                ipSplash.getStickersFailed(ErrorMessage);
+                ipSplash.getPrizeFailed(ErrorMessage, savePrize.getResponsePrize());
             }
         }).doGetPrize();
     }

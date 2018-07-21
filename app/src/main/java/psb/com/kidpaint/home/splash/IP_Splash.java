@@ -18,5 +18,5 @@ public interface IP_Splash {
 
     void getPirze();
     void getPirzeSuccess(ResponsePrize responsePrize);
-    void getPrizeFailed(String msg);
+    void getPrizeFailed(String msg,ResponsePrize responsePrize);
 }

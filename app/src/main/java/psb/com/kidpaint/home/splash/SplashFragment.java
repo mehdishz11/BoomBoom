@@ -116,8 +116,8 @@ public class SplashFragment extends Fragment implements IV_Splash {
     }
 
     @Override
-    public void getPrizeFailed(String msg) {
-        mListener.getPrizeFailed();
+    public void getPrizeFailed(String msg,ResponsePrize responsePrize) {
+        mListener.getPrizeFailed(responsePrize);
         pSplash.getRank();
     }
 
@@ -131,6 +131,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
         void getRankFailed();
 
         void getPrizeSuccess(ResponsePrize responsePrize);
-        void getPrizeFailed();
+        void getPrizeFailed(ResponsePrize responsePrize);
     }
 }

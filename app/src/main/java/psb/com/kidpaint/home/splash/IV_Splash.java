@@ -17,5 +17,5 @@ public interface IV_Splash {
     void getRankFailed(String msg);
 
     void getPirzeSuccess(ResponsePrize responsePrize);
-    void getPrizeFailed(String msg);
+    void getPrizeFailed(String msg,ResponsePrize responsePrize);
 }

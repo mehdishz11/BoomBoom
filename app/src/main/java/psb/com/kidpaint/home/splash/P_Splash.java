@@ -64,7 +64,7 @@ public class P_Splash implements IP_Splash {
     }
 
     @Override
-    public void getPrizeFailed(String msg) {
-        ivSplash.getPrizeFailed(msg);
+    public void getPrizeFailed(String msg,ResponsePrize responsePrize) {
+        ivSplash.getPrizeFailed(msg,responsePrize);
     }
 }

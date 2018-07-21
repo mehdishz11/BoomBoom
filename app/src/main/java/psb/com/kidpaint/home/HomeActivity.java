@@ -468,6 +468,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     @Override
     public void splashFailed(String msg) {
+        frameLayoutSplash.setVisibility(View.GONE);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -495,8 +496,9 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
 
     @Override
-    public void getPrizeFailed() {
-
+    public void getPrizeFailed(ResponsePrize responsePrize) {
+        this.responsePrize = responsePrize;
+        setPrizes();
     }
 
     private void setPrizes() {
