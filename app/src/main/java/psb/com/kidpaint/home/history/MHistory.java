@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +38,8 @@ public class MHistory implements IMHistory {
 
     @Override
     public void getMyPaintHistory() {
+        imageList.clear();
+        imageList=new ArrayList<>();
         String path = Environment.getExternalStorageDirectory() + "/kidPaint";
         File directory = new File(path);
         if (!directory.exists()) {

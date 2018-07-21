@@ -2,8 +2,12 @@ package psb.com.kidpaint.competition.allPaint;
 
 import android.content.Context;
 
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
+import psb.com.kidpaint.webApi.paint.score.iScore;
+import psb.com.kidpaint.webApi.paint.score.model.ParamsScore;
+import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 
@@ -12,10 +16,12 @@ public class MAllPaints implements IMAllPaints {
     private Context context;
     private IPAllPaints ipAllPaints;
     private ResponseGetAllPaints mResponseGetAllPaints;
+    private UserProfile userProfile;
 
     public MAllPaints(IPAllPaints ipAllPaints) {
         this.ipAllPaints = ipAllPaints;
         this.context= ipAllPaints.getContext();
+        this.userProfile=new UserProfile(getContext());
 
     }
 
@@ -73,5 +79,34 @@ public class MAllPaints implements IMAllPaints {
     @Override
     public PaintModel getAllPaintsPositionAt(int position) {
         return mResponseGetAllPaints.getExtra().getPaintModel().get(position);
+    }
+
+    @Override
+    public void onSendScore(final int position) {
+        ParamsScore paramsScore=new ParamsScore();
+        paramsScore.setMobile(userProfile.get_KEY_PHONE_NUMBER(""));
+        paramsScore.setPaintId(mResponseGetAllPaints.getExtra().getPaintModel().get(position).getId());
+        paramsScore.setScore(1);
+
+        new Paint().score(new iScore.iResult() {
+            @Override
+            public void onSuccessScore(ResponseScore responseScore) {
+                mResponseGetAllPaints.getExtra().getPaintModel().get(position).setScore(responseScore.getExtra());
+                ipAllPaints.onSuccessSendScore(position);
+            }
+
+            @Override
+            public void onFailedScore(int errorId, String ErrorMessage) {
+
+                ipAllPaints.onFailedSendScore(errorId, ErrorMessage);
+
+            }
+        }).doScore(paramsScore);
+
+    }
+
+    @Override
+    public boolean userIsRegistered() {
+        return !userProfile.get_KEY_PHONE_NUMBER("").isEmpty();
     }
 }

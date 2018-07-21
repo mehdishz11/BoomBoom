@@ -61,6 +61,7 @@ public class PHistory implements  IPHistory {
         }else{
             holder.parentView.setRotation(-new Random().nextInt(8));
         }
+        Picasso.get().invalidate(filePath);
         Picasso
                 .get()
                 .load(filePath)

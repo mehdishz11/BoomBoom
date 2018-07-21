@@ -279,6 +279,12 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     }
 
     @Override
+    public void onRefreshUserData() {
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
+    }
+
+    @Override
     public void setResponseMyPaint(ResponseGetMyPaints responseGetMyPaints) {
         mResponseGetMyPaints=responseGetMyPaints;
     }

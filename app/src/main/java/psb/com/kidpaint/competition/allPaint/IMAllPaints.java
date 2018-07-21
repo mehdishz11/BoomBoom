@@ -19,4 +19,8 @@ public interface IMAllPaints {
 
     PaintModel getAllPaintsPositionAt(int position);
 
+    void onSendScore(int position);
+    boolean userIsRegistered();
+
+
 }

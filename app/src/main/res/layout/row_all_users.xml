@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content">
 
                     <psb.com.cview.CButton
-                        android:id="@+id/btn_delete"
+                        android:id="@+id/btn_like"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/btn_sqr_green"

@@ -18,7 +18,7 @@ public class ViewHolder_AllPaints extends RecyclerView.ViewHolder {
     public RoundedImageView imgOutline;
     public ImageView imgMask;
     public View parentView;
-    public Button competition;
+    public Button competition,like;
     public CardView cardBgr;
     public TextView textUserName;
     public TextView textImageCode;
@@ -38,6 +38,7 @@ public class ViewHolder_AllPaints extends RecyclerView.ViewHolder {
         bgrBtnRate=itemView.findViewById(R.id.image_bgr_btn);
 
         imageUser=itemView.findViewById(R.id.img_user);
+        like=itemView.findViewById(R.id.btn_like);
 
         textUserName=itemView.findViewById(R.id.text_user_name);
         textImageCode=itemView.findViewById(R.id.text_image_code);

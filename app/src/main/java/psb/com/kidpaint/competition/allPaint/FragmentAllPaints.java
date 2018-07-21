@@ -1,6 +1,9 @@
 package psb.com.kidpaint.competition.allPaint;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,12 +27,16 @@ import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
+import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class FragmentAllPaints extends Fragment implements IVAllPaints {
+    private static final int REQUEST_CODE_REGISTER = 120;
 
     private static final String ARG_All_PAINTS = "ARG_LL_PAINTS";
     private ResponseGetAllPaints mResponseGetAllPaints;
@@ -37,7 +44,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     private OnFragmentInteractionListener mListener;
 
     private View view;
-    private RecyclerView recyclerViewMyPaints, recyclerViewAllPaints;
+    private RecyclerView recyclerViewAllPaints;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView emptyViewAllPaints;
     private ProgressBar progressBarLoading;
@@ -45,6 +52,9 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     private UserProfile userProfile;
     private PAllPaints pPaints;
      private Adapter_AllPaints adapter_allPaints;
+    private ProgressDialog progressDialog;
+
+    int sendPosition=-1;
     public FragmentAllPaints() {
         // Required empty public constructor
     }
@@ -73,7 +83,9 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         userProfile = new UserProfile(getContext());
         pPaints = new PAllPaints(this);
         pPaints.setResponseGetAllPaints(mResponseGetAllPaints);
-
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("لطفا کمی صبر کنید ...");
         initView();
         return view;
     }
@@ -239,9 +251,96 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     }
 
 
+
+    @Override
+    public void onSuccessSendScore(int position) {
+        progressDialog.cancel();
+        recyclerViewAllPaints.getAdapter().notifyItemChanged(position);
+
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage("امتیاز شما با موفقیت ثبت شد.");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                sendPosition = -1;
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle("امتیاز دهی");
+        dialog.show();
+    }
+
+    @Override
+    public void onFailedSendScore(int errorCode, String errorMessage) {
+        progressDialog.cancel();
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showUserRegisterDialog(final int position) {
+        sendPosition = position;
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage("برای امتیاز دهی به نقاشی باید ثبت نام کنید یا وارد شوید!");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                startActivityForResult(new Intent(getContext(), ActivityRegisterUser.class), REQUEST_CODE_REGISTER);
+
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                sendPosition = -1;
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.enter));
+        dialog.setTitle(getString(R.string.register_login));
+        dialog.show();
+    }
+
+    @Override
+    public void onStartSendScore() {
+        progressDialog.show();
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_REGISTER) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (mListener!=null) {
+                    mListener.onRefreshUserData();
+                }
+                if (sendPosition != -1) {
+                    pPaints.onSendScore(sendPosition);
+                }
+            }else{
+                sendPosition = -1;
+
+            }
+        }
+    }
+
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints);
         void onSelectPaint(PaintModel paintModel);
+        void onRefreshUserData();
     }
 }

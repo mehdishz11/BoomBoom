@@ -2,6 +2,7 @@ package psb.com.kidpaint.competition.allPaint;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -53,7 +54,7 @@ public class PAllPaints implements IPAllPaints {
 
 
     @Override
-    public void onBindViewHolder_AllPaints(final ViewHolder_AllPaints holder, int position) {
+    public void onBindViewHolder_AllPaints(final ViewHolder_AllPaints holder, final int position) {
         final PaintModel paintModel=mPaints.getAllPaintsPositionAt(position);
 
         if (paintModel.getUrl()!=null && !paintModel.getUrl().isEmpty()) {
@@ -75,7 +76,23 @@ public class PAllPaints implements IPAllPaints {
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ivAllPaints.onSelectPaint(paintModel);
+                if (mPaints.userIsRegistered()) {
+                    ivAllPaints.onSelectPaint(paintModel);
+                }else {
+                    Toast.makeText(getContext(), "برای دیدن جزعیات باید ثبت نام کنید", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPaints.userIsRegistered()) {
+                    ivAllPaints.onStartSendScore();
+                    mPaints.onSendScore(position);
+                }else {
+                    ivAllPaints.showUserRegisterDialog(position);
+                }
             }
         });
     }
@@ -91,5 +108,22 @@ public class PAllPaints implements IPAllPaints {
     @Override
     public int getServerAllPaintsSize() {
         return mPaints.getServerAllPaintsSize();
+    }
+
+    @Override
+    public void onSendScore(int position) {
+        ivAllPaints.onStartSendScore();
+
+        mPaints.onSendScore(position);
+    }
+
+    @Override
+    public void onSuccessSendScore(int position) {
+       ivAllPaints.onSuccessSendScore(position);
+    }
+
+    @Override
+    public void onFailedSendScore(int errorCode, String errorMessage) {
+        ivAllPaints.onFailedSendScore(errorCode, errorMessage);
     }
 }

@@ -15,4 +15,9 @@ public interface IVAllPaints {
 
      void onSelectPaint(PaintModel paintModel);
 
+     void showUserRegisterDialog(int position);
+    void onStartSendScore();
+
+    void onSuccessSendScore(int position);
+    void onFailedSendScore(int errorCode, String errorMessage);
 }
