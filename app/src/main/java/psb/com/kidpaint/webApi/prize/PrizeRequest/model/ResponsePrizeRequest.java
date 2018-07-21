@@ -19,7 +19,7 @@ public class ResponsePrizeRequest implements Serializable
     private List<Message> messages = null;
     @SerializedName("extra")
     @Expose
-    private String extra;
+    private int extra;
     private final static long serialVersionUID = -623754708725074310L;
 
     public Boolean getOk() {
@@ -38,11 +38,11 @@ public class ResponsePrizeRequest implements Serializable
         this.messages = messages;
     }
 
-    public String getExtra() {
+    public int getExtra() {
         return extra;
     }
 
-    public void setExtra(String extra) {
+    public void setExtra(int extra) {
         this.extra = extra;
     }
 

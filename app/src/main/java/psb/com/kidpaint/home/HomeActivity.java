@@ -44,6 +44,7 @@ import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 
 public class HomeActivity extends AppCompatActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
@@ -325,6 +326,40 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         progressDialog.dismiss();
     }
 
+    @Override
+    public void startGetPrizeRequest() {
+
+    }
+
+    @Override
+    public void prizeRequestSuccess(int score) {
+        responseGetLeaderShip.getExtra().setMyScore(score);
+        setPrizeLayout();
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage(getString(R.string.prizedeliveryContact));
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                //dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                //dialog.cancel();
+            }
+        });
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getString(R.string.prizeRegistered));
+
+        dialog.show();
+    }
+
+    @Override
+    public void prizeRequestFailed(String msg) {
+
+    }
+
     public void exitProfileDialog() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         View promptView = layoutInflater.inflate(R.layout.dialog_logout, null);
@@ -451,13 +486,6 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         }
     }
 
-    private void refreshPrizeLayoutContent() {
-        UserProfile userProfile = new UserProfile(this);
-        if (!userProfile.get_KEY_PHONE_NUMBER("-1").equals("-1")) {
-
-        }
-    }
-
     void setWinners() {
         if (responseGetLeaderShip != null) {
             if (responseGetLeaderShip.getExtra().getLeaderModel().size() > 0) {
@@ -560,7 +588,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             public void onClick(View v) {
                 if (isRegistered()) {
                     if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(0).getNeedScore()) {
-
+                        dialogGivePrize(responsePrize.getExtra().get(0).getId());
                     } else {
                         setPrizeDialogLowScore(responsePrize.getExtra().get(0).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
                     }
@@ -576,10 +604,9 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             public void onClick(View v) {
                 if (isRegistered()) {
                     if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(1).getNeedScore()) {
-
+                        dialogGivePrize(responsePrize.getExtra().get(1).getId());
                     } else {
                         setPrizeDialogLowScore(responsePrize.getExtra().get(1).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
-
                     }
                 } else {
                     dialogRegister();
@@ -593,7 +620,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             public void onClick(View v) {
                 if (isRegistered()) {
                     if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(2).getNeedScore()) {
-
+                        dialogGivePrize(responsePrize.getExtra().get(2).getId());
                     } else {
                         setPrizeDialogLowScore(responsePrize.getExtra().get(2).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
                     }
@@ -603,6 +630,39 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                 drawer.closeDrawer(GravityCompat.END);
             }
         });
+
+        if (isRegistered()) {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.btn_rect);
+            buttonPrizeCenter.setBackgroundResource(R.drawable.btn_rect);
+            buttonPrizeRight.setBackgroundResource(R.drawable.btn_rect);
+        } else {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.icon_rect_disable);
+            buttonPrizeCenter.setBackgroundResource(R.drawable.icon_rect_disable);
+            buttonPrizeRight.setBackgroundResource(R.drawable.icon_rect_disable);
+        }
+
+        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(0).getNeedScore()) {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.btn_rect);
+        } else {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.icon_rect_disable);
+        }
+
+        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(1).getNeedScore()) {
+
+            buttonPrizeCenter.setBackgroundResource(R.drawable.btn_rect);
+
+        } else {
+
+            buttonPrizeCenter.setBackgroundResource(R.drawable.icon_rect_disable);
+
+        }
+
+        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(2).getNeedScore()) {
+
+            buttonPrizeRight.setBackgroundResource(R.drawable.btn_rect);
+        } else {
+            buttonPrizeRight.setBackgroundResource(R.drawable.icon_rect_disable);
+        }
     }
 
     private boolean isRegistered() {
@@ -632,6 +692,31 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         });
         dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
         dialog.setTitle("امتیاز کافی نیست");
+
+        dialog.show();
+    }
+
+    private void dialogGivePrize(final int prizeId) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage(getString(R.string.prizeRequestMsg));
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                ParamsPrizeRequest paramsPrizeRequest = new ParamsPrizeRequest();
+                paramsPrizeRequest.setMobile(userProfile.get_KEY_PHONE_NUMBER(""));
+                paramsPrizeRequest.setPrizeId(prizeId);
+                pHome.prizeRequest(paramsPrizeRequest);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+            }
+        });
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getString(R.string.prizeGiven));
 
         dialog.show();
     }

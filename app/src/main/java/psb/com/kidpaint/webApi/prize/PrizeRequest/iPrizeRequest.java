@@ -5,7 +5,9 @@ import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ResponsePrizeRequest;
 import psb.com.kidpaint.webApi.prize.iPrize;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 /**
  * Created by morteza on 1/29/2018 AD.
@@ -22,7 +24,7 @@ public interface iPrizeRequest {
     }
 
     interface apiRequest {
-        @GET(iPrize.apiAddress+"PrizeRequest")
-        Call<ResponsePrizeRequest> requestPrize(ParamsPrizeRequest paramsPrizeRequest);
+        @POST(iPrize.apiAddress+"PrizeRequest")
+        Call<ResponsePrizeRequest> requestPrize(@Body ParamsPrizeRequest paramsPrizeRequest);
     }
 }

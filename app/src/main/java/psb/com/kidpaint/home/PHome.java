@@ -2,6 +2,7 @@ package psb.com.kidpaint.home;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 
 
 public class PHome implements IP_Home {
@@ -35,5 +36,21 @@ public class PHome implements IP_Home {
     public void onLogoutFailed(String errorMessage) {
         iv_home.onLogoutFailed(errorMessage);
 
+    }
+
+    @Override
+    public void prizeRequest(ParamsPrizeRequest paramsPrizeRequest) {
+        iv_home.startGetPrizeRequest();
+        mHome.prizeRequest(paramsPrizeRequest);
+    }
+
+    @Override
+    public void prizeRequestSuccess(int score) {
+        iv_home.prizeRequestSuccess(score);
+    }
+
+    @Override
+    public void prizeRequestFailed(String msg) {
+        iv_home.prizeRequestFailed(msg);
     }
 }
