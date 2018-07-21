@@ -20,6 +20,13 @@ public class Sticker implements Serializable
     @SerializedName("songUrl")
     @Expose
     private String songUrl;
+    @SerializedName("createDate")
+    @Expose
+    private String createDate;
+
+    @SerializedName("deleted")
+    @Expose
+    private Boolean deleted;
     @SerializedName("categoryId")
     @Expose
     private Integer categoryId;
@@ -65,4 +72,19 @@ public class Sticker implements Serializable
         this.categoryId = categoryId;
     }
 
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 }

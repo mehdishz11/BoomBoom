@@ -46,6 +46,7 @@ public class M_Splash implements IM_Splash {
     public void getStickers() {
         stickerList.clear();
         categoryList.clear();
+        String fromDate=tblStickers.getStickerLastUpdateTime();
         new Category().getCategory(new iGetCategory.iResult() {
             @Override
             public void onSuccessGetCategory(ResponseStickers responseStickers) {
@@ -64,7 +65,7 @@ public class M_Splash implements IM_Splash {
             public void onFailedGetCategory(int errorId, String ErrorMessage) {
                 ipSplash.getStickersFailed(ErrorMessage);
             }
-        }).doGetCategory();
+        }).doGetCategory(fromDate);
     }
 
 

@@ -37,8 +37,10 @@ import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
@@ -53,7 +55,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     public static int CODE_EDIT = 108;
     private CButton btnNewPainting;
     private CButton btnHistory;
-    private ImageView drawerIcon;
+    private ImageView drawerIcon,btn_settings;
 
     private final String TAG_FRAGMENT_HISTORY = "TAG_FRAGMENT_HISTORY";
     private final String TAG_FRAGMENT_NEW_PAINTING = "TAG_FRAGMENT_NEW_PAINTING";
@@ -79,7 +81,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private ResponsePrize responsePrize;
 
     private ImageView imageViewPrizeLeft, imageViewPrizeCenter, imageViewRight;
-    private TextView textViewPrizeLeftName, textViewPrizeCenterName, textViewPrizeRightName;
+    private TextView textViewPrizeLeftName, textViewPrizeCenterName, textViewPrizeRightName,text_user_rate;
     private TextView textViewPrizeLeftScore, textViewPrizeCenterScore, textViewPrizeRightScore;
     private WaveLoadingView waveLoadingViewLeft, waveLoadingViewCenter, waveLoadingViewRight;
 
@@ -101,6 +103,8 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         img_winner_1 = findViewById(R.id.img_winner_1);
         img_winner_2 = findViewById(R.id.img_winner_2);
         img_winner_3 = findViewById(R.id.img_winner_3);
+        text_user_rate = findViewById(R.id.text_user_rate);
+        btn_settings = findViewById(R.id.btn_settings);
 
         splashFragment = new SplashFragment().newInstance();
 
@@ -151,6 +155,17 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             @Override
             public void onClick(View view) {
                 drawer.openDrawer(GravityCompat.END);
+            }
+        });
+
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+
+                DialogSettings cDialog = new DialogSettings(HomeActivity.this);
+
+                cDialog.show();
             }
         });
 
@@ -472,6 +487,13 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                             .onlyScaleDown()
                             .into(img_winner_3);
                 }
+            }
+
+            if (responseGetLeaderShip.getExtra().getMyRank()!=null) {
+                text_user_rate.setText("بهترین رتبه شما "+responseGetLeaderShip.getExtra().getMyRank().getRank());
+            }else {
+                text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+
             }
         }
 

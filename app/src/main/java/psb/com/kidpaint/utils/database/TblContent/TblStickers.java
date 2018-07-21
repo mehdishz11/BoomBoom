@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,8 @@ public class TblStickers {
         cv.put("price", sticker.getPrice());
         cv.put("songUrl", sticker.getSongUrl());
         cv.put("categoryId", sticker.getCategoryId());
+        cv.put("deleted", sticker.getDeleted()?1:0);
+        cv.put("updateTime", sticker.getCreateDate());
 
         int update = db.update("tbl_Stickers", cv, "id=?", new String[]{sticker.getId()+""});
         if (update == 0) {
@@ -66,7 +70,7 @@ public class TblStickers {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId"};
-        Cursor c = db.query("tbl_Stickers", columns, null, null, null, null,null);
+        Cursor c = db.query("tbl_Stickers", columns, "deleted=?", new String[]{"0"}, null, null,null);
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 for (int i = 0; i < c.getCount(); i++) {
@@ -93,5 +97,20 @@ public class TblStickers {
         db.delete("tbl_Stickers", "id=?", new String[]{id + ""});
         db.close();
         sql.close();
+    }
+
+    public String getStickerLastUpdateTime() {
+        String time = "2000-07-02 17:07:19";
+        Sql sql = new Sql(mContext);
+        SQLiteDatabase db = sql.getReadableDatabase();
+        String[] columns = new String[]{"updateTime"};
+        Cursor c = db.query("tbl_Stickers", columns, null,null, null, null, "updateTime ASC");
+        if (c.moveToLast()) {
+            time = c.getString(0);
+        }
+
+        db.close();
+        sql.close();
+        return time;
     }
 }

@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface iGetCategory {
 
-    void doGetCategory();
+    void doGetCategory(String fromDate);
 
     interface iResult {
         void onSuccessGetCategory(ResponseStickers responseStickers);
@@ -23,6 +23,6 @@ public interface iGetCategory {
 
     interface apiRequest {
         @GET(iCategory.apiAddress+"GetCategory")
-        Call<ResponseStickers> getCategory();
+        Call<ResponseStickers> getCategory(@Query("fromDate")String fromDate);
     }
 }
