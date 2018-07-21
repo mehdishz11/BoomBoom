@@ -61,7 +61,7 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
     private UserProfile userProfile;
 
     private static final int REQUEST_SELECT_IMAGE = 20;
-    private Bitmap bitmapUserImage = null;
+//    private Bitmap bitmapUserImage = null;
     private Uri uriUserImage;
 
     private String encodedImageData;
@@ -168,7 +168,7 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
             @Override
             public void onClick(View v) {
                 startActivityForResult(
-                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", false),
+                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", true),
                         REQUEST_SELECT_IMAGE);
             }
         });
@@ -176,13 +176,13 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
             @Override
             public void onClick(View v) {
                 startActivityForResult(
-                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", false),
+                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", true),
                         REQUEST_SELECT_IMAGE);
             }
         });
 
         buttonUserInfo = view.findViewById(R.id.frg_registerUserInfo_sendBtn);
-        buttonUserInfo.setText("ویرایش اطلاعات");
+        buttonUserInfo.setText("ویرایش");
 
         buttonUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -396,10 +396,11 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageViewUserImg.setImageBitmap(bmp);
             uriUserImage=getUri(bmp,"userimage");
-            bitmapUserImage=bmp;
-            imageViewUserImg.buildDrawingCache();
-            Bitmap bmap = imageViewUserImg.getDrawingCache();
-            encodedImageData ="data:image/.*?;base64," + getEncoded64ImageStringFromBitmap(bmap);
+//            bitmapUserImage=bmp;
+//            imageViewUserImg.buildDrawingCache();
+//            Bitmap bmap = imageViewUserImg.getDrawingCache();
+            encodedImageData ="data:image/.*?;base64," + getEncoded64ImageStringFromBitmap(bmp);
+
         }
     }
 

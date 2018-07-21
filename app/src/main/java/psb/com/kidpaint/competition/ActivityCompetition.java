@@ -1,26 +1,37 @@
 package psb.com.kidpaint.competition;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.Random;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.FragmentAllPaints;
 import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
 import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.competition.score.FragmentScore;
-import psb.com.kidpaint.home.HomeActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.customView.ProgressView;
@@ -44,7 +55,7 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     public static int CODE_REGISTER = 107;
 
 
-    private ImageView back,userImage;
+    private ImageView back, userImage;
     private PCompetition pCompetition;
     private ProgressView progressView;
 
@@ -61,29 +72,88 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     private TextView text_user_name;
     private UserProfile userProfile;
 
+    private ImageView sheep;
+    private ImageView cow;
+    private ImageView rooster;
 
+    private ImageView imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
 
-        ToolbarHandler.setToolbarColor(this, getWindow(), getWindow().getDecorView(), R.color.blue_4, false);
-        userProfile=new UserProfile(this);
+
+        ToolbarHandler.makeFullScreen(getWindow());
+        ToolbarHandler.makeTansluteNavigation(this, getWindow(), getWindow().getDecorView());
+        createHelperWnd();
+
+        userProfile = new UserProfile(this);
         pCompetition = new PCompetition(this);
         setViewContent();
         if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             pCompetition.onGetMyPaints();
-        }else{
+        } else {
             pCompetition.onGetAllPaints();
         }
 
         setUserInfo();
 
+        sheep.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideAnimal(sheep);
+                        hideAnimal(rooster);
+                    }
+                }, 1000);
+                sheep.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
     }
 
 
+    private void createHelperWnd() {
+//        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        RelativeLayout rel = findViewById(R.id.rel_parent);
+        final WindowManager.LayoutParams p = new WindowManager.LayoutParams();
+        p.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+        p.gravity = Gravity.RIGHT | Gravity.TOP;
+        p.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        p.width = 1;
+        p.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        p.format = PixelFormat.TRANSPARENT;
+        final View helperWnd = new View(this); //View helperWnd;
+
+        rel.addView(helperWnd, p);
+        final ViewTreeObserver vto = helperWnd.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @Override
+            public void onGlobalLayout() {
+
+                if (isStatusBarVisible()) {
+                    ToolbarHandler.makeFullScreen(getWindow());
+                }
+            }
+        });
+
+    }
+
+    public boolean isStatusBarVisible() {
+        Rect rectangle = new Rect();
+        Window window = getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        int statusBarHeight = rectangle.top;
+        return statusBarHeight != 0;
+    }
+
     void setFragment(int position) {
+        animalAnimation(position);
         setTabBgr(position);
         if (position == 0) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_PAINTS).commit();
@@ -94,11 +164,11 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         }
     }
 
-    void setUserInfo(){
+    void setUserInfo() {
         if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             text_user_name.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
             text_user_name.setOnClickListener(null);
-        }else{
+        } else {
             text_user_name.setText("ثبت نام کنید");
             text_user_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,20 +181,62 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
 
         if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
-        Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
-            @Override
-            public void onSuccess() {
+            Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
+                @Override
+                public void onSuccess() {
 
-            }
+                }
 
-            @Override
-            public void onError(Exception e) {
-                userImage.setImageResource(R.drawable.user_empty_gray);
-            }
-        });
+                @Override
+                public void onError(Exception e) {
+                    userImage.setImageResource(R.drawable.user_empty_gray);
+                }
+            });
+        }
     }
+
+
+    private void animalAnimation(int position) {
+
+        if (position == 0) {
+            hideAnimal(sheep);
+            hideAnimal(cow);
+            showAnimal(rooster);
+        } else if (position == 1) {
+            hideAnimal(rooster);
+            hideAnimal(sheep);
+            showAnimal(cow);
+        } else {
+            hideAnimal(rooster);
+            hideAnimal(cow);
+            showAnimal(sheep);
+        }
+
     }
 
+    private void hideAnimal(final View animal) {
+        if (animal.getTag() != null && animal.getTag().equals("hide")) return;
+        int[] delay = {0, 300, 500};
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(animal, "translationY", 0.0f, -20.0f, animal.getHeight());
+        animMove.setDuration(500); // miliseconds
+        animMove.setStartDelay(delay[new Random().nextInt(3) ]);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animMove);
+        animal.setTag("hide");
+        animatorSet.start();
+    }
+
+    private void showAnimal(View animal) {
+        if (animal.getTag() != null && animal.getTag().equals("show")) return;
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(animal, "translationY", animal.getHeight(), -20.0f, 0);
+        animMove.setDuration(500); // miliseconds
+        int[] delay = {0, 300, 500};
+        animMove.setStartDelay(delay[new Random().nextInt(3) ]);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animMove);
+        animal.setTag("show");
+        animatorSet.start();
+    }
 
     private void setTabBgr(int position) {
         tabAll.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
@@ -152,12 +264,25 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
         progressView = findViewById(R.id.progressView);
         frameLayoutScore = findViewById(R.id.frameLayoutScore);
+        sheep = findViewById(R.id.img_animal_1);
+        cow = findViewById(R.id.img_animal_3);
+        rooster = findViewById(R.id.img_animal_5);
+        imgBack = findViewById(R.id.img_back_1);
+
 
         tabAll = findViewById(R.id.text_All);
         tabMe = findViewById(R.id.text_me);
         tabCompetition = findViewById(R.id.text_competition);
         userImage = findViewById(R.id.userImage);
         text_user_name = findViewById(R.id.text_user_name);
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
         tabAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +309,6 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         frameLayoutScore.setVisibility(View.GONE);
 
     }
-
 
     @Override
     public Context getContext() {
@@ -286,7 +410,7 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
 
     @Override
     public void setResponseMyPaint(ResponseGetMyPaints responseGetMyPaints) {
-        mResponseGetMyPaints=responseGetMyPaints;
+        mResponseGetMyPaints = responseGetMyPaints;
     }
 
     @Override
@@ -306,7 +430,6 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -318,11 +441,11 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
                 setUserInfo();
 
                 if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS) != null) {
-                    ((FragmentMyPaints)getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS)).getMyPaints();
+                    ((FragmentMyPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS)).getMyPaints();
                 }
 
                 if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
-                    ((FragmentLeaderBoard)getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip();
+                    ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip();
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();

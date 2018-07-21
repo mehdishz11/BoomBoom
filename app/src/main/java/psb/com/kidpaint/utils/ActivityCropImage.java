@@ -127,7 +127,7 @@ public class ActivityCropImage extends AppCompatActivity {
         Uri uri = mCropImageView.getImageUri();
         if (cropped != null) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            cropped.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            cropped.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] byteArray = stream.toByteArray();
             Log.d("onCropImageClick", uri + "");
             isload = false;

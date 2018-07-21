@@ -63,7 +63,10 @@
         </receiver>
 
         <activity android:name=".competition.ActivityCompetition"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullSCreen"
+            android:windowSoftInputMode="adjustResize"
+            ></activity>
 
 
     </application>

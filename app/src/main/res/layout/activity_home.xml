@@ -181,11 +181,9 @@
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:layout_marginLeft="40dp"
-                                android:layout_marginTop="65dp"
+                                android:layout_marginTop="25dp"
                                 android:rotation="-40"
                                 android:src="@drawable/crown"
-
-
                                 />
                         </RelativeLayout>
 
@@ -284,7 +282,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <RelativeLayout
                 android:layout_width="wrap_content"
