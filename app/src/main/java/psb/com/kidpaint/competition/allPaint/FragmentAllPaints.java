@@ -28,6 +28,7 @@ import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.GridLayoutManager_EndlessRecyclerOnScrollListener;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
@@ -114,6 +115,21 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         animationAdapter.setDuration(100);
         animationAdapter.setFirstOnly(false);
         recyclerViewAllPaints.setAdapter(animationAdapter);
+
+        recyclerViewAllPaints.setOnScrollListener(new GridLayoutManager_EndlessRecyclerOnScrollListener((GridLayoutManager) linearLayoutManager,pPaints.getServerAllPaintsSize()) {
+            @Override
+            public void onLoadMore(int load_count,int page) {
+                if (progressBarLoading.getVisibility()==View.GONE) {
+                    progressBarLoading.setVisibility(View.VISIBLE);
+                    pPaints.onGetAllPaints(searchView.getText().toString().trim(), page, 20);
+                }
+            }
+        });
+
+
+
+
+
 
 
         searchView.setImeActionLabel("Done", EditorInfo.IME_ACTION_DONE);

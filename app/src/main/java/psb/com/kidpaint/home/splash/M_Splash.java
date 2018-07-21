@@ -16,6 +16,9 @@ import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.prize.Get.GetPrize;
+import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
+import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 
 public class M_Splash implements IM_Splash {
 
@@ -43,6 +46,7 @@ public class M_Splash implements IM_Splash {
     public void getStickers() {
         stickerList.clear();
         categoryList.clear();
+        String fromDate=tblStickers.getStickerLastUpdateTime();
         new Category().getCategory(new iGetCategory.iResult() {
             @Override
             public void onSuccessGetCategory(ResponseStickers responseStickers) {
@@ -61,7 +65,7 @@ public class M_Splash implements IM_Splash {
             public void onFailedGetCategory(int errorId, String ErrorMessage) {
                 ipSplash.getStickersFailed(ErrorMessage);
             }
-        }).doGetCategory();
+        }).doGetCategory(fromDate);
     }
 
 
@@ -91,6 +95,21 @@ public class M_Splash implements IM_Splash {
             public void onFailedGetLeaderShip(int errorId, String ErrorMessage) {
                 ipSplash.getRankFailed(ErrorMessage);
             }
-        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER("-1"),1,3);
+        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,3);
+    }
+
+    @Override
+    public void getPirze() {
+        new GetPrize(new iGetPrize.iResult() {
+            @Override
+            public void onSuccessGetPrize(ResponsePrize responsePrize) {
+                ipSplash.getPirzeSuccess(responsePrize);
+            }
+
+            @Override
+            public void onFailedGetPrize(int errorId, String ErrorMessage) {
+                ipSplash.getStickersFailed(ErrorMessage);
+            }
+        }).doGetPrize();
     }
 }

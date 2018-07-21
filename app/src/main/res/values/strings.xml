@@ -34,5 +34,11 @@
     <string name="autenticate">احراز هویت</string>
     <string name="danger">خطا</string>
     <string name="image_code">کد عکس</string>
+    <string name="registerBefore">ابتدا باید ثبت نام کنید!</string>
+    <string name="registerBeforeTitle">ثبت نام نکرده اید</string>
+    <string name="prizeGiven">دریافت جایزه</string>
+    <string name="prizeRequestMsg">مایل به دریافت جایزه می باشید؟</string>
+    <string name="prizedeliveryContact">همکاران ما برای جایزه با شما تماس میگیرند!</string>
+    <string name="prizeRegistered">جایزه شما ثبت شد</string>
 
 </resources>

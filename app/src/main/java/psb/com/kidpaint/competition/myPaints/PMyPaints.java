@@ -40,7 +40,7 @@ public class PMyPaints implements IPMyPaints {
 
 
     @Override
-    public void onBindViewHolder_MyPaints(ViewHolder_MyPaints holder, int position) {
+    public void onBindViewHolder_MyPaints(ViewHolder_MyPaints holder, final int position) {
         final PaintModel myPaint=mPaints.getMyPaintsPositionAt(position);
         if(position%2==0){
             holder.parentView.setRotation(new Random().nextInt(4));
@@ -50,7 +50,7 @@ public class PMyPaints implements IPMyPaints {
         Picasso
                 .get()
                 .load(myPaint.getUrl())
-                .resize(Value.dp(120),Value.dp(120))
+                .resize(Value.dp(120),0)
                 .onlyScaleDown()
                 .into(holder.imgOutline, new Callback() {
                     @Override
@@ -74,6 +74,13 @@ public class PMyPaints implements IPMyPaints {
                 ivMyPaints.onSelectPaint(paintModel);
             }
         });
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivMyPaints.showDialogDelete(position);
+            }
+        });
     }
 
 
@@ -85,6 +92,11 @@ public class PMyPaints implements IPMyPaints {
     @Override
     public void onSuccessDeleteMyPaints(int position) {
          ivMyPaints.onSuccessDeleteMyPaints(position);
+    }
+
+    @Override
+    public void onFailedDeleteMyPaints(int errorCode, String errorMessage) {
+        ivMyPaints.onFailedDeleteMyPaints(errorCode, errorMessage);
     }
 
     @Override
@@ -102,6 +114,12 @@ public class PMyPaints implements IPMyPaints {
     public void onFailedGetMyPaints(int errorCode,String errorMessage) {
         ivMyPaints.onFailedGetMyPaints(errorCode, errorMessage);
 
+    }
+
+    @Override
+    public void deleteMyPaints(int position) {
+          ivMyPaints.onStartDeleteMyPaints();
+          mPaints.deleteMyPaints(position);
     }
 
 }

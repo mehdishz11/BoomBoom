@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,8 +29,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import me.itangqi.waveloadingview.WaveLoadingView;
 import psb.com.cview.CButton;
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.HistoryFragment;
@@ -42,9 +41,15 @@ import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 
 public class HomeActivity extends AppCompatActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
@@ -56,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     public static int CODE_EDIT = 108;
     private CButton btnNewPainting;
     private CButton btnHistory;
-    private ImageView drawerIcon;
+    private ImageView drawerIcon,btn_settings;
 
     private final String TAG_FRAGMENT_HISTORY = "TAG_FRAGMENT_HISTORY";
     private final String TAG_FRAGMENT_NEW_PAINTING = "TAG_FRAGMENT_NEW_PAINTING";
@@ -69,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private ImageView userImage;
     private TextView editUser, logOut;
 
-    private ImageView img_winner_1,img_winner_2,img_winner_3;
+    private ImageView img_winner_1, img_winner_2, img_winner_3;
 
 
     private UserProfile userProfile;
@@ -81,6 +86,17 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private AppBarLayout appBar;
 
     private ResponseGetLeaderShip responseGetLeaderShip;
+    private ResponsePrize responsePrize;
+
+    private ImageView imageViewPrizeLeft, imageViewPrizeCenter, imageViewRight;
+    private TextView textViewPrizeLeftName, textViewPrizeCenterName, textViewPrizeRightName,text_user_rate;
+    private TextView textViewPrizeLeftScore, textViewPrizeCenterScore, textViewPrizeRightScore;
+    private WaveLoadingView waveLoadingViewLeft, waveLoadingViewCenter, waveLoadingViewRight;
+
+
+    private Button buttonPrizeLeft, buttonPrizeCenter, buttonPrizeRight;
+
+    private SplashFragment splashFragment;
 
     private int lastOffset=0;
 
@@ -98,6 +114,11 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         img_winner_1 = findViewById(R.id.img_winner_1);
         img_winner_2 = findViewById(R.id.img_winner_2);
         img_winner_3 = findViewById(R.id.img_winner_3);
+        text_user_rate = findViewById(R.id.text_user_rate);
+        btn_settings = findViewById(R.id.btn_settings);
+
+        splashFragment = new SplashFragment().newInstance();
+
 
         btnNewPainting = findViewById(R.id.btn_new_painting);
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
@@ -147,7 +168,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         btnCompetition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(HomeActivity.this, ActivityCompetition.class),CODE_Competition);
+                startActivityForResult(new Intent(HomeActivity.this, ActivityCompetition.class), CODE_Competition);
             }
         });
 
@@ -157,12 +178,23 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         btnHistory.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new NewPaintFragment().newInstance(), TAG_FRAGMENT_NEW_PAINTING).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, new SplashFragment().newInstance(), TAG_FRAGMENT_SPLASH).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
 
         drawerIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawer.openDrawer(GravityCompat.END);
+            }
+        });
+
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+
+                DialogSettings cDialog = new DialogSettings(HomeActivity.this);
+
+                cDialog.show();
             }
         });
 
@@ -194,6 +226,27 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         logOut = navigationView.findViewById(R.id.act_sign_out);
         myPaint = navigationView.findViewById(R.id.ManageAddress);
         registerOrLogin = navigationView.findViewById(R.id.reg_or_login);
+
+        imageViewPrizeLeft = navigationView.findViewById(R.id.img_prize_1);
+        imageViewPrizeCenter = navigationView.findViewById(R.id.img_prize_2);
+        imageViewRight = navigationView.findViewById(R.id.img_prize_3);
+
+        textViewPrizeLeftName = navigationView.findViewById(R.id.text_prize_1_title);
+        textViewPrizeCenterName = navigationView.findViewById(R.id.text_prize_2_title);
+        textViewPrizeRightName = navigationView.findViewById(R.id.text_prize_3_title);
+
+        textViewPrizeLeftScore = navigationView.findViewById(R.id.text_prize_1_point);
+        textViewPrizeCenterScore = navigationView.findViewById(R.id.text_prize_2_point);
+        textViewPrizeRightScore = navigationView.findViewById(R.id.text_prize_3_point);
+
+        waveLoadingViewLeft = navigationView.findViewById(R.id.wave_prize_1);
+        waveLoadingViewCenter = navigationView.findViewById(R.id.wave_prize_2);
+        waveLoadingViewRight = navigationView.findViewById(R.id.wave_prize_3);
+
+        buttonPrizeLeft = navigationView.findViewById(R.id.btn_prize_1);
+        buttonPrizeCenter = navigationView.findViewById(R.id.btn_prize_2);
+        buttonPrizeRight = navigationView.findViewById(R.id.btn_prize_3);
+
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             logOut.setVisibility(View.GONE);
@@ -302,6 +355,40 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         progressDialog.dismiss();
     }
 
+    @Override
+    public void startGetPrizeRequest() {
+
+    }
+
+    @Override
+    public void prizeRequestSuccess(int score) {
+        responseGetLeaderShip.getExtra().setMyScore(score);
+        setPrizeLayout();
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage(getString(R.string.prizedeliveryContact));
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                //dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                //dialog.cancel();
+            }
+        });
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getString(R.string.prizeRegistered));
+
+        dialog.show();
+    }
+
+    @Override
+    public void prizeRequestFailed(String msg) {
+
+    }
+
     public void exitProfileDialog() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         View promptView = layoutInflater.inflate(R.layout.dialog_logout, null);
@@ -336,17 +423,26 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         if (requestCode == CODE_REGISTER) {
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
+                if (splashFragment != null) {
+                    splashFragment.refreshPrizeAndRank();
+                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();
             }
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
+                if (splashFragment != null) {
+                    splashFragment.refreshPrizeAndRank();
+                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == CODE_Competition) {
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
+                if (splashFragment != null) {
+                    splashFragment.refreshPrizeAndRank();
+                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         }
@@ -365,7 +461,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     @Override
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
-        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
+        //getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
     }
 
     @Override
@@ -389,37 +485,291 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     }
 
-    void setWinners(){
-        if (responseGetLeaderShip!=null) {
-            if (responseGetLeaderShip.getExtra().getLeaderModel().size()>0) {
+    @Override
+    public void getPrizeSuccess(ResponsePrize responsePrize) {
+        this.responsePrize = responsePrize;
+        setPrizes();
+    }
 
-                if(responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl()!=null && !responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl().isEmpty()){
+
+    @Override
+    public void getPrizeFailed() {
+
+    }
+
+    private void setPrizes() {
+        Picasso.get().load(responsePrize.getExtra().get(0).getImageUrl()).into(imageViewPrizeLeft);
+        Picasso.get().load(responsePrize.getExtra().get(1).getImageUrl()).into(imageViewPrizeCenter);
+        Picasso.get().load(responsePrize.getExtra().get(2).getImageUrl()).into(imageViewRight);
+
+        textViewPrizeLeftName.setText(responsePrize.getExtra().get(0).getTitle());
+        textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
+        textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
+
+        textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " امتیاز");
+        textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " امتیاز");
+        textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " امتیاز");
+
+        if (responseGetLeaderShip != null) {
+            setPrizeLayout();
+        }
+    }
+
+    void setWinners() {
+        if (responseGetLeaderShip != null) {
+            if (responseGetLeaderShip.getExtra().getLeaderModel().size() > 0) {
+
+                if (responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl().isEmpty()) {
                     Picasso
                             .get()
                             .load(responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl())
-                            .resize(Value.dp(200),Value.dp(200))
+                            .resize(Value.dp(200), Value.dp(200))
                             .onlyScaleDown()
                             .into(img_winner_1);
                 }
 
-                if(responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl()!=null && !responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()){
+                if (responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()) {
                     Picasso
                             .get()
                             .load(responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl())
-                            .resize(Value.dp(200),Value.dp(200))
+                            .resize(Value.dp(200), Value.dp(200))
                             .onlyScaleDown()
                             .into(img_winner_2);
                 }
-                if(responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl()!=null && !responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()){
+                if (responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()) {
                     Picasso
                             .get()
                             .load(responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl())
-                            .resize(Value.dp(200),Value.dp(200))
+                            .resize(Value.dp(200), Value.dp(200))
                             .onlyScaleDown()
                             .into(img_winner_3);
                 }
             }
+
+            if (responseGetLeaderShip.getExtra().getMyRank()!=null) {
+                text_user_rate.setText("بهترین رتبه شما "+responseGetLeaderShip.getExtra().getMyRank().getRank());
+            }else {
+                text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+
+            }
         }
+
+        if (responsePrize != null) {
+            setPrizeLayout();
+        }
+    }
+
+    private void setPrizeLayout() {
+        waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(0).getNeedScore());
+        if (waveLoadingViewLeft.getProgressValue() > 100) {
+            waveLoadingViewLeft.setProgressValue(100);
+            waveLoadingViewLeft.setWaveColor(getResources().getColor(R.color.blue_3));
+            waveLoadingViewLeft.setBorderColor(getResources().getColor(R.color.blue_3));
+            textViewPrizeLeftName.setTextColor(getResources().getColor(R.color.blue_3));
+            textViewPrizeLeftScore.setTextColor(getResources().getColor(R.color.blue_3));
+        } else {
+            waveLoadingViewLeft.setWaveColor(getResources().getColor(R.color.md_grey_400));
+            waveLoadingViewLeft.setBorderColor(getResources().getColor(R.color.md_grey_400));
+            waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(0).getNeedScore());
+            textViewPrizeLeftName.setTextColor(getResources().getColor(R.color.md_grey_400));
+            textViewPrizeLeftScore.setTextColor(getResources().getColor(R.color.md_grey_400));
+        }
+        Log.d("wave ", "setPrizes: " + waveLoadingViewLeft.getProgressValue());
+
+        waveLoadingViewCenter.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(1).getNeedScore());
+        if (waveLoadingViewCenter.getProgressValue() > 100) {
+            waveLoadingViewCenter.setProgressValue(100);
+            waveLoadingViewCenter.setWaveColor(getResources().getColor(R.color.blue_3));
+            waveLoadingViewCenter.setBorderColor(getResources().getColor(R.color.blue_3));
+            textViewPrizeCenterName.setTextColor(getResources().getColor(R.color.blue_3));
+            textViewPrizeCenterScore.setTextColor(getResources().getColor(R.color.blue_3));
+        } else {
+            waveLoadingViewCenter.setWaveColor(getResources().getColor(R.color.md_grey_400));
+            waveLoadingViewCenter.setBorderColor(getResources().getColor(R.color.md_grey_400));
+            waveLoadingViewCenter.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(1).getNeedScore());
+            textViewPrizeCenterName.setTextColor(getResources().getColor(R.color.md_grey_400));
+            textViewPrizeCenterScore.setTextColor(getResources().getColor(R.color.md_grey_400));
+        }
+        Log.d("wave ", "setPrizes: " + waveLoadingViewCenter.getProgressValue());
+
+        waveLoadingViewRight.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(2).getNeedScore());
+        if (waveLoadingViewRight.getProgressValue() > 100) {
+            waveLoadingViewRight.setProgressValue(100);
+            waveLoadingViewRight.setWaveColor(getResources().getColor(R.color.blue_3));
+            waveLoadingViewRight.setBorderColor(getResources().getColor(R.color.blue_3));
+            textViewPrizeRightName.setTextColor(getResources().getColor(R.color.blue_3));
+            textViewPrizeRightScore.setTextColor(getResources().getColor(R.color.blue_3));
+        } else {
+            waveLoadingViewRight.setWaveColor(getResources().getColor(R.color.md_grey_400));
+            waveLoadingViewRight.setBorderColor(getResources().getColor(R.color.md_grey_400));
+            waveLoadingViewRight.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(2).getNeedScore());
+            textViewPrizeRightName.setTextColor(getResources().getColor(R.color.md_grey_400));
+            textViewPrizeRightScore.setTextColor(getResources().getColor(R.color.md_grey_400));
+        }
+        Log.d("wave ", "setPrizes: " + waveLoadingViewRight.getProgressValue());
+
+        setPrizeButtonContent();
+    }
+
+    private void setPrizeButtonContent() {
+        buttonPrizeLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isRegistered()) {
+                    if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(0).getNeedScore()) {
+                        dialogGivePrize(responsePrize.getExtra().get(0).getId());
+                    } else {
+                        setPrizeDialogLowScore(responsePrize.getExtra().get(0).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
+                    }
+                } else {
+                    dialogRegister();
+                }
+                drawer.closeDrawer(GravityCompat.END);
+            }
+        });
+
+        buttonPrizeCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isRegistered()) {
+                    if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(1).getNeedScore()) {
+                        dialogGivePrize(responsePrize.getExtra().get(1).getId());
+                    } else {
+                        setPrizeDialogLowScore(responsePrize.getExtra().get(1).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
+                    }
+                } else {
+                    dialogRegister();
+                }
+                drawer.closeDrawer(GravityCompat.END);
+            }
+        });
+
+        buttonPrizeRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isRegistered()) {
+                    if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(2).getNeedScore()) {
+                        dialogGivePrize(responsePrize.getExtra().get(2).getId());
+                    } else {
+                        setPrizeDialogLowScore(responsePrize.getExtra().get(2).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
+                    }
+                } else {
+                    dialogRegister();
+                }
+                drawer.closeDrawer(GravityCompat.END);
+            }
+        });
+
+        if (isRegistered()) {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.btn_rect);
+            buttonPrizeCenter.setBackgroundResource(R.drawable.btn_rect);
+            buttonPrizeRight.setBackgroundResource(R.drawable.btn_rect);
+        } else {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.icon_rect_disable);
+            buttonPrizeCenter.setBackgroundResource(R.drawable.icon_rect_disable);
+            buttonPrizeRight.setBackgroundResource(R.drawable.icon_rect_disable);
+        }
+
+        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(0).getNeedScore()) {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.btn_rect);
+        } else {
+            buttonPrizeLeft.setBackgroundResource(R.drawable.icon_rect_disable);
+        }
+
+        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(1).getNeedScore()) {
+
+            buttonPrizeCenter.setBackgroundResource(R.drawable.btn_rect);
+
+        } else {
+
+            buttonPrizeCenter.setBackgroundResource(R.drawable.icon_rect_disable);
+
+        }
+
+        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(2).getNeedScore()) {
+
+            buttonPrizeRight.setBackgroundResource(R.drawable.btn_rect);
+        } else {
+            buttonPrizeRight.setBackgroundResource(R.drawable.icon_rect_disable);
+        }
+    }
+
+    private boolean isRegistered() {
+        UserProfile userProfile = new UserProfile(this);
+        Log.d("isRegistered", "isRegistered: " + userProfile.get_KEY_PHONE_NUMBER("-1"));
+        if (!userProfile.get_KEY_PHONE_NUMBER("").equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void setPrizeDialogLowScore(int lowScore) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage("شما باید برای دریافت این جایزه " + lowScore + " امتیاز کم دارید!");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                //dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                //dialog.cancel();
+            }
+        });
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle("امتیاز کافی نیست");
+
+        dialog.show();
+    }
+
+    private void dialogGivePrize(final int prizeId) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage(getString(R.string.prizeRequestMsg));
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                ParamsPrizeRequest paramsPrizeRequest = new ParamsPrizeRequest();
+                paramsPrizeRequest.setMobile(userProfile.get_KEY_PHONE_NUMBER(""));
+                paramsPrizeRequest.setPrizeId(prizeId);
+                pHome.prizeRequest(paramsPrizeRequest);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+            }
+        });
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getString(R.string.prizeGiven));
+
+        dialog.show();
+    }
+
+    private void dialogRegister() {
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage(getString(R.string.registerBefore));
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+                Intent intent = new Intent(HomeActivity.this, ActivityRegisterUser.class);
+                startActivityForResult(intent, CODE_REGISTER);
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+            }
+        });
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getString(R.string.registerBeforeTitle));
+        dialog.show();
     }
 
 

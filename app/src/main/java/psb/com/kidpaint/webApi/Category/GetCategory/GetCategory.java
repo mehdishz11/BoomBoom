@@ -24,8 +24,8 @@ public class GetCategory implements iGetCategory {
     }
 
     @Override
-    public void doGetCategory() {
-        Call<ResponseStickers> call = new WebService().getClient().create(apiRequest.class).getCategory();
+    public void doGetCategory(String fromDate) {
+        Call<ResponseStickers> call = new WebService().getClient().create(apiRequest.class).getCategory(fromDate);
         call.enqueue(new Callback<ResponseStickers>() {
             @Override
             public void onResponse(Call<ResponseStickers> call, Response<ResponseStickers> response) {

@@ -61,7 +61,7 @@ public class PAllPaints implements IPAllPaints {
             Picasso
                     .get()
                     .load(paintModel.getUrl())
-                    .resize(Value.dp(200), Value.dp(200))
+                    .resize(Value.dp(200), 0)
                     .onlyScaleDown()
                     .into(holder.imgOutline);
         }
@@ -79,7 +79,7 @@ public class PAllPaints implements IPAllPaints {
                 if (mPaints.userIsRegistered()) {
                     ivAllPaints.onSelectPaint(paintModel);
                 }else {
-                    Toast.makeText(getContext(), "برای دیدن جزعیات باید ثبت نام کنید", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "برای دیدن جزئیات باید ثبت نام کنید", Toast.LENGTH_SHORT).show();
                 }
             }
         });

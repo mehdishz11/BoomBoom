@@ -17,10 +17,12 @@ public interface IPMyPaints {
      int getArrSizeMyPaints();
 
     void onSuccessDeleteMyPaints(int position);
+    void onFailedDeleteMyPaints(int errorCode,String errorMessage);
 
     void onGetMyPaints(int loadMode);
     void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
     void onFailedGetMyPaints(int errorCode,String errorMessage);
+    void deleteMyPaints(int position);
 
 
 

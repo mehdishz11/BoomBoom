@@ -4,6 +4,10 @@ import android.content.Context;
 
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.PrizeRequest;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.iPrizeRequest;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ResponsePrizeRequest;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.logout.iLogout;
 
@@ -41,5 +45,20 @@ public class MHome implements IM_Home {
 
             }
         }).doLogout(userProfile.get_KEY_PHONE_NUMBER(""), Utils.getDeviceId(getContext()));
+    }
+
+    @Override
+    public void prizeRequest(ParamsPrizeRequest paramsPrizeRequest) {
+        new PrizeRequest(new iPrizeRequest.iResult() {
+            @Override
+            public void onSuccessPrizeRequest(ResponsePrizeRequest responsePrizeRequest) {
+                ip_home.prizeRequestSuccess(responsePrizeRequest.getExtra());
+            }
+
+            @Override
+            public void onFailedPrizeRequest(int errorId, String ErrorMessage) {
+                ip_home.prizeRequestFailed(ErrorMessage);
+            }
+        }).doPrizeRequest(paramsPrizeRequest);
     }
 }

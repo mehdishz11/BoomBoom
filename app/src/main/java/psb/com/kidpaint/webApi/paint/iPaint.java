@@ -1,6 +1,8 @@
 package psb.com.kidpaint.webApi.paint;
 
 
+import psb.com.kidpaint.webApi.paint.deletePaint.DeletePaint;
+import psb.com.kidpaint.webApi.paint.deletePaint.iDeletePaint;
 import psb.com.kidpaint.webApi.paint.getAllPaints.GetAllPaints;
 import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
@@ -29,5 +31,8 @@ public interface iPaint {
 
     Score score();
     Score score(iScore.iResult iResult);
+
+    DeletePaint deletePaint();
+    DeletePaint deletePaint(iDeletePaint.iResult iResult);
 
 }

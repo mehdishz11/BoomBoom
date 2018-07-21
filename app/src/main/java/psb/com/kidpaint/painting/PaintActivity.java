@@ -494,6 +494,8 @@ public class PaintActivity extends AppCompatActivity implements
 
     void saveImage(Bitmap finalBitmap) {
 
+        stickerCanvas.hideShowController(false);
+
         String folder_main = "kidPaint";
         File mydir = new File(Environment.getExternalStorageDirectory(), folder_main);
         if (!mydir.exists()) {
