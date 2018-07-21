@@ -1,12 +1,10 @@
 package psb.com.kidpaint.painting.palette.sticker;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Category;
@@ -26,8 +24,6 @@ public class M_Stickers implements IM_Stickers {
         this.context = ipStickers.getContext();
         this.ipStickers = ipStickers;
 
-        Log.d("sizeis", "getStickers: ");
-
         tblCategory = new TblCategory(getContext());
         tblStickers = new TblStickers(getContext());
     }
@@ -39,9 +35,6 @@ public class M_Stickers implements IM_Stickers {
 
     @Override
     public void getStickers() {
-
-        Log.d("sizeis", "getStickers: "+ tblCategory.getAllCategory().size());
-        Log.d("sizeis", "getStickers: "+ tblStickers.getAllStickers().size());
 
         stickerList.clear();
         stickerList = tblStickers.getAllStickers();

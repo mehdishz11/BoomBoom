@@ -1,5 +1,7 @@
 package psb.com.kidpaint.painting.palette.sticker;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.palette.sticker.adapter.CategoryAdapter;
 import psb.com.kidpaint.painting.palette.sticker.adapter.StickersAdapter;
+import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
+import psb.com.kidpaint.utils.customView.stickerview.StickerView;
 
 public class StickerFragment extends Fragment implements IV_Stickers{
 
@@ -21,6 +25,7 @@ public class StickerFragment extends Fragment implements IV_Stickers{
     private CategoryAdapter categoryAdapter;
     private StickersAdapter stickersAdapter;
     private LinearLayoutManager linearLayoutManagerCat, linearLayoutManagerStickers;
+    private OnFragmentInteractionListener mListener;
 
     public static StickerFragment newInstance() {
         StickerFragment fragment = new StickerFragment();
@@ -61,6 +66,16 @@ public class StickerFragment extends Fragment implements IV_Stickers{
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnFragmentInteractionListener){
+            mListener=(OnFragmentInteractionListener)context;
+        }else if (getParentFragment() instanceof OnFragmentInteractionListener){
+            mListener=(OnFragmentInteractionListener)getParentFragment();
+        }
+    }
+
+    @Override
     public void getStickersSuccess() {
         stickersAdapter.notifyDataSetChanged();
         categoryAdapter.notifyDataSetChanged();
@@ -76,4 +91,20 @@ public class StickerFragment extends Fragment implements IV_Stickers{
         categoryAdapter.notifyDataSetChanged();
         stickersAdapter.notifyDataSetChanged();
     }
-}
+
+    @Override
+    public void onStickerSelected(Bitmap stickerBitmap) {
+        if (mListener != null) {
+            StickerImageView stickerImageView=new StickerImageView(getContext());
+            stickerImageView.setImageBitmap(stickerBitmap);
+            mListener.onStickerSelected(stickerImageView);
+        }
+    }
+
+    public interface OnFragmentInteractionListener {
+
+        void onStickerSelected(StickerView sticker);
+    }
+
+
+    }

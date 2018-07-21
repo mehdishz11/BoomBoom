@@ -1,6 +1,7 @@
 package psb.com.kidpaint.painting.palette.sticker;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 
 import com.squareup.picasso.Callback;
@@ -64,17 +65,16 @@ public class P_Stickers implements IP_Stickers {
             @Override
             public void onSuccess() {
                 holder.progressBar.setVisibility(View.GONE);
+                holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ivStickers.onStickerSelected(((BitmapDrawable)holder.imageViewStickers.getDrawable()).getBitmap());
+                    }
+                });
             }
 
             @Override
             public void onError(Exception e) {
-
-            }
-        });
-
-        holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
             }
         });

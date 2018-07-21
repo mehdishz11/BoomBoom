@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,6 @@ public class TblStickers {
     }
 
     public Sticker getStickersById(int id) {
-        // Log.d(TAG, "getSubCategoryList: "+storeId+" "+parentId);
         Sticker content = new Sticker();
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
@@ -64,7 +62,6 @@ public class TblStickers {
     }
 
     public List<Sticker> getAllStickers() {
-        // Log.d(TAG, "getSubCategoryList: "+storeId+" "+parentId);
         List<Sticker> stickerList = new ArrayList<>();
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
@@ -87,7 +84,6 @@ public class TblStickers {
         db.close();
         sql.close();
 
-        Log.d("sizeis", "getAllStickers: "+stickerList.size());
         return stickerList;
     }
 

@@ -1,6 +1,7 @@
 package psb.com.kidpaint.painting.palette.sticker;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 public interface IV_Stickers {
     Context getContext();
@@ -9,4 +10,6 @@ public interface IV_Stickers {
     void getStickersFailed();
 
     void showStickers();
+
+    void onStickerSelected(Bitmap stickerBitmap);
 }
