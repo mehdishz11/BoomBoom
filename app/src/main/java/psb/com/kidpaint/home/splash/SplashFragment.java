@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 
 public class SplashFragment extends Fragment implements IV_Splash {
 
@@ -54,6 +55,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
     private void setContent(){
         pSplash.getStickers();
         pSplash.getRank();
+        pSplash.getPirze();
     }
 
 
@@ -101,6 +103,16 @@ public class SplashFragment extends Fragment implements IV_Splash {
         mListener.getRankFailed();
     }
 
+    @Override
+    public void getPirzeSuccess(ResponsePrize responsePrize) {
+        mListener.getPrizeSuccess(responsePrize);
+    }
+
+    @Override
+    public void getPrizeFailed(String msg) {
+        mListener.getPrizeFailed();
+    }
+
     public interface OnFragmentInteractionListener {
         void startGetStickers();
         void splashSuccess();
@@ -109,5 +121,8 @@ public class SplashFragment extends Fragment implements IV_Splash {
         void getRankStarted();
         void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip);
         void getRankFailed();
+
+        void getPrizeSuccess(ResponsePrize responsePrize);
+        void getPrizeFailed();
     }
 }

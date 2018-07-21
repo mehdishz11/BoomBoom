@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import me.itangqi.waveloadingview.WaveLoadingView;
 import psb.com.cview.CButton;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
@@ -38,6 +39,7 @@ import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 
 public class HomeActivity extends AppCompatActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
@@ -72,6 +74,12 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private FrameLayout frameLayoutSplash;
 
     private ResponseGetLeaderShip responseGetLeaderShip;
+    private ResponsePrize responsePrize;
+
+    private ImageView imageViewPrizeLeft, imageViewPrizeCenter, imageViewRight;
+    private TextView textViewPrizeLeftName, textViewPrizeCenterName, textViewPrizeRightName;
+    private TextView textViewPrizeLeftScore, textViewPrizeCenterScore, textViewRightLeftScore;
+    private WaveLoadingView waveLoadingViewLeft, waveLoadingViewCenter, waveLoadingViewRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +171,23 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         logOut = navigationView.findViewById(R.id.act_sign_out);
         myPaint = navigationView.findViewById(R.id.ManageAddress);
         registerOrLogin = navigationView.findViewById(R.id.reg_or_login);
+
+        imageViewPrizeLeft = navigationView.findViewById(R.id.img_prize_1);
+        imageViewPrizeCenter = navigationView.findViewById(R.id.img_prize_2);
+        imageViewRight = navigationView.findViewById(R.id.img_prize_3);
+
+        textViewPrizeLeftName = navigationView.findViewById(R.id.text_prize_1_title);
+        textViewPrizeCenterName = navigationView.findViewById(R.id.text_prize_2_title);
+        textViewPrizeRightName = navigationView.findViewById(R.id.text_prize_3_title);
+
+        textViewPrizeLeftScore = navigationView.findViewById(R.id.text_prize_1_point);
+        textViewPrizeCenterScore = navigationView.findViewById(R.id.text_prize_2_point);
+        textViewRightLeftScore = navigationView.findViewById(R.id.text_prize_3_point);
+
+        waveLoadingViewLeft = navigationView.findViewById(R.id.wave_prize_1);
+        waveLoadingViewCenter = navigationView.findViewById(R.id.wave_prize_2);
+        waveLoadingViewRight = navigationView.findViewById(R.id.wave_prize_3);
+
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             logOut.setVisibility(View.GONE);
@@ -358,6 +383,55 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     }
 
+    @Override
+    public void getPrizeSuccess(ResponsePrize responsePrize) {
+        this.responsePrize = responsePrize;
+        setPrizes();
+    }
+
+    private void setPrizes(){
+        Picasso.get().load(responsePrize.getExtra().get(0).getImageUrl()).into(imageViewPrizeLeft);
+        Picasso.get().load(responsePrize.getExtra().get(1).getImageUrl()).into(imageViewPrizeCenter);
+        Picasso.get().load(responsePrize.getExtra().get(2).getImageUrl()).into(imageViewRight);
+
+        textViewPrizeLeftName.setText(responsePrize.getExtra().get(0).getTitle());
+        textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
+        textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
+
+        textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " امتیاز");
+        textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " امتیاز");
+        textViewRightLeftScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " امتیاز");
+
+        if (responseGetLeaderShip != null){
+            if ((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(0).getNeedScore() >100){
+                waveLoadingViewLeft.setProgressValue(100);
+            } else {
+                waveLoadingViewLeft.setProgressValue((int)(responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(0).getNeedScore());
+            }
+            Log.d("wave ", "setPrizes: "+ (responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(0).getNeedScore());
+
+            if ((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(1).getNeedScore() >100){
+                waveLoadingViewCenter.setProgressValue(100);
+            } else {
+                waveLoadingViewCenter.setProgressValue((int)(responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(1).getNeedScore());
+            }
+            Log.d("wave ", "setPrizes: "+ (responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(1).getNeedScore());
+
+            if ((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(2).getNeedScore() >100){
+                waveLoadingViewRight.setProgressValue(100);
+            } else {
+                waveLoadingViewRight.setProgressValue((int)(responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(2).getNeedScore());
+            }
+            Log.d("wave ", "setPrizes: "+ (responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(2).getNeedScore());
+
+        }
+    }
+
+    @Override
+    public void getPrizeFailed() {
+
+    }
+
     void setWinners(){
         if (responseGetLeaderShip!=null) {
             if (responseGetLeaderShip.getExtra().getLeaderModel().size()>0) {
@@ -388,6 +462,30 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                             .into(img_winner_3);
                 }
             }
+        }
+
+        if (responsePrize != null){
+            if ((responseGetLeaderShip.getExtra().getMyRank().getScore()*100)/responsePrize.getExtra().get(0).getNeedScore() >100){
+                waveLoadingViewLeft.setProgressValue(100);
+            } else {
+                waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(0).getNeedScore());
+            }
+            Log.d("wave ", "setPrizes: "+ (responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(0).getNeedScore());
+
+            if ((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(1).getNeedScore() >100){
+                waveLoadingViewCenter.setProgressValue(100);
+            } else {
+                waveLoadingViewCenter.setProgressValue((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(1).getNeedScore());
+            }
+            Log.d("wave ", "setPrizes: "+ (responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(1).getNeedScore());
+
+            if ((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(2).getNeedScore() >100){
+                waveLoadingViewRight.setProgressValue(100);
+            } else {
+                waveLoadingViewRight.setProgressValue((responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(2).getNeedScore());
+            }
+            Log.d("wave ", "setPrizes: "+ (responseGetLeaderShip.getExtra().getMyScore()*100)/responsePrize.getExtra().get(2).getNeedScore());
+
         }
     }
 }

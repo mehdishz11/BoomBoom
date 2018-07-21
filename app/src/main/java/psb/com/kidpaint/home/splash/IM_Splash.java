@@ -8,4 +8,6 @@ public interface IM_Splash {
     void getStickers();
 
     void getRank();
+
+    void getPirze();
 }

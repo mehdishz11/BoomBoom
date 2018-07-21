@@ -18,6 +18,9 @@ public class Extra implements Serializable
     @SerializedName("myRank")
     @Expose
     private LeaderModel myRank;
+    @SerializedName("myScore")
+    @Expose
+    private int myScore;
     private final static long serialVersionUID = -5377366626874763874L;
 
     public List<LeaderModel> getLeaderModel() {
@@ -44,4 +47,11 @@ public class Extra implements Serializable
         this.myRank = myRank;
     }
 
+    public int getMyScore() {
+        return myScore;
+    }
+
+    public void setMyScore(int myScore) {
+        this.myScore = myScore;
+    }
 }
