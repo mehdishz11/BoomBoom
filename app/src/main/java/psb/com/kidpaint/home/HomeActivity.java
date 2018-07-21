@@ -1,11 +1,16 @@
 package psb.com.kidpaint.home;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -25,6 +31,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import psb.com.cview.CButton;
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.HistoryFragment;
@@ -71,7 +78,11 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     private FrameLayout frameLayoutSplash;
 
+    private AppBarLayout appBar;
+
     private ResponseGetLeaderShip responseGetLeaderShip;
+
+    private int lastOffset=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         setContentView(R.layout.activity_home);
         pHome = new PHome(this);
         userProfile = new UserProfile(this);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
@@ -91,6 +103,24 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
         btnHistory = findViewById(R.id.btn_history);
         drawerIcon = findViewById(R.id.btn_more);
+        appBar=findViewById(R.id.app_bar);
+
+        appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if(lastOffset>verticalOffset){
+                    hideLion();
+                    showRooster();
+                    Log.d(App.TAG, "onOffsetChanged: scrollUp");
+                }else{
+                    showLion();
+                    hideRooster();
+                    Log.d(App.TAG, "onOffsetChanged: scrollDown");
+                }
+                lastOffset=verticalOffset;
+            }
+        });
 
         btnNewPainting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +168,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
         setupDrawer();
 
+        initAnimation();
     }
 
     @Override
@@ -389,5 +420,145 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                 }
             }
         }
+    }
+
+
+
+
+    public void initAnimation(){
+        if(imageLion==null){
+            imageLion=findViewById(R.id.lion);
+            imageLion.setPivotX(imageLion.getWidth()/2);
+            imageLion.setPivotY(imageLion.getHeight());
+        }
+
+        if(imageRooster==null){
+            imageRooster=findViewById(R.id.rooster);
+            imageRooster.setPivotX(imageRooster.getWidth()/2);
+            imageRooster.setPivotY(imageRooster.getHeight());
+        }
+
+        imageRooster.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                hideRooster(0);
+                imageRooster.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+    }
+
+
+
+
+    private ImageView imageLion;
+    private boolean isLionShow=true;
+    private boolean isAnimationLion =false;
+
+    private ImageView imageRooster;
+    private boolean isRossterShow=true;
+    private boolean isAnimationRooster =false;
+
+
+    private void hideLion(){
+        if(!isLionShow || isAnimationLion)return;
+
+        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion ,"rotation", 0.0f,-20,0);
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion ,"translationX", 0.0f,-(imageLion.getWidth()-imageLion.getLeft()));
+
+        animRotate.setDuration(500); // miliseconds
+        animMove.setDuration(500); // miliseconds
+
+        AnimatorSet animatorSet=new AnimatorSet();
+        animatorSet.playTogether(animRotate,animMove);
+
+
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                isLionShow=false;
+                isAnimationLion =false;
+            }
+        });
+        isAnimationLion =true;
+        animatorSet.start();
+    }
+
+    private void showLion(){
+        if(isLionShow || isAnimationLion)return;
+
+        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion ,"rotation", -45,0.0f);
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion ,"translationX", -(imageLion.getWidth()-imageLion.getLeft()),0.0f);
+
+        animRotate.setDuration(500); // miliseconds
+        animMove.setDuration(500); // miliseconds
+
+        AnimatorSet animatorSet=new AnimatorSet();
+        animatorSet.playTogether(animRotate,animMove);
+
+
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                imageLion.setRotation(0);
+                imageLion.setTranslationX(5);
+                isLionShow=true;
+                isAnimationLion =false;
+            }
+        });
+        isAnimationLion =true;
+        animatorSet.start();
+    }
+
+    private void hideRooster(){
+        hideRooster(300);
+    }
+    private void hideRooster(int duration){
+        if(!isRossterShow || isAnimationRooster)return;
+
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster ,"translationY", 0.0f,imageRooster.getHeight());
+
+
+        animMove.setDuration(duration); // miliseconds
+
+        AnimatorSet animatorSet=new AnimatorSet();
+        animatorSet.playTogether(animMove);
+
+
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                isRossterShow=false;
+                isAnimationRooster =false;
+            }
+        });
+        isAnimationRooster =true;
+        animatorSet.start();
+    }
+
+    private void showRooster(){
+        if(isRossterShow || isAnimationRooster)return;
+
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster ,"translationY", imageRooster.getHeight(),0.0f);
+
+
+        animMove.setDuration(300); // miliseconds
+
+        AnimatorSet animatorSet=new AnimatorSet();
+        animatorSet.playTogether(animMove);
+
+
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                isRossterShow=true;
+                isAnimationRooster =false;
+            }
+        });
+        isAnimationRooster =true;
+        animatorSet.start();
     }
 }

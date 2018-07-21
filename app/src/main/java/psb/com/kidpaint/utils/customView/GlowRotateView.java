@@ -3,16 +3,12 @@ package psb.com.kidpaint.utils.customView;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
-
-import psb.com.kidpaint.App;
 
 public class GlowRotateView extends View {
 
@@ -62,20 +58,7 @@ public class GlowRotateView extends View {
             @Override
             public void onGlobalLayout() {
 
-
-
-
-                int width=Resources.getSystem().getDisplayMetrics().widthPixels;
-                int height=Resources.getSystem().getDisplayMetrics().heightPixels;
-
                 int c= (int) Math.sqrt((Math.pow(getWidth(),2))+(Math.pow(getHeight(),2)));
-
-                /*c=getWidth()*2;*/
-
-                Log.d(App.TAG, "onGlobalLayout-getWidth(): "+getWidth());
-                Log.d(App.TAG, "onGlobalLayout-getHeight(): "+getHeight());
-                Log.d(App.TAG, "onGlobalLayout-c: "+c);
-
 
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                         c,
