@@ -86,6 +86,11 @@ public class PHistory implements  IPHistory {
             public void onClick(View view) {
                ivHistory.onSelecteditem(filePath.getAbsolutePath());
             }
+        });  holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               ivHistory.onSelecteditem(filePath.getAbsolutePath());
+            }
         });
 
         holder.competition.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +102,13 @@ public class PHistory implements  IPHistory {
                 }else {
                     ivHistory.showUserRegisterDialog(position);
                 }
+            }
+        });
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivHistory.showDeleteDialog(position);
             }
         });
 
@@ -117,6 +129,11 @@ public class PHistory implements  IPHistory {
     public void onFailedPostPaint(int errorCode, String errorMessage) {
         ivHistory.onFailedPostPaint(errorCode, errorMessage);
 
+    }
+
+    @Override
+    public void deletePaint(int position) {
+        mHistory.deletePaint(position);
     }
 
 }

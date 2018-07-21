@@ -86,6 +86,7 @@ public class PaintActivity extends AppCompatActivity implements
 
     public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
     private int outlineResource = 0;
+    private String editPath="";
 
 
     private BucketCanvas bucketCanvas;
@@ -96,7 +97,7 @@ public class PaintActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_paint);
-
+        editPath=getIntent().getStringExtra("Path");
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE

@@ -72,6 +72,8 @@ public class FragmentScore extends Fragment  implements IVScore {
         initView();
         return view;
     }
+
+
     void initView(){
         Log.d("TAG", "initView: "+new Gson().toJson(mPaintModel));
         userImage=view.findViewById(R.id.act_user_image);
@@ -135,7 +137,6 @@ public class FragmentScore extends Fragment  implements IVScore {
             }
         });
     }
-
 
 
     @Override

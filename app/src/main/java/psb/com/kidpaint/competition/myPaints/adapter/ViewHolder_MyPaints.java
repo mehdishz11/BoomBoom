@@ -14,7 +14,7 @@ public class ViewHolder_MyPaints extends RecyclerView.ViewHolder {
     public ImageView imgOutline;
     public ImageView imgMask;
     public View parentView;
-    public Button delete,edit,competition;
+    public Button delete;
 
     public ViewHolder_MyPaints(View itemView) {
         super(itemView);
@@ -24,8 +24,7 @@ public class ViewHolder_MyPaints extends RecyclerView.ViewHolder {
         imgOutline=itemView.findViewById(R.id.img_outline_template);
         imgMask=itemView.findViewById(R.id.img_mask);
         delete=itemView.findViewById(R.id.btn_delete);
-        edit=itemView.findViewById(R.id.btn_edit);
-        competition=itemView.findViewById(R.id.btn_competition);
+
 
     }
 }

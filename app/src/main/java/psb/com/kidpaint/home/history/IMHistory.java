@@ -10,6 +10,7 @@ public interface IMHistory {
     void getMyPaintHistory();
 
     void postPaint(int position);
+    void deletePaint(int position);
 
     File getPositionAt(int position);
     int getArrSize();

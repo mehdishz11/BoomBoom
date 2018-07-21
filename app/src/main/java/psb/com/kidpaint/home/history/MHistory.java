@@ -7,6 +7,8 @@ import android.os.Environment;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import psb.com.kidpaint.utils.UserProfile;
@@ -41,10 +43,29 @@ public class MHistory implements IMHistory {
         }
         File[] files = directory.listFiles();
 
+        if (files!=null&& files.length>0) {
+            Arrays.sort( files, new Comparator()
+            {
+                public int compare(Object o1, Object o2) {
+
+                    if (((File)o1).lastModified() > ((File)o2).lastModified()) {
+                        return -1;
+                    } else if (((File)o1).lastModified() < ((File)o2).lastModified()) {
+                        return +1;
+                    } else {
+                        return 0;
+                    }
+                }
+
+            });
+
+
+
 
             for (int i = 0; files != null && i < files.length; i++) {
                 imageList.add(files[i]);
             }
+        }
 
 
         ipHistory.onGetMyPaintHistorySuccess();
@@ -71,6 +92,20 @@ public class MHistory implements IMHistory {
 
             }
         }).doPostPaint(paramsPostPaint, bitmap);
+
+    }
+
+    @Override
+    public void deletePaint(int position) {
+
+        File file=imageList.get(position);
+        imageList.remove(position);
+        if (file.exists()) {
+            file.delete();
+        }
+
+        ipHistory.onGetMyPaintHistorySuccess();
+
 
     }
 

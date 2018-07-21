@@ -19,5 +19,6 @@ public interface IVHistory {
     void onSuccessPostPaint(ResponsePostPaint responsePostPaint);
     void onFailedPostPaint(int errorCode,String errorMessage);
     void showUserRegisterDialog(int position);
+    void showDeleteDialog(int position);
 
 }

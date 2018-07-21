@@ -18,6 +18,7 @@ import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
+import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
@@ -25,6 +26,7 @@ import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 
 public class HistoryFragment extends Fragment implements IVHistory {
     private static final int REQUEST_CODE_REGISTER = 120;
+    private static final int REQUEST_CODE_Edit = 121;
 
     private View view;
     private TextView emptyView;
@@ -121,6 +123,8 @@ public class HistoryFragment extends Fragment implements IVHistory {
     @Override
     public void onSelecteditem(String filePath) {
 
+        startActivityForResult(new Intent(getContext(), PaintActivity.class).putExtra("Path",filePath),REQUEST_CODE_Edit);
+
     }
 
     @Override
@@ -206,15 +210,46 @@ public class HistoryFragment extends Fragment implements IVHistory {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_REGISTER && resultCode == Activity.RESULT_OK) {
-            mListener.setupDrawer();
-            if (sendPosition != -1) {
-                pHistory.postPaint(sendPosition);
+    public void showDeleteDialog(final int position) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("آیا از حذف نقاشی مطمئن هستید؟");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                pHistory.deletePaint(position);
+                dialog.cancel();
             }
-            sendPosition = -1;
-        } else {
-            sendPosition = -1;
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.yes));
+        dialog.setTitle("حذف");
+        dialog.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_REGISTER) {
+            if (resultCode == Activity.RESULT_OK) {
+                mListener.setupDrawer();
+                if (sendPosition != -1) {
+                    pHistory.postPaint(sendPosition);
+                }
+            }else{
+                sendPosition = -1;
+
+            }
+        }else  if (requestCode == REQUEST_CODE_Edit) {
+                pHistory.getMyPaintHistory();
+
+
+
         }
     }
 

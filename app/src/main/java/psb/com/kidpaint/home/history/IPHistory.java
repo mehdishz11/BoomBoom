@@ -20,4 +20,7 @@ public interface IPHistory {
     void onSuccessPostPaint(ResponsePostPaint responsePostPaint);
     void onFailedPostPaint(int errorCode,String errorMessage);
 
+    void deletePaint(int position);
+
+
 }

@@ -25,7 +25,7 @@ public class Adapter_MyPaints extends RecyclerView.Adapter<ViewHolder_MyPaints> 
     @Override
     public ViewHolder_MyPaints onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_history, parent, false);
+                .inflate(R.layout.row_competition_my_paint, parent, false);
         ViewHolder_MyPaints recViewHolderNews = new ViewHolder_MyPaints(view);
         return recViewHolderNews;
     }
