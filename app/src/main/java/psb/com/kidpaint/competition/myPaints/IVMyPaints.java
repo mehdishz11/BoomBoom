@@ -11,12 +11,15 @@ public interface IVMyPaints {
     Context getContext();
 
 
-    void onSuccessDeleteMyPaints(int position);
     void onSelectPaint(PaintModel paintModel);
-
     void onStartGetMyPaints(int loadMode);
+
     void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
     void onFailedGetMyPaints(int errorCode,String errorMessage);
 
+    void onFailedDeleteMyPaints(int errorCode,String errorMessage);
+    void onSuccessDeleteMyPaints(int position);
+    void onStartDeleteMyPaints();
+    void showDialogDelete(int position);
 
 }

@@ -1,5 +1,6 @@
 package psb.com.kidpaint.competition.myPaints;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,8 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.myPaints.adapter.Adapter_MyPaints;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.customView.ProgressView;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
@@ -42,6 +45,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
      private Adapter_MyPaints adapter_myPaints;
      private int loadMode=0;
      private ProgressView progressView;
+     private ProgressDialog progressDialog;
     public FragmentMyPaints() {
         // Required empty public constructor
     }
@@ -70,6 +74,9 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         userProfile = new UserProfile(getContext());
         pPaints = new PMyPaints(this);
         pPaints.setResponseGetMyPaints(mResponseGetMyPaints);
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("لطفا کمی صبر کنید ...");
+        progressDialog.setCancelable(false);
 
         initView();
 
@@ -135,6 +142,58 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
     @Override
     public void onSuccessDeleteMyPaints(int position) {
         recyclerViewMyPaints.getAdapter().notifyDataSetChanged();
+        recyclerViewMyPaints.getAdapter().notifyItemRemoved(position);
+        recyclerViewMyPaints.getAdapter().notifyItemRangeChanged(position, adapter_myPaints.getItemCount());
+
+
+        progressDialog.cancel();
+
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("نقاشی شما با موفقیت حذف شد.");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle("حذف نقاشی");
+        dialog.show();
+    }
+
+    @Override
+    public void onStartDeleteMyPaints() {
+      progressDialog.show();
+    }
+
+    @Override
+    public void showDialogDelete(final int position) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("آیا از حذف این نقاشی مطمئن هستید؟");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+                pPaints.deleteMyPaints(position);
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.yes));
+        dialog.setTitle("حذف نقاشی");
+        dialog.show();
     }
 
     @Override
@@ -184,6 +243,28 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         }
 
 
+    }
+
+    @Override
+    public void onFailedDeleteMyPaints(int errorCode, String errorMessage) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage(errorMessage);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle("حذف نقاشی");
+        dialog.show();
     }
 
     public interface OnFragmentInteractionListener {

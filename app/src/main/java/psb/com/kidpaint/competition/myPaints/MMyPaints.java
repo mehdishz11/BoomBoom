@@ -4,6 +4,8 @@ import android.content.Context;
 
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.Paint;
+import psb.com.kidpaint.webApi.paint.deletePaint.iDeletePaint;
+import psb.com.kidpaint.webApi.paint.deletePaint.model.ResponseDeletePaint;
 import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.MyPaint;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
@@ -36,7 +38,22 @@ public class MMyPaints implements IMMyPaints {
 
 
     @Override
-    public void deleteMyPaints(int position) {
+    public void deleteMyPaints(final int position) {
+
+        new Paint().deletePaint(new iDeletePaint.iResult() {
+            @Override
+            public void onSuccessDelete(ResponseDeletePaint responseDeletePaint) {
+                mResponseGetMyPaints.getMyPaint().remove(position);
+                ipMyPaints.onSuccessDeleteMyPaints(position);
+            }
+
+            @Override
+            public void onFailedDelete(int errorId, String ErrorMessage) {
+
+                ipMyPaints.onFailedDeleteMyPaints(errorId, ErrorMessage);
+
+            }
+        }).doDelete(userProfile.get_KEY_PHONE_NUMBER(""),mResponseGetMyPaints.getMyPaint().get(position).getId());
 
     }
 

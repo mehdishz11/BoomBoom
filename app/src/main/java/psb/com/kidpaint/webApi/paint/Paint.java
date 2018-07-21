@@ -1,5 +1,7 @@
 package psb.com.kidpaint.webApi.paint;
 
+import psb.com.kidpaint.webApi.paint.deletePaint.DeletePaint;
+import psb.com.kidpaint.webApi.paint.deletePaint.iDeletePaint;
 import psb.com.kidpaint.webApi.paint.getAllPaints.GetAllPaints;
 import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
@@ -60,5 +62,15 @@ public class Paint implements iPaint {
     @Override
     public Score score(iScore.iResult iResult) {
         return new Score(iResult);
+    }
+
+    @Override
+    public DeletePaint deletePaint() {
+        return new DeletePaint();
+    }
+
+    @Override
+    public DeletePaint deletePaint(iDeletePaint.iResult iResult) {
+        return new DeletePaint(iResult);
     }
 }

@@ -79,7 +79,7 @@ public class PAllPaints implements IPAllPaints {
                 if (mPaints.userIsRegistered()) {
                     ivAllPaints.onSelectPaint(paintModel);
                 }else {
-                    Toast.makeText(getContext(), "برای دیدن جزعیات باید ثبت نام کنید", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "برای دیدن جزئیات باید ثبت نام کنید", Toast.LENGTH_SHORT).show();
                 }
             }
         });
