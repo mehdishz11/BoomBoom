@@ -173,14 +173,14 @@
                             android:layout_height="62dp"
                             android:layout_centerHorizontal="true"
                             android:alpha="0.7"
-                            app:wlv_borderColor="@color/blue_3"
+                            app:wlv_progressValue="0"
+                            app:wlv_borderColor="@color/md_grey_400"
                             app:wlv_borderWidth="1dp"
-                            app:wlv_progressValue="100"
                             app:wlv_round_rectangle="true"
                             app:wlv_shapeType="circle"
                             app:wlv_triangle_direction="north"
                             app:wlv_waveAmplitude="70"
-                            app:wlv_waveColor="@color/blue_3" />
+                            app:wlv_waveColor="@color/md_grey_400" />
 
                         <psb.com.cview.CustomTextViewBold
                             android:id="@+id/text_prize_1_title"
@@ -191,7 +191,7 @@
                             android:layout_marginTop="@dimen/space_small"
                             android:gravity="center"
                             android:text="مداد رنگی"
-                            android:textColor="@color/blue_3"
+                            android:textColor="@color/md_grey_400"
                             android:textSize="@dimen/text_size_normal" />
 
                         <psb.com.cview.CustomTextViewBold
@@ -202,7 +202,7 @@
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
                             android:text="۱۲۰ امتیاز"
-                            android:textColor="@color/blue_2"
+                            android:textColor="@color/md_grey_400"
                             android:textSize="@dimen/text_size_small" />
 
                         <psb.com.cview.CButton
@@ -241,7 +241,7 @@
                             android:alpha="0.7"
                             app:wlv_borderColor="@color/md_grey_400"
                             app:wlv_borderWidth="1dp"
-                            app:wlv_progressValue="40"
+                            app:wlv_progressValue="0"
                             app:wlv_round_rectangle="true"
                             app:wlv_shapeType="circle"
                             app:wlv_triangle_direction="north"
@@ -278,7 +278,7 @@
                             android:layout_below="@+id/text_prize_2_point"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/btn_rect"
-                            android:enabled="false"
+                            android:enabled="true"
                             android:paddingBottom="3dp"
                             android:text="دریافت"
                             android:textColor="@color/white_1"
@@ -344,7 +344,7 @@
                             android:layout_below="@+id/text_prize_3_point"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/btn_rect"
-                            android:enabled="false"
+                            android:enabled="true"
                             android:paddingBottom="3dp"
                             android:text="دریافت"
                             android:textColor="@color/white_1"

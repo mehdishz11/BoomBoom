@@ -34,5 +34,7 @@
     <string name="autenticate">احراز هویت</string>
     <string name="danger">خطا</string>
     <string name="image_code">کد عکس</string>
+    <string name="registerBefore">ابتدا باید ثبت نام کنید!</string>
+    <string name="registerBeforeTitle">ثبت نام نکرده اید</string>
 
 </resources>

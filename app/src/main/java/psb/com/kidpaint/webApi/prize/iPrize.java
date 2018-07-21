@@ -13,6 +13,8 @@ import psb.com.kidpaint.webApi.paint.score.Score;
 import psb.com.kidpaint.webApi.paint.score.iScore;
 import psb.com.kidpaint.webApi.prize.Get.GetPrize;
 import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.PrizeRequest;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.iPrizeRequest;
 
 public interface iPrize {
     String apiAddress = "Prize/";
@@ -20,4 +22,6 @@ public interface iPrize {
     GetPrize getPrize();
     GetPrize getPrize(iGetPrize.iResult iResult);
 
+    PrizeRequest requestPrize();
+    PrizeRequest requestPrize(iPrizeRequest.iResult iResult);
 }

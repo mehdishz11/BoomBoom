@@ -94,7 +94,7 @@ public class M_Splash implements IM_Splash {
             public void onFailedGetLeaderShip(int errorId, String ErrorMessage) {
                 ipSplash.getRankFailed(ErrorMessage);
             }
-        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER("-1"),1,3);
+        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,3);
     }
 
     @Override

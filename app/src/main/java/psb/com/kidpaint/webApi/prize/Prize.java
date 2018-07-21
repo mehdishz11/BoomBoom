@@ -12,6 +12,8 @@ import psb.com.kidpaint.webApi.paint.score.Score;
 import psb.com.kidpaint.webApi.paint.score.iScore;
 import psb.com.kidpaint.webApi.prize.Get.GetPrize;
 import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.PrizeRequest;
+import psb.com.kidpaint.webApi.prize.PrizeRequest.iPrizeRequest;
 
 public class Prize implements iPrize {
     @Override
@@ -22,5 +24,15 @@ public class Prize implements iPrize {
     @Override
     public GetPrize getPrize(iGetPrize.iResult iResult) {
         return new GetPrize(iResult);
+    }
+
+    @Override
+    public PrizeRequest requestPrize() {
+        return new PrizeRequest();
+    }
+
+    @Override
+    public PrizeRequest requestPrize(iPrizeRequest.iResult iResult) {
+        return new PrizeRequest(iResult);
     }
 }
