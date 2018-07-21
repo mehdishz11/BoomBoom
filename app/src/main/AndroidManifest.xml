@@ -41,6 +41,8 @@
         <activity
             android:name=".user.register.ActivityRegisterUser"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden"
+
             android:theme="@style/TranslucentTheme"
             >
         </activity>
@@ -49,7 +51,10 @@
             android:name=".user.edit.ActivityEditProfile"
             android:label=""
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/TranslucentTheme"
+
+            />
 
         <receiver android:name=".utils.SmsListener">
             <intent-filter android:priority="1000">

@@ -2,16 +2,19 @@ package psb.com.kidpaint.user.edit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.user.edit.profile.FragmentEditUserInfo;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.customView.ProgressView;
+import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 
 
 public class ActivityEditProfile extends AppCompatActivity implements
@@ -43,6 +46,16 @@ public class ActivityEditProfile extends AppCompatActivity implements
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.md_blue_700));
 
         }*/
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        ToolbarHandler.setToolbarColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
+        ToolbarHandler.setNavigationColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = this.getWindow();
+            clearLightStatusBar(window.getDecorView());
+        }
         userProfile = new UserProfile(this);
         setUpFrg();
         progressView = findViewById(R.id.progressView);
