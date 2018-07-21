@@ -20,4 +20,7 @@ public interface IMMyPaints {
     PaintModel getMyPaintsPositionAt(int position);
     User getUser();
 
+    void onGetMyPaints();
+
+
 }

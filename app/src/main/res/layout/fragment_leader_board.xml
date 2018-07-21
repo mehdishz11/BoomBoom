@@ -163,9 +163,11 @@
                             android:layout_height="match_parent"
                             android:layout_weight="30">
 
-                            <ImageView
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/img_winner_2"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
+                                app:riv_corner_radius="10dp"
                                 android:layout_alignParentBottom="true"
                                 android:layout_marginBottom="15dp"
                                 android:rotation="-10"
@@ -177,8 +179,10 @@
                             android:layout_height="match_parent"
                             android:layout_weight="45">
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/img_winner_1"
+                                app:riv_corner_radius="10dp"
+
                                 android:layout_width="match_parent"
                                 android:layout_height="70dp"
                                 android:layout_alignParentBottom="true"
@@ -194,7 +198,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="25">
 
-                            <ImageView
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/img_winner_3"
+                                app:riv_corner_radius="10dp"
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
                                 android:layout_alignParentBottom="true"

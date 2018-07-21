@@ -11,9 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
@@ -21,6 +24,7 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.PAllPaints;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.competition.leaderBoard.adapter.Adapter_LeaderShip;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 
@@ -37,11 +41,13 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
     private View view;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView emptyView;
+    private TextView emptyView,text_user_rate;
     private ProgressBar progressBarLoading;
 
     private PLeaderShip pLeaderShip;
     private Adapter_LeaderShip adapter_leaderShip;
+
+    private ImageView img_winner_1,img_winner_2,img_winner_3;
 
     public FragmentLeaderBoard() {
         // Required empty public constructor
@@ -74,7 +80,14 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
 
         initView();
+        setWinnersAndUserRate();
+
         return view;
+    }
+
+    public void onGetLeaderShip(){
+        pLeaderShip.onGetLeaderShip(1, 20);
+
     }
 
 
@@ -84,6 +97,11 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         recyclerView = view.findViewById(R.id.recyclerView);
         progressBarLoading = view.findViewById(R.id.progressBar);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+
+        img_winner_1 = view.findViewById(R.id.img_winner_1);
+        img_winner_2 = view.findViewById(R.id.img_winner_2);
+        img_winner_3 = view.findViewById(R.id.img_winner_3);
+        text_user_rate = view.findViewById(R.id.text_user_rate);
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -102,6 +120,47 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         recyclerView.setAdapter(animationAdapter);
 
         emptyView.setVisibility(adapter_leaderShip.getItemCount()>0?View.GONE:View.VISIBLE);
+    }
+
+    void setWinnersAndUserRate(){
+        if (mResponseGetLeaderShip!=null) {
+            if (mResponseGetLeaderShip.getExtra().getLeaderModel().size()>0) {
+
+                if(mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl()!=null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl().isEmpty()){
+                    Picasso
+                            .get()
+                            .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl())
+                            .resize(Value.dp(200),Value.dp(200))
+                            .onlyScaleDown()
+                            .into(img_winner_1);
+                }
+
+                if(mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl()!=null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()){
+                    Picasso
+                            .get()
+                            .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl())
+                            .resize(Value.dp(200),Value.dp(200))
+                            .onlyScaleDown()
+                            .into(img_winner_2);
+                }
+                if(mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl()!=null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()){
+                    Picasso
+                            .get()
+                            .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl())
+                            .resize(Value.dp(200),Value.dp(200))
+                            .onlyScaleDown()
+                            .into(img_winner_3);
+                }
+            }
+
+
+            if (mResponseGetLeaderShip.getExtra().getMyRank()!=null) {
+                text_user_rate.setText("بهترین رتبه شما "+mResponseGetLeaderShip.getExtra().getMyRank().getRank());
+            }else {
+                text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+
+            }
+        }
     }
     @Override
     public void onAttach(Context context) {
@@ -130,6 +189,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         swipeRefreshLayout.setRefreshing(false);
         progressBarLoading.setVisibility(View.GONE);
         mResponseGetLeaderShip = responseGetLeaderShip;
+        setWinnersAndUserRate();
         if (mListener != null) {
             mListener.setResponseLeaderShip(mResponseGetLeaderShip);
         }

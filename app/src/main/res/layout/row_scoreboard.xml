@@ -28,7 +28,7 @@
             android:textSize="40dp" />
 
         <View
-
+            android:id="@+id/viewBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/img_user"

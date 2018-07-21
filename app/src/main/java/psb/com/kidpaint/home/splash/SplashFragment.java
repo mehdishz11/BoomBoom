@@ -81,6 +81,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void getStickersFailed(String msg) {
+
         mListener.splashFailed(msg);
     }
 

@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         SplashFragment.OnFragmentInteractionListener {
 
     public static int CODE_REGISTER = 107;
+    public static int CODE_Competition = 108;
     public static int CODE_EDIT = 108;
     private CButton btnNewPainting;
     private CButton btnHistory;
@@ -105,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         btnCompetition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, ActivityCompetition.class));
+                startActivityForResult(new Intent(HomeActivity.this, ActivityCompetition.class),CODE_Competition);
             }
         });
 
@@ -297,6 +298,11 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                 //finish();
             }
         } else if (requestCode == CODE_EDIT) {
+            if (resultCode == Activity.RESULT_OK) {
+                setupDrawer();
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+            }
+        } else if (requestCode == CODE_Competition) {
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
             } else if (resultCode == Activity.RESULT_CANCELED) {

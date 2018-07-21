@@ -87,4 +87,21 @@ public class PMyPaints implements IPMyPaints {
          ivMyPaints.onSuccessDeleteMyPaints(position);
     }
 
+    @Override
+    public void onGetMyPaints(int loadMode) {
+        ivMyPaints.onStartGetMyPaints(loadMode);
+        mPaints.onGetMyPaints();
+    }
+
+    @Override
+    public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
+        ivMyPaints.onSuccessGetMyPaints(responseGetMyPaints);
+    }
+
+    @Override
+    public void onFailedGetMyPaints(int errorCode,String errorMessage) {
+        ivMyPaints.onFailedGetMyPaints(errorCode, errorMessage);
+
+    }
+
 }
