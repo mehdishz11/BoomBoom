@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.nightonke.jellytogglebutton.JellyToggleButton;
+import com.nightonke.jellytogglebutton.State;
 
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.R;
@@ -80,7 +81,7 @@ public class DialogSettings extends CDialog {
         toggleMusic.setText(SharePrefrenceHelper.getMusic()?"\uE901":"\uE900");
 
 
-        toggleSound.setOnClickListener(new View.OnClickListener() {
+        /*toggleSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 iconSpeaker.setText(toggleSound.isChecked()?"\uE904":"\uE905");
@@ -88,9 +89,9 @@ public class DialogSettings extends CDialog {
                 toggleSound.setChecked(!toggleSound.isChecked());
                 SoundHelper.playSound(R.raw.click_bubbles_1);
             }
-        });
+        });*/
 
-        toggleMusic.setOnClickListener(new View.OnClickListener() {
+     /*   toggleMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 iconSound.setText(!toggleMusic.isChecked()?"\uE901":"\uE900");
@@ -103,6 +104,41 @@ public class DialogSettings extends CDialog {
                 }else{
                     MusicHelper.stopMusic();
                 }
+            }
+        });*/
+
+        toggleMusic.setOnStateChangeListener(new JellyToggleButton.OnStateChangeListener() {
+            @Override
+            public void onStateChange(float process, State state, JellyToggleButton jtb) {
+                // process - current process of JTB, between [0, 1]
+                // state   - current state of JTB, it is one of State.LEFT, State.LEFT_TO_RIGHT, State.RIGHT and State.RIGHT_TO_LEFT
+                // jtb     - the JTB
+
+                iconSound.setText(!toggleMusic.isChecked()?"\uE901":"\uE900");
+
+                SharePrefrenceHelper.setMusic(!toggleMusic.isChecked());
+               // toggleMusic.setChecked(!toggleMusic.isChecked());
+                SoundHelper.playSound(R.raw.click_bubbles_1);
+                if(SharePrefrenceHelper.getMusic()) {
+                    MusicHelper.playMusic(R.raw.bgr_be_happy);
+                }else{
+                    MusicHelper.stopMusic();
+                }
+            }
+        });
+
+
+        toggleSound.setOnStateChangeListener(new JellyToggleButton.OnStateChangeListener() {
+            @Override
+            public void onStateChange(float process, State state, JellyToggleButton jtb) {
+                // process - current process of JTB, between [0, 1]
+                // state   - current state of JTB, it is one of State.LEFT, State.LEFT_TO_RIGHT, State.RIGHT and State.RIGHT_TO_LEFT
+                // jtb     - the JTB
+
+                iconSpeaker.setText(toggleSound.isChecked()?"\uE904":"\uE905");
+                SharePrefrenceHelper.setSoundEffect(!toggleSound.isChecked());
+               // toggleSound.setChecked(!toggleSound.isChecked());
+                SoundHelper.playSound(R.raw.click_bubbles_1);
             }
         });
 

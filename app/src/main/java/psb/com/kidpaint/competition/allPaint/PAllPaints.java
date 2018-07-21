@@ -61,7 +61,7 @@ public class PAllPaints implements IPAllPaints {
             Picasso
                     .get()
                     .load(paintModel.getUrl())
-                    .resize(Value.dp(200), Value.dp(200))
+                    .resize(Value.dp(200), 0)
                     .onlyScaleDown()
                     .into(holder.imgOutline);
         }

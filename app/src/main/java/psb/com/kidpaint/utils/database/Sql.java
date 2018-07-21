@@ -11,7 +11,7 @@ public class Sql extends SQLiteOpenHelper {
     //------------------------------------------
 
     public Sql(Context context) {
-        super(context, dbName, null,1);
+        super(context, dbName, null,2);
     }
 
     @Override
@@ -24,7 +24,9 @@ public class Sql extends SQLiteOpenHelper {
                 "imageUrl TEXT ," +
                 "price INTEGER ," +
                 "songUrl TEXT ," +
-                "categoryId INTEGER)"
+                "categoryId INTEGER,"  +
+                "deleted INTEGER,"  +
+                "updateTime CURRENT_TIMESTAMP)"
         );
 
         db.execSQL("CREATE TABLE tbl_Category (" +
@@ -35,7 +37,10 @@ public class Sql extends SQLiteOpenHelper {
                 "parentId INTEGER ," +
                 "imageUrl TEXT ," +
                 "price INTEGER ," +
-                "songUrl TEXT)"
+                "songUrl TEXT,"   +
+                "deleted INTEGER,"  +
+
+                "updateTime CURRENT_TIMESTAMP)"
         );
 
     }

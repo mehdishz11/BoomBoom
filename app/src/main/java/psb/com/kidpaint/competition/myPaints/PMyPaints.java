@@ -50,7 +50,7 @@ public class PMyPaints implements IPMyPaints {
         Picasso
                 .get()
                 .load(myPaint.getUrl())
-                .resize(Value.dp(120),Value.dp(120))
+                .resize(Value.dp(120),0)
                 .onlyScaleDown()
                 .into(holder.imgOutline, new Callback() {
                     @Override

@@ -53,8 +53,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
     }
 
     private void setContent(){
-        pSplash.getStickers();
-        pSplash.getRank();
         pSplash.getPirze();
     }
 
@@ -96,21 +94,33 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip) {
         mListener.getRankSuccess(responseGetLeaderShip);
+
+        pSplash.getStickers();
+
     }
 
     @Override
     public void getRankFailed(String msg) {
         mListener.getRankFailed();
+
+        pSplash.getStickers();
+
     }
 
     @Override
     public void getPirzeSuccess(ResponsePrize responsePrize) {
         mListener.getPrizeSuccess(responsePrize);
+
+        pSplash.getRank();
+
     }
 
     @Override
     public void getPrizeFailed(String msg) {
         mListener.getPrizeFailed();
+
+        pSplash.getRank();
+
     }
 
     public interface OnFragmentInteractionListener {

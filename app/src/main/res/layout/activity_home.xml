@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:clickable="true"
-    tools:openDrawer="right"
+    tools:openDrawer="left"
     android:focusableInTouchMode="true"
     tools:context=".home.HomeActivity">
 
@@ -66,6 +66,16 @@
                             android:padding="@dimen/space_small"
                             android:src="@drawable/btn_more" />
 
+                        <ImageView
+                            android:id="@+id/btn_settings"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentLeft="true"
+                            android:padding="@dimen/space_small"
+                            android:src="@drawable/btn_settings" />
+
+
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -73,7 +83,20 @@
                             android:background="@drawable/tab_bgr"
                             android:scaleY="-1" />
 
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/text_user_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+
+                            android:layout_marginTop="@dimen/space_normal"
+                            android:text="بهترین رتبه شما ۱۲۸۵"
+                            android:textColor="@color/md_blue_900"
+                            android:textSize="@dimen/text_size_normal" />
+
                         <RelativeLayout
+                            android:layout_below="@+id/text_user_rate"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_centerHorizontal="true"

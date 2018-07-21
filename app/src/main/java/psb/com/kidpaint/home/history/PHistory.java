@@ -65,7 +65,7 @@ public class PHistory implements  IPHistory {
         Picasso
                 .get()
                 .load(filePath)
-                .resize(Value.dp(200),Value.dp(200))
+                .resize(Value.dp(200),0)
                 .onlyScaleDown()
                 .into(holder.imgOutline, new Callback() {
                     @Override
