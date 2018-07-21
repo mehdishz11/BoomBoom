@@ -2,6 +2,8 @@ package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+
 public class P_Splash implements IP_Splash {
 
     private Context context;
@@ -32,5 +34,21 @@ public class P_Splash implements IP_Splash {
     @Override
     public void getStickersFailed(String msg) {
         ivSplash.getStickersFailed(msg);
+    }
+
+    @Override
+    public void getRank() {
+        ivSplash.startGetRank();
+        mSplash.getRank();
+    }
+
+    @Override
+    public void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip) {
+        ivSplash.getRankSuccess(responseGetLeaderShip);
+    }
+
+    @Override
+    public void getRankFailed(String msg) {
+        ivSplash.getRankFailed(msg);
     }
 }

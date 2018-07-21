@@ -6,12 +6,16 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
 import psb.com.kidpaint.webApi.Category.Category;
 import psb.com.kidpaint.webApi.Category.GetCategory.iGetCategory;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 
 public class M_Splash implements IM_Splash {
 
@@ -60,17 +64,33 @@ public class M_Splash implements IM_Splash {
         }).doGetCategory();
     }
 
+
+
     private void addStickersToDataBase(List<Sticker> stickerList){
         for (int i = 0; i < stickerList.size(); i++) {
             tblStickers.insert(stickerList.get(i));
         }
-        Log.d("sizeis", "addStickersToDataBase: " + tblStickers.getStickersById(3).getImageUrl());
-        Log.d("sizeis", "addStickersToDataBase: " + tblStickers.getAllStickers().size());
     }
 
     private void addCategoryToDataBase(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList){
         for (int i = 0; i < categoryList.size(); i++) {
             tblCategory.insert(categoryList.get(i));
         }
+    }
+
+    @Override
+    public void getRank() {
+        UserProfile userProfile = new UserProfile(getContext());
+        new GetLeaderShip(new iGetLeaderShip.iResult() {
+            @Override
+            public void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip) {
+                ipSplash.getRankSuccess(responseGetLeaderShip);
+            }
+
+            @Override
+            public void onFailedGetLeaderShip(int errorId, String ErrorMessage) {
+                ipSplash.getRankFailed(ErrorMessage);
+            }
+        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER("-1"),1,3);
     }
 }

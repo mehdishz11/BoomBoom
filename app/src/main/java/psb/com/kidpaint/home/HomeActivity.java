@@ -34,8 +34,10 @@ import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 
 public class HomeActivity extends AppCompatActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
@@ -60,11 +62,16 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private ImageView userImage;
     private TextView editUser, logOut;
 
+    private ImageView img_winner_1,img_winner_2,img_winner_3;
+
+
     private UserProfile userProfile;
     private ProgressDialog progressDialog;
     private PHome pHome;
 
     private FrameLayout frameLayoutSplash;
+
+    private ResponseGetLeaderShip responseGetLeaderShip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,10 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
+
+        img_winner_1 = findViewById(R.id.img_winner_1);
+        img_winner_2 = findViewById(R.id.img_winner_2);
+        img_winner_3 = findViewById(R.id.img_winner_3);
 
         btnNewPainting = findViewById(R.id.btn_new_painting);
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
@@ -329,5 +340,54 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     @Override
     public void splashFailed(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getRankStarted() {
+
+    }
+
+    @Override
+    public void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip) {
+        this.responseGetLeaderShip = responseGetLeaderShip;
+        setWinners();
+    }
+
+    @Override
+    public void getRankFailed() {
+
+    }
+
+    void setWinners(){
+        if (responseGetLeaderShip!=null) {
+            if (responseGetLeaderShip.getExtra().getLeaderModel().size()>0) {
+
+                if(responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl()!=null && !responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl().isEmpty()){
+                    Picasso
+                            .get()
+                            .load(responseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl())
+                            .resize(Value.dp(200),Value.dp(200))
+                            .onlyScaleDown()
+                            .into(img_winner_1);
+                }
+
+                if(responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl()!=null && !responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()){
+                    Picasso
+                            .get()
+                            .load(responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl())
+                            .resize(Value.dp(200),Value.dp(200))
+                            .onlyScaleDown()
+                            .into(img_winner_2);
+                }
+                if(responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl()!=null && !responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()){
+                    Picasso
+                            .get()
+                            .load(responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl())
+                            .resize(Value.dp(200),Value.dp(200))
+                            .onlyScaleDown()
+                            .into(img_winner_3);
+                }
+            }
+        }
     }
 }
