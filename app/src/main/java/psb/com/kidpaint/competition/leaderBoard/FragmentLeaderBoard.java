@@ -111,7 +111,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                 pLeaderShip.onGetLeaderShip(1, 15);
+                 pLeaderShip.onGetLeaderShip(1, 20);
             }
         });
 
@@ -131,7 +131,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
             public void onLoadMore(int load_count,int page) {
                 if (progressBarLoading.getVisibility()==View.GONE) {
                     progressBarLoading.setVisibility(View.VISIBLE);
-                    pLeaderShip.onGetLeaderShip(page, 15);
+                    pLeaderShip.onGetLeaderShip(page, 20);
                 }
             }
         });
