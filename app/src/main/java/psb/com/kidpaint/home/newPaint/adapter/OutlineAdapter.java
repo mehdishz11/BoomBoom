@@ -34,8 +34,6 @@ public class OutlineAdapter extends RecyclerView.Adapter<OutlineViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final OutlineViewHolder holder, final int position) {
-
-
         Picasso
                 .get()
                 .load(PaintingOutlinEnum.values()[position].getResIdSmall())
@@ -43,10 +41,10 @@ public class OutlineAdapter extends RecyclerView.Adapter<OutlineViewHolder> {
                 .onlyScaleDown()
                 .into(holder.imgOutline);
 
-        if(position%2==0){
+        if (position % 2 == 0) {
             holder.relParent.setBackgroundResource(R.drawable.bgr_white_1);
             holder.imgMask.setBackgroundResource(R.drawable.mask_bgr_white_1);
-        }else{
+        } else {
             holder.relParent.setBackgroundResource(R.drawable.bgr_white_2);
             holder.imgMask.setBackgroundResource(R.drawable.mask_bgr_white_2);
         }

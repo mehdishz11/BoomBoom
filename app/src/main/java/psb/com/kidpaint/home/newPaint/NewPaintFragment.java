@@ -19,7 +19,7 @@ import psb.com.kidpaint.home.newPaint.adapter.OutlineAdapter;
 public class NewPaintFragment extends Fragment {
 
     private View pView;
-    private RecyclerView recyclerOutlines;
+    public RecyclerView recyclerOutlines;
     private OnFragmentInteractionListener listener;
 
 
@@ -53,8 +53,9 @@ public class NewPaintFragment extends Fragment {
 
         recyclerOutlines.setAdapter(animationAdapter);
 
-
-
+        if (listener != null) {
+            listener.onFragmentAttached(this);
+        }
 
         return pView;
     }
@@ -75,5 +76,6 @@ public class NewPaintFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         void onOutlineSelected(int resId);
+        void onFragmentAttached(Fragment fragment);
     }
 }

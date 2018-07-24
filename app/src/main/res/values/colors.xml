@@ -27,6 +27,8 @@
     <color name="color_black_trans_1">#85000000</color>
     <color name="color_black_trans">#71000000</color>
 
+    <color name="fancy_showcase_view_default_background_color">#CC000000</color>
+
 
 
     <color name="palette_color_0">#6e5643</color>

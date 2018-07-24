@@ -259,7 +259,6 @@
                 </RelativeLayout>
 
             </android.support.design.widget.AppBarLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -272,6 +271,32 @@
                     android:layout_height="150dp"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/clouds" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="20dp"
+                    android:weightSum="2"
+                    >
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+                        <psb.com.cview.SquareRelativeLayout
+                            android:id="@+id/intro_view_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+                    <View
+                        android:id="@+id/intro_view_2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/frameLayout"

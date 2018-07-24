@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -46,6 +47,8 @@ import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
+import psb.com.kidpaint.utils.customView.intro.Intro;
+import psb.com.kidpaint.utils.customView.intro.IntroPosition;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
@@ -63,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     public static int CODE_EDIT = 108;
     private CButton btnNewPainting;
     private CButton btnHistory;
-    private ImageView drawerIcon,btn_settings;
+    private ImageView drawerIcon, btn_settings;
 
     private final String TAG_FRAGMENT_HISTORY = "TAG_FRAGMENT_HISTORY";
     private final String TAG_FRAGMENT_NEW_PAINTING = "TAG_FRAGMENT_NEW_PAINTING";
@@ -91,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private ResponsePrize responsePrize;
 
     private ImageView imageViewPrizeLeft, imageViewPrizeCenter, imageViewRight;
-    private TextView textViewPrizeLeftName, textViewPrizeCenterName, textViewPrizeRightName,text_user_rate;
+    private TextView textViewPrizeLeftName, textViewPrizeCenterName, textViewPrizeRightName, text_user_rate;
     private TextView textViewPrizeLeftScore, textViewPrizeCenterScore, textViewPrizeRightScore;
     private WaveLoadingView waveLoadingViewLeft, waveLoadingViewCenter, waveLoadingViewRight;
 
@@ -100,7 +103,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
 
     private SplashFragment splashFragment;
 
-    private int lastOffset=0;
+    private int lastOffset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,22 +129,22 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
         btnHistory = findViewById(R.id.btn_history);
         drawerIcon = findViewById(R.id.btn_more);
-        appBar=findViewById(R.id.app_bar);
+        appBar = findViewById(R.id.app_bar);
 
         appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
-                if(lastOffset>verticalOffset){
+                if (lastOffset > verticalOffset) {
                     hideLion();
                     showRooster();
                     Log.d(App.TAG, "onOffsetChanged: scrollUp");
-                }else{
+                } else {
                     showLion();
                     hideRooster();
                     Log.d(App.TAG, "onOffsetChanged: scrollDown");
                 }
-                lastOffset=verticalOffset;
+                lastOffset = verticalOffset;
             }
         });
 
@@ -203,6 +206,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         setupDrawer();
 
         initAnimation();
+
     }
 
     @Override
@@ -324,13 +328,20 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         });
     }
 
-
     @Override
     public void onOutlineSelected(int resId) {
         Intent intent = new Intent(HomeActivity.this, PaintActivity.class);
         intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
         HomeActivity.this.startActivity(intent);
     }
+
+    @Override
+    public void onFragmentAttached(Fragment fragment) {
+        if (fragment instanceof NewPaintFragment) {
+
+        }
+    }
+
 
     @Override
     public Context getContext() {
@@ -463,12 +474,15 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     @Override
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
-        //getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
+        showIntro(R.id.intro_view_1);
+        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
     }
 
     @Override
     public void splashFailed(String msg) {
         frameLayoutSplash.setVisibility(View.GONE);
+        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
+        showIntro(R.id.intro_view_1);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -494,11 +508,20 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         setPrizes();
     }
 
-
     @Override
     public void getPrizeFailed(ResponsePrize responsePrize) {
         this.responsePrize = responsePrize;
         setPrizes();
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Activity methods
+    ///////////////////////////////////////////////////////////////////////////
+    private void showIntro(int viewId) {
+        final View view = findViewById(viewId);
+        Intro.addIntroTo(this,view,R.layout.test, IntroPosition.TOP,R.raw.new_white_page).show();
+
     }
 
     private void setPrizes() {
@@ -550,9 +573,9 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                 }
             }
 
-            if (responseGetLeaderShip.getExtra().getMyRank()!=null) {
-                text_user_rate.setText("بهترین رتبه شما "+responseGetLeaderShip.getExtra().getMyRank().getRank());
-            }else {
+            if (responseGetLeaderShip.getExtra().getMyRank() != null) {
+                text_user_rate.setText("بهترین رتبه شما " + responseGetLeaderShip.getExtra().getMyRank().getRank());
+            } else {
                 text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
 
             }
@@ -776,19 +799,16 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         dialog.show();
     }
 
-
-
-
-    public void initAnimation(){
-        if(imageLion==null){
-            imageLion=findViewById(R.id.lion);
-            imageLion.setPivotX(imageLion.getWidth()/2);
+    public void initAnimation() {
+        if (imageLion == null) {
+            imageLion = findViewById(R.id.lion);
+            imageLion.setPivotX(imageLion.getWidth() / 2);
             imageLion.setPivotY(imageLion.getHeight());
         }
 
-        if(imageRooster==null){
-            imageRooster=findViewById(R.id.rooster);
-            imageRooster.setPivotX(imageRooster.getWidth()/2);
+        if (imageRooster == null) {
+            imageRooster = findViewById(R.id.rooster);
+            imageRooster.setPivotX(imageRooster.getWidth() / 2);
             imageRooster.setPivotY(imageRooster.getHeight());
         }
 
@@ -802,53 +822,51 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     }
 
 
-
-
     private ImageView imageLion;
-    private boolean isLionShow=true;
-    private boolean isAnimationLion =false;
+    private boolean isLionShow = true;
+    private boolean isAnimationLion = false;
 
     private ImageView imageRooster;
-    private boolean isRossterShow=true;
-    private boolean isAnimationRooster =false;
+    private boolean isRossterShow = true;
+    private boolean isAnimationRooster = false;
 
 
-    private void hideLion(){
-        if(!isLionShow || isAnimationLion)return;
+    private void hideLion() {
+        if (!isLionShow || isAnimationLion) return;
 
-        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion ,"rotation", 0.0f,-20,0);
-        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion ,"translationX", 0.0f,-(imageLion.getWidth()-imageLion.getLeft()));
+        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion, "rotation", 0.0f, -20, 0);
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", 0.0f, -(imageLion.getWidth() - imageLion.getLeft()));
 
         animRotate.setDuration(500); // miliseconds
         animMove.setDuration(500); // miliseconds
 
-        AnimatorSet animatorSet=new AnimatorSet();
-        animatorSet.playTogether(animRotate,animMove);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animRotate, animMove);
 
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isLionShow=false;
-                isAnimationLion =false;
+                isLionShow = false;
+                isAnimationLion = false;
             }
         });
-        isAnimationLion =true;
+        isAnimationLion = true;
         animatorSet.start();
     }
 
-    private void showLion(){
-        if(isLionShow || isAnimationLion)return;
+    private void showLion() {
+        if (isLionShow || isAnimationLion) return;
 
-        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion ,"rotation", -45,0.0f);
-        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion ,"translationX", -(imageLion.getWidth()-imageLion.getLeft()),0.0f);
+        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion, "rotation", -45, 0.0f);
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", -(imageLion.getWidth() - imageLion.getLeft()), 0.0f);
 
         animRotate.setDuration(500); // miliseconds
         animMove.setDuration(500); // miliseconds
 
-        AnimatorSet animatorSet=new AnimatorSet();
-        animatorSet.playTogether(animRotate,animMove);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animRotate, animMove);
 
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
@@ -857,26 +875,27 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                 super.onAnimationEnd(animation);
                 imageLion.setRotation(0);
                 imageLion.setTranslationX(5);
-                isLionShow=true;
-                isAnimationLion =false;
+                isLionShow = true;
+                isAnimationLion = false;
             }
         });
-        isAnimationLion =true;
+        isAnimationLion = true;
         animatorSet.start();
     }
 
-    private void hideRooster(){
+    private void hideRooster() {
         hideRooster(300);
     }
-    private void hideRooster(int duration){
-        if(!isRossterShow || isAnimationRooster)return;
 
-        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster ,"translationY", 0.0f,imageRooster.getHeight());
+    private void hideRooster(int duration) {
+        if (!isRossterShow || isAnimationRooster) return;
+
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster, "translationY", 0.0f, imageRooster.getHeight());
 
 
         animMove.setDuration(duration); // miliseconds
 
-        AnimatorSet animatorSet=new AnimatorSet();
+        AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animMove);
 
 
@@ -884,23 +903,23 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isRossterShow=false;
-                isAnimationRooster =false;
+                isRossterShow = false;
+                isAnimationRooster = false;
             }
         });
-        isAnimationRooster =true;
+        isAnimationRooster = true;
         animatorSet.start();
     }
 
-    private void showRooster(){
-        if(isRossterShow || isAnimationRooster)return;
+    private void showRooster() {
+        if (isRossterShow || isAnimationRooster) return;
 
-        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster ,"translationY", imageRooster.getHeight(),0.0f);
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster, "translationY", imageRooster.getHeight(), 0.0f);
 
 
         animMove.setDuration(300); // miliseconds
 
-        AnimatorSet animatorSet=new AnimatorSet();
+        AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animMove);
 
 
@@ -908,11 +927,11 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isRossterShow=true;
-                isAnimationRooster =false;
+                isRossterShow = true;
+                isAnimationRooster = false;
             }
         });
-        isAnimationRooster =true;
+        isAnimationRooster = true;
         animatorSet.start();
     }
 }
