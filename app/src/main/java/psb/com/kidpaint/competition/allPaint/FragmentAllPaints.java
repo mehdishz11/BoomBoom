@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,26 +13,43 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
+import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.GridLayoutManager_EndlessRecyclerOnScrollListener;
+import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
+import psb.com.kidpaint.utils.customView.intro.Intro;
+import psb.com.kidpaint.utils.customView.intro.IntroPosition;
+import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnShowListener;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
@@ -88,6 +106,11 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
         initView();
+
+        if (pPaints!=null) {
+            showIntro();
+
+        }
         return view;
     }
 
@@ -250,6 +273,9 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         }
         recyclerViewAllPaints.getAdapter().notifyDataSetChanged();
         emptyViewAllPaints.setVisibility(recyclerViewAllPaints.getAdapter().getItemCount() > 0 ? View.GONE : View.VISIBLE);
+
+        showIntro();
+
     }
 
     @Override
@@ -373,5 +399,85 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints);
         void onSelectPaint(PaintModel paintModel);
         void onRefreshUserData();
+    }
+
+    private void showIntro() {
+        final View v = view.findViewById(R.id.viewStep13_1);
+        final View v_2 = view.findViewById(R.id.viewStep13);
+
+
+        v.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                /////////////////////
+                FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(getActivity(), v, IntroEnum.getLayoutId(12), IntroPosition.BOTTOM, IntroEnum.getSoundId(12), IntroEnum.getShareId(12),null,null);
+                FancyShowCaseView fancyShowCaseView_2= Intro.addIntroTo(getActivity(),
+                        v_2, IntroEnum.getLayoutId(13),
+                        IntroPosition.TOP,
+                        IntroEnum.getSoundId(13),
+                        IntroEnum.getShareId(13),
+                        null, null, new OnViewInflateListener() {
+                            @Override
+                            public void onViewInflated(@NonNull View viewIn) {
+                                ImageView imageView=viewIn.findViewById(R.id.img_outline_template);
+                                ImageView userImage=viewIn.findViewById(R.id.img_user);
+                                TextView userName=viewIn.findViewById(R.id.text_user_name);
+                                TextView code=viewIn.findViewById(R.id.text_image_code);
+
+                                if (pPaints.getFirstPaintModel()!=null) {
+
+                                    PaintModel paintModel=pPaints.getFirstPaintModel();
+
+
+                                    if (paintModel.getUser().getImageUrl()!=null && !paintModel.getUser().getImageUrl().isEmpty()) {
+                                        Picasso.get().load(paintModel.getUser().getImageUrl()).into(userImage);
+                                    }
+
+                                    userName.setText(paintModel.getUser().getFirstName()+" "+paintModel.getUser().getLastName());
+                                    code.setText(getContext().getString(R.string.image_code)+" "+paintModel.getCode());
+
+                                    //Picasso.get().invalidate(paintModel.getUrl());
+                                    Picasso
+                                            .get()
+                                            .load(paintModel.getUrl())
+                                            .resize(Value.dp(200),0)
+                                            .onlyScaleDown()
+                                            .into(imageView, new Callback() {
+                                                @Override
+                                                public void onSuccess() {
+
+                                                }
+
+                                                @Override
+                                                public void onError(Exception e) {
+
+                                                    Log.d("TAG", "onError fancyShowCaseView2: ");
+                                                    e.printStackTrace();
+                                                }
+                                            });
+                                }
+                            }
+                        });
+
+                FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+                fancyShowCaseQueue.add(fancyShowCaseView);
+
+                if (pPaints.getArrSizeAllPaints()>0) {
+                    fancyShowCaseQueue.add(fancyShowCaseView_2);
+
+                }
+                fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete() {
+                        Log.d("TAG", "onComplete: ");
+                    }
+                });
+                fancyShowCaseQueue.show();
+
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
     }
 }

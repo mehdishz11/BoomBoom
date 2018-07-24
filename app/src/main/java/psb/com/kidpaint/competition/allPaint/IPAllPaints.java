@@ -5,6 +5,7 @@ import android.content.Context;
 import psb.com.kidpaint.competition.allPaint.adapter.ViewHolder_AllPaints;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 public interface IPAllPaints {
 
@@ -26,5 +27,8 @@ public interface IPAllPaints {
     void onSendScore(int position);
     void onSuccessSendScore(int position);
     void onFailedSendScore(int errorCode, String errorMessage);
+
+    PaintModel getFirstPaintModel();
+
 
 }

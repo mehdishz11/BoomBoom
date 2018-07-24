@@ -5,6 +5,7 @@ import android.content.Context;
 import psb.com.kidpaint.competition.myPaints.adapter.ViewHolder_MyPaints;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
+import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 public interface IPMyPaints {
 
@@ -23,6 +24,8 @@ public interface IPMyPaints {
     void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
     void onFailedGetMyPaints(int errorCode,String errorMessage);
     void deleteMyPaints(int position);
+
+
 
 
 

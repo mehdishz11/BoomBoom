@@ -137,4 +137,9 @@ public class PHistory implements  IPHistory {
         mHistory.deletePaint(position);
     }
 
+    @Override
+    public File getLastPaintFile() {
+        return mHistory.getLastPaintFile();
+    }
+
 }

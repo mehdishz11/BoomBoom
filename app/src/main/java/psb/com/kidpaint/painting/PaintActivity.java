@@ -5,6 +5,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,6 +43,7 @@ import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
 import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.painting.palette.sticker.StickerFragment;
+import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
@@ -52,6 +55,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnShowListener;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.customView.stickerview.StickerView;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
@@ -123,7 +127,6 @@ public class PaintActivity extends AppCompatActivity implements
 
         stackViews();
         initView();
-       relHandle.performClick();
        showIntro();
     }
 
@@ -355,11 +358,18 @@ public class PaintActivity extends AppCompatActivity implements
     private void showIntro() {
         final View view = findViewById(R.id.introViewCenter);
         final View view2 = findViewById(R.id.introViewRight);
+        final View view3 = findViewById(R.id.introViewMore);
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(PaintActivity.this, view, R.layout.intro_step_3, IntroPosition.TOP, R.raw.yellow,null);
-                FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(PaintActivity.this, view2, R.layout.intro_step_4, IntroPosition.TOP, R.raw.bgr_be_happy, new DismissListener() {
+                FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(PaintActivity.this, view, IntroEnum.getLayoutId(3), IntroPosition.TOP, IntroEnum.getSoundId(3), IntroEnum.getShareId(3), null, new OnShowListener() {
+                    @Override
+                    public void onShow() {
+                        relHandle.performClick();
+
+                    }
+                });
+                FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(PaintActivity.this, view2, IntroEnum.getLayoutId(4), IntroPosition.TOP, IntroEnum.getSoundId(4), IntroEnum.getShareId(4), new DismissListener() {
                     @Override
                     public void onDismiss(String id) {
                         btnRight.performClick();
@@ -367,14 +377,25 @@ public class PaintActivity extends AppCompatActivity implements
 
                     @Override
                     public void onSkipped(String id) {
-                        btnRight.performClick();
 
                     }
-                });
+                },null);
+                FancyShowCaseView fancyShowCaseView_3=Intro.addIntroTo(PaintActivity.this, view3, IntroEnum.getLayoutId(5), IntroPosition.RIGHT, IntroEnum.getSoundId(5), IntroEnum.getShareId(5), new DismissListener() {
+                    @Override
+                    public void onDismiss(String id) {
+                        btnMore.performClick();
+                    }
+
+                    @Override
+                    public void onSkipped(String id) {
+
+                    }
+                },null);
 
                 FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
                 fancyShowCaseQueue.add(fancyShowCaseView);
                 fancyShowCaseQueue.add(fancyShowCaseView_2);
+                fancyShowCaseQueue.add(fancyShowCaseView_3);
                 fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete() {
@@ -569,6 +590,8 @@ public class PaintActivity extends AppCompatActivity implements
             out.flush();
             out.close();
 
+            Intent intent = new Intent();
+            setResult(Activity.RESULT_OK, intent);
             finish();
         } catch (Exception e) {
 

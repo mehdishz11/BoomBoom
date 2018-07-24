@@ -42,6 +42,7 @@ import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
@@ -67,6 +68,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     public static int CODE_REGISTER = 107;
     public static int CODE_Competition = 108;
     public static int CODE_EDIT = 108;
+    public static int CODE_PAINT_ACTIVITY = 109;
     private CButton btnNewPainting;
     private CButton btnHistory;
     private ImageView drawerIcon, btn_settings;
@@ -341,7 +343,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     public void onOutlineSelected(int resId) {
         Intent intent = new Intent(HomeActivity.this, PaintActivity.class);
         intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
-        HomeActivity.this.startActivity(intent);
+        startActivityForResult(intent,CODE_PAINT_ACTIVITY);
     }
 
     @Override
@@ -468,6 +470,15 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         }
+        else if (requestCode == CODE_PAINT_ACTIVITY) {
+            if (resultCode == Activity.RESULT_OK) {
+                btnHistory.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
+                btnNewPainting.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HistoryFragment(), TAG_FRAGMENT_HISTORY).commit();
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+            }
+        }
     }
 
 
@@ -530,8 +541,10 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     private void showIntro() {
         final View view = findViewById(R.id.intro_view_1);
         final View view2 = findViewById(R.id.intro_view_2);
-        FancyShowCaseView fancyShowCaseView=Intro.addIntroTo(this, view, R.layout.intro_step_1, IntroPosition.TOP, R.raw.green,null);
-        FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(this, view2, R.layout.intro_step_2, IntroPosition.TOP, R.raw.brown,null);
+        FancyShowCaseView fancyShowCaseView=Intro.addIntroTo(this, view, IntroEnum.getLayoutId(1), IntroPosition.TOP, IntroEnum.getSoundId(1), IntroEnum.getShareId(1),null,null);
+        FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(this, view2, IntroEnum.getLayoutId(2), IntroPosition.TOP, IntroEnum.getSoundId(2), IntroEnum.getShareId(2),null,null);
+
+
 
         FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
         fancyShowCaseQueue.add(fancyShowCaseView);
@@ -543,7 +556,6 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
             }
         });
         fancyShowCaseQueue.show();
-        fancyShowCaseView.show();
     }
 
     private void setPrizes() {

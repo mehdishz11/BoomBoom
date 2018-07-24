@@ -1,7 +1,9 @@
 package psb.com.kidpaint.utils.customView.intro;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.view.View;
+
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;
@@ -19,6 +21,32 @@ public class Intro {
                 relId,
                 introPosition,
                 -1,
+                "",
+                null,
+                null
+                );
+    }
+
+    public static FancyShowCaseView addIntroTo(
+            final Activity activity,
+            final View view,
+            final int relId,
+            final IntroPosition introPosition,
+            int soundId,
+            String srtid,
+            DismissListener dismissListener,
+            OnShowListener onShowListener
+    ) {
+
+        return addIntroTo(
+                activity,
+                view,
+                relId,
+                introPosition,
+                soundId,
+                srtid,
+                dismissListener,
+                onShowListener,
                 null);
     }
 
@@ -28,7 +56,10 @@ public class Intro {
             final int relId,
             final IntroPosition introPosition,
             int soundId,
-            DismissListener dismissListener
+            String srtid,
+            DismissListener dismissListener,
+            OnShowListener onShowListener,
+            final OnViewInflateListener onViewInflateListener
     ) {
         int location[] = new int[2];
         view.getLocationOnScreen(location);
@@ -45,11 +76,13 @@ public class Intro {
                             IntroView introView = (IntroView) pView;
                             introView.setup(view);
                             introView.addView(relId, introPosition);
-
+                            if (onViewInflateListener != null) {
+                                onViewInflateListener.onViewInflated(pView);
+                            }
                         }
                     }
                 })
-
+                .showOnce(srtid)
                 .build();
 
         fancyShowCaseView.setSoundId(soundId);
@@ -62,6 +95,7 @@ public class Intro {
             }
         });
         fancyShowCaseView.setDismissListener(dismissListener);
+        fancyShowCaseView.setOnShowListener(onShowListener);
         return fancyShowCaseView;
     }
 }

@@ -109,4 +109,9 @@ public class MAllPaints implements IMAllPaints {
     public boolean userIsRegistered() {
         return !userProfile.get_KEY_PHONE_NUMBER("").isEmpty();
     }
+
+    @Override
+    public PaintModel getFirstPaintModel() {
+        return mResponseGetAllPaints==null||mResponseGetAllPaints.getExtra().getPaintModel().size()<=0?null:mResponseGetAllPaints.getExtra().getPaintModel().get(0);
+    }
 }

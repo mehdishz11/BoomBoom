@@ -9,6 +9,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,8 +34,16 @@ import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
 import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.competition.score.FragmentScore;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.ProgressView;
+import psb.com.kidpaint.utils.customView.intro.Intro;
+import psb.com.kidpaint.utils.customView.intro.IntroPosition;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -378,6 +387,8 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
         mResponseGetLeaderShip = responseGetLeaderShip;
         progressView.setVisibility(View.GONE);
         setFragment(1);
+
+        showIntro();
     }
 
     @Override
@@ -452,6 +463,32 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
             }
         }
     }
+
+    private void showIntro() {
+        final View v = findViewById(R.id.text_competition);
+        final View v_2 = findViewById(R.id.text_me);
+        final View v_3 = findViewById(R.id.text_All);
+        FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(this, v, IntroEnum.getLayoutId(9), IntroPosition.BOTTOM, IntroEnum.getSoundId(9), IntroEnum.getShareId(9),null,null);
+        FancyShowCaseView fancyShowCaseView_me= Intro.addIntroTo(this, v_2, IntroEnum.getLayoutId(10), IntroPosition.BOTTOM, IntroEnum.getSoundId(10), IntroEnum.getShareId(10),null,null);
+        FancyShowCaseView fancyShowCaseView_all= Intro.addIntroTo(this, v_3, IntroEnum.getLayoutId(11), IntroPosition.BOTTOM, IntroEnum.getSoundId(11), IntroEnum.getShareId(11),null,null);
+
+
+
+
+        FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+        fancyShowCaseQueue.add(fancyShowCaseView);
+        fancyShowCaseQueue.add(fancyShowCaseView_me);
+        fancyShowCaseQueue.add(fancyShowCaseView_all);
+
+        fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        });
+        fancyShowCaseQueue.show();
+    }
+
 
 
 }

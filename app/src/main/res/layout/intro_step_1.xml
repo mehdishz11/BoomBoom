@@ -10,7 +10,7 @@
         android:layout_above="@+id/arrow"
         android:textColor="@color/white_1"
         android:textSize="@dimen/text_size_large"
-        android:text="برای نقاشی کردن می تونی از اینجا صفحه سفید و انتخاب کنی"
+        android:text="@string/intro_step_1_text"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"

@@ -18,6 +18,7 @@ public interface IMMyPaints {
      int getArrSizeMyPaints();
 
     PaintModel getMyPaintsPositionAt(int position);
+    PaintModel getFirstPaintModel();
     User getUser();
 
     void onGetMyPaints();

@@ -126,4 +126,9 @@ public class PAllPaints implements IPAllPaints {
     public void onFailedSendScore(int errorCode, String errorMessage) {
         ivAllPaints.onFailedSendScore(errorCode, errorMessage);
     }
+
+    @Override
+    public PaintModel getFirstPaintModel() {
+        return mPaints.getFirstPaintModel();
+    }
 }

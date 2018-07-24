@@ -13,6 +13,7 @@ public interface IMHistory {
     void deletePaint(int position);
 
     File getPositionAt(int position);
+    File getLastPaintFile();
     int getArrSize();
 
     boolean userIsRegistered();

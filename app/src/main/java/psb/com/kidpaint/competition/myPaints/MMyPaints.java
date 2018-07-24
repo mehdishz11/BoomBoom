@@ -67,7 +67,13 @@ public class MMyPaints implements IMMyPaints {
     public PaintModel getMyPaintsPositionAt(int position) {
         return mResponseGetMyPaints.getMyPaint().get(position);
     }
-////
+
+    @Override
+    public PaintModel getFirstPaintModel() {
+        return mResponseGetMyPaints==null||mResponseGetMyPaints.getMyPaint().size()<=0?null:mResponseGetMyPaints.getMyPaint().get(0);
+    }
+
+    ////
     @Override
     public User getUser() {
         User user=new User();

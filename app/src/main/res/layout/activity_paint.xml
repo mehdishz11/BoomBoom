@@ -125,11 +125,13 @@
     </RelativeLayout>
 
     <include layout="@layout/bottom_sheet_painting" />
+
+    <!--intro -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--intro -->
         <RelativeLayout
             android:id="@+id/relIntroHandel"
             android:layout_width="match_parent"
@@ -169,7 +171,13 @@
 
         </RelativeLayout>
 
-        <!---->
+        <View
+            android:id="@+id/introViewMore"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            />
+
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

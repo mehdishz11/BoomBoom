@@ -2,6 +2,8 @@ package psb.com.kidpaint.home.history;
 
 import android.content.Context;
 
+import java.io.File;
+
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 
@@ -21,6 +23,9 @@ public interface IPHistory {
     void onFailedPostPaint(int errorCode,String errorMessage);
 
     void deletePaint(int position);
+
+    File getLastPaintFile();
+
 
 
 }

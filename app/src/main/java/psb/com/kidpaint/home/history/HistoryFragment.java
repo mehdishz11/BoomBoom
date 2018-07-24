@@ -5,14 +5,20 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
@@ -20,8 +26,16 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.IntroEnum;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
+import psb.com.kidpaint.utils.customView.intro.Intro;
+import psb.com.kidpaint.utils.customView.intro.IntroPosition;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 
 public class HistoryFragment extends Fragment implements IVHistory {
@@ -73,6 +87,8 @@ public class HistoryFragment extends Fragment implements IVHistory {
         emptyView = view.findViewById(R.id.emptyView);
         pHistory = new PHistory(this);
         pHistory.getMyPaintHistory();
+
+
         return view;
 
 
@@ -113,6 +129,8 @@ public class HistoryFragment extends Fragment implements IVHistory {
         recyclerView.setAdapter(animationAdapter);
 
         emptyView.setVisibility(historyAdapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+
+        showIntro();
     }
 
     @Override
@@ -144,6 +162,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
             @Override
             public void onPosetiveClicked() {
                 dialog.cancel();
+                showIntroCompetition();
             }
 
             @Override
@@ -256,4 +275,70 @@ public class HistoryFragment extends Fragment implements IVHistory {
     public interface OnFragmentInteractionListener {
         void setupDrawer();
     }
+
+    private void showIntro() {
+        final View v = getActivity().findViewById(R.id.btn_history);
+        final View view2 = view.findViewById(R.id.introViewStep_7);
+        FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(getActivity(), v, IntroEnum.getLayoutId(6), IntroPosition.TOP, IntroEnum.getSoundId(6), IntroEnum.getShareId(6),null,null);
+        FancyShowCaseView fancyShowCaseView2= Intro.addIntroTo(getActivity(), view2, IntroEnum.getLayoutId(7), IntroPosition.TOP, IntroEnum.getSoundId(7), IntroEnum.getShareId(7),
+                null, null, new OnViewInflateListener() {
+                    @Override
+                    public void onViewInflated(@NonNull View viewIn) {
+                        ImageView imageView=viewIn.findViewById(R.id.img_outline_template);
+
+                        if (pHistory.getLastPaintFile()!=null) {
+                            Picasso.get().invalidate(pHistory.getLastPaintFile());
+                            Picasso
+                                    .get()
+                                    .load(pHistory.getLastPaintFile())
+                                    .resize(Value.dp(200),0)
+                                    .onlyScaleDown()
+                                    .into(imageView, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+
+                                        }
+
+                                        @Override
+                                        public void onError(Exception e) {
+
+                                            Log.d("TAG", "onError fancyShowCaseView2: ");
+                                            e.printStackTrace();
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+
+
+        FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+        fancyShowCaseQueue.add(fancyShowCaseView);
+        if (pHistory.getArrSize()>0) {
+            fancyShowCaseQueue.add(fancyShowCaseView2);
+
+        }
+        fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        });
+        fancyShowCaseQueue.show();
+    }
+    private void showIntroCompetition() {
+        final View v = getActivity().findViewById(R.id.competition);
+        FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(getActivity(), v, IntroEnum.getLayoutId(8), IntroPosition.BOTTOM, IntroEnum.getSoundId(8), IntroEnum.getShareId(8),null,null);
+
+        FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+        fancyShowCaseQueue.add(fancyShowCaseView);
+        fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        });
+        fancyShowCaseQueue.show();
+    }
+
 }

@@ -22,5 +22,8 @@ public interface IMAllPaints {
     void onSendScore(int position);
     boolean userIsRegistered();
 
+    PaintModel getFirstPaintModel();
+
+
 
 }

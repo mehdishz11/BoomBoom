@@ -119,6 +119,11 @@ public class MHistory implements IMHistory {
     }
 
     @Override
+    public File getLastPaintFile() {
+        return imageList.size()<=0?null:imageList.get(0);
+    }
+
+    @Override
     public int getArrSize() {
         return imageList.size();
     }

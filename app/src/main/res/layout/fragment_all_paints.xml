@@ -115,7 +115,17 @@
                 android:textColor="@color/brown_2"
                 android:textSize="20dp" />
 
-            <psb.com.cview.CEditTextBold
+                <View
+                    android:id="@+id/viewStep13_1"
+                    android:layout_width="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="40dp"/>
+
+
+                <psb.com.cview.CEditTextBold
                 android:id="@+id/search"
                 style="@style/SearchViewStyle"
                 android:layout_width="match_parent"
@@ -163,5 +173,12 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/margin_5"
         android:visibility="gone" />
+
+    <View
+        android:id="@+id/viewStep13"
+        android:layout_width="@dimen/margin_10"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="10dp"/>
 
 </RelativeLayout>
