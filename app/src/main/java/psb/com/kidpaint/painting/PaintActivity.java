@@ -20,7 +20,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -44,6 +46,12 @@ import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
+import psb.com.kidpaint.utils.customView.intro.Intro;
+import psb.com.kidpaint.utils.customView.intro.IntroPosition;
+import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.customView.stickerview.StickerView;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
@@ -115,8 +123,8 @@ public class PaintActivity extends AppCompatActivity implements
 
         stackViews();
         initView();
-
-
+       relHandle.performClick();
+       showIntro();
     }
 
     @Override
@@ -339,6 +347,47 @@ public class PaintActivity extends AppCompatActivity implements
 
 
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // show intro
+    ///////////////////////////////////////////////////////////////////////////
+
+    private void showIntro() {
+        final View view = findViewById(R.id.introViewCenter);
+        final View view2 = findViewById(R.id.introViewRight);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(PaintActivity.this, view, R.layout.intro_step_3, IntroPosition.TOP, R.raw.yellow,null);
+                FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(PaintActivity.this, view2, R.layout.intro_step_4, IntroPosition.TOP, R.raw.bgr_be_happy, new DismissListener() {
+                    @Override
+                    public void onDismiss(String id) {
+                        btnRight.performClick();
+                    }
+
+                    @Override
+                    public void onSkipped(String id) {
+                        btnRight.performClick();
+
+                    }
+                });
+
+                FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+                fancyShowCaseQueue.add(fancyShowCaseView);
+                fancyShowCaseQueue.add(fancyShowCaseView_2);
+                fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete() {
+                        Log.d("TAG", "onComplete: ");
+                    }
+                });
+                fancyShowCaseQueue.show();
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+    }
+
 
 
     private void stackViews() {

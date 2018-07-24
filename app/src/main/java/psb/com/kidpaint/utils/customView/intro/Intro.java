@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnShowListener;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
@@ -17,10 +18,18 @@ public class Intro {
                 view,
                 relId,
                 introPosition,
-                -1);
+                -1,
+                null);
     }
 
-    public static FancyShowCaseView addIntroTo(final Activity activity, final View view, final int relId, final IntroPosition introPosition, int soundId) {
+    public static FancyShowCaseView addIntroTo(
+            final Activity activity,
+            final View view,
+            final int relId,
+            final IntroPosition introPosition,
+            int soundId,
+            DismissListener dismissListener
+    ) {
         int location[] = new int[2];
         view.getLocationOnScreen(location);
         int x = location[0] + (view.getWidth() / 2);
@@ -52,6 +61,7 @@ public class Intro {
                 }
             }
         });
+        fancyShowCaseView.setDismissListener(dismissListener);
         return fancyShowCaseView;
     }
 }

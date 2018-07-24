@@ -49,6 +49,9 @@ import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.intro.Intro;
 import psb.com.kidpaint.utils.customView.intro.IntroPosition;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
+import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
+import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
@@ -200,7 +203,13 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
                 DialogSettings cDialog = new DialogSettings(HomeActivity.this);
 
                 cDialog.show();
-            }
+
+         /*   Intent intent=new Intent(HomeActivity.this,HomeActivity.class);
+               // NotificationCreator.showTextNotification(HomeActivity.this,null,1,R.drawable.icon_boy_normal,null," you a good boy");
+              //  NotificationCreator.showBigTextStyleNotification(HomeActivity.this,null,2,R.drawable.icon_boy_normal,null," you a good boy","بعد از برشماری اهداف ، مجدداً بر کمک به\u200Cکشورهای در حال توسعه و کشورهای فقیر تأکید میشود و از لزوم راه اندازی پایگاه اینترنتی با هدف نشر اطلاعات هم سخن گفته میگوید ... حالا اینکه اهداف این سند می\u200Cتواند چه صدماتی به اهداف و آرزوهای جماعتی پست و حقیر وارد کند موضوعی\u200Cست که باید دربارۀ آن بدون تعصب فکر کرد ...");
+              //  NotificationCreator.showBigPictureStyleNotification(HomeActivity.this,null,3,R.drawable.icon_boy_normal,null," you a good boy","http://79.175.155.143/Naghashi/Files/Paint/76420180721_114434462_image.jpg");
+                NotificationCreator.showCustomNotification(HomeActivity.this,null,4,R.drawable.icon_boy_normal,null," you a good boy");
+            */}
         });
 
         setupDrawer();
@@ -474,7 +483,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     @Override
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
-        showIntro(R.id.intro_view_1);
+        showIntro();
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
     }
 
@@ -482,7 +491,7 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     public void splashFailed(String msg) {
         frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
-        showIntro(R.id.intro_view_1);
+        showIntro();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -518,10 +527,23 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
     ///////////////////////////////////////////////////////////////////////////
     // Activity methods
     ///////////////////////////////////////////////////////////////////////////
-    private void showIntro(int viewId) {
-        final View view = findViewById(viewId);
-        Intro.addIntroTo(this,view,R.layout.test, IntroPosition.TOP,R.raw.new_white_page).show();
+    private void showIntro() {
+        final View view = findViewById(R.id.intro_view_1);
+        final View view2 = findViewById(R.id.intro_view_2);
+        FancyShowCaseView fancyShowCaseView=Intro.addIntroTo(this, view, R.layout.intro_step_1, IntroPosition.TOP, R.raw.green,null);
+        FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(this, view2, R.layout.intro_step_2, IntroPosition.TOP, R.raw.brown,null);
 
+        FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+        fancyShowCaseQueue.add(fancyShowCaseView);
+        fancyShowCaseQueue.add(fancyShowCaseView_2);
+        fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        });
+        fancyShowCaseQueue.show();
+        fancyShowCaseView.show();
     }
 
     private void setPrizes() {

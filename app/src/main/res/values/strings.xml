@@ -40,5 +40,7 @@
     <string name="prizeRequestMsg">مایل به دریافت جایزه می باشید؟</string>
     <string name="prizedeliveryContact">همکاران ما برای جایزه با شما تماس میگیرند!</string>
     <string name="prizeRegistered">جایزه شما ثبت شد</string>
+    <string name="intro_step_2_text">برای پرکردن شکل های آماده میتونی از اینجا انتخاب کنی</string>
+    <string name="intro_step_3_text">برای استفاده از رنگ ها از اینجا استفاده کن</string>
 
 </resources>

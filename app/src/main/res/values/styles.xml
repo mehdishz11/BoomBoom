@@ -54,4 +54,16 @@
         <item name="android:textColorHint">@color/md_grey_400</item>
         <item name="android:textCursorDrawable">@drawable/line_red_ver_1_dp</item>
     </style>
+
+   <!-- <style name="TextAppearance.Compat.Notification.Title">not_title</style>
+
+    <style name="TextAppearance.Compat.Notification">not_context</style>
+
+    <style name="TextAppearance.Compat.Notification.Time">not_time</style>
+
+    <style name="TextAppearance.Compat.Notification.Info">not_info</style>-->
+
+   <!-- <style name="Widget.AppCompat.NotificationActionContainer">not_container</style>
+
+    <style name="Widget.AppCompat.NotificationActionText">not_action_text</style>-->
 </resources>

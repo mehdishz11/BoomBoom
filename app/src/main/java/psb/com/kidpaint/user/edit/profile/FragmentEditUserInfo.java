@@ -53,7 +53,7 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
 
     private View view;
     private EditText editTextName, editTextLastName;
-    private ImageView imageViewUserImg,camera;
+    private ImageView imageViewUserImg,camera,imgBack;
     private Button buttonUserInfo;
     private TextView text_phone_number,error,title;
     private ProgressBar progressBar;
@@ -247,6 +247,16 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
                 dialogDatePicker();
             }
         });
+
+        imgBack= view.findViewById(R.id.icon_back);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onBackPressed();
+                }
+            }
+        });
     }
 
     private boolean validateName() {
@@ -371,6 +381,7 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
         void onStartSetUserInfo();
         void setUserInfoSuccess();
         void setUserInfoFailed(String msg);
+        void onBackPressed();
     }
 
     private Uri getUri(Bitmap bitmap, String name) {
