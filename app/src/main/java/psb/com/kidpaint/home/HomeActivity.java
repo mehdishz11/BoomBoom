@@ -158,6 +158,8 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         btnNewPainting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.new_paint);
+
                 btnNewPainting.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
                 btnHistory.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new NewPaintFragment().newInstance(), TAG_FRAGMENT_NEW_PAINTING).commit();
@@ -167,6 +169,8 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.book);
+
                 btnHistory.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
                 btnNewPainting.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HistoryFragment(), TAG_FRAGMENT_HISTORY).commit();

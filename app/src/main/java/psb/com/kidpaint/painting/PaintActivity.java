@@ -174,7 +174,7 @@ public class PaintActivity extends BaseActivity implements
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundHelper.playSound(R.raw.click_bubbles_1);
+                SoundHelper.playSound(R.raw.exit);
                 animatePopRightCollapse();
 
                 MessageDialog dialog = new MessageDialog(PaintActivity.this);
@@ -203,7 +203,7 @@ public class PaintActivity extends BaseActivity implements
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundHelper.playSound(R.raw.click_bubbles_1);
+                SoundHelper.playSound(R.raw.save);
                 if (Utils.gstoragePermissionIsGranted(PaintActivity.this)) {
                     saveTempBitmap(getPaintCanvasBitmap());
 
@@ -216,7 +216,7 @@ public class PaintActivity extends BaseActivity implements
         btnUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundHelper.playSound(R.raw.undo);
+                SoundHelper.playSound(R.raw.back);
                 paintCanvas.undo();
             }
         });
@@ -225,7 +225,7 @@ public class PaintActivity extends BaseActivity implements
             @Override
             public void onClick(View view) {
 
-                SoundHelper.playSound(R.raw.click_1);
+                SoundHelper.playSound(R.raw.setting);
                 animatePopRightCollapse();
 
                 DialogSettings cDialog = new DialogSettings(PaintActivity.this);

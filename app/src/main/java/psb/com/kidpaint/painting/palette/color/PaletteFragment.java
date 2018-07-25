@@ -193,6 +193,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     private void onTypeChanged(PaintType paintType) {
         setTypeViews(paintType);
         if (mListener != null) {
+
             mListener.onPaintTypeSelected(paintType);
         }
     }
