@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.utils.customView.intro.IntroView;
 
 /**
  * Created by faruktoptas on 05/03/17.
@@ -473,6 +474,15 @@ public class FancyShowCaseView extends FrameLayout implements ViewTreeObserver.O
         this.addView(view);
         if (viewInflateListener != null) {
             viewInflateListener.onViewInflated(view);
+            if (view instanceof IntroView) {
+                IntroView introView = (IntroView) view;
+                introView.setOnAcceptPressed(new IntroView.OnAcceptPressed() {
+                    @Override
+                    public void onAccept() {
+                        hide();
+                    }
+                });
+            }
         }
     }
 

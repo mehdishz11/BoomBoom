@@ -32,8 +32,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_0"
-                    app:imageResource="@drawable/color_1"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_indigo_A700"
+                    app:imageResource="@drawable/img_color_blue"></psb.com.paintingview.CircleColorPicker>
             </RelativeLayout>
 
             <!--color-->
@@ -47,8 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_1"
-                    app:imageResource="@drawable/color_2"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_cyan_A700"
+                    app:imageResource="@drawable/img_color_firozei"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -63,8 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_2"
-                    app:imageResource="@drawable/color_3"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_purple_A700"
+                    app:imageResource="@drawable/img_color_violet"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -79,8 +79,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_3"
-                    app:imageResource="@drawable/color_4"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_red_A700"
+                    app:imageResource="@drawable/img_color_red"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -95,8 +95,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_4"
-                    app:imageResource="@drawable/color_5"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_pink_A400"
+                    app:imageResource="@drawable/img_color_pink"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -111,8 +111,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_5"
-                    app:imageResource="@drawable/color_6"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_green_A700"
+                    app:imageResource="@drawable/img_color_green"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -127,8 +127,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_6"
-                    app:imageResource="@drawable/color_8"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_yellow_A700"
+                    app:imageResource="@drawable/img_color_yellow"></psb.com.paintingview.CircleColorPicker>
 
 
             </RelativeLayout>
@@ -144,8 +144,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_7"
-                    app:imageResource="@drawable/color_10"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_orange_A700"
+                    app:imageResource="@drawable/img_color_orange"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -160,8 +160,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_8"
-                    app:imageResource="@drawable/color_13"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_brown_900"
+                    app:imageResource="@drawable/img_color_brown"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -176,8 +176,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_9"
-                    app:imageResource="@drawable/color_14"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_white_1000"
+                    app:imageResource="@drawable/img_color_white"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -192,8 +192,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_10"
-                    app:imageResource="@drawable/color_16"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/light_level_4"
+                    app:imageResource="@drawable/img_color_gray"></psb.com.paintingview.CircleColorPicker>
 
             </RelativeLayout>
 
@@ -208,8 +208,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    app:colorResource="@color/palette_color_11"
-                    app:imageResource="@drawable/color_20"></psb.com.paintingview.CircleColorPicker>
+                    app:colorResource="@color/md_black_1000"
+                    app:imageResource="@drawable/img_color_black"></psb.com.paintingview.CircleColorPicker>
 
 
             </RelativeLayout>
@@ -219,7 +219,8 @@
         <RelativeLayout
             android:id="@+id/rel_overlay_color_picker"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
         </RelativeLayout>
 
@@ -281,7 +282,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_small"
-                android:src="@drawable/color_3" />
+                android:src="@drawable/img_color_red" />
 
             <!--size-->
             <ImageView
@@ -291,7 +292,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_small"
                 android:layout_toRightOf="@+id/img_size_1"
-                android:src="@drawable/color_3" />
+                android:src="@drawable/img_color_red" />
 
             <!--size-->
             <ImageView
@@ -301,7 +302,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_small"
                 android:layout_toRightOf="@+id/img_size_2"
-                android:src="@drawable/color_3" />
+                android:src="@drawable/img_color_red" />
 
             <!--size-->
             <ImageView
@@ -311,7 +312,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_small"
                 android:layout_toRightOf="@+id/img_size_3"
-                android:src="@drawable/color_3" />
+                android:src="@drawable/img_color_red" />
 
             <!--size-->
             <ImageView

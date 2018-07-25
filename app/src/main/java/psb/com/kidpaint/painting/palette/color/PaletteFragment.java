@@ -33,7 +33,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     private ImageView btnTypePencil, btnTypeBucket, btnTypeEraser;
     private PaintType paintType = PaintType.PENCIL;
 
-    private int soundResId[]=new int[]{R.raw.brown,R.raw.brown,R.raw.red,R.raw.orange,R.raw.yellow,R.raw.green,R.raw.green,R.raw.blue,R.raw.violet,R.raw.violet,R.raw.purple,R.raw.black};
+    private int soundResId[]=new int[]{R.raw.blue,R.raw.blue,R.raw.violet,R.raw.red,R.raw.pink,R.raw.green,R.raw.yellow,R.raw.orange,R.raw.brown,R.raw.white,R.raw.toosi,R.raw.black};
 
     private int selectedSize = 3;
     private int colorResource;
@@ -73,7 +73,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
 
     private void initView() {
 
-        selectedColorPickerDrawable = getResources().getDrawable(R.drawable.color_2);
+        selectedColorPickerDrawable = getResources().getDrawable(R.drawable.img_color_red);
 
         for (int i = 0; i < arrCircleColorPicker.length; i++) {
             String buttonID = "color_" + i;

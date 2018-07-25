@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -18,6 +19,10 @@ public class IntroView extends RelativeLayout {
     FrameLayout frameLeft;
 
     View holderView;
+
+    Button btnAccept;
+
+    private OnAcceptPressed onAcceptPressed;
 
 
     public IntroView(Context context) {
@@ -43,6 +48,17 @@ public class IntroView extends RelativeLayout {
         frameLeft = findViewById(R.id.frm_left);
 
         holderView = findViewById(R.id.holder);
+
+        btnAccept=findViewById(R.id.btn_accept);
+
+        btnAccept.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onAcceptPressed != null) {
+                    onAcceptPressed.onAccept();
+                }
+            }
+        });
 
     }
     int[] location=new int[2];
@@ -79,14 +95,15 @@ public class IntroView extends RelativeLayout {
 
     }
 
+    public void setOnAcceptPressed(OnAcceptPressed onAcceptPressed) {
+        this.onAcceptPressed = onAcceptPressed;
+    }
 
     public void addView(int layoutId, IntroPosition position) {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View myView =  inflater.inflate(layoutId, null);
         RelativeLayout.LayoutParams params=new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,location[1]);
-
-
 
         switch (position) {
             case TOP:
@@ -102,5 +119,9 @@ public class IntroView extends RelativeLayout {
                 frameRight.addView(myView);
                 break;
         }
+    }
+
+    public interface OnAcceptPressed{
+        void onAccept();
     }
 }

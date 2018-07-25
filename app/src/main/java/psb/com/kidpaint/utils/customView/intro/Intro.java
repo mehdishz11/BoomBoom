@@ -8,7 +8,6 @@ import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnShowListener;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
-import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 
 public class Intro {
 
@@ -22,7 +21,7 @@ public class Intro {
                 "",
                 null,
                 null
-                );
+        );
     }
 
     public static FancyShowCaseView addIntroTo(
@@ -66,7 +65,6 @@ public class Intro {
         int radius = (int) Math.sqrt(Math.pow(view.getWidth(), 2) + Math.pow(view.getHeight(), 2)) / 2;
         final FancyShowCaseView fancyShowCaseView = new FancyShowCaseView.Builder(activity)
                 .focusCircleAtPosition(x, y, radius)
-
                 .customView(R.layout.intro_content, new OnViewInflateListener() {
                     @Override
                     public void onViewInflated(View pView) {
@@ -80,6 +78,7 @@ public class Intro {
                         }
                     }
                 })
+
                 .showOnce(srtid)
                 .build();
 
@@ -88,7 +87,7 @@ public class Intro {
             @Override
             public void onShow() {
                 if (fancyShowCaseView.getSoundId() != -1) {
-                    SoundHelper.playSound(fancyShowCaseView.getSoundId());
+//                    SoundHelper.playSound(fancyShowCaseView.getSoundId());
                 }
             }
         });

@@ -36,4 +36,18 @@
         android:layout_centerInParent="true"
         />
 
+    <psb.com.cview.CButton
+        android:id="@+id/btn_accept"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_rect"
+        android:textColor="@color/white_1"
+        android:textSize="@dimen/text_size_normal"
+        android:paddingBottom="@dimen/space_small"
+        android:text="متوجه شدم"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/space_small"
+        />
+
 </RelativeLayout>
