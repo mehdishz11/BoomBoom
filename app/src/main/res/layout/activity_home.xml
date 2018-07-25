@@ -88,9 +88,11 @@
                             android:id="@+id/text_user_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+
                             android:layout_alignParentTop="true"
 
-                            android:layout_marginTop="@dimen/space_normal"
+                            android:layout_marginTop="20dp"
                             android:text="بهترین رتبه شما ۱۲۸۵"
                             android:textColor="@color/md_blue_900"
                             android:textSize="@dimen/text_size_normal" />
@@ -124,6 +126,29 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="30">
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
+                                        android:layout_width="45dp"
+                                        android:layout_height="45dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_marginBottom="15dp"
+                                        android:rotation="-10"
+                                        app:riv_border_color="@color/White"
+                                        android:src="@color/white_1" />
+
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
+                                        android:layout_width="45dp"
+                                        android:layout_height="45dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_marginBottom="15dp"
+                                        android:rotation="-10"
+                                        app:riv_border_color="@color/White"
+                                        android:paddingRight="3dp"
+                                        android:paddingLeft="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:paddingTop="3dp"
+                                        android:src="@drawable/user_profile" />
 
                                     <com.makeramen.roundedimageview.RoundedImageView
                                         app:riv_corner_radius="10dp"
@@ -134,7 +159,8 @@
                                         android:rotation="-10"
                                         app:riv_border_color="@color/White"
                                         android:id="@+id/img_winner_2"
-                                        android:src="@drawable/temp_kid_1" />
+                                         />
+
 
                                 </RelativeLayout>
 
@@ -142,6 +168,30 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="45">
+
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="70dp"
+                                        app:riv_border_color="@color/White"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="34dp"
+                                        android:paddingRight="10dp"
+                                        android:src="@color/white_1" />
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="70dp"
+                                        app:riv_border_color="@color/White"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="34dp"
+                                        android:paddingRight="15dp"
+                                        android:paddingLeft="3dp"
+                                        android:paddingBottom="5dp"
+                                        android:paddingTop="5dp"
+                                        android:src="@drawable/user_profile" />
 
                                     <com.makeramen.roundedimageview.RoundedImageView
                                         app:riv_corner_radius="10dp"
@@ -153,7 +203,7 @@
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginBottom="34dp"
                                         android:paddingRight="10dp"
-                                        android:src="@drawable/temp_kid_2" />
+                                        />
 
                                 </RelativeLayout>
 
@@ -171,9 +221,37 @@
                                         android:layout_marginBottom="3dp"
                                         android:layout_marginRight="5dp"
                                         android:rotation="10"
+
+                                        app:riv_border_color="@color/white_1"
+                                        android:src="@color/white_1" />
+
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_marginBottom="3dp"
+                                        android:layout_marginRight="5dp"
+                                        android:rotation="10"
+                                        android:paddingRight="3dp"
+                                        android:paddingLeft="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:paddingTop="3dp"
+                                        app:riv_border_color="@color/white_1"
+                                        android:src="@drawable/user_profile" />
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        app:riv_corner_radius="10dp"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_marginBottom="3dp"
+                                        android:layout_marginRight="5dp"
+                                        android:rotation="10"
                                         app:riv_border_color="@color/white_1"
                                         android:id="@+id/img_winner_3"
-                                        android:src="@drawable/temp_kid_3" />
+                                        />
                                 </RelativeLayout>
                             </LinearLayout>
 

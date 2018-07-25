@@ -65,6 +65,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         NewPaintFragment.OnFragmentInteractionListener,
         SplashFragment.OnFragmentInteractionListener {
 
+    public static int CODE_REGISTER_First = 106;
     public static int CODE_REGISTER = 107;
     public static int CODE_Competition = 108;
     public static int CODE_EDIT = 108;
@@ -83,6 +84,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     private TextView registerOrLogin;
     private ImageView userImage;
     private TextView editUser, logOut;
+    private boolean isFirstRegister=false;
 
     private ImageView img_winner_1, img_winner_2, img_winner_3;
 
@@ -326,7 +328,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
                     drawer.closeDrawer(GravityCompat.END);
                 } else {
                     Intent intent = new Intent(HomeActivity.this, ActivityRegisterUser.class);
-                    startActivityForResult(intent, CODE_REGISTER);
+                    startActivityForResult(intent, CODE_REGISTER_First);
                 }
                 drawer.closeDrawer(GravityCompat.END);
             }
@@ -372,6 +374,14 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         // finish();
         setupDrawer();
 
+        text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
+        text_user_rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(HomeActivity.this,ActivityRegisterUser.class),CODE_REGISTER_First);
+            }
+        });
+
 
     }
 
@@ -416,26 +426,26 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     }
 
     public void exitProfileDialog() {
-        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View promptView = layoutInflater.inflate(R.layout.dialog_logout, null);
-        final AlertDialog alertCancel = new AlertDialog.Builder(getContext()).create();
-        alertCancel.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        Button cancel = promptView.findViewById(R.id.buttonCancel);
-        Button taiid = promptView.findViewById(R.id.buttonTaiid);
-        taiid.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                pHome.onStartLogout();
-                alertCancel.dismiss();
 
+        ////////////////
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage("آیا میخواهید از حساب کاربری خود خارج شوید؟");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                pHome.onStartLogout();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                //dialog.cancel();
             }
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                alertCancel.dismiss();
-            }
-        });
-        alertCancel.setView(promptView);
-        alertCancel.show();
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.yes));
+        dialog.setTitle("خروج");
+
+        dialog.show();
     }
 
 
@@ -446,29 +456,40 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         }*/
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult home: " + requestCode);
-        if (requestCode == CODE_REGISTER) {
+        if (requestCode == CODE_REGISTER_First) {
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
-                if (splashFragment != null) {
-                    splashFragment.refreshPrizeAndRank();
+                if (data.hasExtra("First")) {
+                    isFirstRegister=data.getIntExtra("First",1)==0?true:false;
                 }
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+
+
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                //finish();
+            }
+        }if (requestCode == CODE_REGISTER) {
+            if (resultCode == Activity.RESULT_OK) {
+                setupDrawer();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();
             }
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
-                if (splashFragment != null) {
-                    splashFragment.refreshPrizeAndRank();
-                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == CODE_Competition) {
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
-                if (splashFragment != null) {
-                    splashFragment.refreshPrizeAndRank();
-                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         }
@@ -496,8 +517,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     @Override
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
-        showIntro();
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
+        showIntro();
+        if (isFirstRegister) {
+           showIntroNewUser();
+        }
     }
 
     @Override
@@ -559,6 +583,31 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         });
         fancyShowCaseQueue.show();
     }
+    private void showIntroNewUser() {
+        drawer.openDrawer(GravityCompat.END);
+
+        final View view = findViewById(R.id.prizeHint);
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                FancyShowCaseView fancyShowCaseView=Intro.addIntroTo(HomeActivity.this, view, IntroEnum.getLayoutId(14), IntroPosition.TOP, IntroEnum.getSoundId(14), IntroEnum.getShareId(14),null,null);
+
+
+                FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+                fancyShowCaseQueue.add(fancyShowCaseView);
+                fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete() {
+                        Log.d("TAG", "onComplete: ");
+                    }
+                });
+                fancyShowCaseQueue.show();
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+            }
+        });
+    }
 
     private void setPrizes() {
         Picasso.get().load(responsePrize.getExtra().get(0).getImageUrl()).into(imageViewPrizeLeft);
@@ -611,9 +660,22 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
             if (responseGetLeaderShip.getExtra().getMyRank() != null) {
                 text_user_rate.setText("بهترین رتبه شما " + responseGetLeaderShip.getExtra().getMyRank().getRank());
-            } else {
-                text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+                text_user_rate.setOnClickListener(null);
 
+            } else {
+                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
+                    text_user_rate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivityForResult(new Intent(HomeActivity.this,ActivityRegisterUser.class),CODE_REGISTER_First);
+                        }
+                    });
+
+                }else{
+                    text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+                    text_user_rate.setOnClickListener(null);
+                }
             }
         }
 
@@ -969,5 +1031,14 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         });
         isAnimationRooster = true;
         animatorSet.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

@@ -40,7 +40,13 @@ public abstract class GridLayoutManager_EndlessRecyclerOnScrollListener extends 
                 loading = false;
                 loadcount = 20;
                         //(totalItemCount - previousTotal > 20 ? 20 : (totalItemCount - previousTotal));
+               // loadcount = (totalItemCount - previousTotal > 20 ? 20 : (totalItemCount - previousTotal));
                 current_page= (int) Math.ceil((previousTotal+loadcount) / 20.0);
+              //  current_page= +1;
+                Log.d(TAG, "totalItemCount: "+totalItemCount);
+                Log.d(TAG, "previousTotal: "+previousTotal);
+                Log.d(TAG, "onScrolled: "+current_page);
+                Log.d(TAG, "loading: "+loading);
 
             }
         }

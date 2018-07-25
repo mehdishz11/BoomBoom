@@ -36,6 +36,7 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.EndlessRecyclerViewScrollListener;
 import psb.com.kidpaint.utils.GridLayoutManager_EndlessRecyclerOnScrollListener;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
@@ -72,6 +73,8 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     private PAllPaints pPaints;
      private Adapter_AllPaints adapter_allPaints;
     private ProgressDialog progressDialog;
+    private EndlessRecyclerViewScrollListener scrollListener;
+
 
     int sendPosition=-1;
     public FragmentAllPaints() {
@@ -149,7 +152,24 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
             }
         });
 
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
 
+                if (pPaints.getServerAllPaintsSize()>adapter_allPaints.getItemCount()) {
+                    int  loadcount = 20;
+                    int  current_page= (int) Math.ceil((adapter_allPaints.getItemCount()+loadcount) / 20.0);
+
+                    Log.d("TAG", "onLoadMore: "+current_page);
+                    progressBarLoading.setVisibility(View.VISIBLE);
+                    pPaints.onGetAllPaints(searchView.getText().toString().trim(), current_page, 20);
+
+                }
+                // Log.d("TAG", "onLoadMore: "+page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        recyclerViewAllPaints.addOnScrollListener(scrollListener);
 
 
 
@@ -275,6 +295,8 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         emptyViewAllPaints.setVisibility(recyclerViewAllPaints.getAdapter().getItemCount() > 0 ? View.GONE : View.VISIBLE);
 
         showIntro();
+
+        scrollListener.resetState();
 
     }
 

@@ -16,7 +16,8 @@ public enum IntroEnum {
     STEP_10(10, R.raw.brown,R.layout.intro_step_10,"step_10"),
     STEP_11(11, R.raw.bgr_happy_sunshine,R.layout.intro_step_11,"step_11"),
     STEP_12(12, R.raw.bgr_be_happy,R.layout.intro_step_12,"step_12"),
-    STEP_13(13, R.raw.bgr_happy_sunshine,R.layout.intro_step_13,"step_13")
+    STEP_13(13, R.raw.bgr_happy_sunshine,R.layout.intro_step_13,"step_13"),
+    STEP_14(14, R.raw.bgr_be_happy,R.layout.intro_step_14,"step_14")
     ;
 
     private int id;

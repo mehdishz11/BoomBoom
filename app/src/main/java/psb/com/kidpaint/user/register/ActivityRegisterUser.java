@@ -208,6 +208,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                 } else {
                     userProfile.set_KEY_USER_INFO(userInfo);
                     Intent intent = new Intent();
+                    intent.putExtra("First",1);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
@@ -272,6 +273,7 @@ public class ActivityRegisterUser extends BaseActivity implements
         progressView.showProgress();
 
         Intent intent = new Intent();
+        intent.putExtra("First",0);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }

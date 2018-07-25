@@ -111,6 +111,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void getPirzeSuccess(ResponsePrize responsePrize) {
+
         mListener.getPrizeSuccess(responsePrize);
         pSplash.getRank();
     }

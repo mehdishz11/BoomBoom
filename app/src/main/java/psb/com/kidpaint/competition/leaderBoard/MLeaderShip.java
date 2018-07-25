@@ -40,6 +40,7 @@ public class MLeaderShip implements IMLeaderShip {
                     ipLeaderShip.onSuccessGetLeaderShip(mResponseGetLeaderShip);
                 }else {
                     mResponseGetLeaderShip.getExtra().getLeaderModel().addAll(responseGetLeaderShip.getExtra().getLeaderModel());
+                    mResponseGetLeaderShip.getExtra().setTotal(responseGetLeaderShip.getExtra().getTotal());
                     ipLeaderShip.onSuccessGetLeaderShip(mResponseGetLeaderShip);
                 }
             }

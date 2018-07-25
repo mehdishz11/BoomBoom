@@ -25,8 +25,10 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.PAllPaints;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.competition.leaderBoard.adapter.Adapter_LeaderShip;
+import psb.com.kidpaint.utils.EndlessRecyclerViewScrollListener;
 import psb.com.kidpaint.utils.GridLayoutManager_EndlessRecyclerOnScrollListener;
 import psb.com.kidpaint.utils.LinearLayoutManager_EndlessRecyclerOnScrollListener;
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -52,6 +54,8 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
     private ImageView img_winner_1,img_winner_2,img_winner_3;
     private RecyclerView.LayoutManager layoutManager;
+    EndlessRecyclerViewScrollListener scrollListener;
+    private UserProfile userProfile;
 
     public FragmentLeaderBoard() {
         // Required empty public constructor
@@ -81,6 +85,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
         pLeaderShip = new PLeaderShip(this);
         pLeaderShip.setResponseGetLeaderShip(mResponseGetLeaderShip);
+        userProfile=new UserProfile(getContext());
 
 
         initView();
@@ -116,25 +121,35 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         });
 
         adapter_leaderShip = new Adapter_LeaderShip(pLeaderShip);
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),1);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter_leaderShip);
+     /*   AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter_leaderShip);
         animationAdapter.setDuration(100);
-        animationAdapter.setFirstOnly(false);
-        recyclerView.setAdapter(animationAdapter);
+        animationAdapter.setFirstOnly(false);*/
+        recyclerView.setAdapter(adapter_leaderShip);
 
         emptyView.setVisibility(adapter_leaderShip.getItemCount()>0?View.GONE:View.VISIBLE);
 
-        Log.d("TAG", "initView: "+pLeaderShip.getServerGetLeaderShipSize());
-        recyclerView.setOnScrollListener(new GridLayoutManager_EndlessRecyclerOnScrollListener((GridLayoutManager) linearLayoutManager,pLeaderShip.getServerGetLeaderShipSize()) {
+
+
+
+         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
-            public void onLoadMore(int load_count,int page) {
-                if (progressBarLoading.getVisibility()==View.GONE) {
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+
+                if (pLeaderShip.getServerGetLeaderShipSize()>adapter_leaderShip.getItemCount()) {
+                  int  loadcount = 20;
+                  int  current_page= (int) Math.ceil((adapter_leaderShip.getItemCount()+loadcount) / 20.0);
+
+                    Log.d("TAG", "onLoadMore: "+current_page);
                     progressBarLoading.setVisibility(View.VISIBLE);
-                    pLeaderShip.onGetLeaderShip(page, 20);
+                    pLeaderShip.onGetLeaderShip(current_page, 20);
                 }
+               // Log.d("TAG", "onLoadMore: "+page);
             }
-        });
+        };
+        // Adds the scroll listener to RecyclerView
+        recyclerView.addOnScrollListener(scrollListener);
     }
 
     void setWinnersAndUserRate(){
@@ -172,7 +187,13 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
             if (mResponseGetLeaderShip.getExtra().getMyRank()!=null) {
                 text_user_rate.setText("بهترین رتبه شما "+mResponseGetLeaderShip.getExtra().getMyRank().getRank());
             }else {
-                text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
+
+                }else{
+
+                    text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+                }
 
             }
         }
@@ -210,6 +231,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         }
         recyclerView.getAdapter().notifyDataSetChanged();
         emptyView.setVisibility(recyclerView.getAdapter().getItemCount() > 0 ? View.GONE : View.VISIBLE);
+        scrollListener.resetState();
     }
 
     @Override
