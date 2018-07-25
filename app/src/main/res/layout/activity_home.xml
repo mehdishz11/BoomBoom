@@ -196,7 +196,7 @@
                     android:id="@+id/rel_tabs"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="#00cde8"
+                    android:background="@color/blue_clouds"
                     app:layout_scrollFlags="enterAlways">
 
                     <View

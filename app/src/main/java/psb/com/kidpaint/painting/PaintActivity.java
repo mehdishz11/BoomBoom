@@ -21,7 +21,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -46,6 +45,7 @@ import psb.com.kidpaint.painting.palette.sticker.StickerFragment;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
@@ -67,7 +67,7 @@ import psb.com.paintingview.DrawView;
 import static android.view.View.LAYER_TYPE_HARDWARE;
 
 
-public class PaintActivity extends AppCompatActivity implements
+public class PaintActivity extends BaseActivity implements
         PaletteFragment.OnFragmentInteractionListener,
         StickerFragment.OnFragmentInteractionListener,
         BucketCanvas.OnBucketPointSelected {
@@ -97,7 +97,6 @@ public class PaintActivity extends AppCompatActivity implements
     private BottomSheetBehavior bottomSheetBehavior;
 
 
-
     public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
     private int outlineResource = 0;
     private String editPath;
@@ -113,7 +112,7 @@ public class PaintActivity extends AppCompatActivity implements
 
         setContentView(R.layout.activity_paint);
 
-        editPath=getIntent().getStringExtra("Path");
+        editPath = getIntent().getStringExtra("Path");
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -127,7 +126,10 @@ public class PaintActivity extends AppCompatActivity implements
 
         stackViews();
         initView();
-       showIntro();
+        showIntro();
+
+
+        createHelperWnd();
     }
 
     @Override
@@ -291,7 +293,7 @@ public class PaintActivity extends AppCompatActivity implements
         if (outlineResource != 0) {
             bucketCanvas.setImageResource(outlineResource);
 
-        }else{
+        } else {
             bucketCanvas.setImageResource(R.drawable.picture_0);
         }
 
@@ -334,7 +336,7 @@ public class PaintActivity extends AppCompatActivity implements
             }
         });
 
-        if(editPath!=null) {
+        if (editPath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(editPath);
             imageHistory.setImageBitmap(bitmap);
         }
@@ -362,14 +364,14 @@ public class PaintActivity extends AppCompatActivity implements
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(PaintActivity.this, view, IntroEnum.getLayoutId(3), IntroPosition.TOP, IntroEnum.getSoundId(3), IntroEnum.getShareId(3), null, new OnShowListener() {
+                FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(PaintActivity.this, view, IntroEnum.getLayoutId(3), IntroPosition.TOP, IntroEnum.getSoundId(3), IntroEnum.getShareId(3), null, new OnShowListener() {
                     @Override
                     public void onShow() {
                         relHandle.performClick();
 
                     }
                 });
-                FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(PaintActivity.this, view2, IntroEnum.getLayoutId(4), IntroPosition.TOP, IntroEnum.getSoundId(4), IntroEnum.getShareId(4), new DismissListener() {
+                FancyShowCaseView fancyShowCaseView_2 = Intro.addIntroTo(PaintActivity.this, view2, IntroEnum.getLayoutId(4), IntroPosition.TOP, IntroEnum.getSoundId(4), IntroEnum.getShareId(4), new DismissListener() {
                     @Override
                     public void onDismiss(String id) {
                         btnRight.performClick();
@@ -379,8 +381,8 @@ public class PaintActivity extends AppCompatActivity implements
                     public void onSkipped(String id) {
 
                     }
-                },null);
-                FancyShowCaseView fancyShowCaseView_3=Intro.addIntroTo(PaintActivity.this, view3, IntroEnum.getLayoutId(5), IntroPosition.RIGHT, IntroEnum.getSoundId(5), IntroEnum.getShareId(5), new DismissListener() {
+                }, null);
+                FancyShowCaseView fancyShowCaseView_3 = Intro.addIntroTo(PaintActivity.this, view3, IntroEnum.getLayoutId(5), IntroPosition.RIGHT, IntroEnum.getSoundId(5), IntroEnum.getShareId(5), new DismissListener() {
                     @Override
                     public void onDismiss(String id) {
                         btnMore.performClick();
@@ -390,9 +392,9 @@ public class PaintActivity extends AppCompatActivity implements
                     public void onSkipped(String id) {
 
                     }
-                },null);
+                }, null);
 
-                FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+                FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
                 fancyShowCaseQueue.add(fancyShowCaseView);
                 fancyShowCaseQueue.add(fancyShowCaseView_2);
                 fancyShowCaseQueue.add(fancyShowCaseView_3);
@@ -408,7 +410,6 @@ public class PaintActivity extends AppCompatActivity implements
         });
 
     }
-
 
 
     private void stackViews() {
@@ -534,7 +535,7 @@ public class PaintActivity extends AppCompatActivity implements
     ///////////////////////////////////////////////////////////////////////////
     private Bitmap getPaintCanvasBitmap() {
 
-        RelativeLayout relPaint=findViewById(R.id.rel_drawing);
+        RelativeLayout relPaint = findViewById(R.id.rel_drawing);
         relPaint.setDrawingCacheEnabled(true);
         relPaint.buildDrawingCache();
         Bitmap bitmap = Bitmap.createBitmap(relPaint.getDrawingCache());
@@ -578,8 +579,8 @@ public class PaintActivity extends AppCompatActivity implements
         File file = new File(mydir, fname);
 
         if (editPath != null) {
-            fname=editPath;
-             file = new File(fname);
+            fname = editPath;
+            file = new File(fname);
         }
 
         if (file.exists()) file.delete();

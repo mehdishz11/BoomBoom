@@ -42,22 +42,32 @@
     <string name="prizeRegistered">جایزه شما ثبت شد</string>
 
     <!-- intro -->
-    <string name="intro_step_2_text">برای پرکردن شکل های آماده میتونی از اینجا انتخاب کنی</string>
-    <string name="intro_step_3_text">برای استفاده از رنگ ها از اینجا استفاده کن</string>
-    <string name="intro_step_5_setting">تنضیمات صدا</string>
+    <string name="intro_step_1_text">نقاشی در صفحه سفید</string>
+    <string name="intro_step_2_text">رنگ آمیزی عکس ها</string>
+    <string name="intro_step_3_text">ابزار های نقاشی اینجا هستن</string>
+    <string name="intro_step_4">اینو بزن تا با استیکر نقاشی بکشی</string>
+
+    <string name="intro_step_5_setting">تنظیمات صدا</string>
     <string name="intro_step_5_undo">یکی به عقب</string>
-    <string name="intro_step_5_exit">خروج از صفحه نقاشی</string>
+    <string name="intro_step_5_exit">خروج</string>
     <string name="intro_step_5_save">ذخیره نقاشی</string>
-    <string name="intro_step_1_text">برای نقاشی کردن می تونی از اینجا صفحه سفید و انتخاب کنی</string>
-    <string name="intro_step_6_text">لیست نقاشی هایرو که کشیدی رو میبینی</string>
-    <string name="intro_step_7_delete">حذف نقاشی</string>
-    <string name="intro_step_7_edit">ویرایش نقاشی</string>
-    <string name="intro_step_7_competition">ارسال نقاشی برای مسابقه</string>
-    <string name="intro_step_8_text">از این قسمت میتونی به نقاشی های خودت و دوستات رای بدی و نفرات برتر رو ببینی</string>
-    <string name="intro_step_9_text">از این قسمت میتونی نفرات اول رو ببینی</string>
-    <string name="intro_step_10_text">از این قسمت میتونی نقاشی های خود رو که تو مسابقه شرکت دادی رو ببینی</string>
-    <string name="intro_step_11_text">از این قسمت میتونی نقاشی های همه رو ببینی و دوستانت خودت رو جستجو کنی و به نقاشیاشون امتیاز بدی</string>
-    <string name="intro_step_12_text">از این قسمت میتونی نقاشی دوستات رو براساس نام و کد نقاشی جستجو کنی</string>
-    <string name="intro_step_13_like">امتیاز به نقاشی</string>
+
+    <string name="intro_step_6_text">نقاشی های قبلی اینجان</string>
+
+    <string name="intro_step_7_delete">نقاشی رو از تو گوشی پاک کنی</string>
+    <string name="intro_step_7_edit">نقاشی رو ادامه بدی</string>
+    <string name="intro_step_7_competition">از همه مهم تر تو مسابقه شرکت کنی و برنده بشی</string>
+
+    <string name="intro_step_8_text">نقاشی خودتو اینجا پیدا کن و بهش امتیاز بده تا اول بشی</string>
+
+    <string name="intro_step_9_text">ببین کیا اولن و رتبه تو چنده(تلاش کن  رای بگیری تا بیای بالا)</string>
+
+    <string name="intro_step_10_text">اینجا نقاشی های خود رو که تو مسابقه شرکت دادی رو میبینی</string>
+
+    <string name="intro_step_11_text">از اینجا نقاشیتو پیدا کن و بهش امتیاز بده</string>
+
+    <string name="intro_step_12_text">از اینجا بگرد</string>
+
+    <string name="intro_step_13_like">با این دکمه امتیاز بده</string>
 
 </resources>

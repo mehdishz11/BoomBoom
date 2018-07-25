@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 
@@ -22,6 +21,7 @@ import psb.com.kidpaint.user.register.sendPhoneNumber.FragmentSendPhoneNumber;
 import psb.com.kidpaint.user.register.verifyCode.FragmentVerifyCode;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.register.Register;
@@ -29,7 +29,7 @@ import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
 
 
-public class ActivityRegisterUser extends AppCompatActivity implements
+public class ActivityRegisterUser extends BaseActivity implements
         FragmentSendPhoneNumber.OnFragmentInteractionListener,
         FragmentVerifyCode.OnFragmentInteractionListener,
         FragmentUserInfo.OnFragmentInteractionListener {
@@ -123,6 +123,9 @@ public class ActivityRegisterUser extends AppCompatActivity implements
         setUpFrg();
         progressView = findViewById(R.id.progressView);
         getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, fragmentSendPhoneNumber, KEY_FRGSendPhoneNumber).commit();
+
+
+        createHelperWnd();
     }
 
     public static void clearLightStatusBar(@NonNull View view) {

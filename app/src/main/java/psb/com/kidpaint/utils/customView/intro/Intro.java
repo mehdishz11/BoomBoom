@@ -1,9 +1,7 @@
 package psb.com.kidpaint.utils.customView.intro;
 
 import android.app.Activity;
-import android.os.Handler;
 import android.view.View;
-
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;

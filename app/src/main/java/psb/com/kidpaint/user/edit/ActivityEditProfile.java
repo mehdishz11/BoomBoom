@@ -6,18 +6,18 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.user.edit.profile.FragmentEditUserInfo;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 
 
-public class ActivityEditProfile extends AppCompatActivity implements
+public class ActivityEditProfile extends BaseActivity implements
         FragmentEditUserInfo.OnFragmentInteractionListener {
     private ProgressView progressView;
     private FragmentEditUserInfo fragmentEditUserInfo;
@@ -60,6 +60,8 @@ public class ActivityEditProfile extends AppCompatActivity implements
         setUpFrg();
         progressView = findViewById(R.id.progressView);
         getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, fragmentEditUserInfo, KEY_FRGEditUserInfo).commit();
+
+        createHelperWnd();
     }
 
     public static void clearLightStatusBar(@NonNull View view) {

@@ -5,22 +5,14 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -36,14 +28,13 @@ import psb.com.kidpaint.competition.score.FragmentScore;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
-import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.customView.intro.Intro;
 import psb.com.kidpaint.utils.customView.intro.IntroPosition;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
-import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -51,7 +42,7 @@ import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
-public class ActivityCompetition extends AppCompatActivity implements IVCompetition,
+public class ActivityCompetition extends BaseActivity implements IVCompetition,
         FragmentMyPaints.OnFragmentInteractionListener,
         FragmentScore.OnFragmentInteractionListener,
         FragmentAllPaints.OnFragmentInteractionListener,
@@ -90,12 +81,8 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_competition);
-
-
-        ToolbarHandler.makeFullScreen(getWindow());
-        ToolbarHandler.makeTansluteNavigation(this, getWindow(), getWindow().getDecorView());
-        createHelperWnd();
 
         userProfile = new UserProfile(this);
         pCompetition = new PCompetition(this);
@@ -123,42 +110,7 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
             }
         });
 
-    }
-
-
-    private void createHelperWnd() {
-//        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        RelativeLayout rel = findViewById(R.id.rel_parent);
-        final WindowManager.LayoutParams p = new WindowManager.LayoutParams();
-        p.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
-        p.gravity = Gravity.RIGHT | Gravity.TOP;
-        p.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        p.width = 1;
-        p.height = RelativeLayout.LayoutParams.MATCH_PARENT;
-        p.format = PixelFormat.TRANSPARENT;
-        final View helperWnd = new View(this); //View helperWnd;
-
-        rel.addView(helperWnd, p);
-        final ViewTreeObserver vto = helperWnd.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-            @Override
-            public void onGlobalLayout() {
-
-                if (isStatusBarVisible()) {
-                    ToolbarHandler.makeFullScreen(getWindow());
-                }
-            }
-        });
-
-    }
-
-    public boolean isStatusBarVisible() {
-        Rect rectangle = new Rect();
-        Window window = getWindow();
-        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-        int statusBarHeight = rectangle.top;
-        return statusBarHeight != 0;
+        createHelperWnd();
     }
 
     void setFragment(int position) {
@@ -203,7 +155,6 @@ public class ActivityCompetition extends AppCompatActivity implements IVCompetit
             });
         }
     }
-
 
     private void animalAnimation(int position) {
 

@@ -16,7 +16,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +44,7 @@ import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
@@ -60,7 +60,7 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 
-public class HomeActivity extends AppCompatActivity implements IV_Home,
+public class HomeActivity extends BaseActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
         NewPaintFragment.OnFragmentInteractionListener,
         SplashFragment.OnFragmentInteractionListener {
@@ -217,6 +217,8 @@ public class HomeActivity extends AppCompatActivity implements IV_Home,
         setupDrawer();
 
         initAnimation();
+
+        createHelperWnd();
 
     }
 

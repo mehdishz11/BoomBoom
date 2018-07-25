@@ -4,17 +4,30 @@
     android:layout_height="match_parent"
     >
 
-
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="60dp"
         android:layout_height="100dp"
         android:src="@drawable/handwrite_arrow_down"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="70dp"
-        android:scaleY="-1"
+        android:layout_marginLeft="50dp"
+        android:scaleX="-1"
+        android:rotation="120"
         />
+
+    <psb.com.cview.CustomTextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white_1"
+        android:textSize="@dimen/text_size_too_large"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="@dimen/space_normal"
+        android:paddingTop="@dimen/space_normal"
+        android:text="این دکمه این کارها رو انجام می ده"
+        />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -154,12 +167,6 @@
 
 
             </RelativeLayout>
-
-
-
-
-
-
 
         </LinearLayout>
 

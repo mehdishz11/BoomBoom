@@ -36,7 +36,7 @@ public class SharePrefrenceHelper {
 
     public static int getSize(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        return settings.getInt("Size", 3);
+        return settings.getInt("Size", 2);
     }
 
     ///////////////////////////////////////////////////////////////////////////
