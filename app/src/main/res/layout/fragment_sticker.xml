@@ -21,16 +21,32 @@
             android:background="@drawable/pallet_drop"
             app:reverseLayout="true"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rec_cat"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="4"
             android:layout_marginBottom="@dimen/margin_5"
             android:paddingLeft="@dimen/margin_15"
             android:paddingRight="@dimen/margin_15"
-            android:layout_weight="4"
-            android:background="@drawable/pallet_drop"
-            />
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_cat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/pallet_drop"
+                ></android.support.v7.widget.RecyclerView>
+
+            <psb.com.cview.CButton
+                android:id="@+id/refreshStickers"
+                android:layout_width="110dp"
+                android:layout_centerInParent="true"
+                android:text="بروز رسانی"
+                android:textColor="@color/white_1"
+                android:background="@drawable/btn_rectangle_toolbar_half"
+                android:layout_height="45dp" />
+        </RelativeLayout>
+
+
     </LinearLayout>
 
 </RelativeLayout>

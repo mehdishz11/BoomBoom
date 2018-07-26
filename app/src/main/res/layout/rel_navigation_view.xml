@@ -126,8 +126,10 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/relPrize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/space_small"
                 android:orientation="vertical">
 

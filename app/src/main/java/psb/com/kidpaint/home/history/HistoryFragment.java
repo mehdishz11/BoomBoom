@@ -171,7 +171,6 @@ public class HistoryFragment extends Fragment implements IVHistory {
 
             }
         });
-        dialog.setSoundId(R.raw.are_you_sure_exit);
         dialog.setAcceptButtonMessage("باشه");
         dialog.setTitle("مسابقه");
         dialog.show();
@@ -256,7 +255,11 @@ public class HistoryFragment extends Fragment implements IVHistory {
 
         if (requestCode == REQUEST_CODE_REGISTER) {
             if (resultCode == Activity.RESULT_OK) {
-                mListener.setupDrawer();
+                if (mListener!=null) {
+                    mListener.setupDrawer();
+                    mListener.refreshUserRank();
+                    mListener.refreshUserPrize();
+                }
                 if (sendPosition != -1) {
                     pHistory.postPaint(sendPosition);
                 }
@@ -274,6 +277,8 @@ public class HistoryFragment extends Fragment implements IVHistory {
 
     public interface OnFragmentInteractionListener {
         void setupDrawer();
+        void refreshUserRank();
+        void refreshUserPrize();
     }
 
     private void showIntro() {

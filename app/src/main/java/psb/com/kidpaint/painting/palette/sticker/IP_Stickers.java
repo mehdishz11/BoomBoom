@@ -10,4 +10,8 @@ public interface IP_Stickers {
     void getStickersFailed();
 
     void showStickers();
+
+    void getStickersFromServer();
+    void getStickersSuccessFromServer();
+    void getStickersFailedFromServer(int errorId, String ErrorMessage);
 }

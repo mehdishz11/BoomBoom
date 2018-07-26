@@ -23,6 +23,8 @@ public class UserProfile {
     private static String KEY_JWT = "KEY_JWT";
     private static String KEY_SEX = "KEY_SEX";
     private static String KEY_BRITH_DAY = "KEY_BRITH_DAY";
+    private static String KEY_USER_RANK = "KEY_USER_RANK";
+    private static String KEY_USER_SCORE = "KEY_USER_SCORE";
 
     ///////////////////////////////////////////////////////////////////////////
     // getter
@@ -42,6 +44,8 @@ public class UserProfile {
         editor.putString(KEY_IMG_URL, userInfo.getImageUrl());
         editor.putString(KEY_BRITH_DAY, userInfo.getBirthDay());
         editor.putBoolean(KEY_SEX, userInfo.getMale());
+        editor.putInt(KEY_USER_RANK, userInfo.getRank());
+        editor.putInt(KEY_USER_SCORE, userInfo.getScore());
         editor.apply();
     }
 
@@ -150,6 +154,14 @@ public class UserProfile {
     public  boolean get_KEY_SEX(boolean defeult) {
         SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
         return settings.getBoolean(KEY_SEX, defeult);
+    }
+    public  Integer get_KEY_RANK(int defeult) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        return settings.getInt(KEY_USER_RANK, defeult);
+    }
+    public  Integer get_KEY_SCORE(int defeult) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        return settings.getInt(KEY_USER_SCORE, defeult);
     }
 
 }

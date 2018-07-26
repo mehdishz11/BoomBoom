@@ -324,13 +324,11 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-                dialog.cancel();
             }
 
             @Override
             public void onNegativeClicked() {
                 sendPosition = -1;
-                dialog.cancel();
 
             }
         });
@@ -348,19 +346,17 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-                dialog.cancel();
             }
 
             @Override
             public void onNegativeClicked() {
-                sendPosition = -1;
                 dialog.cancel();
 
             }
         });
 
         dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
-        dialog.setTitle(getContext().getString(R.string.danger));
+        dialog.setTitle("امتیاز دهی");
         dialog.show();
     }
 

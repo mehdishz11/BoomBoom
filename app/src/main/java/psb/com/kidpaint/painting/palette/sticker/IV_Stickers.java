@@ -12,4 +12,8 @@ public interface IV_Stickers {
     void showStickers();
 
     void onStickerSelected(Bitmap stickerBitmap);
+
+    void startGetStickersFromServer();
+    void getStickersSuccessFromServer();
+    void getStickersFailedFromServer(int errorId, String ErrorMessage);
 }

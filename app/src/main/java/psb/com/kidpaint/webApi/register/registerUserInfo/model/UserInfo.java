@@ -32,6 +32,13 @@ public class UserInfo implements Serializable
     @SerializedName("isMale")
     @Expose
     private Boolean isMale;
+
+    @SerializedName("score")
+    @Expose
+    private Integer score;
+    @SerializedName("rank")
+    @Expose
+    private Integer rank;
     private final static long serialVersionUID = -6311471700453404222L;
 
     public String getFirstName() {
@@ -88,5 +95,21 @@ public class UserInfo implements Serializable
 
     public void setMale(Boolean male) {
         isMale = male;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 }

@@ -7,7 +7,9 @@ import java.util.List;
 
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
+import psb.com.kidpaint.webApi.Category.GetCategory.iGetCategory;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Category;
+import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 
 public class M_Stickers implements IM_Stickers {
@@ -43,8 +45,9 @@ public class M_Stickers implements IM_Stickers {
 
         categoryList.clear();
         categoryList = tblCategory.getAllCategory();
-
-        categoryList.get(0).setSelected(true);
+        if (categoryList.size()>0) {
+            categoryList.get(0).setSelected(true);
+        }
 
         stickerListCategory.clear();
 
@@ -77,6 +80,58 @@ public class M_Stickers implements IM_Stickers {
         }
         ipStickers.showStickers();
     }
+
+    @Override
+    public void getStickersFromServer() {
+        stickerList.clear();
+        categoryList.clear();
+        String fromDate=tblStickers.getStickerLastUpdateTime();
+        new psb.com.kidpaint.webApi.Category.Category().getCategory(new iGetCategory.iResult() {
+            @Override
+            public void onSuccessGetCategory(ResponseStickers responseStickers) {
+                categoryList = responseStickers.getExtra();
+                addCategoryToDataBase(categoryList);
+
+            }
+
+            @Override
+            public void onFailedGetCategory(int errorId, String ErrorMessage) {
+                ipStickers.getStickersFailedFromServer(errorId, ErrorMessage);
+            }
+        }).doGetCategory(fromDate);
+    }
+
+    private void addStickersToDataBase(List<Category> responseStickers){
+
+        for (int i = 0; i < responseStickers.size(); i++) {
+            for (int j = 0; j < responseStickers.get(i).getStickers().size(); j++) {
+                stickerList.add(responseStickers.get(i).getStickers().get(j));
+            }
+        }
+
+
+        for (int i = 0; i < stickerList.size(); i++) {
+            tblStickers.insert(stickerList.get(i));
+        }
+
+        ipStickers.getStickersSuccessFromServer();
+
+    }
+
+    private void addCategoryToDataBase(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList){
+        for (int i = 0; i < categoryList.size(); i++) {
+            tblCategory.insert(categoryList.get(i));
+        }
+
+        addStickersToDataBase(categoryList);
+
+    }
+
+
+
+
+
+
 
     public int getCategorysSize(){
         return categoryList.size();
