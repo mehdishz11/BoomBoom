@@ -32,7 +32,9 @@
         <activity
             android:name=".painting.PaintActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            />
         <activity
             android:name=".utils.ActivityCropImage"
             android:screenOrientation="portrait" />

@@ -77,6 +77,12 @@ public class StickerFragment extends Fragment implements IV_Stickers{
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
     public void getStickersSuccess() {
         stickersAdapter.notifyDataSetChanged();
         categoryAdapter.notifyDataSetChanged();

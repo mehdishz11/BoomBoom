@@ -33,7 +33,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     private ImageView btnTypePencil, btnTypeBucket, btnTypeEraser;
     private PaintType paintType = PaintType.PENCIL;
 
-    private int soundResId[]=new int[]{R.raw.blue,R.raw.blue,R.raw.violet,R.raw.red,R.raw.pink,R.raw.green,R.raw.yellow,R.raw.orange,R.raw.brown,R.raw.white,R.raw.toosi,R.raw.black};
+    private int soundResId[] = new int[]{R.raw.blue, R.raw.blue, R.raw.violet, R.raw.red, R.raw.pink, R.raw.green, R.raw.yellow, R.raw.orange, R.raw.brown, R.raw.white, R.raw.toosi, R.raw.black};
 
     private int selectedSize = 3;
     private int colorResource;
@@ -65,9 +65,8 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        pView = inflater.inflate(R.layout.fragment_palette, container, false);
-        initView();
-
+            pView = inflater.inflate(R.layout.fragment_palette, container, false);
+            initView();
         return pView;
     }
 
@@ -98,7 +97,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
 
         }
 
-        relOverlayPaletteColor= pView.findViewById(R.id.rel_overlay_color_picker);
+        relOverlayPaletteColor = pView.findViewById(R.id.rel_overlay_color_picker);
 
         btnIncreaseSize = pView.findViewById(R.id.btn_plus_thick);
         btnDecreaseSize = pView.findViewById(R.id.btn_minos_thick);
@@ -109,7 +108,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
                 if (selectedSize < 4) {
                     onSizeChanged(selectedSize + 1);
                     SoundHelper.playSound(R.raw.click_1);
-                }else{
+                } else {
                     SoundHelper.playSound(R.raw.lock_1);
                 }
             }
@@ -121,7 +120,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
                 if (selectedSize > 0) {
                     onSizeChanged(selectedSize - 1);
                     SoundHelper.playSound(R.raw.click_1);
-                }else{
+                } else {
                     SoundHelper.playSound(R.raw.lock_1);
                 }
             }
@@ -212,7 +211,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
             } else if (paintType == PaintType.ERASER) {
                 btnTypeEraser.setImageResource(R.drawable.icon_type_eraser_selected);
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
         }
     }
 
@@ -225,7 +224,7 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     @Override
     public void onColorPickerClicked(View view, int colorResource) {
 
-        SoundHelper.playSound(((CircleColorPicker)view).getSoundResId());
+        SoundHelper.playSound(((CircleColorPicker) view).getSoundResId());
         showAnimation(view);
 
         selectedColorPickerDrawable = ((CircleColorPicker) view).getImageDrawable();
@@ -247,32 +246,32 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
     }
 
 
-    private void showAnimation(final View colorView){
-        final ImageView imgColor=new ImageView(getContext());
-        imgColor.setLayoutParams(new ViewGroup.LayoutParams(relOverlayPaletteColor.getHeight(),relOverlayPaletteColor.getHeight()));
-        imgColor.setImageDrawable(((CircleColorPicker)colorView).getImageDrawable());
+    private void showAnimation(final View colorView) {
+        final ImageView imgColor = new ImageView(getContext());
+        imgColor.setLayoutParams(new ViewGroup.LayoutParams(relOverlayPaletteColor.getHeight(), relOverlayPaletteColor.getHeight()));
+        imgColor.setImageDrawable(((CircleColorPicker) colorView).getImageDrawable());
         imgColor.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        int location[]=new int[2];
+        int location[] = new int[2];
         colorView.getLocationInWindow(location);
 
-        final RelativeLayout relChild=(RelativeLayout)colorView.getParent();
-        imgColor.setX(relChild.getX()-
-                ((relOverlayPaletteColor.getHeight()-relChild.getWidth())/2)+
+        final RelativeLayout relChild = (RelativeLayout) colorView.getParent();
+        imgColor.setX(relChild.getX() -
+                ((relOverlayPaletteColor.getHeight() - relChild.getWidth()) / 2) +
                 Value.dp(5.0f));
 
         imgColor.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                imgColor.setPivotX(imgColor.getMeasuredWidth()/2);
-                imgColor.setPivotY(imgColor.getMeasuredHeight()/2);
+                imgColor.setPivotX(imgColor.getMeasuredWidth() / 2);
+                imgColor.setPivotY(imgColor.getMeasuredHeight() / 2);
 
-                float fromScale=(float)relChild.getWidth()/(float)imgColor.getWidth();
+                float fromScale = (float) relChild.getWidth() / (float) imgColor.getWidth();
 
                 imgColor.setScaleX(fromScale);
                 imgColor.setScaleY(fromScale);
 
-                ObjectAnimator animScaleX = ObjectAnimator.ofFloat(imgColor, "scaleX", fromScale, 1.0f, fromScale*0.7f,fromScale*0.9f,fromScale);
-                ObjectAnimator animScaleY = ObjectAnimator.ofFloat(imgColor, "scaleY", fromScale, 1.0f, fromScale*0.7f,fromScale*0.9f,fromScale);
+                ObjectAnimator animScaleX = ObjectAnimator.ofFloat(imgColor, "scaleX", fromScale, 1.0f, fromScale * 0.7f, fromScale * 0.9f, fromScale);
+                ObjectAnimator animScaleY = ObjectAnimator.ofFloat(imgColor, "scaleY", fromScale, 1.0f, fromScale * 0.7f, fromScale * 0.9f, fromScale);
                 animScaleY.setDuration(300);
                 animScaleX.setDuration(300);
 
@@ -297,11 +296,9 @@ public class PaletteFragment extends Fragment implements CircleColorPicker.Color
                 });
 
 
-
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     imgColor.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }else{
+                } else {
                     imgColor.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
             }

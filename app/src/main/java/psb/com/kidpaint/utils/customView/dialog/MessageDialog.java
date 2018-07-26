@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import psb.com.cview.CustomTextViewBold;
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.utils.musicHelper.MusicHelper;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 
 public class MessageDialog extends CDialog {
 
@@ -44,7 +44,8 @@ public class MessageDialog extends CDialog {
         setOnShowListener(new OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                if (soundId != -1) MusicHelper.playSingleMedia(soundId);
+
+                if (soundId != -1) SoundHelper.playSound(soundId);
 
             }
         });

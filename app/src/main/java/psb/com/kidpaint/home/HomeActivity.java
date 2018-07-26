@@ -8,16 +8,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -614,20 +611,26 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     }
 
     private void setPrizes() {
-        Picasso.get().load(responsePrize.getExtra().get(0).getImageUrl()).into(imageViewPrizeLeft);
-        Picasso.get().load(responsePrize.getExtra().get(1).getImageUrl()).into(imageViewPrizeCenter);
-        Picasso.get().load(responsePrize.getExtra().get(2).getImageUrl()).into(imageViewRight);
+        if(responsePrize!=null&&responsePrize.getExtra()!=null&&responsePrize.getExtra().size()>0) {
 
-        textViewPrizeLeftName.setText(responsePrize.getExtra().get(0).getTitle());
-        textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
-        textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
+            if(!responsePrize.getExtra().get(0).getImageUrl().isEmpty()){
+                Picasso.get().load(responsePrize.getExtra().get(0).getImageUrl()).into(imageViewPrizeLeft);
+                Picasso.get().load(responsePrize.getExtra().get(1).getImageUrl()).into(imageViewPrizeCenter);
+                Picasso.get().load(responsePrize.getExtra().get(2).getImageUrl()).into(imageViewRight);
 
-        textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " امتیاز");
-        textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " امتیاز");
-        textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " امتیاز");
+            }
 
-        if (responseGetLeaderShip != null) {
-            setPrizeLayout();
+            textViewPrizeLeftName.setText(responsePrize.getExtra().get(0).getTitle());
+            textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
+            textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
+
+            textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " امتیاز");
+            textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " امتیاز");
+            textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " امتیاز");
+
+            if (responseGetLeaderShip != null) {
+                setPrizeLayout();
+            }
         }
     }
 

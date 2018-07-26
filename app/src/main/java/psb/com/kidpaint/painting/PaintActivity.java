@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.bucket.BucketCanvas;
 import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
@@ -112,6 +113,8 @@ public class PaintActivity extends BaseActivity implements
 
         setContentView(R.layout.activity_paint);
 
+
+        Log.d(App.TAG, "onCreate: onCreate");
         editPath = getIntent().getStringExtra("Path");
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
@@ -128,19 +131,19 @@ public class PaintActivity extends BaseActivity implements
         initView();
         showIntro();
 
-
         createHelperWnd();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         MusicHelper.stopMusic();
+        Log.d(App.TAG, "onCreate: onPause");
+        super.onPause();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
+        Log.d(App.TAG, "onCreate: onResume");
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -151,6 +154,36 @@ public class PaintActivity extends BaseActivity implements
 
         MusicHelper.stopMusic();
         MusicHelper.playMusic(R.raw.bgr_be_happy);
+
+        super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED){
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }else {
+            MessageDialog dialog = new MessageDialog(PaintActivity.this);
+            dialog.setMessage(getString(R.string.message_are_u_sure_exit));
+            dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+                @Override
+                public void onPosetiveClicked() {
+                    finish();
+                }
+
+                @Override
+                public void onNegativeClicked() {
+
+                }
+            });
+            dialog.setSoundId(R.raw.are_you_sure_exit);
+            dialog.setAcceptButtonMessage(PaintActivity.this.getString(R.string.yes));
+            dialog.setTitle(getString(R.string.exit));
+            dialog.show();
+
+            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }
     }
 
     private void initView() {
@@ -174,11 +207,10 @@ public class PaintActivity extends BaseActivity implements
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundHelper.playSound(R.raw.exit);
                 animatePopRightCollapse();
 
                 MessageDialog dialog = new MessageDialog(PaintActivity.this);
-                dialog.setMessage("مطمئنی می خوای خارج بشی ؟");
+                dialog.setMessage(getString(R.string.message_are_u_sure_exit));
                 dialog.setOnCLickListener(new CDialog.OnCLickListener() {
                     @Override
                     public void onPosetiveClicked() {
@@ -346,17 +378,10 @@ public class PaintActivity extends BaseActivity implements
 
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-
-    }
 
     ///////////////////////////////////////////////////////////////////////////
     // show intro
     ///////////////////////////////////////////////////////////////////////////
-
     private void showIntro() {
         final View view = findViewById(R.id.introViewCenter);
         final View view2 = findViewById(R.id.introViewRight);
@@ -410,7 +435,6 @@ public class PaintActivity extends BaseActivity implements
         });
 
     }
-
 
     private void stackViews() {
         FrameLayout parentFrame = findViewById(R.id.rel_btn);
@@ -625,7 +649,6 @@ public class PaintActivity extends BaseActivity implements
             ((PaletteFragment) adapter.getItem(0)).setTypeViews(paintType);
         }
 
-
         if (paintType == PaintType.ERASER) {
             SoundHelper.playSound(R.raw.sf_eraser);
             //enable and set paint canvas
@@ -697,7 +720,6 @@ public class PaintActivity extends BaseActivity implements
         SharePrefrenceHelper.setSize(size);
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Bucket implements
     ///////////////////////////////////////////////////////////////////////////
@@ -718,7 +740,6 @@ public class PaintActivity extends BaseActivity implements
         paintCanvas.drawBucket(bucketModel);
 
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // permission granted
@@ -757,7 +778,6 @@ public class PaintActivity extends BaseActivity implements
 
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // on sticker selected
