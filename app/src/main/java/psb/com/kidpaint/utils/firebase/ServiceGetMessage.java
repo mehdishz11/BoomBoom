@@ -59,7 +59,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
             e.printStackTrace();
         }
 
-    }
+    }//
 
     @Override
     public void onNewToken(String s) {
