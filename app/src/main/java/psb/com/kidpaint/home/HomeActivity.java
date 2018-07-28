@@ -25,6 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -116,8 +119,22 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
         pHome = new PHome(this);
         userProfile = new UserProfile(this);
+
+        Log.d("TAG", "onCreate token: "+userProfile.get_KEY_FCM("-"));
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( HomeActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                Log.e("newToken",newToken);
+                userProfile.set_KEY_FCM(newToken);
+
+            }
+        });
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
