@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".myMessages.ActivityMyMessages">
+
+    <RelativeLayout
+        android:id="@+id/relTop"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <psb.com.cview.IconFont
+            android:id="@+id/icon_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_5"
+            android:padding="@dimen/margin_10"
+            android:text=""
+            android:textColor="@color/light_level_0"
+            android:textSize="20dp" />
+
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_toLeftOf="@+id/icon_back"
+            android:padding="@dimen/margin_10"
+            android:text=" جوایز من"
+            android:textColor="@color/light_level_0"
+            android:textSize="@dimen/font_size_14" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/swipeRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/relTop"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false" />
+                </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+    <psb.com.kidpaint.utils.customView.ProgressView
+        android:id="@+id/progressView"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="match_parent">
+
+    </psb.com.kidpaint.utils.customView.ProgressView>
+
+    <psb.com.cview.CustomTextViewBold
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:id="@+id/emptyView"
+        android:text="لیست  جوایز خالی است"
+        android:gravity="center"
+        android:padding="@dimen/margin_10"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
