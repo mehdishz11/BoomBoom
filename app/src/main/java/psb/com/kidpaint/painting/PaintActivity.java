@@ -784,6 +784,7 @@ public class PaintActivity extends BaseActivity implements
     ///////////////////////////////////////////////////////////////////////////
     @Override
     public void onStickerSelected(StickerView sticker) {
+        stickerCanvas.hideShowController(false);
         stickerCanvas.addSticker(sticker);
         if (bottomSheetBehavior != null) {
             if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
