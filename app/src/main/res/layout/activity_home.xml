@@ -67,6 +67,17 @@
                             android:padding="@dimen/space_small"
                             android:src="@drawable/btn_more" />
 
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/anim_gift_main"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignLeft="@+id/btn_more"
+                            android:layout_alignTop="@+id/btn_more"
+                            app:lottie_autoPlay="true"
+                            app:lottie_fileName="happy_gift.json"
+                            android:alpha="0.5"
+                            app:lottie_loop="true" />
+
                         <ImageView
                             android:id="@+id/btn_settings"
                             android:layout_width="50dp"
