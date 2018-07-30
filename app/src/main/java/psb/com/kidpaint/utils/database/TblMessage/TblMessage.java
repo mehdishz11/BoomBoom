@@ -2,7 +2,6 @@ package psb.com.kidpaint.utils.database.TblMessage;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -12,8 +11,6 @@ import java.util.List;
 
 import psb.com.kidpaint.utils.database.Sql;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 

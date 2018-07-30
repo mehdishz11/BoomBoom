@@ -15,6 +15,8 @@ import psb.com.kidpaint.webApi.prize.Get.GetPrize;
 import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.PrizeRequest;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.iPrizeRequest;
+import psb.com.kidpaint.webApi.prize.myPrizeRequest.MyPrizeRequest;
+import psb.com.kidpaint.webApi.prize.myPrizeRequest.iMyPrizeRequest;
 
 public interface iPrize {
     String apiAddress = "Prize/";
@@ -24,4 +26,9 @@ public interface iPrize {
 
     PrizeRequest requestPrize();
     PrizeRequest requestPrize(iPrizeRequest.iResult iResult);
+
+    MyPrizeRequest myPrizeRequest();
+    MyPrizeRequest myPrizeRequest(iMyPrizeRequest.iResult iResult);
+
+
 }

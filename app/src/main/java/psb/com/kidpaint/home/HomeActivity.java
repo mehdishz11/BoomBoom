@@ -39,6 +39,8 @@ import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.HistoryFragment;
 import psb.com.kidpaint.home.newPaint.NewPaintFragment;
 import psb.com.kidpaint.home.splash.SplashFragment;
+import psb.com.kidpaint.myMessages.ActivityMyMessages;
+import psb.com.kidpaint.myPrize.ActivityMyPrize;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
@@ -81,7 +83,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private RelativeLayout myPaint;
+    private RelativeLayout myPaint,relMessage,relMyPrize,relAbout;
     private TextView registerOrLogin;
     private ImageView userImage;
     private TextView editUser, logOut;
@@ -266,8 +268,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         userImage = navigationView.findViewById(R.id.act_user_image);
         editUser = navigationView.findViewById(R.id.text_edit);
         logOut = navigationView.findViewById(R.id.act_sign_out);
-        myPaint = navigationView.findViewById(R.id.ManageAddress);
         registerOrLogin = navigationView.findViewById(R.id.reg_or_login);
+
+        relMessage = navigationView.findViewById(R.id.message);
+        relMyPrize = navigationView.findViewById(R.id.prize_history);
+        relAbout = navigationView.findViewById(R.id.about);
 
         imageViewPrizeLeft = navigationView.findViewById(R.id.img_prize_1);
         imageViewPrizeCenter = navigationView.findViewById(R.id.img_prize_2);
@@ -298,19 +303,31 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             logOut.setVisibility(View.GONE);
-            myPaint.setVisibility(View.GONE);
+            relMyPrize.setVisibility(View.GONE);
             editUser.setVisibility(View.GONE);
             registerOrLogin.setText("ثبت نام | ورود");
 
         } else {
             editUser.setVisibility(View.VISIBLE);
+            relMyPrize.setVisibility(View.VISIBLE);
             logOut.setVisibility(View.VISIBLE);
-            myPaint.setVisibility(View.VISIBLE);
             registerOrLogin.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
 
         }
         if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
             Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    userImage.setImageResource(R.drawable.user_empty_gray);
+                }
+            });
+        }else{
+            Picasso.get().load(R.drawable.user_profile).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
                 @Override
                 public void onSuccess() {
 
@@ -327,23 +344,33 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         editUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "onClick editUser: ");
                 Intent intent = new Intent(HomeActivity.this, ActivityEditProfile.class);
                 startActivityForResult(intent, CODE_EDIT);
                 drawer.closeDrawer(GravityCompat.END);
             }
         });
 
-
-        myPaint.setOnClickListener(new View.OnClickListener() {
+        relMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "onClick manageAddress: ");
-
-                /*  startActivityForResult(new Intent(MainActivity.this, ActivityShowUserAddresses.class), REQUEST_MANAGE_USER_ADDRESS);*/
+                Intent intent = new Intent(HomeActivity.this, ActivityMyMessages.class);
+                startActivityForResult(intent, CODE_REGISTER);
                 drawer.closeDrawer(GravityCompat.END);
             }
         });
+
+
+        relMyPrize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, ActivityMyPrize.class);
+                startActivityForResult(intent, CODE_REGISTER);
+                drawer.closeDrawer(GravityCompat.END);
+            }
+        });
+
+
+
 
 
         registerOrLogin.setOnClickListener(new View.OnClickListener() {
