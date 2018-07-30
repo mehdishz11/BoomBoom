@@ -20,10 +20,14 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -102,6 +106,8 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     private TextView textViewPrizeLeftScore, textViewPrizeCenterScore, textViewPrizeRightScore;
     private WaveLoadingView waveLoadingViewLeft, waveLoadingViewCenter, waveLoadingViewRight;
 
+    private LinearLayout relPrize;
+
 
     private Button buttonPrizeLeft, buttonPrizeCenter, buttonPrizeRight;
 
@@ -113,8 +119,22 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
         pHome = new PHome(this);
         userProfile = new UserProfile(this);
+
+        Log.d("TAG", "onCreate token: "+userProfile.get_KEY_FCM("-"));
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( HomeActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                Log.e("newToken",newToken);
+                userProfile.set_KEY_FCM(newToken);
+
+            }
+        });
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -264,6 +284,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         waveLoadingViewLeft = navigationView.findViewById(R.id.wave_prize_1);
         waveLoadingViewCenter = navigationView.findViewById(R.id.wave_prize_2);
         waveLoadingViewRight = navigationView.findViewById(R.id.wave_prize_3);
+        relPrize = navigationView.findViewById(R.id.relPrize);
 
         buttonPrizeLeft = navigationView.findViewById(R.id.btn_prize_1);
         buttonPrizeCenter = navigationView.findViewById(R.id.btn_prize_2);
@@ -618,19 +639,25 @@ public class HomeActivity extends BaseActivity implements IV_Home,
                 Picasso.get().load(responsePrize.getExtra().get(1).getImageUrl()).into(imageViewPrizeCenter);
                 Picasso.get().load(responsePrize.getExtra().get(2).getImageUrl()).into(imageViewRight);
 
+
+                textViewPrizeLeftName.setText(responsePrize.getExtra().get(0).getTitle());
+                textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
+                textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
+
+                textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " امتیاز");
+                textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " امتیاز");
+                textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " امتیاز");
+
+                if (responseGetLeaderShip != null) {
+                    setPrizeLayout();
+                }
+            }else {
+                relPrize.setVisibility(View.GONE);
+
             }
+        }else {
+            relPrize.setVisibility(View.GONE);
 
-            textViewPrizeLeftName.setText(responsePrize.getExtra().get(0).getTitle());
-            textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
-            textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
-
-            textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " امتیاز");
-            textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " امتیاز");
-            textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " امتیاز");
-
-            if (responseGetLeaderShip != null) {
-                setPrizeLayout();
-            }
         }
     }
 
@@ -686,8 +713,17 @@ public class HomeActivity extends BaseActivity implements IV_Home,
             }
         }
 
-        if (responsePrize != null) {
-            setPrizeLayout();
+
+
+        if(responsePrize!=null&&responsePrize.getExtra()!=null&&responsePrize.getExtra().size()>0) {
+            if(!responsePrize.getExtra().get(0).getImageUrl().isEmpty()){
+                setPrizeLayout();
+
+            }else {
+                relPrize.setVisibility(View.GONE);
+            }
+        }else {
+            relPrize.setVisibility(View.GONE);
         }
     }
 
@@ -741,6 +777,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         Log.d("wave ", "setPrizes: " + waveLoadingViewRight.getProgressValue());
 
         setPrizeButtonContent();
+        relPrize.setVisibility(View.VISIBLE);
     }
 
     private void setPrizeButtonContent() {
@@ -1047,5 +1084,46 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void refreshUserRank(){
+        if (userProfile != null) {
+            text_user_rate.setText("بهترین رتبه شما " + userProfile.get_KEY_RANK(0));
+            text_user_rate.setOnClickListener(null);
+
+        } else {
+            if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
+                text_user_rate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivityForResult(new Intent(HomeActivity.this,ActivityRegisterUser.class),CODE_REGISTER_First);
+                    }
+                });
+
+            }else{
+                text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+                text_user_rate.setOnClickListener(null);
+            }
+        }
+    }
+
+    public  void refreshUserPrize(){
+
+        if (responseGetLeaderShip!=null&&responseGetLeaderShip.getExtra()!=null) {
+            responseGetLeaderShip.getExtra().setMyScore(userProfile.get_KEY_SCORE(0));
+
+            if(responsePrize!=null&&responsePrize.getExtra()!=null&&responsePrize.getExtra().size()>0) {
+                if(!responsePrize.getExtra().get(0).getImageUrl().isEmpty()){
+                    setPrizeLayout();
+
+                }else {
+                    relPrize.setVisibility(View.GONE);
+                }
+            }else {
+                relPrize.setVisibility(View.GONE);
+            }
+        }else   relPrize.setVisibility(View.GONE);
+
     }
 }

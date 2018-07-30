@@ -8,4 +8,6 @@ public interface IM_Stickers {
     void getStickers();
 
     void onCatSelected(int id);
+    void getStickersFromServer();
+
 }

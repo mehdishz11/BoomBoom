@@ -11,7 +11,7 @@ public class Sql extends SQLiteOpenHelper {
     //------------------------------------------
 
     public Sql(Context context) {
-        super(context, dbName, null,2);
+        super(context, dbName, null,3);
     }
 
     @Override
@@ -43,12 +43,28 @@ public class Sql extends SQLiteOpenHelper {
                 "updateTime CURRENT_TIMESTAMP)"
         );
 
+        db.execSQL("CREATE TABLE tbl_Message (" +
+                "dbid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "messageId INTEGER ," +
+                "title TEXT ," +
+                "imageUrl INTEGER ," +
+                "body TEXT ," +
+                "url TEXT,"   +
+                "isRead INTEGER,"  +
+                "replyId INTEGER ," +
+                "replyMessage TEXT ," +
+                "status TEXT ," +
+                "sender TEXT ," +
+                "insertTime CURRENT_TIMESTAMP)"
+        );
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS tbl_Stickers");
         db.execSQL("DROP TABLE IF EXISTS tbl_Category");
+        db.execSQL("DROP TABLE IF EXISTS tbl_Message");
         onCreate(db);
     }
 

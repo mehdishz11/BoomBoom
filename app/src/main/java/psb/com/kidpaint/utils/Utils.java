@@ -37,7 +37,6 @@ public class Utils {
     public static String reference_code = "reference_code";
     public static String KEY_QUESTION = "KEY_QUESTION";
     public static String KEY_PHONENUMBER = "KEY_PHONENUMBER";
-    public static String KEY_FCM = "KEY_FCM";
     public static String KEY_JWT = "KEY_JWT";
 
 

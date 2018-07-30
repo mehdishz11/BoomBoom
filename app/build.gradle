@@ -6,8 +6,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -42,8 +42,13 @@ dependencies {
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     implementation 'com.nightonke:jellytogglebutton:1.0.2'
+    //
+
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
+
     testImplementation 'junit:junit:4.12'
-  /*  androidTestImplementation 'com.android.support.intro_step_1:runner:1.0.1'
+    /*  androidTestImplementation 'com.android.support.intro_step_1:runner:1.0.1'
     androidTestImplementation 'com.android.support.intro_step_1.espresso:espresso-core:3.0.1'*/
     implementation project(':customview')
     implementation project(':animatedfab')
@@ -51,3 +56,4 @@ dependencies {
     implementation project(':persianmaterialdatetimepicker')
 
 }
+apply plugin: 'com.google.gms.google-services'

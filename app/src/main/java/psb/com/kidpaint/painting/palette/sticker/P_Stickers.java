@@ -52,6 +52,22 @@ public class P_Stickers implements IP_Stickers {
         ivStickers.showStickers();
     }
 
+    @Override
+    public void getStickersFromServer() {
+       ivStickers.startGetStickersFromServer();
+       mStickers.getStickersFromServer();
+    }
+
+    @Override
+    public void getStickersSuccessFromServer() {
+       ivStickers.getStickersSuccessFromServer();
+    }
+
+    @Override
+    public void getStickersFailedFromServer(int errorId, String ErrorMessage) {
+       ivStickers.getStickersFailedFromServer(errorId, ErrorMessage);
+    }
+
     public int getStickersSize(){
         return mStickers.getStickersSize();
     }
