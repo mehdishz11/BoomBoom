@@ -5,155 +5,205 @@
     android:layout_height="match_parent"
     android:background="@color/light_level_0">
 
-
-    <RelativeLayout
-        android:id="@+id/drawer_top_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/act_user_image"
-            android:layout_marginBottom="45dp"
-            android:scaleType="centerCrop">
-
-          <include layout="@layout/rel_top_clouds"/>
-
-        </RelativeLayout>
-
-
-        <psb.com.cview.IconFont
-            android:id="@+id/act_sign_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/margin_5"
-            android:padding="@dimen/margin_10"
-            android:text=""
-            android:textColor="@color/light_level_0"
-            android:textSize="20dp" />
-
-        <psb.com.cview.CustomTextView
-            android:id="@+id/text_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/reg_or_login"
-            android:layout_centerHorizontal="true"
-            android:text="ویرایش"
-            android:textColor="@color/blue_3"
-            android:textSize="@dimen/font_size_14" />
-
-        <psb.com.cview.CustomTextViewBold
-            android:id="@+id/reg_or_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/act_user_image"
-            android:layout_marginTop="@dimen/margin_10"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="ثبت نام | ورود"
-            android:textColor="@color/blue_3"
-            android:textSize="@dimen/font_size_16" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/act_user_image"
-            android:layout_alignLeft="@+id/act_user_image"
-            android:layout_alignRight="@+id/act_user_image"
-            android:layout_alignTop="@+id/act_user_image"
-            android:background="@drawable/circle_blue" />
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/act_user_image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:padding="5dp"
-            android:src="@drawable/user_empty_gray"
-            android:tint="@color/light_level_0"
-            app:riv_corner_radius="40dp" />
-
-
-    </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/rel_contact_us"
         android:layout_below="@+id/drawer_top_layout"
+        android:layout_marginBottom="-30dp"
         android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/drawer_top_layout"
-            android:layout_marginTop="@dimen/margin_10"
             android:orientation="vertical">
 
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/md_grey_300" />
             <RelativeLayout
                 android:id="@+id/ManageAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/space_small">
 
-                <psb.com.cview.CustomTextViewLight
+                <psb.com.cview.IconFont
+                    android:id="@+id/imageButton4"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circle_white_stroke_blue"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_10"
+                    android:text=""
+                    android:textColor="@color/blue_3"
+                    android:textSize="20dp" />
+
+                <psb.com.cview.CustomTextViewBold
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/imageButton4"
                     android:gravity="right|center"
-                    android:text="نقاشی های من"
+                    android:paddingRight="@dimen/space_small"
+                    android:text="@string/messages"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/font_size_14" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/imageButton4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/margin_10" />
-
+                    android:textColor="@color/md_grey_700"
+                    android:textSize="@dimen/text_size_normal" />
 
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/md_grey_300" />
+            <RelativeLayout
+                android:id="@+id/prize_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/space_small">
+
+                <psb.com.cview.IconFont
+                    android:id="@+id/imageButton5"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circle_white_stroke_green"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_10"
+                    android:text=""
+                    android:textColor="@color/green_2"
+                    android:textSize="20dp" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/imageButton5"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/space_small"
+                    android:text="سوابق جوایز"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:textColor="@color/md_grey_700"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/md_grey_300" />
+            <RelativeLayout
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:clickable="true"
+                android:padding="@dimen/space_small"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <psb.com.cview.IconFont
+                    android:id="@+id/imageButton6"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circle_white_stroke_purple"
+                    android:textColor="@color/md_purple_500"
+                    android:padding="@dimen/margin_10"
+                    android:text=""
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/textView19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/imageButton6"
+                    android:paddingRight="@dimen/space_small"
+                    android:gravity="right|center"
+                    android:text="@string/about"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:textColor="@color/md_grey_700"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/md_grey_300" />
             <LinearLayout
                 android:id="@+id/relPrize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/space_small"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="40dp"
                 android:orientation="vertical">
 
-                <View
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/md_grey_300" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:layout_marginRight="@dimen/space_small"
+                    android:layout_marginTop="@dimen/space_small">
 
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/prizeHint"
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/anim_gift"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/circle_white_stroke_red"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="happy_gift.json"
+                        app:lottie_loop="true" />
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/prizeHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_small"
+                        android:layout_toLeftOf="@+id/anim_gift"
+                        android:text="@string/your_prize"
+                        android:textColor="@color/md_grey_700"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <psb.com.cview.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/space_small"
-                    android:text="جایزه های شما"
-                    android:textColor="@color/md_grey_700"
-                    android:textSize="@dimen/text_size_normal" />
+                    android:gravity="center"
+                    android:text="@string/hint_your_gift"
+                    android:textColor="@color/md_grey_500"
+                    android:textSize="@dimen/text_size_small" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_small"
                     android:layout_marginRight="@dimen/space_small"
-                    android:layout_marginTop="@dimen/space_small"
+                    android:layout_marginTop="@dimen/space_normal"
                     android:orientation="horizontal"
                     android:weightSum="3">
 
@@ -176,9 +226,9 @@
                             android:layout_height="62dp"
                             android:layout_centerHorizontal="true"
                             android:alpha="0.7"
-                            app:wlv_progressValue="0"
                             app:wlv_borderColor="@color/md_grey_400"
                             app:wlv_borderWidth="1dp"
+                            app:wlv_progressValue="0"
                             app:wlv_round_rectangle="true"
                             app:wlv_shapeType="circle"
                             app:wlv_triangle_direction="north"
@@ -358,54 +408,139 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="@dimen/space_normal"
-                android:background="@color/md_grey_300" />
-
         </LinearLayout>
 
     </ScrollView>
 
-
-    <!--footer-->
     <RelativeLayout
-        android:id="@+id/rel_bottom_boat"
+        android:id="@+id/drawer_top_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_height="wrap_content">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/image_boat"
-            android:layout_marginTop="-30dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ocean_1"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/act_user_image"
+            android:layout_marginBottom="45dp"
+            android:scaleType="centerCrop">
 
-            />
+            <include layout="@layout/rel_top_clouds" />
 
-        <ImageView
-            android:id="@+id/image_boat"
-            android:layout_width="75dp"
+        </RelativeLayout>
+
+
+        <psb.com.cview.IconFont
+            android:id="@+id/act_sign_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_5"
+            android:padding="@dimen/margin_10"
+            android:text=""
+            android:textColor="@color/light_level_0"
+            android:textSize="20dp" />
+
+        <psb.com.cview.CustomTextView
+            android:id="@+id/text_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reg_or_login"
+            android:layout_centerHorizontal="true"
+            android:text="ویرایش"
+            android:textColor="@color/blue_3"
+            android:textSize="@dimen/font_size_14" />
+
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/reg_or_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/act_user_image"
+            android:layout_marginTop="@dimen/margin_10"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="ثبت نام | ورود"
+            android:textColor="@color/blue_3"
+            android:textSize="@dimen/font_size_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/act_user_image"
+            android:layout_alignLeft="@+id/act_user_image"
+            android:layout_alignRight="@+id/act_user_image"
+            android:layout_alignTop="@+id/act_user_image"
+            android:background="@drawable/circle_blue" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/act_user_image"
+            android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginLeft="150dp"
-            android:src="@drawable/boat" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:padding="5dp"
+            android:src="@drawable/user_empty_gray"
+            android:tint="@color/light_level_0"
+            app:riv_corner_radius="40dp" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="100dp"
-            android:src="@drawable/fish" />
 
-        <ImageView
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_contact_us"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/space_small">
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/image_boat"
-            android:layout_marginTop="-30dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ocean_2" />
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:background="@color/light_level_4" />
+
+        <psb.com.cview.IconFont
+            android:id="@+id/icon_instagram"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/circle_white_stroke_gray"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/light_level_4"
+            android:textSize="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/icon_instagram">
+
+            <psb.com.cview.IconFont
+                android:id="@+id/icon_telegram"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_white_stroke_gray"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/light_level_4"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/icon_instagram">
+
+            <psb.com.cview.IconFont
+                android:id="@+id/icon_email"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_white_stroke_gray"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/light_level_4"
+                android:textSize="20dp" />
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

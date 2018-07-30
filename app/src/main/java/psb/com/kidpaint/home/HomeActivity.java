@@ -286,9 +286,14 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         waveLoadingViewRight = navigationView.findViewById(R.id.wave_prize_3);
         relPrize = navigationView.findViewById(R.id.relPrize);
 
+
         buttonPrizeLeft = navigationView.findViewById(R.id.btn_prize_1);
         buttonPrizeCenter = navigationView.findViewById(R.id.btn_prize_2);
         buttonPrizeRight = navigationView.findViewById(R.id.btn_prize_3);
+
+        waveLoadingViewLeft.setAnimDuration(2500);
+        waveLoadingViewCenter.setAnimDuration(2500);
+        waveLoadingViewRight.setAnimDuration(2500);
 
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
@@ -644,9 +649,9 @@ public class HomeActivity extends BaseActivity implements IV_Home,
                 textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
                 textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
 
-                textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " امتیاز");
-                textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " امتیاز");
-                textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " امتیاز");
+                textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() +" "+ getString(R.string.point));
+                textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() +" "+ getString(R.string.point));
+                textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() +" "+ getString(R.string.point));
 
                 if (responseGetLeaderShip != null) {
                     setPrizeLayout();
@@ -727,14 +732,16 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         }
     }
 
+    int enableColor=R.color.green_2;
+
     private void setPrizeLayout() {
         waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(0).getNeedScore());
         if (waveLoadingViewLeft.getProgressValue() >= 100) {
             waveLoadingViewLeft.setProgressValue(100);
-            waveLoadingViewLeft.setWaveColor(getResources().getColor(R.color.blue_3));
-            waveLoadingViewLeft.setBorderColor(getResources().getColor(R.color.blue_3));
-            textViewPrizeLeftName.setTextColor(getResources().getColor(R.color.blue_3));
-            textViewPrizeLeftScore.setTextColor(getResources().getColor(R.color.blue_3));
+            waveLoadingViewLeft.setWaveColor(getResources().getColor(enableColor));
+            waveLoadingViewLeft.setBorderColor(getResources().getColor(enableColor));
+            textViewPrizeLeftName.setTextColor(getResources().getColor(enableColor));
+            textViewPrizeLeftScore.setTextColor(getResources().getColor(enableColor));
         } else {
             waveLoadingViewLeft.setWaveColor(getResources().getColor(R.color.md_grey_400));
             waveLoadingViewLeft.setBorderColor(getResources().getColor(R.color.md_grey_400));
@@ -742,15 +749,15 @@ public class HomeActivity extends BaseActivity implements IV_Home,
             textViewPrizeLeftName.setTextColor(getResources().getColor(R.color.md_grey_400));
             textViewPrizeLeftScore.setTextColor(getResources().getColor(R.color.md_grey_400));
         }
-        Log.d("wave ", "setPrizes: " + waveLoadingViewLeft.getProgressValue());
+
 
         waveLoadingViewCenter.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(1).getNeedScore());
         if (waveLoadingViewCenter.getProgressValue() >= 100) {
             waveLoadingViewCenter.setProgressValue(100);
-            waveLoadingViewCenter.setWaveColor(getResources().getColor(R.color.blue_3));
-            waveLoadingViewCenter.setBorderColor(getResources().getColor(R.color.blue_3));
-            textViewPrizeCenterName.setTextColor(getResources().getColor(R.color.blue_3));
-            textViewPrizeCenterScore.setTextColor(getResources().getColor(R.color.blue_3));
+            waveLoadingViewCenter.setWaveColor(getResources().getColor(enableColor));
+            waveLoadingViewCenter.setBorderColor(getResources().getColor(enableColor));
+            textViewPrizeCenterName.setTextColor(getResources().getColor(enableColor));
+            textViewPrizeCenterScore.setTextColor(getResources().getColor(enableColor));
         } else {
             waveLoadingViewCenter.setWaveColor(getResources().getColor(R.color.md_grey_400));
             waveLoadingViewCenter.setBorderColor(getResources().getColor(R.color.md_grey_400));
@@ -758,15 +765,14 @@ public class HomeActivity extends BaseActivity implements IV_Home,
             textViewPrizeCenterName.setTextColor(getResources().getColor(R.color.md_grey_400));
             textViewPrizeCenterScore.setTextColor(getResources().getColor(R.color.md_grey_400));
         }
-        Log.d("wave ", "setPrizes: " + waveLoadingViewCenter.getProgressValue());
 
         waveLoadingViewRight.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(2).getNeedScore());
         if (waveLoadingViewRight.getProgressValue() >= 100) {
             waveLoadingViewRight.setProgressValue(100);
-            waveLoadingViewRight.setWaveColor(getResources().getColor(R.color.blue_3));
-            waveLoadingViewRight.setBorderColor(getResources().getColor(R.color.blue_3));
-            textViewPrizeRightName.setTextColor(getResources().getColor(R.color.blue_3));
-            textViewPrizeRightScore.setTextColor(getResources().getColor(R.color.blue_3));
+            waveLoadingViewRight.setWaveColor(getResources().getColor(enableColor));
+            waveLoadingViewRight.setBorderColor(getResources().getColor(enableColor));
+            textViewPrizeRightName.setTextColor(getResources().getColor(enableColor));
+            textViewPrizeRightScore.setTextColor(getResources().getColor(enableColor));
         } else {
             waveLoadingViewRight.setWaveColor(getResources().getColor(R.color.md_grey_400));
             waveLoadingViewRight.setBorderColor(getResources().getColor(R.color.md_grey_400));
@@ -774,7 +780,6 @@ public class HomeActivity extends BaseActivity implements IV_Home,
             textViewPrizeRightName.setTextColor(getResources().getColor(R.color.md_grey_400));
             textViewPrizeRightScore.setTextColor(getResources().getColor(R.color.md_grey_400));
         }
-        Log.d("wave ", "setPrizes: " + waveLoadingViewRight.getProgressValue());
 
         setPrizeButtonContent();
         relPrize.setVisibility(View.VISIBLE);

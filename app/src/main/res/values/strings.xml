@@ -71,5 +71,10 @@
     <string name="intro_step_13_like">با این دکمه امتیاز بده</string>
     <string name="intro_step_14_text">شما با موفقیت ثبت نام کردید و 2000 امتیاز بدست آورید. برای بدست آوردن امتیاز بیشتر ، نقاشی در مسابقه شرکت دهید . هر نقاشی 10 امتیاز</string>
     <string name="message_are_u_sure_exit">مطمئنی می خوای خارج شی ؟</string>
+    <string name="point">امتیاز</string>
+    <string name="your_prize">جایزه های شما</string>
+    <string name="hint_your_gift">با امتیازاتت این جایزه هارو می تونی بگیری</string>
+    <string name="messages">پیغام ها</string>
+    <string name="about">درباره</string>
 
 </resources>
