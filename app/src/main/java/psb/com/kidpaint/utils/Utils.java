@@ -159,18 +159,26 @@ public class Utils {
     public static String getIraninTimeCommentSlash(String time) {
 
         String result = "";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
         try {
             calendar.setTime(simpleDateFormat.parse(time));
             CalendarTool calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
-            result = calendarTool.getIranianDay()+ " " + calendarTool.getIranianMonthName() + " "+calendarTool.getIranianYear();
+            result = calendarTool.getIranianDay()+ "/" + calendarTool.getIranianMonth() + "/"+calendarTool.getIranianYear();
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return result;
     }
+
+    public static String getCurrentTime(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String last_change_time=sdf.format(c.getTime());
+        return last_change_time;
+    }
+
 
 
 

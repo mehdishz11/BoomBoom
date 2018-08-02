@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,34 +15,20 @@ import psb.com.kidpaint.R;
 
 public class ViewHolder_Message extends RecyclerView.ViewHolder {
 
-    public RelativeLayout relParent;
-    public RoundedImageView imgOutline;
-    public ImageView imgMask;
-    public View parentView;
-    public Button competition,like;
-    public CardView cardBgr;
-    public TextView textUserName;
-    public TextView textImageCode;
-    public ImageView imageUser;
-    public RoundedImageView bgrBtnRate;
+    public View convertView;
+    public TextView main_text;
+    public TextView time;
+    public ImageView delivery,icon,content_image;
+    public LinearLayout mainRel;
 
     public ViewHolder_Message(View itemView) {
         super(itemView);
 
-        parentView=itemView;
-        relParent=itemView.findViewById(R.id.rel_parent);
-        imgOutline=itemView.findViewById(R.id.img_outline_template);
-        imgMask=itemView.findViewById(R.id.img_mask);
-        competition=itemView.findViewById(R.id.btn_competition);
-        cardBgr=itemView.findViewById(R.id.card_bgr);
-
-        bgrBtnRate=itemView.findViewById(R.id.image_bgr_btn);
-
-        imageUser=itemView.findViewById(R.id.img_user);
-        like=itemView.findViewById(R.id.btn_like);
-
-        textUserName=itemView.findViewById(R.id.text_user_name);
-        textImageCode=itemView.findViewById(R.id.text_image_code);
+        main_text = itemView.findViewById(R.id.row_msg_text);
+        time=itemView.findViewById(R.id.row_msg_send_mode_desc);
+        mainRel= itemView.findViewById(R.id.row_msg_user_main_rel);
+        icon=itemView.findViewById(R.id.row_msg_user_icon);
+        content_image=itemView.findViewById(R.id.row_msg_img);
 
     }
 }

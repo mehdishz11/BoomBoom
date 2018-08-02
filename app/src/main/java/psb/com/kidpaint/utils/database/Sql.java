@@ -11,7 +11,7 @@ public class Sql extends SQLiteOpenHelper {
     //------------------------------------------
 
     public Sql(Context context) {
-        super(context, dbName, null,3);
+        super(context, dbName, null,4);
     }
 
     @Override
@@ -46,13 +46,12 @@ public class Sql extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE tbl_Message (" +
                 "dbid INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "messageId INTEGER ," +
+                "chatId INTEGER ," +
                 "title TEXT ," +
                 "imageUrl INTEGER ," +
                 "body TEXT ," +
                 "url TEXT,"   +
                 "isRead INTEGER,"  +
-                "replyId INTEGER ," +
-                "replyMessage TEXT ," +
                 "status TEXT ," +
                 "sender TEXT ," +
                 "insertTime CURRENT_TIMESTAMP)"

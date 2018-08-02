@@ -15,11 +15,12 @@ public interface IVMessages {
 
 
     void startSendMessage();
-    void onSuccessSendMessage();
-    void onFailedSendMessage(int errorCode,String errorMessage);
+    void onSuccessSendMessage(int position);
+    void onFailedSendMessage(int errorCode,String errorMessage,int position);;
 
 
-
+    void setSendMessage(String text);
+    void onSuccessDeleteMessage(int position);
 
 
 }

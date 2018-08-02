@@ -16,8 +16,8 @@ public interface IPMessages {
     void onFailedGetMessageFromDb(int errorCode,String errorMessage);
 
     void sendMessage(String text);
-    void onSuccessSendMessage();
-    void onFailedSendMessage(int errorCode,String errorMessage);
+    void onSuccessSendMessage(int position);
+    void onFailedSendMessage(int errorCode,String errorMessage,int position);
 
     void onBindView_Message(ViewHolder_Message holder, int position);
 
@@ -27,5 +27,6 @@ public interface IPMessages {
    int getRowType(int position);
 
 
+    void onSuccessDeleteMessage(int position);
 
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    >
+    <RelativeLayout
+        android:id="@+id/row_msg_user_main_icon_rel"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/row_msg_user_main_rel"
+        android:layout_alignBottom="@+id/row_msg_user_main_rel"
+        android:layout_marginRight="5dp">
+
+        <ImageView
+            android:id="@+id/row_msg_user_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/user_profile"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/row_msg_user_main_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/row_msg_user_main_icon_rel"
+        android:layout_marginRight="-5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:gravity="left"
+        android:background="@drawable/bgr_chat_user"
+        android:padding="10dp"
+        android:layoutDirection="ltr"
+        >
+
+
+
+
+        <ImageView
+            android:id="@+id/row_msg_img"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_check"
+            android:visibility="visible"
+            />
+        <psb.com.cview.CustomTextView
+            android:id="@+id/row_msg_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/row_msg_img"
+            android:layout_alignRight="@+id/row_msg_img"
+            android:layout_alignLeft="@+id/row_msg_img"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:text="پیفام شما تحویل داده شد"
+            android:textColor="@color/Black"
+            android:clickable="true"
+            android:linksClickable="true"
+            android:autoLink="all"
+            android:textColorLink="#15bbca"
+            android:maxWidth="200dp"
+            />
+        <psb.com.cview.CustomTextView
+            android:id="@+id/row_msg_send_mode_desc"
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/row_msg_text"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:text="09:40 AM"
+            android:textColor="@color/light_level_2"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

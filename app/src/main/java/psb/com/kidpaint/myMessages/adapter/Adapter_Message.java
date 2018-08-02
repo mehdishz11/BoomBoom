@@ -26,13 +26,13 @@ public class Adapter_Message extends RecyclerView.Adapter<ViewHolder_Message> {
     @Override
     public ViewHolder_Message onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_all_users, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_admin, parent, false);
         switch (viewType) {
             case 0://me
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_all_users, parent, false);
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_me, parent, false);
                 break;
             case 1://admin
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_all_users, parent, false);
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_admin, parent, false);
                 break;
         }
         return new ViewHolder_Message(itemView);

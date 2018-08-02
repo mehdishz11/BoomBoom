@@ -2,6 +2,8 @@ package psb.com.kidpaint.myMessages;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.chat.Get.model.Extra;
+
 public interface IMMessages {
     Context getContext();
 
@@ -15,7 +17,12 @@ public interface IMMessages {
    int getRowType(int position);
 
    boolean userIsRegistered();
-   String getPositionAtMessage(int position);
+   Extra getPositionAtMessage(int position);
+
+   String getUserName();
+   String getUserImage();
+
+    void deleteMessage(long messageId,int position);
 
 
 

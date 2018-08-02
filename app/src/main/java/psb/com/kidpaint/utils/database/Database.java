@@ -8,6 +8,7 @@ import java.util.List;
 
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
+import psb.com.kidpaint.utils.database.TblMessage.TblMessage;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 
 public class Database implements iDatabase {
@@ -17,17 +18,7 @@ public class Database implements iDatabase {
         return new TblStickers(context);
     }
 
-    @Override
-    public void deleteSticker(Context context, String[] tables) {
-        Sql sql = new Sql(context);
-        SQLiteDatabase db = sql.getWritableDatabase();
-        for (int i = 0; i < tables.length; i++) {
-            db.delete(tables[i], null, null);
-            db.execSQL("delete from sqlite_sequence where name=" + "'" + tables[i] + "'");
-        }
-        db.close();
-        sql.close();
-    }
+
 
     @Override
     public TblCategory getCategory(Context context) {
@@ -35,7 +26,7 @@ public class Database implements iDatabase {
     }
 
     @Override
-    public void deleteCategory(Context context, String[] tables) {
+    public void deleteTables(Context context, String[] tables) {
         Sql sql = new Sql(context);
         SQLiteDatabase db = sql.getWritableDatabase();
         for (int i = 0; i < tables.length; i++) {
@@ -44,5 +35,10 @@ public class Database implements iDatabase {
         }
         db.close();
         sql.close();
+    }
+
+    @Override
+    public TblMessage tblMessage(Context context) {
+        return new TblMessage(context);
     }
 }

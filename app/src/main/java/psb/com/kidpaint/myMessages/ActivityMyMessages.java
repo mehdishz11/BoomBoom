@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,6 +80,8 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
                     if ("".equals(editText.getText().toString())) {
                         Toast.makeText(ActivityMyMessages.this, "متن پیغام خالی است", Toast.LENGTH_SHORT).show();
                     }else {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(getBaseContext().INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                         pMessages.sendMessage(editText.getText().toString().trim());
                         editText.setText("");
                     }
@@ -109,6 +112,7 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
     @Override
     public void startGetMessageFromServer(int loadMode) {
         mLoadMode=loadMode;
+        emptyView.setVisibility(View.GONE);
 
         if (loadMode==0) {
             progressView.setVisibility(View.VISIBLE);
@@ -127,16 +131,22 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
     public void onFailedGetMessageFromServer(int errorCode,String errorMessage) {
 
         if (mLoadMode==0) {
-            progressView.showError(errorMessage, new View.OnClickListener() {
+          /*  progressView.showError(errorMessage, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     pMessages.getMessageFromServer(0);
                 }
-            });
+            });*/
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+
         }else{
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
             swipeRefreshLayout.setRefreshing(false);
         }
+
+        pMessages.getMessageFromDb();
+
+
     }
 
     @Override
@@ -150,6 +160,7 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
     public void onSuccessGetMessageFromDb() {
       setAdapter_message();
       progressView.setVisibility(View.GONE);
+      swipeRefreshLayout.setRefreshing(false);
 
         if (!editText.getText().toString().trim().isEmpty()) {
             send.performClick();
@@ -171,10 +182,9 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
 
     }
 
-
     @Override
-    public void onSuccessSendMessage() {
-        recyclerView.getAdapter().notifyDataSetChanged();
+    public void onSuccessSendMessage(int position) {
+        recyclerView.getAdapter().notifyItemChanged(position);
         final MessageDialog dialog = new MessageDialog(getContext());
         dialog.setMessage("پیغام شما با موفقیت ارسال شد.درسریعترین زمان ممکن پاسخ داده خواهد شد.");
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
@@ -195,8 +205,8 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
     }
 
     @Override
-    public void onFailedSendMessage(int errorCode,String errorMessage) {
-        recyclerView.getAdapter().notifyDataSetChanged();
+    public void onFailedSendMessage(int errorCode, String errorMessage, int position) {
+        recyclerView.getAdapter().notifyItemChanged(position);
 
         final MessageDialog dialog = new MessageDialog(getContext());
         dialog.setMessage(errorMessage);
@@ -216,6 +226,20 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         dialog.setTitle("ارسال پیغام");
         dialog.show();
     }
+
+    @Override
+    public void setSendMessage(String text) {
+       editText.setText(text);
+    }
+
+    @Override
+    public void onSuccessDeleteMessage(int position) {
+        recyclerView.getAdapter().notifyItemRemoved(position);
+        recyclerView.getAdapter().notifyItemRangeChanged(position, adapter_message.getItemCount());
+
+    }
+
+
 
 
     public void showUserRegisterDialog() {
