@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 
 public interface iVerifyCode {
 
-    void startSendVerifyCode(String phoneNumber, String smsCode);
+    void startSendVerifyCode(String token,String phoneNumber, String smsCode);
 
     interface iResult {
         void onSuccessSendVerifyCode(String jwt);

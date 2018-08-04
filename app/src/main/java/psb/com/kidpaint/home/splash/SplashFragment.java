@@ -55,12 +55,19 @@ public class SplashFragment extends Fragment implements IV_Splash {
     }
 
     private void setContent(){
-        pSplash.getPirze();
+        if (pSplash.userIsRegistered()) {
+            pSplash.updateFcmToken();
+        }else{
+            pSplash.getPirze();
+        }
     }
 
     public void refreshPrizeAndRank(){
-        //pSplash.getRank();
-        pSplash.getPirze();
+        if (pSplash.userIsRegistered()) {
+            pSplash.updateFcmToken();
+        }else{
+            pSplash.getPirze();
+        }
     }
 
     @Override
@@ -120,6 +127,19 @@ public class SplashFragment extends Fragment implements IV_Splash {
     public void getPrizeFailed(String msg,ResponsePrize responsePrize) {
         mListener.getPrizeFailed(responsePrize);
         pSplash.getRank();
+    }
+
+    @Override
+    public void onSuccessUpdateFcmToken() {
+
+            pSplash.getPirze();
+
+    }
+
+    @Override
+    public void onFailedUpdateFcmToken(int errorCode, String errorMessage) {
+        pSplash.getPirze();
+
     }
 
     public interface OnFragmentInteractionListener {

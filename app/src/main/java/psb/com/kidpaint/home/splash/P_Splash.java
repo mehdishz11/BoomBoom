@@ -67,4 +67,24 @@ public class P_Splash implements IP_Splash {
     public void getPrizeFailed(String msg,ResponsePrize responsePrize) {
         ivSplash.getPrizeFailed(msg,responsePrize);
     }
+
+    @Override
+    public boolean userIsRegistered() {
+        return mSplash.userIsRegistered();
+    }
+
+    @Override
+    public void updateFcmToken() {
+         mSplash.updateFcmToken();
+    }
+
+    @Override
+    public void onSuccessUpdateFcmToken() {
+     ivSplash.onSuccessUpdateFcmToken();
+    }
+
+    @Override
+    public void onFailedUpdateFcmToken(int errorCode, String errorMessage) {
+      ivSplash.onFailedUpdateFcmToken(errorCode, errorMessage);
+    }
 }

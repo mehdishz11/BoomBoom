@@ -35,6 +35,9 @@ public class Extra implements Serializable
     @SerializedName("createDate")
     @Expose
     private String createDate;
+    @SerializedName("type")
+    @Expose
+    private String type;
     @SerializedName("username")
     @Expose
     private String username;
@@ -151,5 +154,13 @@ public class Extra implements Serializable
 
     public void setDbId(Integer dbId) {
         this.dbId = dbId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

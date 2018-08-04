@@ -13,6 +13,7 @@ import android.nfc.cardemulation.HostApduService;
 import android.os.StrictMode;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.io.IOException;
@@ -45,8 +46,12 @@ public class NotificationCreator {
         }
 
         notificationBuilder.setProgress(0, 0, false);
-        notificationBuilder.setContentTitle(contentTitle);
-        notificationBuilder.setContentText(contentText);
+        if (contentTitle!=null &&!contentTitle.isEmpty()) {
+            notificationBuilder.setContentTitle(contentTitle);
+        }
+        if (contentText!=null &&!contentText.isEmpty()) {
+            notificationBuilder.setContentText(contentText);
+        }
         notificationManager.notify(notificationId, notificationBuilder.build());
 
     }
@@ -114,6 +119,7 @@ public class NotificationCreator {
              notificationBuilder.setContentText(contentText);
         }
         if (bigImageUrl!=null && !bigImageUrl.isEmpty()) {
+            Log.d("TAg", "showBigPictureStyleNotification: ");
              Bitmap bitmap=getBitmapFromURL(bigImageUrl);
              notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
                      .bigPicture(bitmap));

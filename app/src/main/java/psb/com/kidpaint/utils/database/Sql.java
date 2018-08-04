@@ -11,7 +11,7 @@ public class Sql extends SQLiteOpenHelper {
     //------------------------------------------
 
     public Sql(Context context) {
-        super(context, dbName, null,4);
+        super(context, dbName, null,5);
     }
 
     @Override
@@ -50,6 +50,7 @@ public class Sql extends SQLiteOpenHelper {
                 "title TEXT ," +
                 "imageUrl INTEGER ," +
                 "body TEXT ," +
+                "type TEXT ," +
                 "url TEXT,"   +
                 "isRead INTEGER,"  +
                 "status TEXT ," +

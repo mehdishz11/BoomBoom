@@ -24,6 +24,9 @@ public class Push implements Serializable
     @SerializedName("ImageUrl")
     @Expose
     private String imageUrl;
+    @SerializedName("Id")
+    @Expose
+    private Integer id;
     private final static long serialVersionUID = 2925281160491192216L;
 
     public String getMode() {
@@ -66,4 +69,11 @@ public class Push implements Serializable
         this.imageUrl = imageUrl;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

@@ -20,6 +20,8 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.GetPrize;
 import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
+import psb.com.kidpaint.webApi.register.Register;
+import psb.com.kidpaint.webApi.register.fcmToken.iFcmToken;
 
 public class M_Splash implements IM_Splash {
 
@@ -32,6 +34,7 @@ public class M_Splash implements IM_Splash {
     private TblCategory tblCategory;
 
     private SavePrize savePrize;
+    private UserProfile userProfile;
 
     public M_Splash(IP_Splash ipSplash) {
         this.context = ipSplash.getContext();
@@ -39,6 +42,7 @@ public class M_Splash implements IM_Splash {
         tblStickers = new TblStickers(getContext());
         tblCategory = new TblCategory(getContext());
         savePrize = new SavePrize(getContext());
+        this.userProfile=new UserProfile(getContext());
     }
 
     @Override
@@ -116,5 +120,30 @@ public class M_Splash implements IM_Splash {
                 ipSplash.getPrizeFailed(ErrorMessage, savePrize.getResponsePrize());
             }
         }).doGetPrize();
+    }
+
+    @Override
+    public boolean userIsRegistered() {
+        return !userProfile.get_KEY_PHONE_NUMBER("").isEmpty();
+    }
+
+    @Override
+    public void updateFcmToken() {
+        if (userProfile.get_KEY_FCM("").isEmpty()) {
+            ipSplash.onSuccessUpdateFcmToken();
+        } else {
+            new Register().fcmToken(new iFcmToken.iResult() {
+                @Override
+                public void onSuccessSendFcmToken() {
+                    ipSplash.onSuccessUpdateFcmToken();
+
+                }
+
+                @Override
+                public void onFailedSendFcmToken(int ErrorId, String ErrorMessage) {
+                      ipSplash.onFailedUpdateFcmToken(ErrorId, ErrorMessage);
+                }
+            }).startSendFcmToken(userProfile.get_KEY_JWT(""), userProfile.get_KEY_FCM(""), userProfile.get_KEY_PHONE_NUMBER(""));
+        }
     }
 }

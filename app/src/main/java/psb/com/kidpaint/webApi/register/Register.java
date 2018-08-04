@@ -3,6 +3,8 @@ package psb.com.kidpaint.webApi.register;
 
 import psb.com.kidpaint.webApi.register.VerifyCode.VerifyCode;
 import psb.com.kidpaint.webApi.register.VerifyCode.iVerifyCode;
+import psb.com.kidpaint.webApi.register.fcmToken.FcmToken;
+import psb.com.kidpaint.webApi.register.fcmToken.iFcmToken;
 import psb.com.kidpaint.webApi.register.logout.Logout;
 import psb.com.kidpaint.webApi.register.logout.iLogout;
 import psb.com.kidpaint.webApi.register.registerUserInfo.Profile;
@@ -37,5 +39,15 @@ public class Register implements iRegister {
     @Override
     public Logout logout(iLogout.iResult iResult) {
         return new Logout(iResult);
+    }
+
+    @Override
+    public FcmToken fcmToken() {
+        return new FcmToken();
+    }
+
+    @Override
+    public FcmToken fcmToken(iFcmToken.iResult iResult) {
+        return new FcmToken(iResult);
     }
 }

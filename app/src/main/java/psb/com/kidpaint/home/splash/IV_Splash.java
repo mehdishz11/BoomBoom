@@ -18,4 +18,7 @@ public interface IV_Splash {
 
     void getPirzeSuccess(ResponsePrize responsePrize);
     void getPrizeFailed(String msg,ResponsePrize responsePrize);
+
+    void onSuccessUpdateFcmToken();
+    void onFailedUpdateFcmToken(int errorCode,String errorMessage);
 }

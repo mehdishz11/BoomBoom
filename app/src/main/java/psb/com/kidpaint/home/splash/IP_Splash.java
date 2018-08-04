@@ -19,4 +19,9 @@ public interface IP_Splash {
     void getPirze();
     void getPirzeSuccess(ResponsePrize responsePrize);
     void getPrizeFailed(String msg,ResponsePrize responsePrize);
+
+    boolean userIsRegistered();
+    void updateFcmToken();
+    void onSuccessUpdateFcmToken();
+    void onFailedUpdateFcmToken(int errorCode,String errorMessage);
 }

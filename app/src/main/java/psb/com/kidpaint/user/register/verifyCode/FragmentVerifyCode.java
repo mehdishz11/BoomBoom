@@ -50,6 +50,7 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
 
     private final int MAX_TIMER_VALUE = 30;
     private int timerCounter = MAX_TIMER_VALUE;
+    private boolean onStartVerify=false;
 
     public FragmentVerifyCode() {
         // Required empty public constructor
@@ -165,10 +166,12 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
     }
 
     public void setCodeToEditTextCode(String code){
-        textMessageCode.setText(code);
-        pVerifyCode.VerifyCode(phoneNumber, textMessageCode.getText().toString());
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (!onStartVerify) {
+            textMessageCode.setText(code);
+            pVerifyCode.VerifyCode(phoneNumber, textMessageCode.getText().toString());
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override
@@ -187,6 +190,7 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
 
     @Override
     public void onStartVerifyCode() {
+        onStartVerify=true;
         progress.setVisibility(View.VISIBLE);
         textError.setVisibility(View.GONE);
         textMessageCode.setEnabled(false);
@@ -196,6 +200,8 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
 
     @Override
     public void VerifyCodeSuccess() {
+        onStartVerify=false;
+
         progress.setVisibility(View.GONE);
         textMessageCode.setEnabled(true);
         send.setEnabled(true);
@@ -204,6 +210,8 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
 
     @Override
     public void VerifyCodeFailed(String msg) {
+        onStartVerify=false;
+
         progress.setVisibility(View.GONE);
         textMessageCode.setEnabled(true);
         send.setEnabled(true);

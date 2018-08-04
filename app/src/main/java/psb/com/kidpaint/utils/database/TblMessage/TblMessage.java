@@ -36,12 +36,13 @@ public class TblMessage {
             cv.put("title", chatLists.get(i).getTitle()+"");
             cv.put("imageUrl", chatLists.get(i).getImageUrl());
             cv.put("body", chatLists.get(i).getDescription());
+            cv.put("type", chatLists.get(i).getType());
             cv.put("url", chatLists.get(i).getUrl()+"");
             cv.put("isRead", isFirst?1:(chatLists.get(i).getIsRead()?1:0));
             cv.put("sender", chatLists.get(i).getUsername());
             cv.put("insertTime", chatLists.get(i).getCreateDate());
             cv.put("status", "success");
-            int update = db.update("tbl_Message", cv, "messageId=?", new String[]{chatLists.get(i).getId() + ""});
+            int update = db.update("tbl_Message", cv, "messageId=? AND type=?", new String[]{chatLists.get(i).getId() + "",chatLists.get(i).getType()});
             if (update == 0) {
                 db.insert("tbl_Message", null, cv);
             }
@@ -71,6 +72,7 @@ public class TblMessage {
         cv.put("sender", userName);
         cv.put("insertTime", time);
         cv.put("status", status);
+        cv.put("type", "Chat");
 
         id = db.insert("tbl_Message", null, cv);
 
