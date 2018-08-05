@@ -1,8 +1,13 @@
 package psb.com.kidpaint.myMessages;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +26,8 @@ import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
 import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.myMessages.adapter.Adapter_Message;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
@@ -39,6 +46,7 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
     private Adapter_Message adapter_message;
 
     private int mLoadMode=0;
+    private int mLoadModeDb=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +110,10 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         recyclerView.setAdapter(adapter_message);
         emptyView.setVisibility(adapter_message.getItemCount()>0? View.GONE:View.VISIBLE);
 
+        IntentFilter iff = new IntentFilter(Utils.FCM_BROADCAST_CHAT);
+        LocalBroadcastManager.getInstance(ActivityMyMessages.this).registerReceiver(chatBroadcastReceiver, iff);
+        Utils.activitymyMessageIsRunning=true;
+
     }
 
     @Override
@@ -124,7 +136,7 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
 
     @Override
     public void onSuccessGetMessageFromServer() {
-      pMessages.getMessageFromDb();
+      pMessages.getMessageFromDb(mLoadModeDb);
     }
 
     @Override
@@ -144,24 +156,42 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
             swipeRefreshLayout.setRefreshing(false);
         }
 
-        pMessages.getMessageFromDb();
+        pMessages.getMessageFromDb(mLoadModeDb);
 
 
     }
 
     @Override
-    public void startGetMessageFromDb() {
-        progressView.setVisibility(View.VISIBLE);
-        progressView.showProgress();
+    public void startGetMessageFromDb(int loadMode) {
+        if (loadMode==0) {
+            progressView.setVisibility(View.VISIBLE);
+            progressView.showProgress();
+        }
     }
 
 
     @Override
     public void onSuccessGetMessageFromDb() {
-      setAdapter_message();
+        mLoadModeDb=0;
+        if (adapter_message==null) {
+            setAdapter_message();
+        }else{
+            recyclerView.getAdapter().notifyDataSetChanged();
+            emptyView.setVisibility(adapter_message.getItemCount()>0? View.GONE:View.VISIBLE);
+
+        }
+
       progressView.setVisibility(View.GONE);
       swipeRefreshLayout.setRefreshing(false);
 
+      if(pMessages.getFirstUnreadMessagePosition()<=(adapter_message.getItemCount()-1)){
+          recyclerView.scrollToPosition(pMessages.getFirstUnreadMessagePosition());
+
+      }else {
+          recyclerView.scrollToPosition((adapter_message.getItemCount()-1));
+
+      }
+         pMessages.setAllMessageToRead();
         if (!editText.getText().toString().trim().isEmpty()) {
             send.performClick();
         }
@@ -172,7 +202,7 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         progressView.showError(errorMessage, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pMessages.getMessageFromDb();
+                pMessages.getMessageFromDb(mLoadModeDb);
             }
         });
     }
@@ -183,31 +213,40 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
     }
 
     @Override
-    public void onSuccessSendMessage(int position) {
-        recyclerView.getAdapter().notifyItemChanged(position);
-        final MessageDialog dialog = new MessageDialog(getContext());
-        dialog.setMessage("پیغام شما با موفقیت ارسال شد.درسریعترین زمان ممکن پاسخ داده خواهد شد.");
-        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
-            @Override
-            public void onPosetiveClicked() {
-                dialog.cancel();
-            }
+    public void onSuccessSendMessage(int position,boolean sendToServer) {
+        if (position!=-1) {
+            recyclerView.getAdapter().notifyItemChanged(position);
+        }
+        if (sendToServer) {
+            final MessageDialog dialog = new MessageDialog(getContext());
+            dialog.setMessage("پیغام شما با موفقیت ارسال شد.درسریعترین زمان ممکن پاسخ داده خواهد شد.");
+            dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+                @Override
+                public void onPosetiveClicked() {
+                    dialog.cancel();
+                }
 
-            @Override
-            public void onNegativeClicked() {
-                dialog.cancel();
+                @Override
+                public void onNegativeClicked() {
+                    dialog.cancel();
 
+                }
+            });
+            dialog.setAcceptButtonMessage("باشه");
+            dialog.setTitle("ارسال پیغام");
+            dialog.show();
+        }else{
+            if (position!=-1) {
+                recyclerView.scrollToPosition(position);
             }
-        });
-        dialog.setAcceptButtonMessage("باشه");
-        dialog.setTitle("ارسال پیغام");
-        dialog.show();
+        }
     }
 
     @Override
     public void onFailedSendMessage(int errorCode, String errorMessage, int position) {
-        recyclerView.getAdapter().notifyItemChanged(position);
-
+        if (position!=-1) {
+            recyclerView.getAdapter().notifyItemChanged(position);
+        }
         final MessageDialog dialog = new MessageDialog(getContext());
         dialog.setMessage(errorMessage);
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
@@ -239,7 +278,12 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
 
     }
 
-
+    @Override
+    public void startActionView(String url) {
+       Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
 
 
     public void showUserRegisterDialog() {
@@ -278,5 +322,26 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(ActivityMyMessages.this).unregisterReceiver(chatBroadcastReceiver);
+        Utils.activitymyMessageIsRunning=false;
+
+        super.onDestroy();
+    }
+
+    private BroadcastReceiver chatBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra("Chat")) {
+                mLoadModeDb=2;
+                swipeRefreshLayout.setRefreshing(true);
+                pMessages.getMessageFromServer(2);
+
+            }
+        }
+    };
+
 
 }

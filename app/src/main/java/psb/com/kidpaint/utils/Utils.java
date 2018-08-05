@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Utils {
+    public  static  boolean activitymyMessageIsRunning=false;
 
     public static final int RECORD_REQUEST_CODE = 101;
     public static String keyPer = "listPos";
@@ -42,6 +43,7 @@ public class Utils {
 
     public static String KEY_PLAYER = "KEY_PLAYER";
     public static String KEY_CURRENT_POSITION = "KEY_CURRENT_POSITION";
+    public static String FCM_BROADCAST_CHAT = "FCM_BROADCAST_CHAT";
 
 
     public static void setIntegerPreference(Context context, String masterKey, String key, int value) {

@@ -18,4 +18,7 @@ public interface IP_Home {
 
     void prizeRequestSuccess(int score);
     void prizeRequestFailed(String msg);
+
+    int getUnreadMessageCount();
+
 }

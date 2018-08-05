@@ -9,7 +9,7 @@ public interface IMMessages {
 
     void getMessageFromServer();
 
-    void getMessageFromDb();
+    void getMessageFromDb(int loadMod);
 
     void sendMessage(String text);
 
@@ -23,6 +23,9 @@ public interface IMMessages {
    String getUserImage();
 
     void deleteMessage(long messageId,int position);
+
+    int getFirstUnreadMessagePosition();
+    void setAllMessageToRead();
 
 
 

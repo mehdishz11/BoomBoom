@@ -13,4 +13,6 @@ public interface IM_Home {
 
     void prizeRequest(ParamsPrizeRequest paramsPrizeRequest);
 
+    int getUnreadMessageCount();
+
 }

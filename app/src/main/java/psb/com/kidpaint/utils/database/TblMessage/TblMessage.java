@@ -111,10 +111,10 @@ public class TblMessage {
                     chatList.setId(c.getInt(1));
                     chatList.setTitle(c.getString(2));
                     chatList.setDescription(c.getString(3));
-                    chatList.setStatus(c.getString(5));
+                    chatList.setStatus(c.getString(4));
                     chatList.setImageUrl(c.getString(5));
                     chatList.setUsername(c.getString(6));
-                    chatList.setIsRead(c.getInt(7) == 1 ? true : false);
+                    chatList.setIsRead(true);
                     chatList.setCreateDate(c.getString(8));
                     chatList.setUrl(c.getString(9));
                     chatList.setDbId(c.getInt(10));
@@ -128,6 +128,39 @@ public class TblMessage {
         sql.close();
         return chatLists;
     }
+    public List<Extra> getMessageListAfterThisId(int dbId) {
+        List<Extra> chatLists = new ArrayList<>();
+        Sql sql = new Sql(mContext);
+        SQLiteDatabase db = sql.getReadableDatabase();
+
+        String[] columns = new String[]{"chatId", "messageId","title", "body", "status", "imageUrl", "sender", "isRead", "insertTime","url","dbid"};
+        Cursor c = db.query("tbl_Message", columns, "dbid>?", new String[]{""+dbId}, null, null, "insertTime ASC");
+        if (c.getCount() > 0) {
+            if (c.moveToFirst()) {
+                for (int i = 0; i < c.getCount(); i++) {
+                    Extra chatList = new Extra();
+                    chatList.setChatId(c.getInt(0));
+                    chatList.setId(c.getInt(1));
+                    chatList.setTitle(c.getString(2));
+                    chatList.setDescription(c.getString(3));
+                    chatList.setStatus(c.getString(4));
+                    chatList.setImageUrl(c.getString(5));
+                    chatList.setUsername(c.getString(6));
+                    chatList.setIsRead(true);
+                    chatList.setCreateDate(c.getString(8));
+                    chatList.setUrl(c.getString(9));
+                    chatList.setDbId(c.getInt(10));
+
+                    chatLists.add(chatList);
+                    c.moveToNext();
+                }
+            }
+        }
+        db.close();
+        sql.close();
+        return chatLists;
+    }
+
     public Extra getInsertedMessage(int dbId) {
         Extra chatList = null;
         Sql sql = new Sql(mContext);
@@ -142,7 +175,7 @@ public class TblMessage {
                     chatList.setId(c.getInt(1));
                     chatList.setTitle(c.getString(2));
                     chatList.setDescription(c.getString(3));
-                    chatList.setStatus(c.getString(5));
+                    chatList.setStatus(c.getString(4));
                     chatList.setImageUrl(c.getString(5));
                     chatList.setUsername(c.getString(6));
                     chatList.setIsRead(c.getInt(7) == 1 ? true : false);
@@ -162,7 +195,7 @@ public class TblMessage {
     public void removeChatMessage(long msgID) {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
-        db.delete("tbl_Chat", "dbid=?", new String[]{msgID + ""});
+        db.delete("tbl_Message", "dbid=?", new String[]{msgID + ""});
         db.close();
         sql.close();
     }
@@ -174,6 +207,31 @@ public class TblMessage {
         String[] columns = new String[]{"dbid"};
         Cursor c = db.query("tbl_Message", columns, "isRead=?", new String[]{"0"}, null, null, null);
         count = c.getCount();
+        db.close();
+        sql.close();
+        return count;
+    }
+
+    public int getFirstUnreadChatMessagePosition() {
+        int count = 0;
+        Sql sql = new Sql(mContext);
+        SQLiteDatabase db = sql.getReadableDatabase();
+        String[] columns = new String[]{"dbid","isRead"};
+        Cursor c = db.query("tbl_Message", columns, null, null, null, null, "insertTime ASC");
+        if (c.getCount() > 0) {
+            if (c.moveToFirst()) {
+                for (int i = 0; i < c.getCount(); i++) {
+                    if (c.getInt(0)==0) {
+                        count=i;
+                        break;
+                    }
+                    count=i;
+                    c.moveToNext();
+
+                }
+            }
+        }
+
         db.close();
         sql.close();
         return count;

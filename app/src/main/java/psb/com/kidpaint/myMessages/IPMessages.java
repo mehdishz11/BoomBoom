@@ -11,12 +11,12 @@ public interface IPMessages {
     void onSuccessGetMessageFromServer();
     void onFailedGetMessageFromServer(int errorCode,String errorMessage);
 
-    void getMessageFromDb();
+    void getMessageFromDb(int loadMode);
     void onSuccessGetMessageFromDb();
     void onFailedGetMessageFromDb(int errorCode,String errorMessage);
 
     void sendMessage(String text);
-    void onSuccessSendMessage(int position);
+    void onSuccessSendMessage(int position,boolean sendToServer);
     void onFailedSendMessage(int errorCode,String errorMessage,int position);
 
     void onBindView_Message(ViewHolder_Message holder, int position);
@@ -28,5 +28,8 @@ public interface IPMessages {
 
 
     void onSuccessDeleteMessage(int position);
+
+    int getFirstUnreadMessagePosition();
+    void setAllMessageToRead();
 
 }

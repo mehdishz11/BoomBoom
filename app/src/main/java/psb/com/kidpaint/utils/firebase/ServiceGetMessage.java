@@ -22,6 +22,7 @@ import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.utils.NotificationCreator;
+import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.firebase.model.Push;
 
 
@@ -41,74 +42,97 @@ public class ServiceGetMessage extends FirebaseMessagingService {
         }
         JSONObject result = null;
         Gson gson = new Gson();
-        Intent intent ;
+        Intent intent;
 
         try {
             result = new JSONObject(remoteMessage.getData().get("message"));
-            Log.d("TAG", "onMessageReceived: "+new Gson().toJson(result));
+            Log.d("TAG", "onMessageReceived: " + new Gson().toJson(result));
             if ("Push".equals(result.getString("Mode"))) {
                 Push push = gson.fromJson(String.valueOf(result), Push.class);
                 if (!push.getImageUrl().isEmpty() && !push.getBody().isEmpty()) {//showBigPictureStyleNotification
                     Log.d("TAG", "onMessageReceived 1: ");
-                    if (push.getUrl().isEmpty()) {
-                        intent = new Intent(App.getContext(), ActivityMyMessages.class);
-                    }else{
-                        intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(push.getUrl()));
-                    }
-                    NotificationCreator.showBigPictureStyleNotification(App.getContext(),intent,push.getId(), R.mipmap.ic_launcher,push.getTitle(),push.getBody(),push.getImageUrl());
+                    if (Utils.activitymyMessageIsRunning) {
+                        sendBroadCast();
+                    } else {
 
-                }else if (!push.getImageUrl().isEmpty() && push.getBody().isEmpty()) {//showBigPictureStyleNotification
+                        if (push.getUrl().isEmpty()) {
+                            intent = new Intent(App.getContext(), ActivityMyMessages.class);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(push.getUrl()));
+                        }
+                        NotificationCreator.showBigPictureStyleNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getTitle(), push.getBody(), push.getImageUrl());
+                    }
+
+                } else if (!push.getImageUrl().isEmpty() && push.getBody().isEmpty()) {//showBigPictureStyleNotification
                     Log.d("TAG", "onMessageReceived 2: ");
+                    if (Utils.activitymyMessageIsRunning) {
+                        sendBroadCast();
+                    } else {
 
-                    if (push.getUrl().isEmpty()) {
-                        intent = new Intent(App.getContext(), ActivityMyMessages.class);
-                    }else{
-                        intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(push.getUrl()));
+                        if (push.getUrl().isEmpty()) {
+                            intent = new Intent(App.getContext(), ActivityMyMessages.class);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(push.getUrl()));
+                        }
+                        NotificationCreator.showBigPictureStyleNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getTitle(), push.getBody(), push.getImageUrl());
                     }
-                    NotificationCreator.showBigPictureStyleNotification(App.getContext(),intent,push.getId(), R.mipmap.ic_launcher,push.getTitle(),push.getBody(),push.getImageUrl());
 
-                }
-                else if (push.getImageUrl().isEmpty() && !push.getBody().isEmpty()) {//showBigTextStyleNotification
+                } else if (push.getImageUrl().isEmpty() && !push.getBody().isEmpty()) {//showBigTextStyleNotification
                     Log.d("TAG", "onMessageReceived 3: ");
+                    if (Utils.activitymyMessageIsRunning) {
+                        sendBroadCast();
+                    } else {
 
-                    if (push.getUrl().isEmpty()) {
-                        intent = new Intent(App.getContext(), ActivityMyMessages.class);
-                    }else{
-                        intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(push.getUrl()));
+                        if (push.getUrl().isEmpty()) {
+                            intent = new Intent(App.getContext(), ActivityMyMessages.class);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(push.getUrl()));
+                        }
+                        NotificationCreator.showBigTextStyleNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getTitle(), null, push.getBody());
                     }
-                    NotificationCreator.showBigTextStyleNotification(App.getContext(),intent,push.getId(), R.mipmap.ic_launcher,push.getTitle(),null,push.getBody());
 
-                }else if (push.getImageUrl().isEmpty() && push.getBody().isEmpty()) {//showTextNotification
+                } else if (push.getImageUrl().isEmpty() && push.getBody().isEmpty()) {//showTextNotification
                     Log.d("TAG", "onMessageReceived 4: ");
 
+                    if (Utils.activitymyMessageIsRunning) {
+                        sendBroadCast();
+                    } else {
+
+
+                        if (push.getUrl().isEmpty()) {
+                            intent = new Intent(App.getContext(), ActivityMyMessages.class);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(push.getUrl()));
+                        }
+                        NotificationCreator.showTextNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getTitle(), null);
+                    }
+
+                }
+
+
+            } else if ("Chat".equals(result.getString("mode"))) {
+                if (Utils.activitymyMessageIsRunning) {
+                    sendBroadCast();
+                } else {
+
+                    Push push = gson.fromJson(String.valueOf(result), Push.class);
                     if (push.getUrl().isEmpty()) {
                         intent = new Intent(App.getContext(), ActivityMyMessages.class);
-                    }else{
+                    } else {
                         intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(push.getUrl()));
                     }
-                    NotificationCreator.showTextNotification(App.getContext(),intent,push.getId(), R.mipmap.ic_launcher,push.getTitle(),null);
-
+                    NotificationCreator.showTextNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getTitle(), null);
                 }
 
 
-            }else if ("Chat".equals(result.getString("mode"))) {
-                Push push = gson.fromJson(String.valueOf(result), Push.class);
-                if (push.getUrl().isEmpty()) {
-                    intent = new Intent(App.getContext(), ActivityMyMessages.class);
-                }else{
-                    intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(push.getUrl()));
-                }
-                NotificationCreator.showTextNotification(App.getContext(),intent,push.getId(), R.mipmap.ic_launcher,push.getTitle(),null);
+            } else if ("Push".equals(result.getString("mode"))) {
 
-
-            }else if ("Push".equals(result.getString("mode"))) {
-
-            }else if ("RemovePush".equals(result.getString("mode"))) {
+            } else if ("RemovePush".equals(result.getString("mode"))) {
 
             }
 
@@ -121,7 +145,13 @@ public class ServiceGetMessage extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.e("NEW_TOKEN",s);
+        Log.e("NEW_TOKEN", s);
+    }
+
+    void sendBroadCast() {
+        Intent in = new Intent(Utils.FCM_BROADCAST_CHAT);
+        in.putExtra("Chat", "Chat");
+        LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(in);
     }
 
 

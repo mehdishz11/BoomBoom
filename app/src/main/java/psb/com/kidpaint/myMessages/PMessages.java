@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -51,9 +53,9 @@ public class PMessages implements IPMessages  {
     }
 
     @Override
-    public void getMessageFromDb() {
-        ivMessages.startGetMessageFromDb();
-        mMessage.getMessageFromDb();
+    public void getMessageFromDb(int loadMode) {
+        ivMessages.startGetMessageFromDb(loadMode);
+        mMessage.getMessageFromDb(loadMode);
 
     }
 
@@ -76,8 +78,8 @@ public class PMessages implements IPMessages  {
     }
 
     @Override
-    public void onSuccessSendMessage(int position) {
-       ivMessages.onSuccessSendMessage(position);
+    public void onSuccessSendMessage(int position,boolean sendToServer) {
+       ivMessages.onSuccessSendMessage(position,sendToServer);
     }
 
     @Override
@@ -89,9 +91,11 @@ public class PMessages implements IPMessages  {
     public void onBindView_Message(final ViewHolder_Message holder, final int position) {
 
         final Extra chat=mMessage.getPositionAtMessage(position);
-
+        Log.d("TAG", "onBindView_Message: "+position+" > "+new Gson().toJson(chat));
 
             holder.main_text.setText(chat.getDescription());
+            holder.title.setText(chat.getTitle());
+            holder.title.setVisibility(chat.getTitle().trim().isEmpty()?View.GONE:View.VISIBLE);
             holder.time.setText(Utils.getIraninTimeCommentSlash(chat.getCreateDate()));
 
             //  set profile image
@@ -130,25 +134,36 @@ public class PMessages implements IPMessages  {
             //
             switch (chat.getStatus()) {
                 case "success":
-                    if (holder.delivery != null) {
-                        if ("".equals(chat.getUsername()) || mMessage.getUserName().equals(chat.getUsername())) {// user
+                        if ("".equals(chat.getUsername()) || mMessage.getMobileNumber().equals(chat.getUsername())) {// user
                             holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_user);
-                            holder.delivery.setImageResource(R.drawable.icon_tick);
+                           // holder.delivery.setImageResource(R.drawable.icon_tick);
 
                         }else {// admin
                             holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_admin);
-                            holder.delivery.setImageResource(R.drawable.icon_tick);
+                           // holder.delivery.setImageResource(R.drawable.icon_tick);
+
+                            holder.convertView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Log.d("TAG", "onClick: "+chat.getUrl());
+                                    if (!chat.getUrl().isEmpty()) {
+                                        ivMessages.startActionView(chat.getUrl());
+                                    }
+                                }
+                            });
 
                             }
-                    }
+
+
+
                     break;
                 case "pending":
                     holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_user);
-                    holder.delivery.setImageResource(R.drawable.icon_clock);
+                   // holder.delivery.setImageResource(R.drawable.icon_clock);
                     break;
                 case "failed":
                     holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_user_error);
-                    holder.delivery.setImageResource(R.drawable.icon_warning);
+                    //holder.delivery.setImageResource(R.drawable.icon_warning);
                     holder.time.setTextColor(Color.parseColor("#FF495264"));
                     holder.time.setText("پیغام ارسال نشد،برای ارسال مجدد روی پیغام کلیک کنید.");
                     holder.convertView.setOnClickListener(new View.OnClickListener() {
@@ -182,5 +197,15 @@ public class PMessages implements IPMessages  {
     @Override
     public void onSuccessDeleteMessage(int position) {
         ivMessages.onSuccessDeleteMessage(position);
+    }
+
+    @Override
+    public int getFirstUnreadMessagePosition() {
+        return mMessage.getFirstUnreadMessagePosition();
+    }
+
+    @Override
+    public void setAllMessageToRead() {
+          mMessage.setAllMessageToRead();
     }
 }

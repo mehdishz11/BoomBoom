@@ -53,4 +53,9 @@ public class PHome implements IP_Home {
     public void prizeRequestFailed(String msg) {
         iv_home.prizeRequestFailed(msg);
     }
+
+    @Override
+    public int getUnreadMessageCount() {
+        return mHome.getUnreadMessageCount();
+    }
 }

@@ -83,11 +83,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private RelativeLayout myPaint,relMessage,relMyPrize,relAbout;
+    private RelativeLayout myPaint, relMessage, relMyPrize, relAbout;
     private TextView registerOrLogin;
     private ImageView userImage;
-    private TextView editUser, logOut;
-    private boolean isFirstRegister=false;
+    private TextView editUser, logOut, unreadMessageCount;
+    private boolean isFirstRegister = false;
 
     private ImageView img_winner_1, img_winner_2, img_winner_3;
 
@@ -126,13 +126,13 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         pHome = new PHome(this);
         userProfile = new UserProfile(this);
 
-        Log.d("TAG", "onCreate token: "+userProfile.get_KEY_FCM("-"));
+        Log.d("TAG", "onCreate token: " + userProfile.get_KEY_FCM("-"));
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( HomeActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(HomeActivity.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
-                Log.e("newToken",newToken);
+                Log.e("newToken", newToken);
                 userProfile.set_KEY_FCM(newToken);
 
             }
@@ -236,7 +236,8 @@ public class HomeActivity extends BaseActivity implements IV_Home,
               //  NotificationCreator.showBigTextStyleNotification(HomeActivity.this,null,2,R.drawable.icon_boy_normal,null," you a good boy","بعد از برشماری اهداف ، مجدداً بر کمک به\u200Cکشورهای در حال توسعه و کشورهای فقیر تأکید میشود و از لزوم راه اندازی پایگاه اینترنتی با هدف نشر اطلاعات هم سخن گفته میگوید ... حالا اینکه اهداف این سند می\u200Cتواند چه صدماتی به اهداف و آرزوهای جماعتی پست و حقیر وارد کند موضوعی\u200Cست که باید دربارۀ آن بدون تعصب فکر کرد ...");
               //  NotificationCreator.showBigPictureStyleNotification(HomeActivity.this,null,3,R.drawable.icon_boy_normal,null," you a good boy","http://79.175.155.143/Naghashi/Files/Paint/76420180721_114434462_image.jpg");
                 NotificationCreator.showCustomNotification(HomeActivity.this,null,4,R.drawable.icon_boy_normal,null," you a good boy");
-            */}
+            */
+            }
         });
 
         setupDrawer();
@@ -261,6 +262,8 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         MusicHelper.playMusic(R.raw.bgr_happy_sunshine);
     }
 
+
+
     public void setupDrawer() {
         Log.d("TAG", "setupDrawer: ");
         drawer = findViewById(R.id.drawer_layout);
@@ -271,6 +274,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         registerOrLogin = navigationView.findViewById(R.id.reg_or_login);
 
         relMessage = navigationView.findViewById(R.id.message);
+        unreadMessageCount = navigationView.findViewById(R.id.unreadMessageCount);
         relMyPrize = navigationView.findViewById(R.id.prize_history);
         relAbout = navigationView.findViewById(R.id.about);
 
@@ -300,6 +304,8 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         waveLoadingViewCenter.setAnimDuration(2500);
         waveLoadingViewRight.setAnimDuration(2500);
 
+        setUnreadMessageCount();
+
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             logOut.setVisibility(View.GONE);
@@ -326,7 +332,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
                     userImage.setImageResource(R.drawable.user_empty_gray);
                 }
             });
-        }else{
+        } else {
             Picasso.get().load(R.drawable.user_profile).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
                 @Override
                 public void onSuccess() {
@@ -370,9 +376,6 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         });
 
 
-
-
-
         registerOrLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -397,11 +400,18 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         });
     }
 
+    void setUnreadMessageCount() {
+        if (pHome != null && unreadMessageCount != null) {
+            int unread = pHome.getUnreadMessageCount();
+            unreadMessageCount.setText(unread + "");
+            unreadMessageCount.setVisibility(unread > 0 ? View.VISIBLE : View.GONE);
+        }
+    }
     @Override
     public void onOutlineSelected(int resId) {
         Intent intent = new Intent(HomeActivity.this, PaintActivity.class);
         intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
-        startActivityForResult(intent,CODE_PAINT_ACTIVITY);
+        startActivityForResult(intent, CODE_PAINT_ACTIVITY);
     }
 
     @Override
@@ -432,7 +442,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         text_user_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(HomeActivity.this,ActivityRegisterUser.class),CODE_REGISTER_First);
+                startActivityForResult(new Intent(HomeActivity.this, ActivityRegisterUser.class), CODE_REGISTER_First);
             }
         });
 
@@ -514,17 +524,18 @@ public class HomeActivity extends BaseActivity implements IV_Home,
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
                 if (data.hasExtra("First")) {
-                    isFirstRegister=data.getIntExtra("First",1)==0?true:false;
+                    isFirstRegister = data.getIntExtra("First", 1) == 0 ? true : false;
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
 
 
-
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();
             }
-        }if (requestCode == CODE_REGISTER) {
+        }
+        if (requestCode == CODE_REGISTER) {
+            setUnreadMessageCount();
             if (resultCode == Activity.RESULT_OK) {
                 setupDrawer();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
@@ -546,8 +557,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
-        }
-        else if (requestCode == CODE_PAINT_ACTIVITY) {
+        } else if (requestCode == CODE_PAINT_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
                 btnHistory.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
                 btnNewPainting.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
@@ -574,7 +584,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
         showIntro();
         if (isFirstRegister) {
-           showIntroNewUser();
+            showIntroNewUser();
         }
     }
 
@@ -621,12 +631,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     private void showIntro() {
         final View view = findViewById(R.id.intro_view_1);
         final View view2 = findViewById(R.id.intro_view_2);
-        FancyShowCaseView fancyShowCaseView=Intro.addIntroTo(this, view, IntroEnum.getLayoutId(1), IntroPosition.TOP, IntroEnum.getSoundId(1), IntroEnum.getShareId(1),null,null);
-        FancyShowCaseView fancyShowCaseView_2=Intro.addIntroTo(this, view2, IntroEnum.getLayoutId(2), IntroPosition.TOP, IntroEnum.getSoundId(2), IntroEnum.getShareId(2),null,null);
+        FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(this, view, IntroEnum.getLayoutId(1), IntroPosition.TOP, IntroEnum.getSoundId(1), IntroEnum.getShareId(1), null, null);
+        FancyShowCaseView fancyShowCaseView_2 = Intro.addIntroTo(this, view2, IntroEnum.getLayoutId(2), IntroPosition.TOP, IntroEnum.getSoundId(2), IntroEnum.getShareId(2), null, null);
 
 
-
-        FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+        FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
         fancyShowCaseQueue.add(fancyShowCaseView);
         fancyShowCaseQueue.add(fancyShowCaseView_2);
         fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
@@ -637,6 +646,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         });
         fancyShowCaseQueue.show();
     }
+
     private void showIntroNewUser() {
         drawer.openDrawer(GravityCompat.END);
 
@@ -645,10 +655,10 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                FancyShowCaseView fancyShowCaseView=Intro.addIntroTo(HomeActivity.this, view, IntroEnum.getLayoutId(14), IntroPosition.TOP, IntroEnum.getSoundId(14), IntroEnum.getShareId(14),null,null);
+                FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(HomeActivity.this, view, IntroEnum.getLayoutId(14), IntroPosition.TOP, IntroEnum.getSoundId(14), IntroEnum.getShareId(14), null, null);
 
 
-                FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+                FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
                 fancyShowCaseQueue.add(fancyShowCaseView);
                 fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
                     @Override
@@ -664,9 +674,9 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     }
 
     private void setPrizes() {
-        if(responsePrize!=null&&responsePrize.getExtra()!=null&&responsePrize.getExtra().size()>0) {
+        if (responsePrize != null && responsePrize.getExtra() != null && responsePrize.getExtra().size() > 0) {
 
-            if(!responsePrize.getExtra().get(0).getImageUrl().isEmpty()){
+            if (!responsePrize.getExtra().get(0).getImageUrl().isEmpty()) {
                 Picasso.get().load(responsePrize.getExtra().get(0).getImageUrl()).into(imageViewPrizeLeft);
                 Picasso.get().load(responsePrize.getExtra().get(1).getImageUrl()).into(imageViewPrizeCenter);
                 Picasso.get().load(responsePrize.getExtra().get(2).getImageUrl()).into(imageViewRight);
@@ -676,18 +686,18 @@ public class HomeActivity extends BaseActivity implements IV_Home,
                 textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
                 textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
 
-                textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() +" "+ getString(R.string.point));
-                textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() +" "+ getString(R.string.point));
-                textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() +" "+ getString(R.string.point));
+                textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " " + getString(R.string.point));
+                textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " " + getString(R.string.point));
+                textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " " + getString(R.string.point));
 
                 if (responseGetLeaderShip != null) {
                     setPrizeLayout();
                 }
-            }else {
+            } else {
                 relPrize.setVisibility(View.GONE);
 
             }
-        }else {
+        } else {
             relPrize.setVisibility(View.GONE);
 
         }
@@ -734,11 +744,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
                     text_user_rate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivityForResult(new Intent(HomeActivity.this,ActivityRegisterUser.class),CODE_REGISTER_First);
+                            startActivityForResult(new Intent(HomeActivity.this, ActivityRegisterUser.class), CODE_REGISTER_First);
                         }
                     });
 
-                }else{
+                } else {
                     text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
                     text_user_rate.setOnClickListener(null);
                 }
@@ -746,20 +756,19 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         }
 
 
-
-        if(responsePrize!=null&&responsePrize.getExtra()!=null&&responsePrize.getExtra().size()>0) {
-            if(!responsePrize.getExtra().get(0).getImageUrl().isEmpty()){
+        if (responsePrize != null && responsePrize.getExtra() != null && responsePrize.getExtra().size() > 0) {
+            if (!responsePrize.getExtra().get(0).getImageUrl().isEmpty()) {
                 setPrizeLayout();
 
-            }else {
+            } else {
                 relPrize.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             relPrize.setVisibility(View.GONE);
         }
     }
 
-    int enableColor=R.color.green_2;
+    int enableColor = R.color.green_2;
 
     private void setPrizeLayout() {
         waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(0).getNeedScore());
@@ -1118,7 +1127,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         }
     }
 
-    public void refreshUserRank(){
+    public void refreshUserRank() {
         if (userProfile != null) {
             text_user_rate.setText("بهترین رتبه شما " + userProfile.get_KEY_RANK(0));
             text_user_rate.setOnClickListener(null);
@@ -1129,33 +1138,33 @@ public class HomeActivity extends BaseActivity implements IV_Home,
                 text_user_rate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivityForResult(new Intent(HomeActivity.this,ActivityRegisterUser.class),CODE_REGISTER_First);
+                        startActivityForResult(new Intent(HomeActivity.this, ActivityRegisterUser.class), CODE_REGISTER_First);
                     }
                 });
 
-            }else{
+            } else {
                 text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
                 text_user_rate.setOnClickListener(null);
             }
         }
     }
 
-    public  void refreshUserPrize(){
+    public void refreshUserPrize() {
 
-        if (responseGetLeaderShip!=null&&responseGetLeaderShip.getExtra()!=null) {
+        if (responseGetLeaderShip != null && responseGetLeaderShip.getExtra() != null) {
             responseGetLeaderShip.getExtra().setMyScore(userProfile.get_KEY_SCORE(0));
 
-            if(responsePrize!=null&&responsePrize.getExtra()!=null&&responsePrize.getExtra().size()>0) {
-                if(!responsePrize.getExtra().get(0).getImageUrl().isEmpty()){
+            if (responsePrize != null && responsePrize.getExtra() != null && responsePrize.getExtra().size() > 0) {
+                if (!responsePrize.getExtra().get(0).getImageUrl().isEmpty()) {
                     setPrizeLayout();
 
-                }else {
+                } else {
                     relPrize.setVisibility(View.GONE);
                 }
-            }else {
+            } else {
                 relPrize.setVisibility(View.GONE);
             }
-        }else   relPrize.setVisibility(View.GONE);
+        } else relPrize.setVisibility(View.GONE);
 
     }
 }

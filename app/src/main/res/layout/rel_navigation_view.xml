@@ -58,6 +58,23 @@
                     android:textColor="@color/md_grey_700"
                     android:textSize="@dimen/text_size_normal" />
 
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/unreadMessageCount"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/circle_red"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="22"
+                    android:paddingLeft="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_5"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/font_size_10"
+                    android:layout_height="wrap_content" />
+
             </RelativeLayout>
 
             <View

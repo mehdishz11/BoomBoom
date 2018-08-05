@@ -16,15 +16,16 @@ import psb.com.kidpaint.R;
 public class ViewHolder_Message extends RecyclerView.ViewHolder {
 
     public View convertView;
-    public TextView main_text;
+    public TextView main_text,title;
     public TextView time;
     public ImageView delivery,icon,content_image;
     public LinearLayout mainRel;
 
     public ViewHolder_Message(View itemView) {
         super(itemView);
-
+       convertView=itemView;
         main_text = itemView.findViewById(R.id.row_msg_text);
+        title = itemView.findViewById(R.id.row_msg_title);
         time=itemView.findViewById(R.id.row_msg_send_mode_desc);
         mainRel= itemView.findViewById(R.id.row_msg_user_main_rel);
         icon=itemView.findViewById(R.id.row_msg_user_icon);

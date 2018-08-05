@@ -4,6 +4,7 @@ import android.content.Context;
 
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.PrizeRequest;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.iPrizeRequest;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
@@ -60,5 +61,10 @@ public class MHome implements IM_Home {
                 ip_home.prizeRequestFailed(ErrorMessage);
             }
         }).doPrizeRequest(paramsPrizeRequest);
+    }
+
+    @Override
+    public int getUnreadMessageCount() {
+        return new Database().tblMessage(getContext()).getUnreadChatMessageCount();
     }
 }

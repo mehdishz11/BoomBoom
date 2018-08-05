@@ -1,6 +1,7 @@
 package psb.com.kidpaint.myMessages;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
@@ -59,8 +60,12 @@ public class MMessages implements IMMessages {
     }
 
     @Override
-    public void getMessageFromDb() {
-      messageList=new Database().tblMessage(getContext()).getMessageList();
+    public void getMessageFromDb(int loadMode) {
+        if (loadMode!=2 || messageList.size()<=0) {
+            messageList=new Database().tblMessage(getContext()).getMessageList();
+        }else {
+          messageList.addAll(new Database().tblMessage(getContext()).getMessageListAfterThisId(messageList.get((messageList.size()-1)).getDbId()));
+        }
 
       ipMessages.onSuccessGetMessageFromDb();
 
@@ -72,7 +77,7 @@ public class MMessages implements IMMessages {
         final long dbId = new Database().tblMessage(getContext()).insertMyMessage(0,text, getMobileNumber(), "pending", time);
         messageList.add(new Database().tblMessage(getContext()).getInsertedMessage((int) dbId));
 
-        ipMessages.onSuccessSendMessage((messageList.size()-1));
+        ipMessages.onSuccessSendMessage((messageList.size()-1),false);
         final ParamsSendMessage paramsSendChatMessage = new ParamsSendMessage();
 
         paramsSendChatMessage.setSecurityCode(Utils.getDeviceId(getContext()));
@@ -92,7 +97,7 @@ public class MMessages implements IMMessages {
                         "success"
                 );
 
-                ipMessages.onSuccessDeleteMessage(paramsSendChatMessage.getListPosition());
+                ipMessages.onSuccessSendMessage(findPositionById(paramsSendChatMessage.getDbId(),"success"),true);
             }
 
             @Override
@@ -103,7 +108,7 @@ public class MMessages implements IMMessages {
                         time,
                         "failed"
                 );
-            ipMessages.onFailedSendMessage(errorId, ErrorMessage,paramsSendChatMessage.getListPosition());
+            ipMessages.onFailedSendMessage(errorId, ErrorMessage,findPositionById(paramsSendChatMessage.getDbId(),"failed"));
             }
         }).doSendMessage(paramsSendChatMessage);
 
@@ -150,6 +155,29 @@ public class MMessages implements IMMessages {
         messageList.remove(position);
         new Database().tblMessage(getContext()).removeChatMessage(messageId);
         ipMessages.onSuccessDeleteMessage(position);
+
+    }
+
+    @Override
+    public int getFirstUnreadMessagePosition() {
+        return new Database().tblMessage(getContext()).getFirstUnreadChatMessagePosition();
+    }
+
+    @Override
+    public void setAllMessageToRead() {
+       new Database().tblMessage(getContext()).setAllWatchedChatMessage();
+    }
+
+    public int findPositionById(long dbId,String status){
+        Log.d("TAG", "findPositionById: "+status);
+        int position=-1;
+        for (int i = messageList.size()-1; i > 0; i--) {
+            if (messageList.get(i).getDbId()==dbId) {
+                messageList.get(i).setStatus(status);
+                position=i;
+            }
+        }
+        return position;
 
     }
 
