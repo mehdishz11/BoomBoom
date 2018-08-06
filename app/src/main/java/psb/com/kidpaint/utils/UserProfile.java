@@ -97,6 +97,12 @@ public class UserProfile {
         editor.putString(KEY_JWT, value);
         editor.apply();
     }
+    public  void set_KEY_SCORE(int value) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(KEY_USER_SCORE, value);
+        editor.apply();
+    }
 
 
     public  void REMOVE_KEY_USER_INFO() {

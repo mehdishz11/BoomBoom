@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import psb.com.cview.CButton;
@@ -15,6 +16,7 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 
 public abstract class CDialog extends Dialog {
+    private Button save;
     public CDialog(@NonNull Context context) {
         super(context);
         init();
@@ -60,9 +62,9 @@ public abstract class CDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         inflateChildView((LinearLayout) findViewById(R.id.rel_content));
 
+        save=findViewById(R.id.btn_save);
 
-
-        findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_bubbles_1);
@@ -97,7 +99,9 @@ public abstract class CDialog extends Dialog {
 
     protected abstract OnCLickListener getOnCLickListener();
 
-
+   public void  goneBtnSave(){
+       save.setVisibility(View.GONE);
+   }
     public interface OnCLickListener {
         void onPosetiveClicked();
 

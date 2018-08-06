@@ -42,6 +42,7 @@ import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.myPrize.ActivityMyPrize;
 import psb.com.kidpaint.painting.PaintActivity;
+import psb.com.kidpaint.score.DialogScorePackage;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
@@ -225,18 +226,21 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundHelper.playSound(R.raw.click_1);
+                /*SoundHelper.playSound(R.raw.click_1);
 
                 DialogSettings cDialog = new DialogSettings(HomeActivity.this);
-
                 cDialog.show();
 
+*/
          /*   Intent intent=new Intent(HomeActivity.this,HomeActivity.class);
                // NotificationCreator.showTextNotification(HomeActivity.this,null,1,R.drawable.icon_boy_normal,null," you a good boy");
               //  NotificationCreator.showBigTextStyleNotification(HomeActivity.this,null,2,R.drawable.icon_boy_normal,null," you a good boy","بعد از برشماری اهداف ، مجدداً بر کمک به\u200Cکشورهای در حال توسعه و کشورهای فقیر تأکید میشود و از لزوم راه اندازی پایگاه اینترنتی با هدف نشر اطلاعات هم سخن گفته میگوید ... حالا اینکه اهداف این سند می\u200Cتواند چه صدماتی به اهداف و آرزوهای جماعتی پست و حقیر وارد کند موضوعی\u200Cست که باید دربارۀ آن بدون تعصب فکر کرد ...");
               //  NotificationCreator.showBigPictureStyleNotification(HomeActivity.this,null,3,R.drawable.icon_boy_normal,null," you a good boy","http://79.175.155.143/Naghashi/Files/Paint/76420180721_114434462_image.jpg");
                 NotificationCreator.showCustomNotification(HomeActivity.this,null,4,R.drawable.icon_boy_normal,null," you a good boy");
             */
+
+
+           showDialogPackage();
             }
         });
 
@@ -246,6 +250,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
         createHelperWnd();
 
+    }
+
+    void showDialogPackage(){
+        DialogScorePackage cDialog = new DialogScorePackage(HomeActivity.this);
+        cDialog.show();
     }
 
     @Override
