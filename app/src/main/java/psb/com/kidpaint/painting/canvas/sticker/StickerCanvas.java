@@ -15,6 +15,7 @@ import psb.com.kidpaint.utils.customView.stickerview.StickerView;
 public class StickerCanvas extends FrameLayout implements
         StickerView.onRemoved, StickerView.onVisibilityChange {
 
+    private OnStickerListener onStickerListener;
 
     private ArrayList<StickerView> arrStickers = new ArrayList<>();
 
@@ -46,6 +47,9 @@ public class StickerCanvas extends FrameLayout implements
         setClickable(true);
     }
 
+    public void setOnStickerListener(OnStickerListener onStickerListener) {
+        this.onStickerListener = onStickerListener;
+    }
 
     public void addSticker(StickerView stickerView) {
         arrStickers.add(stickerView);
@@ -117,10 +121,18 @@ public class StickerCanvas extends FrameLayout implements
     public void onRemoved(int id) {
         for (int i = 0; i < arrStickers.size(); i++) {
             if (arrStickers.get(i).getId() == id) {
+                if (onStickerListener != null) {
+                    onStickerListener.onStickerRemoved(arrStickers.get(i));
+                }
                 arrStickers.remove(i);
                 break;
             }
         }
+    }
+
+
+    public interface OnStickerListener{
+        void onStickerRemoved(StickerView stickerView);
     }
 
 }

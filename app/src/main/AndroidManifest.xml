@@ -68,6 +68,15 @@
 
         <activity android:name=".myMessages.ActivityMyMessages" />
         <activity android:name=".myPrize.ActivityMyPrize"></activity>
+
+        <receiver
+            android:name=".utils.checkInternet.ServiceCheckInternet"
+            android:label="NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

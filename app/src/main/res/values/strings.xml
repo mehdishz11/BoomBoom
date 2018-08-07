@@ -25,6 +25,7 @@
     <string name="accept">قبول</string>
     <string name="yes">بله</string>
     <string name="exit">خروج</string>
+    <string name="internet">اینترنت</string>
     <string name="enter">ورود</string>
     <string name="register_login">ثبت نام | ورود</string>
     <string name="login_register_hint">برای ورود شماره موبایل خود را وارد نمایید</string>

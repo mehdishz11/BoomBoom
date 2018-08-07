@@ -36,6 +36,9 @@ public class UserInfo implements Serializable
     @SerializedName("score")
     @Expose
     private Integer score;
+    @SerializedName("level")
+    @Expose
+    private Integer level;
     @SerializedName("rank")
     @Expose
     private Integer rank;
@@ -111,5 +114,13 @@ public class UserInfo implements Serializable
 
     public void setRank(Integer rank) {
         this.rank = rank;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

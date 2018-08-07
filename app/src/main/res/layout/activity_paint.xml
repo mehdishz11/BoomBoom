@@ -120,7 +120,22 @@
         </RelativeLayout>
 
 
-
+  <ImageView
+      android:id="@+id/imageCoin"
+      android:layout_width="40dp"
+      android:layout_alignParentRight="true"
+      android:layout_margin="@dimen/margin_10"
+      android:src="@drawable/coin"
+      android:layout_height="40dp" />
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/coinCount"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@+id/imageCoin"
+            android:layout_alignTop="@+id/imageCoin"
+            android:layout_alignBottom="@+id/imageCoin"
+            android:gravity="right|center"
+            android:text="112"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

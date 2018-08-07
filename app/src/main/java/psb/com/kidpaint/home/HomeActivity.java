@@ -254,6 +254,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     void showDialogPackage(){
         DialogScorePackage cDialog = new DialogScorePackage(HomeActivity.this);
+        cDialog.setShowBtnDiscardBuy(false);
         cDialog.show();
     }
 
@@ -527,6 +528,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
       /*  if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         }*/
+      refreshUserRank();
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult home: " + requestCode);
         if (requestCode == CODE_REGISTER_First) {
@@ -568,6 +570,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
             }
         } else if (requestCode == CODE_PAINT_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
+                setupDrawer();
                 btnHistory.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
                 btnNewPainting.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HistoryFragment(), TAG_FRAGMENT_HISTORY).commit();

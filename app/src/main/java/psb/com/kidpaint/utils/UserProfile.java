@@ -25,6 +25,8 @@ public class UserProfile {
     private static String KEY_BRITH_DAY = "KEY_BRITH_DAY";
     private static String KEY_USER_RANK = "KEY_USER_RANK";
     private static String KEY_USER_SCORE = "KEY_USER_SCORE";
+    private static String KEY_USER_LEVEL = "KEY_USER_LEVEL";
+    private static String KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY = "KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY";
 
     ///////////////////////////////////////////////////////////////////////////
     // getter
@@ -46,6 +48,7 @@ public class UserProfile {
         editor.putBoolean(KEY_SEX, userInfo.getMale());
         editor.putInt(KEY_USER_RANK, userInfo.getRank());
         editor.putInt(KEY_USER_SCORE, userInfo.getScore());
+        editor.putInt(KEY_USER_LEVEL, userInfo.getLevel());
         editor.apply();
     }
 
@@ -53,6 +56,12 @@ public class UserProfile {
         SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(KEY_PHONE_NUMBER, value);
+        editor.apply();
+    }
+    public  void set_KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY(boolean value) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY, value);
         editor.apply();
     }
 
@@ -103,6 +112,12 @@ public class UserProfile {
         editor.putInt(KEY_USER_SCORE, value);
         editor.apply();
     }
+    public  void set_KEY_LEVEL(int value) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(KEY_USER_LEVEL, value);
+        editor.apply();
+    }
 
 
     public  void REMOVE_KEY_USER_INFO() {
@@ -116,6 +131,9 @@ public class UserProfile {
         editor.remove(KEY_FCM);
         editor.remove(KEY_BRITH_DAY);
         editor.remove(KEY_SEX);
+        editor.remove(KEY_USER_SCORE);
+        editor.remove(KEY_USER_LEVEL);
+        editor.remove(KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY);
         editor.apply();
     }
 
@@ -168,6 +186,16 @@ public class UserProfile {
     public  Integer get_KEY_SCORE(int defeult) {
         SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
         return settings.getInt(KEY_USER_SCORE, defeult);
+    }
+
+  public  Integer get_KEY_LEVEL(int defeult) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        return settings.getInt(KEY_USER_LEVEL, defeult);
+    }
+
+   public  boolean get_KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY(boolean defeult) {
+        SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
+        return settings.getBoolean(KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY, defeult);
     }
 
 }

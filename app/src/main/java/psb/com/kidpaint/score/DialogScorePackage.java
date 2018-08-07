@@ -32,22 +32,27 @@ import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
 import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 
-public class DialogScorePackage extends Dialog implements IVScorePackage{
-  private TextView coin_title_1,coin_title_2,coin_title_3,textError;
-  private TextView coin_coin_1,coin_coin_2,coin_coin_3;
-  private TextView coin_price_1,coin_price_2,coin_price_3;
-  private TextView coin_discount_1,coin_discount_2,coin_discount_3;
-  private ImageView coin_image_1,coin_image_2,coin_image_3;
-  private Button coin_btn_1,coin_btn_2,coin_btn_3,btnReTry;
-  private ProgressBar progressBar;
-  private LinearLayout linearLayout;
-  private PScorePackage pScorePackage;
-
-    private Button save;
+public class DialogScorePackage extends Dialog implements IVScorePackage {
+    private TextView coin_title_1, coin_title_2, coin_title_3, textError, message;
+    private TextView coin_coin_1, coin_coin_2, coin_coin_3;
+    private TextView coin_price_1, coin_price_2, coin_price_3;
+    private TextView coin_discount_1, coin_discount_2, coin_discount_3;
+    private ImageView coin_image_1, coin_image_2, coin_image_3;
+    private Button coin_btn_1, coin_btn_2, coin_btn_3, btnReTry, btn_discard_buy;
+    private ProgressBar progressBar;
+    private LinearLayout linearLayout;
+    private PScorePackage pScorePackage;
 
 
-    private boolean defaultSound =SharePrefrenceHelper.getSoundEffect();
-    private boolean defaultMusic =SharePrefrenceHelper.getMusic();
+    private String dialogMessage = "";
+    private String dialogMode = "";
+    private boolean showBtnDiscardBuy = false;
+
+    private ScorePackageDiscardBtnListener scorePackageDiscardBtnListener;
+
+
+    private boolean defaultSound = SharePrefrenceHelper.getSoundEffect();
+    private boolean defaultMusic = SharePrefrenceHelper.getMusic();
 
     public DialogScorePackage(@NonNull Context context) {
         super(context);
@@ -64,9 +69,32 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
         init();
     }
 
+    public void setDialogMessage(String dialogMessage) {
+        this.dialogMessage = dialogMessage;
 
+        if ("".equals(dialogMessage)) {
+            message.setVisibility(View.GONE);
+        } else {
+            message.setText(dialogMessage);
+            message.setVisibility(View.VISIBLE);
+        }
+    }
 
-    private void init(){
+    public void setDialogMode(String dialogMode) {
+        this.dialogMode = dialogMode;
+    }
+
+    public void setShowBtnDiscardBuy(boolean showBtnDiscardBuy) {
+        this.showBtnDiscardBuy = showBtnDiscardBuy;
+        btn_discard_buy.setVisibility(showBtnDiscardBuy ? View.VISIBLE : View.GONE);
+
+    }
+
+    public void setScorePackageDiscardBtnListener(ScorePackageDiscardBtnListener scorePackageDiscardBtnListener) {
+        this.scorePackageDiscardBtnListener = scorePackageDiscardBtnListener;
+    }
+
+    private void init() {
         setCanceledOnTouchOutside(false);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 
@@ -94,111 +122,124 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
             }
         });
 
-
-          progressBar=findViewById(R.id.progressBar);
-          linearLayout=findViewById(R.id.rel_content);
-          textError=findViewById(R.id.TextError);
-          btnReTry=findViewById(R.id.btn_retry);
-
-          coin_title_1=findViewById(R.id.coin_title_1);
-          coin_title_2=findViewById(R.id.coin_title_2);
-          coin_title_3=findViewById(R.id.coin_title_3);
-
-          coin_coin_1=findViewById(R.id.coin_coin_1);
-          coin_coin_2=findViewById(R.id.coin_coin_2);
-          coin_coin_3=findViewById(R.id.coin_coin_3);
-
-          coin_price_1=findViewById(R.id.coin_price_1);
-          coin_price_2=findViewById(R.id.coin_price_2);
-          coin_price_3=findViewById(R.id.coin_price_3);
-
-          coin_discount_1=findViewById(R.id.coin_discount_1);
-          coin_discount_2=findViewById(R.id.coin_discount_2);
-          coin_discount_3=findViewById(R.id.coin_discount_3);
-
-          coin_image_1=findViewById(R.id.coin_image_1);
-          coin_image_2=findViewById(R.id.coin_image_2);
-          coin_image_3=findViewById(R.id.coin_image_3);
-
-          coin_btn_1=findViewById(R.id.btn_buy_1);
-          coin_btn_2=findViewById(R.id.btn_buy_2);
-          coin_btn_3=findViewById(R.id.btn_buy_3);
+        btn_discard_buy = findViewById(R.id.btn_discard_buy);
+        btn_discard_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_bubbles_1);
+                if (scorePackageDiscardBtnListener != null) {
+                    scorePackageDiscardBtnListener.btnDiscardBuySelect(dialogMode);
+                }
+                cancel();
+            }
+        });
 
 
+        progressBar = findViewById(R.id.progressBar);
+        message = findViewById(R.id.message);
 
-  btnReTry.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-          pScorePackage.getScorePackage();
+        linearLayout = findViewById(R.id.rel_content);
+        textError = findViewById(R.id.TextError);
+        btnReTry = findViewById(R.id.btn_retry);
 
-      }
-  });
+        coin_title_1 = findViewById(R.id.coin_title_1);
+        coin_title_2 = findViewById(R.id.coin_title_2);
+        coin_title_3 = findViewById(R.id.coin_title_3);
+
+        coin_coin_1 = findViewById(R.id.coin_coin_1);
+        coin_coin_2 = findViewById(R.id.coin_coin_2);
+        coin_coin_3 = findViewById(R.id.coin_coin_3);
+
+        coin_price_1 = findViewById(R.id.coin_price_1);
+        coin_price_2 = findViewById(R.id.coin_price_2);
+        coin_price_3 = findViewById(R.id.coin_price_3);
+
+        coin_discount_1 = findViewById(R.id.coin_discount_1);
+        coin_discount_2 = findViewById(R.id.coin_discount_2);
+        coin_discount_3 = findViewById(R.id.coin_discount_3);
+
+        coin_image_1 = findViewById(R.id.coin_image_1);
+        coin_image_2 = findViewById(R.id.coin_image_2);
+        coin_image_3 = findViewById(R.id.coin_image_3);
+
+        coin_btn_1 = findViewById(R.id.btn_buy_1);
+        coin_btn_2 = findViewById(R.id.btn_buy_2);
+        coin_btn_3 = findViewById(R.id.btn_buy_3);
+
+
+        btnReTry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pScorePackage.getScorePackage();
+
+            }
+        });
         linearLayout.setVisibility(View.GONE);
 
-        pScorePackage=new PScorePackage(this);
+        pScorePackage = new PScorePackage(this);
         pScorePackage.getScorePackage();
 
     }
 
-    void setInfo(ResponseGetScorePackage responseGetScorePackage){
+    void setInfo(ResponseGetScorePackage responseGetScorePackage) {
 
-        if (responseGetScorePackage.getExtra().size()>=3) {
+        if (responseGetScorePackage.getExtra().size() >= 3) {
             coin_title_1.setText(responseGetScorePackage.getExtra().get(0).getTitle());
             coin_title_2.setText(responseGetScorePackage.getExtra().get(1).getTitle());
             coin_title_3.setText(responseGetScorePackage.getExtra().get(2).getTitle());
 
-            coin_coin_1.setText(responseGetScorePackage.getExtra().get(0).getScore()+" سکه");
-            coin_coin_2.setText(responseGetScorePackage.getExtra().get(1).getScore()+" سکه");
-            coin_coin_3.setText(responseGetScorePackage.getExtra().get(2).getScore()+" سکه");
+            coin_coin_1.setText(responseGetScorePackage.getExtra().get(0).getScore() + " سکه");
+            coin_coin_2.setText(responseGetScorePackage.getExtra().get(1).getScore() + " سکه");
+            coin_coin_3.setText(responseGetScorePackage.getExtra().get(2).getScore() + " سکه");
 
-            coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice()+"");
-            coin_price_2.setText(responseGetScorePackage.getExtra().get(1).getPrice()+"");
-            coin_price_3.setText(responseGetScorePackage.getExtra().get(2).getPrice()+"");
+            coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
+            coin_price_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + "");
+            coin_price_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + "");
 
 //////////////////// discount 1 ////////////////////////////////////////
-            if (responseGetScorePackage.getExtra().get(0).getDiscountPercent()>0) {
-                float dis=((responseGetScorePackage.getExtra().get(0).getPrice()/100.0f)*responseGetScorePackage.getExtra().get(0).getDiscountPercent());
-                coin_discount_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() - (int)dis+"");
+            if (responseGetScorePackage.getExtra().get(0).getDiscountPercent() > 0) {
+                float dis = ((responseGetScorePackage.getExtra().get(0).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(0).getDiscountPercent());
+                coin_discount_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() - (int) dis + "");
                 coin_discount_1.setVisibility(View.VISIBLE);
-                coin_price_1.setPaintFlags( coin_price_1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                coin_price_1.setPaintFlags(coin_price_1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
-            }else{
-                coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice()+"");
+            } else {
+                coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
                 coin_discount_1.setVisibility(View.GONE);
             }
 
 //////////////////// discount 2 ////////////////////////////////////////
 
-            if (responseGetScorePackage.getExtra().get(1).getDiscountPercent()>0) {
-                float dis=((responseGetScorePackage.getExtra().get(1).getPrice()/100.0f)*responseGetScorePackage.getExtra().get(1).getDiscountPercent());
-                coin_discount_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() - (int)dis+"");
+            if (responseGetScorePackage.getExtra().get(1).getDiscountPercent() > 0) {
+                float dis = ((responseGetScorePackage.getExtra().get(1).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(1).getDiscountPercent());
+                coin_discount_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() - (int) dis + "");
                 coin_discount_2.setVisibility(View.VISIBLE);
-                coin_price_2.setPaintFlags( coin_price_2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                coin_price_2.setPaintFlags(coin_price_2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
-            }else{
-                coin_price_2.setText(responseGetScorePackage.getExtra().get(1).getPrice()+"");
+            } else {
+                coin_price_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + "");
                 coin_discount_2.setVisibility(View.GONE);
             }
 
 //////////////////// discount 3 ////////////////////////////////////////
-            if (responseGetScorePackage.getExtra().get(2).getDiscountPercent()>0) {
-                float dis=((responseGetScorePackage.getExtra().get(2).getPrice()/100.0f)*responseGetScorePackage.getExtra().get(2).getDiscountPercent());
-                coin_discount_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() - (int)dis+"");
+            if (responseGetScorePackage.getExtra().get(2).getDiscountPercent() > 0) {
+                float dis = ((responseGetScorePackage.getExtra().get(2).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(2).getDiscountPercent());
+                coin_discount_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() - (int) dis + "");
                 coin_discount_3.setVisibility(View.VISIBLE);
-                coin_price_2.setPaintFlags( coin_price_2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                coin_price_2.setPaintFlags(coin_price_2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
-            }else{
-                coin_price_3.setText(responseGetScorePackage.getExtra().get(2).getPrice()+"");
+            } else {
+                coin_price_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + "");
                 coin_discount_3.setVisibility(View.GONE);
             }
 
 
 //===================== images  ========================================================
 //======================================================================================
-                        if (responseGetScorePackage.getExtra().get(0).getImageUrl()!=null && !responseGetScorePackage.getExtra().get(0).getImageUrl().isEmpty()) {
+            if (responseGetScorePackage.getExtra().get(0).getImageUrl() != null && !responseGetScorePackage.getExtra().get(0).getImageUrl().isEmpty()) {
                 Picasso
                         .get()
                         .load(responseGetScorePackage.getExtra().get(0).getImageUrl())
@@ -206,7 +247,7 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
                         .onlyScaleDown()
                         .into(coin_image_1);
             }
-            if (responseGetScorePackage.getExtra().get(1).getImageUrl()!=null && !responseGetScorePackage.getExtra().get(1).getImageUrl().isEmpty()) {
+            if (responseGetScorePackage.getExtra().get(1).getImageUrl() != null && !responseGetScorePackage.getExtra().get(1).getImageUrl().isEmpty()) {
                 Picasso
                         .get()
                         .load(responseGetScorePackage.getExtra().get(1).getImageUrl())
@@ -214,7 +255,7 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
                         .onlyScaleDown()
                         .into(coin_image_2);
             }
-            if (responseGetScorePackage.getExtra().get(2).getImageUrl()!=null && !responseGetScorePackage.getExtra().get(2).getImageUrl().isEmpty()) {
+            if (responseGetScorePackage.getExtra().get(2).getImageUrl() != null && !responseGetScorePackage.getExtra().get(2).getImageUrl().isEmpty()) {
                 Picasso
                         .get()
                         .load(responseGetScorePackage.getExtra().get(2).getImageUrl())
@@ -223,8 +264,8 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
                         .into(coin_image_3);
             }
 
- //===================== btn  ========================================================
- //=================================================================================
+            //===================== btn  ========================================================
+            //=================================================================================
             coin_btn_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -243,7 +284,7 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
             coin_btn_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  pScorePackage.doBuyScorePackage(2);
+                    pScorePackage.doBuyScorePackage(2);
                 }
             });
 
@@ -251,25 +292,21 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
         }
 
 
-
-
         linearLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
 
 
-
-
     @Override
     public void startGetScorePackage() {
-         progressBar.setVisibility(View.VISIBLE);
-         btnReTry.setVisibility(View.GONE);
-         textError.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        btnReTry.setVisibility(View.GONE);
+        textError.setVisibility(View.GONE);
     }
 
     @Override
     public void onSuccessGetScorePackage(ResponseGetScorePackage responseGetScorePackage) {
-     setInfo(responseGetScorePackage);
+        setInfo(responseGetScorePackage);
     }
 
     @Override
@@ -293,12 +330,30 @@ public class DialogScorePackage extends Dialog implements IVScorePackage{
         Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
 
+        if (showBtnDiscardBuy && scorePackageDiscardBtnListener != null) {
+            scorePackageDiscardBtnListener.onSuccessBuyScorePackage(responseBuyScorePackage.getExtra());
+            cancel();
+
+        }
+
     }
 
     @Override
     public void onFailedBuyScorePackage(int errorCode, String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
+        if (showBtnDiscardBuy && scorePackageDiscardBtnListener != null) {
+            /*scorePackageDiscardBtnListener.onFailedBuyScorePackage();
+            cancel();*/
 
+        }
+    }
+
+    public interface ScorePackageDiscardBtnListener {
+        void btnDiscardBuySelect(String mode);
+
+        void onSuccessBuyScorePackage(int totalCoin);
+
+        void onFailedBuyScorePackage();
     }
 }

@@ -11,7 +11,7 @@ public interface IV_Stickers {
 
     void showStickers();
 
-    void onStickerSelected(Bitmap stickerBitmap);
+    void onStickerSelected(Bitmap stickerBitmap,int price);
 
     void startGetStickersFromServer();
     void getStickersSuccessFromServer();

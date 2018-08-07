@@ -4,7 +4,7 @@
     xmlns:ndroid="http://schemas.android.com/tools"
     android:id="@+id/rel_parent"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="350dp">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,13 +14,27 @@
         android:layout_marginTop="-36dp"
         android:scaleType="fitXY"
         android:src="@drawable/img_dialog_bgr" />
+    <psb.com.cview.CustomTextViewBold
+        android:id="@+id/message"
+        android:textSize="@dimen/font_size_14"
+        android:text="پیغام"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:visibility="visible"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/rel_title"
 
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:id="@+id/rel_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rel_title"
-        android:visibility="gone"
+        android:layout_below="@+id/message"
+        android:visibility="visible"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="-20dp"
@@ -394,4 +408,15 @@
         android:textColor="@color/white_1"
         android:textSize="@dimen/text_size_large" />
 
+    <psb.com.cview.CButton
+        android:id="@+id/btn_discard_buy"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_rect"
+        android:paddingBottom="@dimen/space_small"
+        android:text="نمیخوام"
+        android:textColor="@color/white_1"
+        android:textSize="@dimen/text_size_large" />
 </RelativeLayout>
