@@ -18,9 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".ActivityTest"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,7 +67,7 @@
         </service>
 
         <activity android:name=".myMessages.ActivityMyMessages" />
-        <activity android:name=".myPrize.ActivityMyPrize"></activity>
+        <activity android:name=".myPrize.ActivityMyPrize" />
 
         <receiver
             android:name=".utils.checkInternet.ServiceCheckInternet"
@@ -77,6 +77,10 @@
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
+<!--
+        <activity android:name=".ActivityTest"></activity>
+-->
     </application>
 
 </manifest>

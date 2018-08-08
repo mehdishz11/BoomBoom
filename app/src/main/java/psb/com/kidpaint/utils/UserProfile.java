@@ -188,9 +188,9 @@ public class UserProfile {
         return settings.getInt(KEY_USER_SCORE, defeult);
     }
 
-  public  Integer get_KEY_LEVEL(int defeult) {
+  public  Integer get_KEY_LEVEL(int defalt) {
         SharedPreferences settings = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
-        return settings.getInt(KEY_USER_LEVEL, defeult);
+        return settings.getInt(KEY_USER_LEVEL, defalt);
     }
 
    public  boolean get_KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY(boolean defeult) {
