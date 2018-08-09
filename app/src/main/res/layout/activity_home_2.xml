@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="right"
-    android:background="@color/white_1"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
-    android:layoutDirection="ltr"
-    tools:context=".home.HomeActivity"
-    tools:openDrawer="left">
+
 
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/white_1"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -96,7 +88,15 @@
             android:padding="@dimen/space_small"
             android:src="@drawable/btn_settings" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_toLeftOf="@+id/relUser"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="180dp">
 
+    </android.support.v7.widget.RecyclerView>
         <!--competition-->
         <RelativeLayout
             android:id="@+id/rel_competition"
@@ -105,7 +105,7 @@
             android:rotation="-3"
             android:layout_toLeftOf="@+id/btn_more"
             android:layout_marginRight="-10dp"
-            android:layout_marginTop="@dimen/margin_10">
+            android:layout_marginTop="@dimen/margin_5">
 
             <RelativeLayout
                 android:id="@+id/rel_parent"
@@ -209,14 +209,12 @@
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginBottom="24dp"
+                                android:layout_marginBottom="25dp"
                                 android:paddingBottom="5dp"
-                                android:paddingLeft="3dp"
-                                android:paddingRight="15dp"
-                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
                                 android:src="@drawable/user_profile"
                                 app:riv_border_color="@color/White"
                                 app:riv_corner_radius="10dp" />
@@ -224,7 +222,7 @@
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/img_winner_1"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="70dp"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="34dp"
@@ -359,6 +357,7 @@
         <!--user-->
 
         <RelativeLayout
+            android:id="@+id/relUser"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/rel_competition"
             android:layout_marginRight="65dp"
@@ -422,6 +421,56 @@
                 android:src="@drawable/user_empty_gray"
                 android:tint="@color/light_level_0"
                 app:riv_corner_radius="40dp" />
+
+            <RelativeLayout
+                android:id="@+id/relCoin"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/act_user_image"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/coinImage"
+                    android:layout_width="25dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="3dp"
+                    android:src="@drawable/coin"
+                    android:layout_height="25dp" />
+
+                <psb.com.cview.CustomTextView
+                    android:id="@+id/text_userCoin"
+                    android:layout_toLeftOf="@+id/coinImage"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تعداد سکه"
+                    android:textColor="@color/blue_3"
+                    android:textSize="@dimen/font_size_11" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relRank"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/relCoin"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/rankImage"
+                    android:layout_width="25dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="3dp"
+                    android:src="@drawable/coin"
+                    android:layout_height="25dp" />
+
+                <psb.com.cview.CustomTextView
+                    android:id="@+id/text_userRank"
+                    android:layout_toLeftOf="@+id/rankImage"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="رتبه کلی"
+                    android:textColor="@color/blue_3"
+                    android:textSize="@dimen/font_size_11" />
+            </RelativeLayout>
 
 
         </RelativeLayout>
@@ -585,23 +634,12 @@
         </RelativeLayout>
 
 
-    </RelativeLayout>
-
     <FrameLayout
         android:id="@+id/frameLayoutSplash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="5dp" />
+</RelativeLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="@color/colorPrimary">
 
-        <include layout="@layout/rel_navigation_view" />
 
-    </android.support.design.widget.NavigationView>
-
-</android.support.v4.widget.DrawerLayout>

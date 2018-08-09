@@ -20,6 +20,8 @@
         android:layout_height="match_parent"
         >
 
+
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_outline_bgr"
             android:layout_width="match_parent"
@@ -45,10 +47,20 @@
             android:scaleType="centerCrop"
             app:riv_corner_radius="40dp"
             />
-
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/textNew"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/margin_10"
+            android:gravity="center"
+            android:text="+ نقاشی جدید"
+            android:layout_height="wrap_content" />
         <RelativeLayout
+            android:id="@+id/rel_btns_bg"
+
             android:layout_width="match_parent"
             android:layout_height="52dp"
+
             android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/rel_btns"
             android:layout_alignRight="@+id/rel_btns"
@@ -68,6 +80,7 @@
         <RelativeLayout
             android:id="@+id/rel_btns"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.home.PHome;
 import psb.com.kidpaint.home.history.PHistory;
 
 
@@ -16,9 +17,9 @@ import psb.com.kidpaint.home.history.PHistory;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
 
 
-   private PHistory pHistory;
+   private PHome pHistory;
 
-    public HistoryAdapter(PHistory pHistory) {
+    public HistoryAdapter(PHome pHistory) {
         this.pHistory = pHistory;
     }
 

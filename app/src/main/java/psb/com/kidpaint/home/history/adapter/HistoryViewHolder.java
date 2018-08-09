@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import psb.com.kidpaint.R;
 
@@ -15,6 +16,8 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
     public ImageView imgMask;
     public View parentView;
     public Button delete,edit,competition;
+    public RelativeLayout relBtns,relBtnsBg;
+    public TextView textViewnew ;
 
     public HistoryViewHolder(View itemView) {
         super(itemView);
@@ -26,6 +29,9 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
         delete=itemView.findViewById(R.id.btn_delete);
         edit=itemView.findViewById(R.id.btn_edit);
         competition=itemView.findViewById(R.id.btn_competition);
+        relBtns=itemView.findViewById(R.id.rel_btns);
+        relBtnsBg=itemView.findViewById(R.id.rel_btns_bg);
+        textViewnew=itemView.findViewById(R.id.textNew);
 
     }
 }

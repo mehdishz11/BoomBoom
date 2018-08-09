@@ -118,7 +118,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
 
     @Override
     public void onGetMyPaintHistorySuccess() {
-        historyAdapter = new HistoryAdapter(pHistory);
+        //historyAdapter = new HistoryAdapter(pHistory);
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -256,7 +256,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
         if (requestCode == REQUEST_CODE_REGISTER) {
             if (resultCode == Activity.RESULT_OK) {
                 if (mListener!=null) {
-                    mListener.setupDrawer();
+                    mListener.setupUserInfo();
                     mListener.refreshUserRank();
                     mListener.refreshUserPrize();
                 }
@@ -276,7 +276,7 @@ public class HistoryFragment extends Fragment implements IVHistory {
     }
 
     public interface OnFragmentInteractionListener {
-        void setupDrawer();
+        void setupUserInfo();
         void refreshUserRank();
         void refreshUserPrize();
     }

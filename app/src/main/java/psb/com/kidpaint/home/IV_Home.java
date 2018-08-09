@@ -2,6 +2,7 @@ package psb.com.kidpaint.home;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 
 
@@ -15,5 +16,20 @@ public interface IV_Home {
     void startGetPrizeRequest();
     void prizeRequestSuccess(int score);
     void prizeRequestFailed(String msg);
+
+    void onStartMyPaintHistory();
+    void onGetMyPaintHistorySuccess();
+    void onGetMyPaintHistoryFailed();
+
+    void onSelecteditem(String filePath);
+
+
+    void onStartPostPaint();
+    void onSuccessPostPaint(ResponsePostPaint responsePostPaint);
+    void onFailedPostPaint(int errorCode,String errorMessage);
+    void showUserRegisterDialog(int position);
+    void showDeleteDialog(int position);
+
+   void onOutlineSelected(int resId);
 
 }

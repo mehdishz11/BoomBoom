@@ -9,19 +9,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,16 +28,14 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import me.itangqi.waveloadingview.WaveLoadingView;
-import psb.com.cview.CButton;
-import psb.com.kidpaint.App;
+import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.HistoryFragment;
+import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
 import psb.com.kidpaint.home.newPaint.NewPaintFragment;
 import psb.com.kidpaint.home.splash.SplashFragment;
-import psb.com.kidpaint.myMessages.ActivityMyMessages;
-import psb.com.kidpaint.myPrize.ActivityMyPrize;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.score.DialogScorePackage;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
@@ -50,6 +45,7 @@ import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.intro.Intro;
 import psb.com.kidpaint.utils.customView.intro.IntroPosition;
@@ -64,9 +60,7 @@ import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 
-public class HomeActivity extends BaseActivity implements IV_Home,
-        HistoryFragment.OnFragmentInteractionListener,
-        NewPaintFragment.OnFragmentInteractionListener,
+public class HomeActivity_2 extends BaseActivity implements IV_Home,
         SplashFragment.OnFragmentInteractionListener {
 
     public static int CODE_REGISTER_First = 106;
@@ -74,23 +68,21 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     public static int CODE_Competition = 108;
     public static int CODE_EDIT = 108;
     public static int CODE_PAINT_ACTIVITY = 109;
-    private CButton btnNewPainting;
-    private CButton btnHistory;
-    private ImageView drawerIcon, btn_settings;
 
-    private final String TAG_FRAGMENT_HISTORY = "TAG_FRAGMENT_HISTORY";
-    private final String TAG_FRAGMENT_NEW_PAINTING = "TAG_FRAGMENT_NEW_PAINTING";
+    private ImageView drawerIcon, btn_settings;
+    private int sendPosition = -1;
+
+    private HistoryAdapter historyAdapter;
+
     private final String TAG_FRAGMENT_SPLASH = "TAG_FRAGMENT_SPLASH";
 
-    private DrawerLayout drawer;
-    private NavigationView navigationView;
-    private RelativeLayout myPaint, relMessage, relMyPrize, relAbout;
-    private TextView registerOrLogin;
+
+    private TextView registerOrLogin,text_user_rate,text_user_Coin;
     private ImageView userImage;
-    private TextView editUser, logOut, unreadMessageCount;
+    private TextView editUser;
     private boolean isFirstRegister = false;
 
-    private ImageView img_winner_1, img_winner_2, img_winner_3;
+    private ImageView img_winner_1, img_winner_2, img_winner_3,img_podium;
 
 
     private UserProfile userProfile;
@@ -99,29 +91,20 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     private FrameLayout frameLayoutSplash;
 
-    private AppBarLayout appBar;
 
     private ResponseGetLeaderShip responseGetLeaderShip;
     private ResponsePrize responsePrize;
 
-    private ImageView imageViewPrizeLeft, imageViewPrizeCenter, imageViewRight;
-    private TextView textViewPrizeLeftName, textViewPrizeCenterName, textViewPrizeRightName, text_user_rate;
-    private TextView textViewPrizeLeftScore, textViewPrizeCenterScore, textViewPrizeRightScore;
-    private WaveLoadingView waveLoadingViewLeft, waveLoadingViewCenter, waveLoadingViewRight;
-
-    private LinearLayout relPrize;
-
-
-    private Button buttonPrizeLeft, buttonPrizeCenter, buttonPrizeRight;
 
     private SplashFragment splashFragment;
+    private RecyclerView recyclerView;
 
     private int lastOffset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_2);
 
 
         pHome = new PHome(this);
@@ -129,7 +112,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
         Log.d("TAG", "onCreate token: " + userProfile.get_KEY_FCM("-"));
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(HomeActivity.this, new OnSuccessListener<InstanceIdResult>() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(HomeActivity_2.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
@@ -146,101 +129,38 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         img_winner_1 = findViewById(R.id.img_winner_1);
         img_winner_2 = findViewById(R.id.img_winner_2);
         img_winner_3 = findViewById(R.id.img_winner_3);
-        text_user_rate = findViewById(R.id.text_user_rate);
         btn_settings = findViewById(R.id.btn_settings);
+        drawerIcon = findViewById(R.id.btn_more);
+
+        recyclerView = findViewById(R.id.recyclerView);
 
         splashFragment = new SplashFragment().newInstance();
 
 
-        btnNewPainting = findViewById(R.id.btn_new_painting);
-        frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
-        btnHistory = findViewById(R.id.btn_history);
-        drawerIcon = findViewById(R.id.btn_more);
-        appBar = findViewById(R.id.app_bar);
-
-        appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
-                if (lastOffset > verticalOffset) {
-                    hideLion();
-                    showRooster();
-                    Log.d(App.TAG, "onOffsetChanged: scrollUp");
-                } else {
-                    showLion();
-                    hideRooster();
-                    Log.d(App.TAG, "onOffsetChanged: scrollDown");
-                }
-                lastOffset = verticalOffset;
-            }
-        });
-
-        btnNewPainting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SoundHelper.playSound(R.raw.new_paint);
-
-                btnNewPainting.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
-                btnHistory.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new NewPaintFragment().newInstance(), TAG_FRAGMENT_NEW_PAINTING).commit();
-            }
-        });
-
-        btnHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SoundHelper.playSound(R.raw.book);
-
-                btnHistory.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
-                btnNewPainting.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HistoryFragment(), TAG_FRAGMENT_HISTORY).commit();
-            }
-        });
-
 
         ToolbarHandler.makeTansluteToolbar(this, getWindow(), getWindow().getDecorView());
 
-        Button btnCompetition = findViewById(R.id.competition);
-        btnCompetition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(HomeActivity.this, ActivityCompetition.class), CODE_Competition);
-            }
-        });
 
 
-//        set default values
-        btnNewPainting.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
-        btnHistory.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new NewPaintFragment().newInstance(), TAG_FRAGMENT_NEW_PAINTING).commit();
-
+        frameLayoutSplash=findViewById(R.id.frameLayoutSplash);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
 
         drawerIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.END);
+               // drawer.openDrawer(GravityCompat.END);
             }
         });
 
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*SoundHelper.playSound(R.raw.click_1);
+                SoundHelper.playSound(R.raw.click_1);
 
-                DialogSettings cDialog = new DialogSettings(HomeActivity.this);
+                DialogSettings cDialog = new DialogSettings(HomeActivity_2.this);
                 cDialog.show();
 
-*/
-         /*   Intent intent=new Intent(HomeActivity.this,HomeActivity.class);
-               // NotificationCreator.showTextNotification(HomeActivity.this,null,1,R.drawable.icon_boy_normal,null," you a good boy");
-              //  NotificationCreator.showBigTextStyleNotification(HomeActivity.this,null,2,R.drawable.icon_boy_normal,null," you a good boy","بعد از برشماری اهداف ، مجدداً بر کمک به\u200Cکشورهای در حال توسعه و کشورهای فقیر تأکید میشود و از لزوم راه اندازی پایگاه اینترنتی با هدف نشر اطلاعات هم سخن گفته میگوید ... حالا اینکه اهداف این سند می\u200Cتواند چه صدماتی به اهداف و آرزوهای جماعتی پست و حقیر وارد کند موضوعی\u200Cست که باید دربارۀ آن بدون تعصب فکر کرد ...");
-              //  NotificationCreator.showBigPictureStyleNotification(HomeActivity.this,null,3,R.drawable.icon_boy_normal,null," you a good boy","http://79.175.155.143/Naghashi/Files/Paint/76420180721_114434462_image.jpg");
-                NotificationCreator.showCustomNotification(HomeActivity.this,null,4,R.drawable.icon_boy_normal,null," you a good boy");
-            */
 
-
-           showDialogPackage();
             }
         });
 
@@ -250,10 +170,12 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
         createHelperWnd();
 
+        pHome.getMyPaintHistory();
+
     }
 
     void showDialogPackage(){
-        DialogScorePackage cDialog = new DialogScorePackage(HomeActivity.this);
+        DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
         cDialog.setShowBtnDiscardBuy(false);
         cDialog.show();
     }
@@ -275,58 +197,32 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
 
     public void setupUserInfo() {
-        Log.d("TAG", "setupUserInfo: ");
-        drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        userImage = navigationView.findViewById(R.id.act_user_image);
-        editUser = navigationView.findViewById(R.id.text_edit);
-        logOut = navigationView.findViewById(R.id.act_sign_out);
-        registerOrLogin = navigationView.findViewById(R.id.reg_or_login);
 
-        relMessage = navigationView.findViewById(R.id.message);
-        unreadMessageCount = navigationView.findViewById(R.id.unreadMessageCount);
-        relMyPrize = navigationView.findViewById(R.id.prize_history);
-        relAbout = navigationView.findViewById(R.id.about);
+        userImage = findViewById(R.id.act_user_image);
+        editUser = findViewById(R.id.text_edit);
+        registerOrLogin = findViewById(R.id.reg_or_login);
+        text_user_Coin = findViewById(R.id.text_userCoin);
+        text_user_rate = findViewById(R.id.text_userRank);
+        img_podium = findViewById(R.id.img_podium);
 
-        imageViewPrizeLeft = navigationView.findViewById(R.id.img_prize_1);
-        imageViewPrizeCenter = navigationView.findViewById(R.id.img_prize_2);
-        imageViewRight = navigationView.findViewById(R.id.img_prize_3);
+        img_podium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+            }
+        });
+       text_user_Coin.setText(userProfile.get_KEY_SCORE(0)+" سکه");
 
-        textViewPrizeLeftName = navigationView.findViewById(R.id.text_prize_1_title);
-        textViewPrizeCenterName = navigationView.findViewById(R.id.text_prize_2_title);
-        textViewPrizeRightName = navigationView.findViewById(R.id.text_prize_3_title);
-
-        textViewPrizeLeftScore = navigationView.findViewById(R.id.text_prize_1_point);
-        textViewPrizeCenterScore = navigationView.findViewById(R.id.text_prize_2_point);
-        textViewPrizeRightScore = navigationView.findViewById(R.id.text_prize_3_point);
-
-        waveLoadingViewLeft = navigationView.findViewById(R.id.wave_prize_1);
-        waveLoadingViewCenter = navigationView.findViewById(R.id.wave_prize_2);
-        waveLoadingViewRight = navigationView.findViewById(R.id.wave_prize_3);
-        relPrize = navigationView.findViewById(R.id.relPrize);
-
-
-        buttonPrizeLeft = navigationView.findViewById(R.id.btn_prize_1);
-        buttonPrizeCenter = navigationView.findViewById(R.id.btn_prize_2);
-        buttonPrizeRight = navigationView.findViewById(R.id.btn_prize_3);
-
-        waveLoadingViewLeft.setAnimDuration(2500);
-        waveLoadingViewCenter.setAnimDuration(2500);
-        waveLoadingViewRight.setAnimDuration(2500);
 
         setUnreadMessageCount();
 
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-            logOut.setVisibility(View.GONE);
-            relMyPrize.setVisibility(View.GONE);
             editUser.setVisibility(View.GONE);
             registerOrLogin.setText("ثبت نام | ورود");
 
         } else {
             editUser.setVisibility(View.VISIBLE);
-            relMyPrize.setVisibility(View.VISIBLE);
-            logOut.setVisibility(View.VISIBLE);
             registerOrLogin.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
 
         }
@@ -360,16 +256,15 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         editUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ActivityEditProfile.class);
+                Intent intent = new Intent(HomeActivity_2.this, ActivityEditProfile.class);
                 startActivityForResult(intent, CODE_EDIT);
-                drawer.closeDrawer(GravityCompat.END);
             }
         });
 
-        relMessage.setOnClickListener(new View.OnClickListener() {
+   /*     relMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ActivityMyMessages.class);
+                Intent intent = new Intent(HomeActivity_2.this, ActivityMyMessages.class);
                 startActivityForResult(intent, CODE_REGISTER);
                 drawer.closeDrawer(GravityCompat.END);
             }
@@ -379,57 +274,48 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         relMyPrize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ActivityMyPrize.class);
+                Intent intent = new Intent(HomeActivity_2.this, ActivityMyPrize.class);
                 startActivityForResult(intent, CODE_REGISTER);
                 drawer.closeDrawer(GravityCompat.END);
             }
-        });
+        });*/
 
 
         registerOrLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    Intent intent = new Intent(HomeActivity.this, ActivityEditProfile.class);
+                    Intent intent = new Intent(HomeActivity_2.this, ActivityEditProfile.class);
                     startActivityForResult(intent, CODE_EDIT);
-                    drawer.closeDrawer(GravityCompat.END);
                 } else {
-                    Intent intent = new Intent(HomeActivity.this, ActivityRegisterUser.class);
+                    Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
                     startActivityForResult(intent, CODE_REGISTER_First);
                 }
-                drawer.closeDrawer(GravityCompat.END);
             }
         });
 
-        logOut.setOnClickListener(new View.OnClickListener() {
+       /* logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawer.closeDrawer(GravityCompat.END);
                 exitProfileDialog();
             }
-        });
+        });*/
     }
 
     void setUnreadMessageCount() {
-        if (pHome != null && unreadMessageCount != null) {
+     /*   if (pHome != null && unreadMessageCount != null) {
             int unread = pHome.getUnreadMessageCount();
             unreadMessageCount.setText(unread + "");
             unreadMessageCount.setVisibility(unread > 0 ? View.VISIBLE : View.GONE);
-        }
+        }*/
     }
     @Override
     public void onOutlineSelected(int resId) {
-        Intent intent = new Intent(HomeActivity.this, PaintActivity.class);
+        Intent intent = new Intent(HomeActivity_2.this, PaintActivity.class);
         intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
         startActivityForResult(intent, CODE_PAINT_ACTIVITY);
     }
 
-    @Override
-    public void onFragmentAttached(Fragment fragment) {
-        if (fragment instanceof NewPaintFragment) {
-
-        }
-    }
 
 
     @Override
@@ -448,11 +334,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         // finish();
         setupUserInfo();
 
-        text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
+        text_user_rate.setText("ثبت نام کنید");
         text_user_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(HomeActivity.this, ActivityRegisterUser.class), CODE_REGISTER_First);
+                startActivityForResult(new Intent(HomeActivity_2.this, ActivityRegisterUser.class), CODE_REGISTER_First);
             }
         });
 
@@ -473,7 +359,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     @Override
     public void prizeRequestSuccess(int score) {
         responseGetLeaderShip.getExtra().setMyScore(score);
-        setPrizeLayout();
+       // setPrizeLayout();
         final MessageDialog dialog = new MessageDialog(getContext());
 
         dialog.setMessage(getString(R.string.prizedeliveryContact));
@@ -496,51 +382,6 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     @Override
     public void prizeRequestFailed(String msg) {
-
-    }
-
-    @Override
-    public void onStartMyPaintHistory() {
-
-    }
-
-    @Override
-    public void onGetMyPaintHistorySuccess() {
-
-    }
-
-    @Override
-    public void onGetMyPaintHistoryFailed() {
-
-    }
-
-    @Override
-    public void onSelecteditem(String filePath) {
-
-    }
-
-    @Override
-    public void onStartPostPaint() {
-
-    }
-
-    @Override
-    public void onSuccessPostPaint(ResponsePostPaint responsePostPaint) {
-
-    }
-
-    @Override
-    public void onFailedPostPaint(int errorCode, String errorMessage) {
-
-    }
-
-    @Override
-    public void showUserRegisterDialog(int position) {
-
-    }
-
-    @Override
-    public void showDeleteDialog(int position) {
 
     }
 
@@ -570,9 +411,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-      /*  if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-        }*/
+
       refreshUserRank();
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult home: " + requestCode);
@@ -616,10 +455,10 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         } else if (requestCode == CODE_PAINT_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
-                btnHistory.setBackgroundResource(R.drawable.img_icon_rectangle_half_selected);
-                btnNewPainting.setBackgroundResource(R.drawable.btn_rectangle_toolbar_half);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HistoryFragment(), TAG_FRAGMENT_HISTORY).commit();
 
+                // TODO: 8/9/2018 adapter refresh
+
+                pHome.getMyPaintHistory();
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         }
@@ -639,9 +478,9 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
-        showIntro();
+        //showIntro();
         if (isFirstRegister) {
-            showIntroNewUser();
+          //  showIntroNewUser();
         }
     }
 
@@ -649,7 +488,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     public void splashFailed(String msg) {
         frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
-        showIntro();
+        //showIntro();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -672,13 +511,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     @Override
     public void getPrizeSuccess(ResponsePrize responsePrize) {
         this.responsePrize = responsePrize;
-        setPrizes();
     }
 
     @Override
     public void getPrizeFailed(ResponsePrize responsePrize) {
         this.responsePrize = responsePrize;
-        setPrizes();
     }
 
 
@@ -705,14 +542,13 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     }
 
     private void showIntroNewUser() {
-        drawer.openDrawer(GravityCompat.END);
 
         final View view = findViewById(R.id.prizeHint);
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(HomeActivity.this, view, IntroEnum.getLayoutId(14), IntroPosition.TOP, IntroEnum.getSoundId(14), IntroEnum.getShareId(14), null, null);
+                FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(HomeActivity_2.this, view, IntroEnum.getLayoutId(14), IntroPosition.TOP, IntroEnum.getSoundId(14), IntroEnum.getShareId(14), null, null);
 
 
                 FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
@@ -728,36 +564,6 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
             }
         });
-    }
-
-    private void setPrizes() {
-        if (responsePrize != null && responsePrize.getExtra() != null && responsePrize.getExtra().size() > 0) {
-
-            if (!responsePrize.getExtra().get(0).getImageUrl().isEmpty()) {
-                Picasso.get().load(responsePrize.getExtra().get(0).getImageUrl()).into(imageViewPrizeLeft);
-                Picasso.get().load(responsePrize.getExtra().get(1).getImageUrl()).into(imageViewPrizeCenter);
-                Picasso.get().load(responsePrize.getExtra().get(2).getImageUrl()).into(imageViewRight);
-
-
-                textViewPrizeLeftName.setText(responsePrize.getExtra().get(0).getTitle());
-                textViewPrizeCenterName.setText(responsePrize.getExtra().get(1).getTitle());
-                textViewPrizeRightName.setText(responsePrize.getExtra().get(2).getTitle());
-
-                textViewPrizeLeftScore.setText(responsePrize.getExtra().get(0).getNeedScore() + " " + getString(R.string.point));
-                textViewPrizeCenterScore.setText(responsePrize.getExtra().get(1).getNeedScore() + " " + getString(R.string.point));
-                textViewPrizeRightScore.setText(responsePrize.getExtra().get(2).getNeedScore() + " " + getString(R.string.point));
-
-                if (responseGetLeaderShip != null) {
-                    setPrizeLayout();
-                }
-            } else {
-                relPrize.setVisibility(View.GONE);
-
-            }
-        } else {
-            relPrize.setVisibility(View.GONE);
-
-        }
     }
 
     void setWinners() {
@@ -797,16 +603,16 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
             } else {
                 if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
+                    text_user_rate.setText("ثبت نام کنید");
                     text_user_rate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivityForResult(new Intent(HomeActivity.this, ActivityRegisterUser.class), CODE_REGISTER_First);
+                            startActivityForResult(new Intent(HomeActivity_2.this, ActivityRegisterUser.class), CODE_REGISTER_First);
                         }
                     });
 
                 } else {
-                    text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+                    text_user_rate.setText("شرکت نکرده اید");
                     text_user_rate.setOnClickListener(null);
                 }
             }
@@ -815,149 +621,13 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
         if (responsePrize != null && responsePrize.getExtra() != null && responsePrize.getExtra().size() > 0) {
             if (!responsePrize.getExtra().get(0).getImageUrl().isEmpty()) {
-                setPrizeLayout();
+              //  setPrizeLayout();
 
             } else {
-                relPrize.setVisibility(View.GONE);
+              //  relPrize.setVisibility(View.GONE);
             }
         } else {
-            relPrize.setVisibility(View.GONE);
-        }
-    }
-
-    int enableColor = R.color.green_2;
-
-    private void setPrizeLayout() {
-        waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(0).getNeedScore());
-        if (waveLoadingViewLeft.getProgressValue() >= 100) {
-            waveLoadingViewLeft.setProgressValue(100);
-            waveLoadingViewLeft.setWaveColor(getResources().getColor(enableColor));
-            waveLoadingViewLeft.setBorderColor(getResources().getColor(enableColor));
-            textViewPrizeLeftName.setTextColor(getResources().getColor(enableColor));
-            textViewPrizeLeftScore.setTextColor(getResources().getColor(enableColor));
-        } else {
-            waveLoadingViewLeft.setWaveColor(getResources().getColor(R.color.md_grey_400));
-            waveLoadingViewLeft.setBorderColor(getResources().getColor(R.color.md_grey_400));
-            waveLoadingViewLeft.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(0).getNeedScore());
-            textViewPrizeLeftName.setTextColor(getResources().getColor(R.color.md_grey_400));
-            textViewPrizeLeftScore.setTextColor(getResources().getColor(R.color.md_grey_400));
-        }
-
-
-        waveLoadingViewCenter.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(1).getNeedScore());
-        if (waveLoadingViewCenter.getProgressValue() >= 100) {
-            waveLoadingViewCenter.setProgressValue(100);
-            waveLoadingViewCenter.setWaveColor(getResources().getColor(enableColor));
-            waveLoadingViewCenter.setBorderColor(getResources().getColor(enableColor));
-            textViewPrizeCenterName.setTextColor(getResources().getColor(enableColor));
-            textViewPrizeCenterScore.setTextColor(getResources().getColor(enableColor));
-        } else {
-            waveLoadingViewCenter.setWaveColor(getResources().getColor(R.color.md_grey_400));
-            waveLoadingViewCenter.setBorderColor(getResources().getColor(R.color.md_grey_400));
-            waveLoadingViewCenter.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(1).getNeedScore());
-            textViewPrizeCenterName.setTextColor(getResources().getColor(R.color.md_grey_400));
-            textViewPrizeCenterScore.setTextColor(getResources().getColor(R.color.md_grey_400));
-        }
-
-        waveLoadingViewRight.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(2).getNeedScore());
-        if (waveLoadingViewRight.getProgressValue() >= 100) {
-            waveLoadingViewRight.setProgressValue(100);
-            waveLoadingViewRight.setWaveColor(getResources().getColor(enableColor));
-            waveLoadingViewRight.setBorderColor(getResources().getColor(enableColor));
-            textViewPrizeRightName.setTextColor(getResources().getColor(enableColor));
-            textViewPrizeRightScore.setTextColor(getResources().getColor(enableColor));
-        } else {
-            waveLoadingViewRight.setWaveColor(getResources().getColor(R.color.md_grey_400));
-            waveLoadingViewRight.setBorderColor(getResources().getColor(R.color.md_grey_400));
-            waveLoadingViewRight.setProgressValue((responseGetLeaderShip.getExtra().getMyScore() * 100) / responsePrize.getExtra().get(2).getNeedScore());
-            textViewPrizeRightName.setTextColor(getResources().getColor(R.color.md_grey_400));
-            textViewPrizeRightScore.setTextColor(getResources().getColor(R.color.md_grey_400));
-        }
-
-        setPrizeButtonContent();
-        relPrize.setVisibility(View.VISIBLE);
-    }
-
-    private void setPrizeButtonContent() {
-        buttonPrizeLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isRegistered()) {
-                    if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(0).getNeedScore()) {
-                        dialogGivePrize(responsePrize.getExtra().get(0).getId());
-                    } else {
-                        setPrizeDialogLowScore(responsePrize.getExtra().get(0).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
-                    }
-                } else {
-                    dialogRegister();
-                }
-                drawer.closeDrawer(GravityCompat.END);
-            }
-        });
-
-        buttonPrizeCenter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isRegistered()) {
-                    if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(1).getNeedScore()) {
-                        dialogGivePrize(responsePrize.getExtra().get(1).getId());
-                    } else {
-                        setPrizeDialogLowScore(responsePrize.getExtra().get(1).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
-                    }
-                } else {
-                    dialogRegister();
-                }
-                drawer.closeDrawer(GravityCompat.END);
-            }
-        });
-
-        buttonPrizeRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isRegistered()) {
-                    if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(2).getNeedScore()) {
-                        dialogGivePrize(responsePrize.getExtra().get(2).getId());
-                    } else {
-                        setPrizeDialogLowScore(responsePrize.getExtra().get(2).getNeedScore() - responseGetLeaderShip.getExtra().getMyScore());
-                    }
-                } else {
-                    dialogRegister();
-                }
-                drawer.closeDrawer(GravityCompat.END);
-            }
-        });
-
-        if (isRegistered()) {
-            buttonPrizeLeft.setBackgroundResource(R.drawable.btn_rect);
-            buttonPrizeCenter.setBackgroundResource(R.drawable.btn_rect);
-            buttonPrizeRight.setBackgroundResource(R.drawable.btn_rect);
-        } else {
-            buttonPrizeLeft.setBackgroundResource(R.drawable.icon_rect_disable);
-            buttonPrizeCenter.setBackgroundResource(R.drawable.icon_rect_disable);
-            buttonPrizeRight.setBackgroundResource(R.drawable.icon_rect_disable);
-        }
-
-        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(0).getNeedScore()) {
-            buttonPrizeLeft.setBackgroundResource(R.drawable.btn_rect);
-        } else {
-            buttonPrizeLeft.setBackgroundResource(R.drawable.icon_rect_disable);
-        }
-
-        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(1).getNeedScore()) {
-
-            buttonPrizeCenter.setBackgroundResource(R.drawable.btn_rect);
-
-        } else {
-
-            buttonPrizeCenter.setBackgroundResource(R.drawable.icon_rect_disable);
-
-        }
-
-        if (responseGetLeaderShip.getExtra().getMyScore() >= responsePrize.getExtra().get(2).getNeedScore()) {
-
-            buttonPrizeRight.setBackgroundResource(R.drawable.btn_rect);
-        } else {
-            buttonPrizeRight.setBackgroundResource(R.drawable.icon_rect_disable);
+           // relPrize.setVisibility(View.GONE);
         }
     }
 
@@ -1025,7 +695,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
             @Override
             public void onPosetiveClicked() {
                 dialog.cancel();
-                Intent intent = new Intent(HomeActivity.this, ActivityRegisterUser.class);
+                Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
                 startActivityForResult(intent, CODE_REGISTER);
             }
 
@@ -1177,11 +847,9 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     @Override
     public void onBackPressed() {
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
-        } else {
+
             super.onBackPressed();
-        }
+
     }
 
     public void refreshUserRank() {
@@ -1191,37 +859,163 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
         } else {
             if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
+                text_user_rate.setText("ثبت نام کنید");
                 text_user_rate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivityForResult(new Intent(HomeActivity.this, ActivityRegisterUser.class), CODE_REGISTER_First);
+                        startActivityForResult(new Intent(HomeActivity_2.this, ActivityRegisterUser.class), CODE_REGISTER_First);
                     }
                 });
 
             } else {
-                text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
+                text_user_rate.setText("شرکت نکرده اید");
                 text_user_rate.setOnClickListener(null);
             }
         }
     }
 
-    public void refreshUserPrize() {
 
-        if (responseGetLeaderShip != null && responseGetLeaderShip.getExtra() != null) {
-            responseGetLeaderShip.getExtra().setMyScore(userProfile.get_KEY_SCORE(0));
+    //================================================== ===========
+    //===================================================== =        =
 
-            if (responsePrize != null && responsePrize.getExtra() != null && responsePrize.getExtra().size() > 0) {
-                if (!responsePrize.getExtra().get(0).getImageUrl().isEmpty()) {
-                    setPrizeLayout();
-
-                } else {
-                    relPrize.setVisibility(View.GONE);
-                }
-            } else {
-                relPrize.setVisibility(View.GONE);
-            }
-        } else relPrize.setVisibility(View.GONE);
+    @Override
+    public void onStartMyPaintHistory() {
 
     }
+
+    @Override
+    public void onGetMyPaintHistorySuccess() {
+        historyAdapter = new HistoryAdapter(pHome);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(historyAdapter);
+        animationAdapter.setDuration(100);
+        animationAdapter.setFirstOnly(false);
+
+        recyclerView.setAdapter(animationAdapter);
+
+      //  emptyView.setVisibility(historyAdapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+
+       // showIntro();
+    }
+
+    @Override
+    public void onGetMyPaintHistoryFailed() {
+
+    }
+
+    @Override
+    public void onSelecteditem(String filePath) {
+
+        startActivityForResult(new Intent(getContext(), PaintActivity.class).putExtra("Path",filePath),CODE_PAINT_ACTIVITY);
+
+    }
+
+    @Override
+    public void onStartPostPaint() {
+
+        progressDialog.show();
+
+    }
+
+    @Override
+    public void onSuccessPostPaint(ResponsePostPaint responsePostPaint) {
+        progressDialog.cancel();
+
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("نقاشی شما با موفقیت ارسال شد کد پیگیری نقاشی شما " + responsePostPaint.getExtra() + " میباشد");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+              //  showIntroCompetition();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+        dialog.setAcceptButtonMessage("باشه");
+        dialog.setTitle("مسابقه");
+        dialog.show();
+    }
+
+    @Override
+    public void onFailedPostPaint(int errorCode, String errorMessage) {
+        progressDialog.cancel();
+
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage(errorMessage);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+        dialog.setSoundId(R.raw.are_you_sure_exit);
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getString(R.string.danger));
+        dialog.show();
+
+    }
+
+    @Override
+    public void showUserRegisterDialog(final int position) {
+        sendPosition = position;
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("برای ارسال نقاشی باید ثبت نام کنید یا وارد شوید!");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                startActivityForResult(new Intent(getContext(), ActivityRegisterUser.class), CODE_REGISTER);
+
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                sendPosition = -1;
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.enter));
+        dialog.setTitle(getString(R.string.register_login));
+        dialog.show();
+    }
+
+    @Override
+    public void showDeleteDialog(final int position) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("آیا از حذف نقاشی مطمئن هستید؟");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                pHome.deletePaint(position);
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.yes));
+        dialog.setTitle("حذف");
+        dialog.show();
+    }
+
+
 }
