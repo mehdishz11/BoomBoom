@@ -10,7 +10,7 @@
     android:focusableInTouchMode="true"
     android:layoutDirection="ltr"
     tools:context=".home.HomeActivity"
-    tools:openDrawer="left">
+    tools:openDrawer="right">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 
@@ -86,5 +87,20 @@ public class P_Splash implements IP_Splash {
     @Override
     public void onFailedUpdateFcmToken(int errorCode, String errorMessage) {
       ivSplash.onFailedUpdateFcmToken(errorCode, errorMessage);
+    }
+
+    @Override
+    public void getOfferPackage() {
+        mSplash.getOfferPackage();
+    }
+
+    @Override
+    public void onSuccessGetOfferPackage(ResponseGetOfferPackage responseGetOfferPackage) {
+        ivSplash.onSuccessGetOfferPackage(responseGetOfferPackage);
+    }
+
+    @Override
+    public void onFailedGetOfferPackage(int errorCode, String errorMessage) {
+       ivSplash.onFailedGetOfferPackage(errorCode, errorMessage);
     }
 }

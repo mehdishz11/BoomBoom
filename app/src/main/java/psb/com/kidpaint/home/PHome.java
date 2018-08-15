@@ -114,13 +114,18 @@ public class PHome implements IP_Home {
                     iv_home.onOutlineSelected(R.drawable.small_picture_0);
                 }
             });
+            Picasso.get().invalidate("gfgfg");
+
+            Picasso
+                    .get()
+                    .load("gfgfg")
+                    .into(holder.imgOutline);
 
         }else {
 
             holder.relBtns.setVisibility(View.VISIBLE);
             holder.relBtnsBg.setVisibility(View.VISIBLE);
             holder.textViewnew.setVisibility(View.GONE);
-
             Picasso.get().invalidate(filePath);
             Picasso
                     .get()
