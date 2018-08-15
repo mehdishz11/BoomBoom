@@ -1,422 +1,504 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:ndroid="http://schemas.android.com/tools"
     android:id="@+id/rel_parent"
     android:layout_width="match_parent"
-    android:layout_height="350dp">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rel_title"
-        android:layout_marginRight="@dimen/space_normal"
-        android:layout_marginTop="-36dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/img_dialog_bgr" />
-    <psb.com.cview.CustomTextViewBold
-        android:id="@+id/message"
-        android:textSize="@dimen/font_size_14"
-        android:text="پیغام"
-        android:gravity="center"
-        android:ellipsize="end"
-        android:visibility="visible"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_below="@+id/rel_title"
-
-        android:maxLines="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:id="@+id/rel_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/message"
-        android:visibility="visible"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="-20dp"
-        android:layout_marginBottom="25dp"
-        android:layout_toLeftOf="@+id/img_btn_close"
-        android:padding="@dimen/space_small"
-        android:weightSum="3"
-        android:orientation="horizontal"
-        >
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingRight="@dimen/margin_5"
-            android:paddingLeft="@dimen/margin_5"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/coin_title_1"
-                android:textSize="@dimen/font_size_14"
-                android:text="بسته طلایی"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/coin_image_1"
-                android:layout_width="match_parent"
-                android:padding="2dp"
-                android:src="@drawable/coin"
-                android:layout_height="70dp" />
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/coin_coin_1"
-                android:textSize="@dimen/font_size_14"
-                android:text="5000 سکه"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="wrap_content">
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_price_1"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="5000"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:textColor="@color/md_red_700"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_discount_1"
-                    android:layout_toLeftOf="@+id/coin_price_1"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="5000"
-                    android:gravity="center"
-                    android:visibility="visible"
-                    android:paddingRight="@dimen/margin_5"
-                    android:textColor="@color/green_1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_toman_1"
-                    android:layout_toLeftOf="@+id/coin_discount_1"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="تومان"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/margin_5"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-
-            <psb.com.cview.CButton
-                android:id="@+id/btn_buy_1"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:layout_marginRight="@dimen/margin_10"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/btn_rect"
-                android:paddingBottom="@dimen/space_small"
-                android:text="خرید"
-                android:textColor="@color/white_1"
-                android:textSize="@dimen/text_size_large" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingRight="@dimen/margin_5"
-            android:paddingLeft="@dimen/margin_5"
-
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/coin_title_2"
-                android:textSize="@dimen/font_size_14"
-                android:text="بسته نقره ای"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/coin_image_2"
-                android:layout_width="match_parent"
-                android:padding="2dp"
-                android:src="@drawable/coin"
-                android:layout_height="70dp" />
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/coin_coin_2"
-                android:textSize="@dimen/font_size_14"
-                android:text="4000 سکه"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="wrap_content">
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_price_2"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="4000"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:textColor="@color/md_red_700"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_discount_2"
-                    android:layout_toLeftOf="@+id/coin_price_2"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="4000"
-                    android:gravity="center"
-                    android:visibility="visible"
-                    android:paddingRight="@dimen/margin_5"
-                    android:textColor="@color/green_1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_toman_2"
-                    android:layout_toLeftOf="@+id/coin_discount_2"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="تومان"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/margin_5"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-
-            <psb.com.cview.CButton
-                android:id="@+id/btn_buy_2"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:layout_marginRight="@dimen/margin_10"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/btn_rect"
-                android:paddingBottom="@dimen/space_small"
-                android:text="خرید"
-                android:textColor="@color/white_1"
-                android:textSize="@dimen/text_size_large" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingRight="@dimen/margin_5"
-            android:paddingLeft="@dimen/margin_5"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/coin_title_3"
-                android:textSize="@dimen/font_size_14"
-                android:text="بسته برنزی"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/coin_image_3"
-                android:layout_width="match_parent"
-                android:padding="2dp"
-                android:src="@drawable/coin"
-                android:layout_height="70dp" />
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/coin_coin_3"
-                android:textSize="@dimen/font_size_14"
-                android:text="3000 سکه"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="wrap_content">
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_price_3"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="3000"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:textColor="@color/md_red_700"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_discount_3"
-                    android:layout_toLeftOf="@+id/coin_price_3"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="3000"
-                    android:gravity="center"
-                    android:visibility="visible"
-                    android:paddingRight="@dimen/margin_5"
-                    android:textColor="@color/green_1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/coin_toman_3"
-                    android:layout_toLeftOf="@+id/coin_discount_3"
-                    android:textSize="@dimen/font_size_14"
-                    android:text="تومان"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/margin_5"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-
-            <psb.com.cview.CButton
-                android:id="@+id/btn_buy_3"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:layout_marginRight="@dimen/margin_10"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/btn_rect"
-                android:paddingBottom="@dimen/space_small"
-                android:text="خرید"
-                android:textColor="@color/white_1"
-                android:textSize="@dimen/text_size_large" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/rel_title"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:minHeight="120dp">
 
         <ImageView
-            android:id="@+id/img_handle"
+            android:id="@+id/img_bgr"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/handle" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_title"
+            android:layout_marginRight="@dimen/space_normal"
+            android:layout_marginTop="-20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_dialog_bgr" />
 
-        <RelativeLayout
+        <!--message-->
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:layout_below="@+id/rel_title"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="پیغام"
+            android:textSize="@dimen/font_size_14"
+            android:visibility="visible" />
 
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/text_title_1"
+        <!--content-->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/message"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="-20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/img_btn_close"
+            android:orientation="horizontal"
+            android:fillViewport="true"
+            android:padding="@dimen/space_small">
+
+            <LinearLayout
+                android:id="@+id/rel_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/score_package"
-                android:textColor="#7ca331"
-                android:scaleY="1.1"
-                android:scaleX="1.0"
-                android:textSize="20sp"
-                android:paddingBottom="@dimen/space_small"
-                />
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/text_title_2"
+                <RelativeLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/space_small"
+                    android:paddingRight="@dimen/space_small"
+                    android:paddingTop="@dimen/space_normal"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:background="@drawable/pallet_drop"
+                    >
+                    <ImageView
+                        android:id="@+id/coin_image_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:padding="2dp"
+                        android:src="@drawable/coin"
+                        android:layout_alignParentTop="true"
+                        />
+
+                    <ImageView
+                        android:id="@+id/img_ribbon"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_below="@+id/coin_image_1"
+                        android:layout_marginTop="-35dp"
+                        android:src="@drawable/ribbon"
+                        android:scaleType="fitXY"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/rel_coin_title_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/img_ribbon"
+                        android:layout_marginBottom="2dp"
+                        >
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_title_1_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:scaleX="1.0"
+                            android:scaleY="1.1"
+                            android:text="@string/add_coin"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#7c0025"
+                            android:textSize="12sp" />
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_title_1-2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="@string/add_coin"
+                            android:textColor="@color/white_1"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+
+
+
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/coin_coin_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rel_coin_title_1"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="5000 سکه"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/coin_discount_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/coin_coin_1"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="5000"
+                        android:textColor="@color/md_red_700"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.CButton
+                        android:id="@+id/btn_buy_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:layout_gravity="center"
+                        android:layout_below="@+id/coin_discount_1"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:background="@drawable/btn_rect"
+                        android:paddingBottom="@dimen/space_small"
+                        android:text="خرید"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_small" />
+
+                </RelativeLayout>
+                
+                <RelativeLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/space_normal"
+                    android:paddingLeft="@dimen/space_small"
+                    android:paddingRight="@dimen/space_small"
+                    android:paddingTop="@dimen/space_normal"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:background="@drawable/pallet_drop"
+                    >
+                    <ImageView
+                        android:id="@+id/coin_image_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:padding="2dp"
+                        android:src="@drawable/coin"
+                        android:layout_alignParentTop="true"
+                        />
+
+                    <ImageView
+                        android:id="@+id/img_ribbon_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_below="@+id/coin_image_2"
+                        android:layout_marginTop="-35dp"
+                        android:src="@drawable/ribbon"
+                        android:scaleType="fitXY"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/rel_coin_title_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/img_ribbon_2"
+                        android:layout_marginBottom="2dp"
+                        >
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_title_2_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:scaleX="1.0"
+                            android:scaleY="1.1"
+                            android:text="@string/add_coin"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#7c0025"
+                            android:textSize="12sp" />
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_title_2-2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="@string/add_coin"
+                            android:textColor="@color/white_1"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+
+
+
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/coin_coin_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rel_coin_title_2"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="5000 سکه"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/coin_discount_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/coin_coin_2"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="5000"
+                        android:textColor="@color/md_red_700"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.CButton
+                        android:id="@+id/btn_buy_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:layout_gravity="center"
+                        android:layout_below="@+id/coin_discount_2"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:background="@drawable/btn_rect"
+                        android:paddingBottom="@dimen/space_small"
+                        android:text="خرید"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_small" />
+
+                </RelativeLayout>
+                
+                <RelativeLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/space_normal"
+                    android:paddingLeft="@dimen/space_small"
+                    android:paddingRight="@dimen/space_small"
+                    android:paddingTop="@dimen/space_normal"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:background="@drawable/pallet_drop"
+                    >
+                    <ImageView
+                        android:id="@+id/coin_image_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:padding="2dp"
+                        android:src="@drawable/coin"
+                        android:layout_alignParentTop="true"
+                        />
+
+                    <ImageView
+                        android:id="@+id/img_ribbon_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_below="@+id/coin_image_3"
+                        android:layout_marginTop="-35dp"
+                        android:src="@drawable/ribbon"
+                        android:scaleType="fitXY"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/rel_coin_title_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/img_ribbon_3"
+                        android:layout_marginBottom="2dp"
+                        >
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_title_3_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:scaleX="1.0"
+                            android:scaleY="1.1"
+                            android:text="@string/add_coin"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#7c0025"
+                            android:textSize="12sp" />
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_title_3-2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="@string/add_coin"
+                            android:textColor="@color/white_1"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+
+
+
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/coin_coin_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rel_coin_title_3"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="5000 سکه"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.CustomTextViewBold
+                        android:id="@+id/coin_discount_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/coin_coin_3"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="5000"
+                        android:textColor="@color/md_red_700"
+                        android:textSize="@dimen/font_size_14" />
+
+                    <psb.com.cview.CButton
+                        android:id="@+id/btn_buy_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:layout_gravity="center"
+                        android:layout_below="@+id/coin_discount_3"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:background="@drawable/btn_rect"
+                        android:paddingBottom="@dimen/space_small"
+                        android:text="خرید"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_small" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+
+        <!--header-->
+        <RelativeLayout
+            android:id="@+id/rel_title"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/img_handle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/score_package"
-                android:textColor="@color/white_1"
-                android:textSize="20sp"
-                android:paddingBottom="@dimen/space_small"/>
+                android:src="@drawable/handle" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_title_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/space_small"
+                    android:scaleX="1.0"
+                    android:scaleY="1.1"
+                    android:text="@string/add_coin"
+                    android:textColor="#7ca331"
+                    android:textSize="14sp" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_title_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/space_small"
+                    android:text="@string/add_coin"
+                    android:textColor="@color/white_1"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
+        <!--close-->
+        <ImageView
+            android:id="@+id/img_btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/space_normal"
+            android:paddingBottom="@dimen/space_small"
+            android:paddingLeft="@dimen/space_small"
+            android:paddingTop="@dimen/space_small"
+            android:src="@drawable/btn_close" />
+
+        <!--progress-->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
+
+        <!--error-->
+        <RelativeLayout
+            android:id="@+id/rel_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/TextError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="error"
+                android:textSize="@dimen/font_size_14"
+                android:visibility="visible" />
+
+            <psb.com.cview.CButton
+                android:id="@+id/btn_retry"
+                android:layout_width="95dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/TextError"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_small"
+                android:background="@drawable/btn_rect"
+                android:paddingBottom="@dimen/space_small"
+                android:text="@string/retry"
+                android:textColor="@color/white_1"
+                android:textSize="@dimen/text_size_normal"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <!--discard-->
+        <psb.com.cview.CButton
+            android:id="@+id/btn_discard_buy"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/img_bgr"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-22.5dp"
+            android:background="@drawable/btn_rect"
+            android:paddingBottom="@dimen/space_small"
+            android:text="نمیخوام"
+            android:textColor="@color/white_1"
+            android:textSize="@dimen/text_size_large" />
+
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/img_btn_close"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/space_normal"
-        android:paddingBottom="@dimen/space_small"
-        android:paddingLeft="@dimen/space_small"
-        android:paddingTop="@dimen/space_small"
-        android:src="@drawable/btn_close" />
-
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content" />
-    <psb.com.cview.CustomTextViewBold
-        android:id="@+id/TextError"
-        android:textSize="@dimen/font_size_14"
-        android:text="error"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:layout_marginLeft="@dimen/margin_25"
-        android:layout_marginRight="@dimen/margin_25"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <psb.com.cview.CButton
-        android:id="@+id/btn_retry"
-        android:layout_below="@+id/TextError"
-        android:visibility="gone"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_15"
-        android:layout_width="120dp"
-        android:layout_marginLeft="@dimen/margin_10"
-        android:layout_marginRight="@dimen/margin_10"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:background="@drawable/btn_rect"
-        android:paddingBottom="@dimen/space_small"
-        android:text="تلاش مجدد"
-        android:textColor="@color/white_1"
-        android:textSize="@dimen/text_size_large" />
-
-    <psb.com.cview.CButton
-        android:id="@+id/btn_discard_buy"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/btn_rect"
-        android:paddingBottom="@dimen/space_small"
-        android:text="نمیخوام"
-        android:textColor="@color/white_1"
-        android:textSize="@dimen/text_size_large" />
 </RelativeLayout>

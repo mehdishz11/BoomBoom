@@ -7,8 +7,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,15 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nightonke.jellytogglebutton.JellyToggleButton;
-import com.nightonke.jellytogglebutton.State;
 import com.squareup.picasso.Picasso;
 
-import psb.com.cview.IconFont;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.Value;
-import psb.com.kidpaint.utils.customView.dialog.CDialog;
-import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
@@ -34,8 +27,9 @@ import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 
 public class DialogScorePackage extends Dialog implements IVScorePackage {
     private TextView coin_title_1, coin_title_2, coin_title_3, textError, message;
+    private TextView coin_title_1_1, coin_title_2_1, coin_title_3_1;
     private TextView coin_coin_1, coin_coin_2, coin_coin_3;
-    private TextView coin_price_1, coin_price_2, coin_price_3;
+
     private TextView coin_discount_1, coin_discount_2, coin_discount_3;
     private ImageView coin_image_1, coin_image_2, coin_image_3;
     private Button coin_btn_1, coin_btn_2, coin_btn_3, btnReTry, btn_discard_buy;
@@ -142,17 +136,21 @@ public class DialogScorePackage extends Dialog implements IVScorePackage {
         textError = findViewById(R.id.TextError);
         btnReTry = findViewById(R.id.btn_retry);
 
-        coin_title_1 = findViewById(R.id.coin_title_1);
-        coin_title_2 = findViewById(R.id.coin_title_2);
-        coin_title_3 = findViewById(R.id.coin_title_3);
+        coin_title_1 = findViewById(R.id.coin_title_1_1);
+        coin_title_2 = findViewById(R.id.coin_title_2_1);
+        coin_title_3 = findViewById(R.id.coin_title_3_1);
+
+        // TODO: 8/15/2018 AD set as read
+        coin_title_1_1 = findViewById(R.id.coin_title_1_2);
+        coin_title_2_1 = findViewById(R.id.coin_title_2_2);
+        coin_title_3_1 = findViewById(R.id.coin_title_3_2);
+
+
 
         coin_coin_1 = findViewById(R.id.coin_coin_1);
         coin_coin_2 = findViewById(R.id.coin_coin_2);
         coin_coin_3 = findViewById(R.id.coin_coin_3);
 
-        coin_price_1 = findViewById(R.id.coin_price_1);
-        coin_price_2 = findViewById(R.id.coin_price_2);
-        coin_price_3 = findViewById(R.id.coin_price_3);
 
         coin_discount_1 = findViewById(R.id.coin_discount_1);
         coin_discount_2 = findViewById(R.id.coin_discount_2);
@@ -192,20 +190,20 @@ public class DialogScorePackage extends Dialog implements IVScorePackage {
             coin_coin_2.setText(responseGetScorePackage.getExtra().get(1).getScore() + " سکه");
             coin_coin_3.setText(responseGetScorePackage.getExtra().get(2).getScore() + " سکه");
 
-            coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
-            coin_price_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + "");
-            coin_price_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + "");
+            coin_btn_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
+            coin_btn_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + "");
+            coin_btn_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + "");
 
 //////////////////// discount 1 ////////////////////////////////////////
             if (responseGetScorePackage.getExtra().get(0).getDiscountPercent() > 0) {
                 float dis = ((responseGetScorePackage.getExtra().get(0).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(0).getDiscountPercent());
                 coin_discount_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() - (int) dis + "");
                 coin_discount_1.setVisibility(View.VISIBLE);
-                coin_price_1.setPaintFlags(coin_price_1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                coin_btn_1.setPaintFlags(coin_btn_1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
             } else {
-                coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
+                coin_btn_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
                 coin_discount_1.setVisibility(View.GONE);
             }
 
@@ -215,11 +213,11 @@ public class DialogScorePackage extends Dialog implements IVScorePackage {
                 float dis = ((responseGetScorePackage.getExtra().get(1).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(1).getDiscountPercent());
                 coin_discount_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() - (int) dis + "");
                 coin_discount_2.setVisibility(View.VISIBLE);
-                coin_price_2.setPaintFlags(coin_price_2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                coin_btn_2.setPaintFlags(coin_btn_2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
             } else {
-                coin_price_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + "");
+                coin_btn_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + "");
                 coin_discount_2.setVisibility(View.GONE);
             }
 
@@ -228,11 +226,11 @@ public class DialogScorePackage extends Dialog implements IVScorePackage {
                 float dis = ((responseGetScorePackage.getExtra().get(2).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(2).getDiscountPercent());
                 coin_discount_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() - (int) dis + "");
                 coin_discount_3.setVisibility(View.VISIBLE);
-                coin_price_2.setPaintFlags(coin_price_2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                coin_btn_3.setPaintFlags(coin_btn_3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
             } else {
-                coin_price_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + "");
+                coin_btn_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + "");
                 coin_discount_3.setVisibility(View.GONE);
             }
 
