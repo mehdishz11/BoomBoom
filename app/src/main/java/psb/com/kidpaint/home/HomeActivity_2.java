@@ -9,19 +9,17 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -32,9 +30,7 @@ import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
-import psb.com.kidpaint.home.history.HistoryFragment;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
-import psb.com.kidpaint.home.newPaint.NewPaintFragment;
 import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.score.DialogScorePackage;
@@ -43,6 +39,7 @@ import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customAnimation.AnimationHelper;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
@@ -79,7 +76,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     private TextView registerOrLogin,text_user_rate,text_user_Coin;
     private ImageView userImage;
-    private TextView editUser;
+
     private boolean isFirstRegister = false;
 
     private ImageView img_winner_1, img_winner_2, img_winner_3,img_podium;
@@ -101,6 +98,21 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     private int lastOffset = 0;
 
+    private ImageView imageLion;
+    private boolean isLionShow = true;
+    private boolean isAnimationLion = false;
+
+    private ImageView imageRooster;
+    private boolean isRossterShow = true;
+    private boolean isAnimationRooster = false;
+
+    private View cloud1;
+    private View cloud2;
+    private View cloud3;
+    private View sunGlow;
+
+    private LottieAnimationView bunny;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,8 +121,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         pHome = new PHome(this);
         userProfile = new UserProfile(this);
-
-        Log.d("TAG", "onCreate token: " + userProfile.get_KEY_FCM("-"));
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(HomeActivity_2.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
@@ -134,13 +144,32 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         recyclerView = findViewById(R.id.recyclerView);
 
+        cloud1=findViewById(R.id.cloud_1);
+        cloud2=findViewById(R.id.cloud_2);
+        cloud3=findViewById(R.id.cloud_3);
+        sunGlow=findViewById(R.id.sun_glow);
+
+        bunny=findViewById(R.id.bunny);
+
         splashFragment = new SplashFragment().newInstance();
-
-
 
         ToolbarHandler.makeTansluteToolbar(this, getWindow(), getWindow().getDecorView());
 
+        bunny.addAnimatorListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                SoundHelper.playSound(R.raw.baby_laugh);
+            }
+        });
 
+        bunny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bunny.playAnimation();
+
+            }
+        });
 
         frameLayoutSplash=findViewById(R.id.frameLayoutSplash);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
@@ -194,129 +223,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         MusicHelper.playMusic(R.raw.bgr_happy_sunshine);
     }
 
-
-
-    public void setupUserInfo() {
-
-        userImage = findViewById(R.id.act_user_image);
-        editUser = findViewById(R.id.text_edit);
-        registerOrLogin = findViewById(R.id.reg_or_login);
-        text_user_Coin = findViewById(R.id.text_userCoin);
-        text_user_rate = findViewById(R.id.text_userRank);
-        img_podium = findViewById(R.id.img_podium);
-
-        img_podium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
-            }
-        });
-       text_user_Coin.setText(userProfile.get_KEY_SCORE(0)+" سکه");
-
-
-        setUnreadMessageCount();
-
-
-        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-            editUser.setVisibility(View.GONE);
-            registerOrLogin.setText("ثبت نام | ورود");
-
-        } else {
-            editUser.setVisibility(View.VISIBLE);
-            registerOrLogin.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
-
-        }
-        if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
-            Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    userImage.setImageResource(R.drawable.user_empty_gray);
-                }
-            });
-        } else {
-            Picasso.get().load(R.drawable.user_profile).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    userImage.setImageResource(R.drawable.user_empty_gray);
-                }
-            });
-        }
-
-
-        editUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity_2.this, ActivityEditProfile.class);
-                startActivityForResult(intent, CODE_EDIT);
-            }
-        });
-
-   /*     relMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity_2.this, ActivityMyMessages.class);
-                startActivityForResult(intent, CODE_REGISTER);
-                drawer.closeDrawer(GravityCompat.END);
-            }
-        });
-
-
-        relMyPrize.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity_2.this, ActivityMyPrize.class);
-                startActivityForResult(intent, CODE_REGISTER);
-                drawer.closeDrawer(GravityCompat.END);
-            }
-        });*/
-
-
-        registerOrLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    Intent intent = new Intent(HomeActivity_2.this, ActivityEditProfile.class);
-                    startActivityForResult(intent, CODE_EDIT);
-                } else {
-                    Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
-                    startActivityForResult(intent, CODE_REGISTER_First);
-                }
-            }
-        });
-
-       /* logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exitProfileDialog();
-            }
-        });*/
-    }
-
-    void setUnreadMessageCount() {
-     /*   if (pHome != null && unreadMessageCount != null) {
-            int unread = pHome.getUnreadMessageCount();
-            unreadMessageCount.setText(unread + "");
-            unreadMessageCount.setVisibility(unread > 0 ? View.VISIBLE : View.GONE);
-        }*/
-    }
     @Override
     public void onOutlineSelected(int resId) {
         Intent intent = new Intent(HomeActivity_2.this, PaintActivity.class);
         intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
         startActivityForResult(intent, CODE_PAINT_ACTIVITY);
     }
-
-
 
     @Override
     public Context getContext() {
@@ -464,11 +376,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // splashFragment
     ///////////////////////////////////////////////////////////////////////////
-
     @Override
     public void startGetStickers() {
 
@@ -522,6 +432,117 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     ///////////////////////////////////////////////////////////////////////////
     // Activity methods
     ///////////////////////////////////////////////////////////////////////////
+    public void setupUserInfo() {
+
+        userImage = findViewById(R.id.act_user_image);
+        registerOrLogin = findViewById(R.id.reg_or_login);
+        text_user_Coin = findViewById(R.id.text_userCoin);
+        text_user_rate = findViewById(R.id.text_userRank);
+        img_podium = findViewById(R.id.img_podium);
+
+        img_podium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+            }
+        });
+        text_user_Coin.setText(userProfile.get_KEY_SCORE(0)+" سکه");
+
+
+        setUnreadMessageCount();
+
+
+        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            registerOrLogin.setText("ثبت نام | ورود");
+
+        } else {
+            registerOrLogin.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
+
+        }
+        if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
+            Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    userImage.setImageResource(R.drawable.user_empty_gray);
+                }
+            });
+        } else {
+            Picasso.get().load(R.drawable.user_profile).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    userImage.setImageResource(R.drawable.user_empty_gray);
+                }
+            });
+        }
+
+
+        /*editUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity_2.this, ActivityEditProfile.class);
+                startActivityForResult(intent, CODE_EDIT);
+            }
+        });*/
+
+   /*     relMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity_2.this, ActivityMyMessages.class);
+                startActivityForResult(intent, CODE_REGISTER);
+                drawer.closeDrawer(GravityCompat.END);
+            }
+        });
+
+
+        relMyPrize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity_2.this, ActivityMyPrize.class);
+                startActivityForResult(intent, CODE_REGISTER);
+                drawer.closeDrawer(GravityCompat.END);
+            }
+        });*/
+
+
+        registerOrLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    Intent intent = new Intent(HomeActivity_2.this, ActivityEditProfile.class);
+                    startActivityForResult(intent, CODE_EDIT);
+                } else {
+                    Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
+                    startActivityForResult(intent, CODE_REGISTER_First);
+                }
+            }
+        });
+
+       /* logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exitProfileDialog();
+            }
+        });*/
+    }
+
+    void setUnreadMessageCount() {
+     /*   if (pHome != null && unreadMessageCount != null) {
+            int unread = pHome.getUnreadMessageCount();
+            unreadMessageCount.setText(unread + "");
+            unreadMessageCount.setVisibility(unread > 0 ? View.VISIBLE : View.GONE);
+        }*/
+    }
+
     private void showIntro() {
         final View view = findViewById(R.id.intro_view_1);
         final View view2 = findViewById(R.id.intro_view_2);
@@ -729,17 +750,41 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 imageRooster.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+
+
+        cloud1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                new AnimationHelper().rightToLeft(cloud1,50000);
+                cloud1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
+
+        cloud2.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                new AnimationHelper().rightToLeft(cloud2,40000);
+                cloud2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+        cloud3.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                new AnimationHelper().rightToLeft(cloud3,30000);
+                cloud3.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
+//        new AnimationHelper().rotation(40000,sunGlow);
+
     }
-
-
-    private ImageView imageLion;
-    private boolean isLionShow = true;
-    private boolean isAnimationLion = false;
-
-    private ImageView imageRooster;
-    private boolean isRossterShow = true;
-    private boolean isAnimationRooster = false;
-
 
     private void hideLion() {
         if (!isLionShow || isAnimationLion) return;
@@ -877,7 +922,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     //================================================== ===========
     //===================================================== =        =
-
     @Override
     public void onStartMyPaintHistory() {
 

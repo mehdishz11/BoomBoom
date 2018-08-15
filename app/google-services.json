@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "772971468442",
+    "firebase_url": "https://kidpaint-4cff2.firebaseio.com",
+    "project_id": "kidpaint-4cff2",
+    "storage_bucket": "kidpaint-4cff2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772971468442:android:0144b3715ba0ef80",
+        "android_client_info": {
+          "package_name": "psb.com.kidpaint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772971468442-j6uq1b0fsmdf3ujl6c652akghujol00l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "psb.com.kidpaint",
+            "certificate_hash": "15e9a17c64cc3254708e68d556b4efeffdef66a4"
+          }
+        },
+        {
+          "client_id": "772971468442-ta1hhu3et479jkkj5n818ssbq2luu2il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC8lDHvKhFQfwoRfjKkCngA8kFDf2CCTE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772971468442-ta1hhu3et479jkkj5n818ssbq2luu2il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

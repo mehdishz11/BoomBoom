@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
@@ -184,7 +185,14 @@ public class Utils {
 
 
 
+    public static int getDeviceWidth(){
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
 
+    public static int getDisplayHeight(){
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+
+    }
 
 
 

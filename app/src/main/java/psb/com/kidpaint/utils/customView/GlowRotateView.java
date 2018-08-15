@@ -73,7 +73,7 @@ public class GlowRotateView extends View {
                 ObjectAnimator animRotate = ObjectAnimator.ofFloat(GlowRotateView.this ,"rotation", 0,360);
 
                 animRotate.setRepeatMode(ValueAnimator.RESTART);
-                animRotate.setDuration(15000); // miliseconds
+                animRotate.setDuration(25000); // miliseconds
                 animRotate.setRepeatCount(ValueAnimator.INFINITE);
                 animRotate.setInterpolator(new LinearInterpolator());
 
