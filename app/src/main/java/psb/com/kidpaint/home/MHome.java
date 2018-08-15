@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -87,13 +88,18 @@ public class MHome implements IM_Home {
         imageList.clear();
         imageList=new ArrayList<>();
         String path = Environment.getExternalStorageDirectory() + "/kidPaint";
+        Log.d("TAG", "getMyPaintHistory: "+path);
         File directory = new File(path);
+        Log.d("TAG", "getMyPaintHistory: "+(directory.exists()));
+
         if (!directory.exists()) {
             directory.mkdirs();
         }
         File[] files = directory.listFiles();
+        imageList.add(null);
 
         if (files!=null&& files.length>0) {
+            Log.d("TAG", "getMyPaintHistory: "+files.length);
             Arrays.sort( files, new Comparator()
             {
                 public int compare(Object o1, Object o2) {
@@ -111,11 +117,11 @@ public class MHome implements IM_Home {
 
 
 
-             imageList.add(null);
             for (int i = 0; files != null && i < files.length; i++) {
                 imageList.add(files[i]);
             }
         }
+        Log.d("TAG", "getMyPaintHistory: "+imageList.size());
 
 
         ip_home.onGetMyPaintHistorySuccess();

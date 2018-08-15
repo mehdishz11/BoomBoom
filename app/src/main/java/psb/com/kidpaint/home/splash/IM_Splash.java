@@ -2,6 +2,7 @@ package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
 
+
 public interface IM_Splash {
     Context getContext();
 
@@ -13,4 +14,7 @@ public interface IM_Splash {
 
     boolean userIsRegistered();
     void updateFcmToken();
+
+    void getOfferPackage();
+
 }

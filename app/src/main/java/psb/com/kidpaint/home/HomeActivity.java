@@ -59,6 +59,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
+import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
@@ -679,6 +680,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     public void getPrizeFailed(ResponsePrize responsePrize) {
         this.responsePrize = responsePrize;
         setPrizes();
+    }
+
+    @Override
+    public void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage) {
+
     }
 
 

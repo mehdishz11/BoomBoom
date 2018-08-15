@@ -14,8 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
 import psb.com.kidpaint.home.splash.SplashFragment;
+import psb.com.kidpaint.myMessages.ActivityMyMessages;
+import psb.com.kidpaint.offerPackage.DialogOfferPackage;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.score.DialogScorePackage;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
@@ -52,6 +56,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
+import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
@@ -66,7 +71,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     public static int CODE_EDIT = 108;
     public static int CODE_PAINT_ACTIVITY = 109;
 
-    private ImageView drawerIcon, btn_settings;
+    private ResponseGetOfferPackage mResponseOfferPackage;
+
+    private ImageView  btn_settings;
     private int sendPosition = -1;
 
     private HistoryAdapter historyAdapter;
@@ -74,12 +81,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     private final String TAG_FRAGMENT_SPLASH = "TAG_FRAGMENT_SPLASH";
 
 
-    private TextView registerOrLogin,text_user_rate,text_user_Coin;
+    private TextView registerOrLogin, text_user_rate, text_user_Coin, unreadMessageCount;
     private ImageView userImage;
 
     private boolean isFirstRegister = false;
 
-    private ImageView img_winner_1, img_winner_2, img_winner_3,img_podium;
+    private ImageView img_winner_1, img_winner_2, img_winner_3, img_podium, btn_shop;
 
 
     private UserProfile userProfile;
@@ -111,6 +118,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     private View cloud3;
     private View sunGlow;
 
+    private Button btn_messages;
+    private RelativeLayout rel_user_coin;
+
     private LottieAnimationView bunny;
 
     @Override
@@ -140,20 +150,47 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         img_winner_2 = findViewById(R.id.img_winner_2);
         img_winner_3 = findViewById(R.id.img_winner_3);
         btn_settings = findViewById(R.id.btn_settings);
-        drawerIcon = findViewById(R.id.btn_more);
+        btn_messages = findViewById(R.id.btn_messages);
+        btn_shop = findViewById(R.id.btn_shop);
+        unreadMessageCount = findViewById(R.id.unreadMessageCount);
+        rel_user_coin = findViewById(R.id.rel_user_coin);
 
-        recyclerView = findViewById(R.id.recyclerView) ;
+        recyclerView = findViewById(R.id.recyclerView);
 
-        cloud1=findViewById(R.id.cloud_1);
-        cloud2=findViewById(R.id.cloud_2);
-        cloud3=findViewById(R.id.cloud_3);
-        sunGlow=findViewById(R.id.sun_glow);
+        cloud1 = findViewById(R.id.cloud_1);
+        cloud2 = findViewById(R.id.cloud_2);
+        cloud3 = findViewById(R.id.cloud_3);
+        sunGlow = findViewById(R.id.sun_glow);
 
-        bunny=findViewById(R.id.bunny);
+        bunny = findViewById(R.id.bunny);
 
         splashFragment = new SplashFragment().newInstance();
 
         ToolbarHandler.makeTansluteToolbar(this, getWindow(), getWindow().getDecorView());
+
+
+        frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+
+
+        setupUserInfo();
+
+        initAnimation();
+
+        createHelperWnd();
+
+
+    }
+
+    void showDialogPackage() {
+        DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
+        cDialog.setShowBtnDiscardBuy(false);
+        cDialog.show();
+    }
+
+    public void setInfo() {
+
+        pHome.getMyPaintHistory();
 
         bunny.addAnimatorListener(new AnimatorListenerAdapter() {
             @Override
@@ -171,15 +208,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             }
         });
 
-        frameLayoutSplash=findViewById(R.id.frameLayoutSplash);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
 
-        drawerIcon.setOnClickListener(new View.OnClickListener() {
+        btn_messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // drawer.openDrawer(GravityCompat.END);
+                Intent intent = new Intent(HomeActivity_2.this, ActivityMyMessages.class);
+                startActivityForResult(intent, CODE_REGISTER);
             }
         });
+
 
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,25 +225,64 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
                 DialogSettings cDialog = new DialogSettings(HomeActivity_2.this);
                 cDialog.show();
+                // exitProfileDialog();
+
+            }
+        });
+
+        btn_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+
+                showDialogPackage();
+
+
+            }
+        });
+        rel_user_coin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+
+                showDialogPackage();
 
 
             }
         });
 
-        setupUserInfo();
 
-        initAnimation();
 
-        createHelperWnd();
 
-        pHome.getMyPaintHistory();
+    showDialogOfferPackage();
 
     }
 
-    void showDialogPackage(){
-        DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
-        cDialog.setShowBtnDiscardBuy(false);
-        cDialog.show();
+    public void showDialogOfferPackage(){
+        if (mResponseOfferPackage!=null&&mResponseOfferPackage.getExtra().size()>0) {
+            DialogOfferPackage cDialog = new DialogOfferPackage(HomeActivity_2.this);
+            cDialog.setShowBtnDiscardBuy(false);
+            cDialog.setDialogMessage("");
+            cDialog.setScorePackageDiscardBtnListener(new DialogOfferPackage.offerPackageDiscardBtnListener() {
+                @Override
+                public void btnDiscardBuySelect() {
+
+                }
+
+                @Override
+                public void onSuccessBuyOfferPackage(int totalCoin) {
+                    setupUserInfo();
+                }
+
+                @Override
+                public void onFailedBuyScorePackage() {
+
+                }
+            });
+            cDialog.setOfferResponse(mResponseOfferPackage);
+
+            cDialog.show();
+        }
     }
 
     @Override
@@ -271,7 +347,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void prizeRequestSuccess(int score) {
         responseGetLeaderShip.getExtra().setMyScore(score);
-       // setPrizeLayout();
+        // setPrizeLayout();
         final MessageDialog dialog = new MessageDialog(getContext());
 
         dialog.setMessage(getString(R.string.prizedeliveryContact));
@@ -324,7 +400,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-      refreshUserRank();
+        refreshUserRank();
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult home: " + requestCode);
         if (requestCode == CODE_REGISTER_First) {
@@ -390,8 +466,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
         //showIntro();
         if (isFirstRegister) {
-          //  showIntroNewUser();
+            //  showIntroNewUser();
         }
+
+
+        Log.d("TAG", "splashSuccess: ");
+        setInfo();
+
     }
 
     @Override
@@ -400,6 +481,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
         //showIntro();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Log.d("TAG", "splashFailed: ");
+        setInfo();
     }
 
     @Override
@@ -428,6 +511,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         this.responsePrize = responsePrize;
     }
 
+    @Override
+    public void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage) {
+        this.mResponseOfferPackage=responseOfferPackage;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Activity methods
@@ -446,7 +534,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
             }
         });
-        text_user_Coin.setText(userProfile.get_KEY_SCORE(0)+" سکه");
+        text_user_Coin.setText(userProfile.get_KEY_SCORE(0) + " سکه");
 
 
         setUnreadMessageCount();
@@ -536,11 +624,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     }
 
     void setUnreadMessageCount() {
-     /*   if (pHome != null && unreadMessageCount != null) {
+        if (pHome != null && unreadMessageCount != null) {
             int unread = pHome.getUnreadMessageCount();
             unreadMessageCount.setText(unread + "");
             unreadMessageCount.setVisibility(unread > 0 ? View.VISIBLE : View.GONE);
-        }*/
+        }
     }
 
     private void showIntro() {
@@ -642,13 +730,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         if (responsePrize != null && responsePrize.getExtra() != null && responsePrize.getExtra().size() > 0) {
             if (!responsePrize.getExtra().get(0).getImageUrl().isEmpty()) {
-              //  setPrizeLayout();
+                //  setPrizeLayout();
 
             } else {
-              //  relPrize.setVisibility(View.GONE);
+                //  relPrize.setVisibility(View.GONE);
             }
         } else {
-           // relPrize.setVisibility(View.GONE);
+            // relPrize.setVisibility(View.GONE);
         }
     }
 
@@ -756,18 +844,17 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onGlobalLayout() {
 
-                new AnimationHelper().rightToLeft(cloud1,50000);
+                new AnimationHelper().rightToLeft(cloud1, 50000);
                 cloud1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
-
 
 
         cloud2.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
-                new AnimationHelper().rightToLeft(cloud2,40000);
+                new AnimationHelper().rightToLeft(cloud2, 40000);
                 cloud2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -776,7 +863,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onGlobalLayout() {
 
-                new AnimationHelper().rightToLeft(cloud3,30000);
+                new AnimationHelper().rightToLeft(cloud3, 30000);
                 cloud3.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -893,7 +980,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void onBackPressed() {
 
-            super.onBackPressed();
+        super.onBackPressed();
 
     }
 
@@ -930,7 +1017,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void onGetMyPaintHistorySuccess() {
         historyAdapter = new HistoryAdapter(pHome);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(historyAdapter);
@@ -939,9 +1026,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         recyclerView.setAdapter(animationAdapter);
 
-      //  emptyView.setVisibility(historyAdapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+        Log.d("TAG", "onGetMyPaintHistorySuccess: " + historyAdapter.getItemCount());
 
-       // showIntro();
+        //  emptyView.setVisibility(historyAdapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+
+        // showIntro();
     }
 
     @Override
@@ -952,7 +1041,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void onSelecteditem(String filePath) {
 
-        startActivityForResult(new Intent(getContext(), PaintActivity.class).putExtra("Path",filePath),CODE_PAINT_ACTIVITY);
+        startActivityForResult(new Intent(getContext(), PaintActivity.class).putExtra("Path", filePath), CODE_PAINT_ACTIVITY);
 
     }
 
@@ -973,7 +1062,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onPosetiveClicked() {
                 dialog.cancel();
-              //  showIntroCompetition();
+                //  showIntroCompetition();
             }
 
             @Override

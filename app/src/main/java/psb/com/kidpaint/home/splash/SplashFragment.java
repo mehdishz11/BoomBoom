@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 
@@ -54,18 +55,18 @@ public class SplashFragment extends Fragment implements IV_Splash {
         return view;
     }
 
-    private void setContent(){
+    private void setContent() {
         if (pSplash.userIsRegistered()) {
             pSplash.updateFcmToken();
-        }else{
+        } else {
             pSplash.getPirze();
         }
     }
 
-    public void refreshPrizeAndRank(){
+    public void refreshPrizeAndRank() {
         if (pSplash.userIsRegistered()) {
             pSplash.updateFcmToken();
-        }else{
+        } else {
             pSplash.getPirze();
         }
     }
@@ -107,13 +108,18 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip) {
         mListener.getRankSuccess(responseGetLeaderShip);
-        pSplash.getStickers();
+
+
+            pSplash.getStickers();
+
     }
 
     @Override
     public void getRankFailed(String msg) {
-        mListener.getRankFailed();
-        pSplash.getStickers();
+         mListener.getRankFailed();
+
+            pSplash.getStickers();
+
     }
 
     @Override
@@ -124,7 +130,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
     }
 
     @Override
-    public void getPrizeFailed(String msg,ResponsePrize responsePrize) {
+    public void getPrizeFailed(String msg, ResponsePrize responsePrize) {
         mListener.getPrizeFailed(responsePrize);
         pSplash.getRank();
     }
@@ -132,26 +138,49 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void onSuccessUpdateFcmToken() {
 
-            pSplash.getPirze();
+        pSplash.getOfferPackage();
 
     }
 
     @Override
     public void onFailedUpdateFcmToken(int errorCode, String errorMessage) {
-        pSplash.getPirze();
+        pSplash.getOfferPackage();
 
+    }
+
+    @Override
+    public void onSuccessGetOfferPackage(ResponseGetOfferPackage responseGetOfferPackage) {
+        if (mListener != null) {
+            mListener.setResponseOfferPackage(responseGetOfferPackage);
+        }
+        pSplash.getPirze();
+    }
+
+    @Override
+    public void onFailedGetOfferPackage(int errorCode, String errorMessage) {
+        if (mListener != null) {
+            mListener.setResponseOfferPackage(null);
+        }
+        pSplash.getPirze();
     }
 
     public interface OnFragmentInteractionListener {
         void startGetStickers();
+
         void splashSuccess();
+
         void splashFailed(String msg);
 
         void getRankStarted();
+
         void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip);
+
         void getRankFailed();
 
         void getPrizeSuccess(ResponsePrize responsePrize);
+
         void getPrizeFailed(ResponsePrize responsePrize);
+
+        void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage);
     }
 }

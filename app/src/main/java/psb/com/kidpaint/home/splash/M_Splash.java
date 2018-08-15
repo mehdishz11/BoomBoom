@@ -14,6 +14,9 @@ import psb.com.kidpaint.webApi.Category.Category;
 import psb.com.kidpaint.webApi.Category.GetCategory.iGetCategory;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
+import psb.com.kidpaint.webApi.offerPackage.Get.iGetOfferPackage;
+import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
+import psb.com.kidpaint.webApi.offerPackage.OfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -145,5 +148,20 @@ public class M_Splash implements IM_Splash {
                 }
             }).startSendFcmToken(userProfile.get_KEY_JWT(""), userProfile.get_KEY_FCM(""), userProfile.get_KEY_PHONE_NUMBER(""));
         }
+    }
+
+    @Override
+    public void getOfferPackage() {
+        new OfferPackage().getOfferPackage(new iGetOfferPackage.iResult() {
+            @Override
+            public void onSuccessGetOfferPackage(ResponseGetOfferPackage responseGetOfferPackage) {
+                ipSplash.onSuccessGetOfferPackage(responseGetOfferPackage);
+            }
+
+            @Override
+            public void onFailedGetOfferPackage(int errorCode, String ErrorMessage) {
+             ipSplash.onFailedGetOfferPackage(errorCode, ErrorMessage);
+            }
+        }).doGetOfferPackage(userProfile.get_KEY_PHONE_NUMBER(""));
     }
 }
