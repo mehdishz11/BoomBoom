@@ -142,7 +142,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         btn_settings = findViewById(R.id.btn_settings);
         drawerIcon = findViewById(R.id.btn_more);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView) ;
 
         cloud1=findViewById(R.id.cloud_1);
         cloud2=findViewById(R.id.cloud_2);
