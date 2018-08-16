@@ -119,6 +119,15 @@ public class Utils {
 
     }
 
+    public static String LongToCurrency(Long number) {
+        return String.format("%,d", number);
+    }
+
+
+    public static String LongToCurrency(int number) {
+        return String.format("%,d", number);
+    }
+
     public static Bitmap getBitmapFromURL(String strURL) {
         try {
             URL url = new URL(strURL);

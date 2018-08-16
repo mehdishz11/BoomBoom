@@ -81,5 +81,9 @@
     <string name="offer_package">بسته های تخفیف</string>
     <string name="competition">مسابقات</string>
     <string name="add_coin">افزایش سکه</string>
+    <string name="price_unit"> تومان</string>
+    <string name="coin">سکه</string>
+    <string name="hint_shop_message">برای افزایش سکه های خود یکی از بسته های زیر را انتخاب نمایید</string>
+    <string name="special_offer">پیشنهاد ویژه</string>
 
 </resources>

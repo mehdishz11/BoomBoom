@@ -2,7 +2,6 @@ package psb.com.kidpaint.offerPackage;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,33 +9,30 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.score.IVScorePackage;
-import psb.com.kidpaint.score.PScorePackage;
+import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
-import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
-import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.buy.model.ResponseBuyOfferPackage;
 
 public class DialogOfferPackage extends Dialog implements IVOfferPackage {
-    private TextView coin_title_1, message;
+    private TextView message;
     private TextView coin_coin_1;
-    private TextView coin_price_1;
     private TextView coin_discount_1;
+    private RelativeLayout relDiscount;
     private ImageView coin_image_1;
-    private Button coin_btn_1, btn_discard_buy;
+    private Button coin_btn_1;
     private ProgressBar progressBar;
-    private LinearLayout linearLayout;
+    private RelativeLayout relContent;
     private POfferPackage pOfferPackage;
     private ResponseGetOfferPackage mResponseGetOfferPackagel;
 
@@ -69,15 +65,15 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
         this.dialogMessage = dialogMessage;
 
         if ("".equals(dialogMessage)) {
-            message.setVisibility(View.GONE);
+            message.setVisibility(View.INVISIBLE);
         } else {
             message.setText(dialogMessage);
             message.setVisibility(View.VISIBLE);
         }
     }
 
-    public void setOfferResponse(ResponseGetOfferPackage response){
-        this.mResponseGetOfferPackagel=response;
+    public void setOfferResponse(ResponseGetOfferPackage response) {
+        this.mResponseGetOfferPackagel = response;
 
         setInfo(mResponseGetOfferPackagel);
 
@@ -85,7 +81,7 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
 
     public void setShowBtnDiscardBuy(boolean showBtnDiscardBuy) {
         this.showBtnDiscardBuy = showBtnDiscardBuy;
-        btn_discard_buy.setVisibility(showBtnDiscardBuy ? View.VISIBLE : View.GONE);
+
 
     }
 
@@ -123,35 +119,19 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
             }
         });
 
-        btn_discard_buy = findViewById(R.id.btn_discard_buy);
-        btn_discard_buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SoundHelper.playSound(R.raw.click_bubbles_1);
-                if (offerPackageDiscardBtnListener != null) {
-                    offerPackageDiscardBtnListener.btnDiscardBuySelect();
-                }
-                cancel();
-            }
-        });
-
 
         progressBar = findViewById(R.id.progressBar);
         message = findViewById(R.id.message);
         message.setVisibility(View.GONE);
 
-        linearLayout = findViewById(R.id.rel_content);
-
-        coin_title_1 = findViewById(R.id.coin_title_1);
+        relContent = findViewById(R.id.rel_content);
 
 
         coin_coin_1 = findViewById(R.id.coin_coin_1);
 
 
-        coin_price_1 = findViewById(R.id.coin_price_1);
-
-
         coin_discount_1 = findViewById(R.id.coin_discount_1);
+        relDiscount = findViewById(R.id.rel_discount_1);
 
 
         coin_image_1 = findViewById(R.id.coin_image_1);
@@ -160,9 +140,7 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
         coin_btn_1 = findViewById(R.id.btn_buy_1);
 
 
-
-
-        linearLayout.setVisibility(View.GONE);
+        relContent.setVisibility(View.GONE);
 
         pOfferPackage = new POfferPackage(this);
     }
@@ -170,55 +148,47 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
     void setInfo(final ResponseGetOfferPackage responseGetScorePackage) {
 
 
-            coin_title_1.setText(responseGetScorePackage.getExtra().get(0).getTitle());
+        setDialogMessage(responseGetScorePackage.getExtra().get(0).getTitle());
 
+        coin_coin_1.setText(Utils.LongToCurrency(responseGetScorePackage.getExtra().get(0).getScore()) + " " + getContext().getString(R.string.coin));
 
-            coin_coin_1.setText(responseGetScorePackage.getExtra().get(0).getScore() + " سکه");
+        String btnText=(responseGetScorePackage.getExtra().get(0).getPrice()==0?"دریافت":Utils.LongToCurrency(responseGetScorePackage.getExtra().get(0).getPrice()) + " " + getContext().getString(R.string.price_unit));
 
-
-            coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
+        coin_btn_1.setText(btnText);
 
 
 //////////////////// discount 1 ////////////////////////////////////////
 
-                coin_price_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + "");
-                coin_discount_1.setVisibility(View.GONE);
 
-
-
+        relDiscount.setVisibility(View.GONE);
 
 
 //===================== images  ========================================================
 //======================================================================================
-            if (responseGetScorePackage.getExtra().get(0).getImageUrl() != null && !responseGetScorePackage.getExtra().get(0).getImageUrl().isEmpty()) {
-                Picasso
-                        .get()
-                        .load(responseGetScorePackage.getExtra().get(0).getImageUrl())
-                        .resize(Value.dp(100), 0)
-                        .onlyScaleDown()
-                        .into(coin_image_1);
+        if (responseGetScorePackage.getExtra().get(0).getImageUrl() != null && !responseGetScorePackage.getExtra().get(0).getImageUrl().isEmpty()) {
+            Picasso
+                    .get()
+                    .load(responseGetScorePackage.getExtra().get(0).getImageUrl())
+                    .resize(Value.dp(100), 0)
+                    .onlyScaleDown()
+                    .into(coin_image_1);
+        }
+
+
+        //===================== btn  ========================================================
+        //=================================================================================
+        coin_btn_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pOfferPackage.doBuyOfferPackage(responseGetScorePackage.getExtra().get(0).getId());
+
             }
+        });
 
 
-            //===================== btn  ========================================================
-            //=================================================================================
-            coin_btn_1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    pOfferPackage.doBuyOfferPackage(responseGetScorePackage.getExtra().get(0).getId());
-
-                }
-            });
-
-
-
-
-
-        linearLayout.setVisibility(View.VISIBLE);
+        relContent.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
-
-
 
 
     @Override
