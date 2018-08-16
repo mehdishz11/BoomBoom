@@ -12,7 +12,7 @@ public interface IPLeaderShip {
     Context getContext();
 
 
-    void onGetLeaderShip(int page, int size);
+    void onGetLeaderShip(int page, int size,int matchId, int level);
     void setResponseGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip);
     void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip);
     void onFailedGetLeaderShip(int errorCode, String errorMessage);

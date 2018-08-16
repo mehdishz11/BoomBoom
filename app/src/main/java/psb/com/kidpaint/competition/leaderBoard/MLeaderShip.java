@@ -30,7 +30,7 @@ public class MLeaderShip implements IMLeaderShip {
 
 
     @Override
-    public void onGetLeaderShip(final int page, int size) {
+    public void onGetLeaderShip(final int page, int size,int matchId, int level) {
         new Paint().getLeaderShip(new iGetLeaderShip.iResult() {
             @Override
             public void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip) {
@@ -50,7 +50,7 @@ public class MLeaderShip implements IMLeaderShip {
                 ipLeaderShip.onFailedGetLeaderShip(errorId, ErrorMessage);
 
             }
-        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),page,size);
+        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),page,size,matchId,level);
     }
 
     @Override

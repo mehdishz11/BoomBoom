@@ -10,7 +10,7 @@ public interface IMAllPaints {
     Context getContext();
 
 
-    void onGetAllPaints(String text, int page, int size);
+    void onGetAllPaints(String text, int page, int size,int matchId, int level);
     void setResponseGetAllPaints(ResponseGetAllPaints responseGetAllPaints);
 
 

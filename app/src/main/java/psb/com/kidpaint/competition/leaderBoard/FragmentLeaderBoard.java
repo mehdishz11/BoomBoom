@@ -39,7 +39,10 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_RESPONSE = "ARG_RESPONSE";
     private ResponseGetLeaderShip mResponseGetLeaderShip;
-
+    private static final String ARG_LEVEL = "ARG_LEVEL";
+    private static final String ARG_MATCHID = "ARG_MATCHID";
+    int matchId=0;
+    int level=1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,10 +65,12 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
     }
 
 
-    public static FragmentLeaderBoard newInstance(ResponseGetLeaderShip responseGetLeaderShip) {
+    public static FragmentLeaderBoard newInstance(ResponseGetLeaderShip responseGetLeaderShip ,int matchId, int level) {
         FragmentLeaderBoard fragment = new FragmentLeaderBoard();
         Bundle args = new Bundle();
         args.putSerializable(ARG_RESPONSE, responseGetLeaderShip);
+        args.putInt(ARG_LEVEL, level);
+        args.putInt(ARG_MATCHID, matchId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +80,8 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mResponseGetLeaderShip = (ResponseGetLeaderShip) getArguments().getSerializable(ARG_RESPONSE);
+            level=getArguments().getInt(ARG_LEVEL);
+            matchId=getArguments().getInt(ARG_MATCHID);
             getArguments().clear();
         }
     }
@@ -94,8 +101,8 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         return view;
     }
 
-    public void onGetLeaderShip(){
-        pLeaderShip.onGetLeaderShip(1, 20);
+    public void onGetLeaderShip(int matchId, int level){
+        pLeaderShip.onGetLeaderShip(1, 20,matchId,level);
 
     }
 
@@ -116,7 +123,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                 pLeaderShip.onGetLeaderShip(1, 20);
+                 pLeaderShip.onGetLeaderShip(1, 20, matchId,  level);
             }
         });
 
@@ -143,7 +150,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
                     Log.d("TAG", "onLoadMore: "+current_page);
                     progressBarLoading.setVisibility(View.VISIBLE);
-                    pLeaderShip.onGetLeaderShip(current_page, 20);
+                    pLeaderShip.onGetLeaderShip(current_page, 20,matchId,level);
                 }
                // Log.d("TAG", "onLoadMore: "+page);
             }

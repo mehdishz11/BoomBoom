@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface iGetLeaderShip {
 
-    void doGetLeaderShip(String mobile, int page, int size);
+    void doGetLeaderShip(String mobile, int page, int size, int matchId, int level);
 
     interface iResult {
         void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip);
@@ -23,6 +23,6 @@ public interface iGetLeaderShip {
 
     interface apiRequest {
         @GET(iPaint.apiAddress+"GetLeaderShip")
-        Call<ResponseGetLeaderShip> getLeaderShip(@Query("mobile") String mobile, @Query("page") int page, @Query("size") int size);
+        Call<ResponseGetLeaderShip> getLeaderShip(@Query("mobile") String mobile, @Query("page") int page, @Query("size") int size,@Query("matchId") int matchId,@Query("level") int level);
     }
 }

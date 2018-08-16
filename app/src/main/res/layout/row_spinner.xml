@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<psb.com.cview.CustomTextView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="13sp"
+    android:gravity="center"
+    android:padding="10dp"
+    android:textColor="@color/brown_5"
+    android:background="@color/brown_4"
+    android:text="نام شهر">
+
+</psb.com.cview.CustomTextView>

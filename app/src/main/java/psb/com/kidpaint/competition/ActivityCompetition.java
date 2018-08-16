@@ -11,13 +11,19 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import psb.com.kidpaint.R;
@@ -36,6 +42,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
+import psb.com.kidpaint.webApi.match.Get.model.ResponseGetMatch;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
@@ -59,9 +66,11 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     private PCompetition pCompetition;
     private ProgressView progressView;
 
+    private ResponseGetMatch mResponseGetMatch;
     private ResponseGetMyPaints mResponseGetMyPaints;
     private ResponseGetAllPaints mResponseGetAllPaints;
     private ResponseGetLeaderShip mResponseGetLeaderShip;
+
 
     private FrameLayout frameLayoutScore;
 
@@ -76,7 +85,15 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     private ImageView cow;
     private ImageView rooster;
 
-    private ImageView imgBack;
+    private ImageView imgBack, bronzeMedal, silverMedal, goldMedal;
+
+    int matchId = 0;
+    int levelId = 1;
+
+    private Spinner spinnerMatch;
+    private ProgressBar progressBarMatch;
+
+    private int loadModeMatch=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,13 +102,10 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         setContentView(R.layout.activity_competition);
 
         userProfile = new UserProfile(this);
+        levelId = userProfile.get_KEY_LEVEL(1);
         pCompetition = new PCompetition(this);
         setViewContent();
-        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-            pCompetition.onGetMyPaints();
-        } else {
-            pCompetition.onGetAllPaints();
-        }
+        pCompetition.onGetMatch(0,levelId);
 
         setUserInfo();
 
@@ -119,9 +133,9 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         if (position == 0) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_PAINTS).commit();
         } else if (position == 1) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip), TAG_FRAGMENT_LEADER_BOARD).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip, matchId, levelId), TAG_FRAGMENT_LEADER_BOARD).commit();
         } else if (position == 2) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentAllPaints().newInstance(mResponseGetAllPaints), TAG_FRAGMENT_All_PAINTS).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentAllPaints().newInstance(mResponseGetAllPaints, matchId, levelId), TAG_FRAGMENT_All_PAINTS).commit();
         }
     }
 
@@ -130,7 +144,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
             text_user_name.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
             text_user_name.setOnClickListener(null);
         } else {
-            text_user_name.setText("ثبت نام کنید");
+            text_user_name.setText("ثبت نام | ورود");
             text_user_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -179,7 +193,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         int[] delay = {0, 300, 500};
         ObjectAnimator animMove = ObjectAnimator.ofFloat(animal, "translationY", 0.0f, -20.0f, animal.getHeight());
         animMove.setDuration(500); // miliseconds
-        animMove.setStartDelay(delay[new Random().nextInt(3) ]);
+        animMove.setStartDelay(delay[new Random().nextInt(3)]);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animMove);
         animal.setTag("hide");
@@ -191,7 +205,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         ObjectAnimator animMove = ObjectAnimator.ofFloat(animal, "translationY", animal.getHeight(), -20.0f, 0);
         animMove.setDuration(500); // miliseconds
         int[] delay = {0, 300, 500};
-        animMove.setStartDelay(delay[new Random().nextInt(3) ]);
+        animMove.setStartDelay(delay[new Random().nextInt(3)]);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animMove);
         animal.setTag("show");
@@ -224,10 +238,18 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
         progressView = findViewById(R.id.progressView);
         frameLayoutScore = findViewById(R.id.frameLayoutScore);
+
+        progressBarMatch = findViewById(R.id.progressBar);
+        spinnerMatch = findViewById(R.id.spinner_match);
+
         sheep = findViewById(R.id.img_animal_1);
         cow = findViewById(R.id.img_animal_3);
         rooster = findViewById(R.id.img_animal_5);
+
         imgBack = findViewById(R.id.img_back_1);
+        bronzeMedal = findViewById(R.id.bronzeMedal);
+        silverMedal = findViewById(R.id.silverMedal);
+        goldMedal = findViewById(R.id.goldMedal);
 
 
         tabAll = findViewById(R.id.text_All);
@@ -268,11 +290,141 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
         frameLayoutScore.setVisibility(View.GONE);
 
+
+        bronzeMedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                levelId = 1;
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
+                    ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
+                }
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS) != null) {
+                    ((FragmentAllPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS)).getAllPaints(matchId, levelId);
+                }
+                pCompetition.onGetMatch(1,levelId);
+
+            }
+        });
+
+        silverMedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                levelId = 2;
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
+                    ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
+                }
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS) != null) {
+                    ((FragmentAllPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS)).getAllPaints(matchId, levelId);
+                }
+
+                pCompetition.onGetMatch(1,levelId);
+            }
+        });
+
+        goldMedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                levelId = 3;
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
+                    ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
+                }
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS) != null) {
+                    ((FragmentAllPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS)).getAllPaints(matchId, levelId);
+                }
+                pCompetition.onGetMatch(1,levelId);
+
+            }
+        });
+
+    }
+
+    void setSpinnerAdapterMatch(){
+
+
+        List<String> title=new ArrayList<>();
+        for (int i = 0; i <mResponseGetMatch.getExtra().size() ; i++) {
+            title.add(mResponseGetMatch.getExtra().get(i).getTitle());
+        }
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                (this, R.layout.row_spinner,
+                        title);
+        /*ArrayAdapter<CharSequence> adp3 = ArrayAdapter.createFromResource(getContext(),
+                title, R.layout.row_spinner);*/
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.row_spinner_dropdown);
+        spinnerMatch.setAdapter(spinnerArrayAdapter);
+        spinnerMatch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+
+                matchId=mResponseGetMatch.getExtra().get(position).getId();
+
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
+                    ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
+                }
+                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS) != null) {
+                    ((FragmentAllPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS)).getAllPaints(matchId, levelId);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        progressBarMatch.setVisibility(View.GONE);
+        spinnerMatch.setVisibility(View.VISIBLE);
     }
 
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void onStartGetMatch(int mode) {
+        loadModeMatch=mode;
+        if (mode==0) {
+            progressView.setVisibility(View.VISIBLE);
+        }else {
+            progressBarMatch.setVisibility(View.VISIBLE);
+            spinnerMatch.setVisibility(View.GONE);
+
+        }
+
+    }
+
+    @Override
+    public void onSuccessGetGetMatch(ResponseGetMatch responseGetMatch) {
+        this.mResponseGetMatch=responseGetMatch;
+        if (loadModeMatch==0) {
+
+            if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                pCompetition.onGetMyPaints();
+            } else {
+                pCompetition.onGetAllPaints();
+            }
+        }
+
+            setSpinnerAdapterMatch();
+
+    }
+
+    @Override
+    public void onFailedGetGetMatch(int errorCode, String errorMessage) {
+        progressView.showError(errorMessage, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pCompetition.onGetMatch(0,levelId);
+            }
+        });
     }
 
     @Override
@@ -305,7 +457,6 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
     @Override
     public void onStartGetAllPaints() {
-        progressView.setVisibility(View.VISIBLE);
 
     }
 
@@ -407,7 +558,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
                 }
 
                 if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
-                    ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip();
+                    ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();
@@ -419,14 +570,12 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         final View v = findViewById(R.id.text_competition);
         final View v_2 = findViewById(R.id.text_me);
         final View v_3 = findViewById(R.id.text_All);
-        FancyShowCaseView fancyShowCaseView= Intro.addIntroTo(this, v, IntroEnum.getLayoutId(9), IntroPosition.BOTTOM, IntroEnum.getSoundId(9), IntroEnum.getShareId(9),null,null);
-        FancyShowCaseView fancyShowCaseView_me= Intro.addIntroTo(this, v_2, IntroEnum.getLayoutId(10), IntroPosition.BOTTOM, IntroEnum.getSoundId(10), IntroEnum.getShareId(10),null,null);
-        FancyShowCaseView fancyShowCaseView_all= Intro.addIntroTo(this, v_3, IntroEnum.getLayoutId(11), IntroPosition.BOTTOM, IntroEnum.getSoundId(11), IntroEnum.getShareId(11),null,null);
+        FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(this, v, IntroEnum.getLayoutId(9), IntroPosition.BOTTOM, IntroEnum.getSoundId(9), IntroEnum.getShareId(9), null, null);
+        FancyShowCaseView fancyShowCaseView_me = Intro.addIntroTo(this, v_2, IntroEnum.getLayoutId(10), IntroPosition.BOTTOM, IntroEnum.getSoundId(10), IntroEnum.getShareId(10), null, null);
+        FancyShowCaseView fancyShowCaseView_all = Intro.addIntroTo(this, v_3, IntroEnum.getLayoutId(11), IntroPosition.BOTTOM, IntroEnum.getSoundId(11), IntroEnum.getShareId(11), null, null);
 
 
-
-
-        FancyShowCaseQueue fancyShowCaseQueue=new FancyShowCaseQueue();
+        FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
         fancyShowCaseQueue.add(fancyShowCaseView);
         fancyShowCaseQueue.add(fancyShowCaseView_me);
         fancyShowCaseQueue.add(fancyShowCaseView_all);
@@ -439,7 +588,6 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         });
         fancyShowCaseQueue.show();
     }
-
 
 
 }
