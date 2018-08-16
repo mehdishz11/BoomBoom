@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface iGetAllPaints {
 
-    void doGetAllPaints(String text,int page,int size);
+    void doGetAllPaints(String text,int page,int size,int matchId, int level);
 
     interface iResult {
         void onSuccessGetAllPaints(ResponseGetAllPaints responseGetAllPaints);
@@ -23,6 +23,6 @@ public interface iGetAllPaints {
 
     interface apiRequest {
         @GET(iPaint.apiAddress+"GetAll")
-        Call<ResponseGetAllPaints> getAllPaints(@Query("text") String mobile,@Query("page") int page,@Query("size") int size);
+        Call<ResponseGetAllPaints> getAllPaints(@Query("text") String mobile,@Query("page") int page,@Query("size") int size,@Query("matchId") int matchId,@Query("level") int level);
     }
 }

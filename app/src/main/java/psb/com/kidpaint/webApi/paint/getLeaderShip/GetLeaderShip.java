@@ -25,8 +25,8 @@ public class GetLeaderShip implements iGetLeaderShip {
     }
 
     @Override
-    public void doGetLeaderShip(String mobile,int page,int size) {
-        Call<ResponseGetLeaderShip> call = new WebService().getClient().create(apiRequest.class).getLeaderShip(mobile, page, size);
+    public void doGetLeaderShip(String mobile,int page,int size,int matchId, int level) {
+        Call<ResponseGetLeaderShip> call = new WebService().getClient().create(apiRequest.class).getLeaderShip(mobile, page, size,matchId,level);
         call.enqueue(new Callback<ResponseGetLeaderShip>() {
             @Override
             public void onResponse(Call<ResponseGetLeaderShip> call, Response<ResponseGetLeaderShip> response) {

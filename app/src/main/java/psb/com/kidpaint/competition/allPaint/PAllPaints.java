@@ -32,9 +32,9 @@ public class PAllPaints implements IPAllPaints {
 
 
     @Override
-    public void onGetAllPaints(String text, int page, int size) {
+    public void onGetAllPaints(String text, int page, int size,int matchId, int level) {
        ivAllPaints.onStartGetAllPaints();
-       mPaints.onGetAllPaints(text, page, size);
+       mPaints.onGetAllPaints(text, page, size,matchId,level);
     }
 
     @Override

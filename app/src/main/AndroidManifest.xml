@@ -57,7 +57,7 @@
 
         <activity
             android:name=".competition.ActivityCompetition"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/ThemeFullSCreen"
             android:windowSoftInputMode="adjustResize" />
 

@@ -33,7 +33,7 @@ public class MAllPaints implements IMAllPaints {
 
 
     @Override
-    public void onGetAllPaints(String text, final int page, int size) {
+    public void onGetAllPaints(String text, final int page, int size,int matchId, int level) {
         new Paint().getAllPaints(new iGetAllPaints.iResult() {
             @Override
             public void onSuccessGetAllPaints(ResponseGetAllPaints responseGetAllPaints) {
@@ -52,7 +52,7 @@ public class MAllPaints implements IMAllPaints {
                 ipAllPaints.onFailedGetAllPaints(errorId, ErrorMessage);
 
             }
-        }).doGetAllPaints(text,page,size);
+        }).doGetAllPaints(text,page,size,matchId,level);
     }
 
     @Override

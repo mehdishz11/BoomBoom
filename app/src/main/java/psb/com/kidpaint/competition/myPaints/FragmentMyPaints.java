@@ -120,7 +120,9 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
 
 
         adapter_myPaints=new Adapter_MyPaints(pPaints);
-        LinearLayoutManager linearLayoutManager2 = new GridLayoutManager(getContext(), 1);
+        LinearLayoutManager linearLayoutManager2 = new GridLayoutManager(getContext(), 1,GridLayoutManager.HORIZONTAL, false);
+       // LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
         recyclerViewMyPaints.setLayoutManager(linearLayoutManager2);
         AnimationAdapter animationAdapter2 = new SlideInBottomAnimationAdapter(adapter_myPaints);
         animationAdapter2.setDuration(100);

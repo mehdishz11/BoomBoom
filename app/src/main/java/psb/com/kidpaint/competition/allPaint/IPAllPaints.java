@@ -12,7 +12,7 @@ public interface IPAllPaints {
     Context getContext();
 
 
-    void onGetAllPaints(String text, int page, int size);
+    void onGetAllPaints(String text, int page, int size,int matchId, int level);
     void setResponseGetAllPaints(ResponseGetAllPaints responseGetAllPaints);
     void onSuccessGetAllPaints(ResponseGetAllPaints responseGetAllPaints);
     void onFailedGetAllPaints(int errorCode, String errorMessage);

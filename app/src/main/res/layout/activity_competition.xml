@@ -16,7 +16,7 @@
 
                 <android.support.design.widget.AppBarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="156dp"
+                    android:layout_height="106dp"
                     android:background="@drawable/clouds"
                     app:elevation="0dp"
                     >
@@ -34,62 +34,183 @@
                             android:padding="@dimen/space_normal"
                             android:src="@drawable/img_icon_right_arrow" />
 
+
+
+                        <!--login | register-->
                         <RelativeLayout
-                            android:id="@+id/rel_user_image"
+                            android:id="@+id/rel_user_register"
                             android:layout_width="wrap_content"
+                            android:layout_toLeftOf="@+id/img_back_1"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="@dimen/space_small">
+                            >
+
 
                             <RelativeLayout
+                                android:id="@+id/rel_user_image"
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="-20dp"
+                                android:layout_toRightOf="@+id/rel_register_text">
+
+                                <com.makeramen.roundedimageview.RoundedImageView
+                                    android:id="@+id/img_user_bgr"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@color/brown_5"
+                                    app:riv_corner_radius="26dp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rel_register_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true">
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/bgr_top_round">
 
-                                <com.makeramen.roundedimageview.RoundedImageView
-                                    android:layout_width="65dp"
-                                    android:layout_height="65dp"
-                                    android:layout_marginTop="5dp"
-                                    android:src="@color/md_blue_900"
-                                    app:riv_corner_radius="40dp" />
+                                <psb.com.cview.CustomTextViewBold
+                                    android:id="@+id/text_user_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="25dp"
+                                    android:clickable="true"
+                                    android:ellipsize="end"
+                                    android:gravity="right|center"
+                                    android:maxLines="1"
+                                    android:paddingBottom="5dp"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:text="ثبت نام | ورود"
+                                    android:textColor="@color/brown_5"
+                                    android:textSize="@dimen/font_size_12" />
 
+                                <View
+                                    android:layout_width="12dp"
+                                    android:layout_height="8dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_marginTop="7dp"
+                                    android:alpha="0.3"
+                                    android:background="@drawable/circle_white"
+                                    android:rotation="-55" />
 
-                                <com.makeramen.roundedimageview.RoundedImageView
-                                    android:layout_width="65dp"
-                                    android:layout_height="65dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@color/md_blue_600"
-                                    app:riv_border_color="@color/md_blue_900"
-                                    app:riv_border_width="0.2dp"
-                                    app:riv_corner_radius="40dp" />
-
-                                <com.makeramen.roundedimageview.RoundedImageView
-                                    android:id="@+id/userImage"
-                                    android:layout_width="58dp"
-                                    android:layout_height="58dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/temp_kid_1"
-                                    app:riv_border_color="@color/md_blue_900"
-                                    app:riv_border_width="1.5dp"
-                                    app:riv_corner_radius="40dp" />
-
+                                <View
+                                    android:layout_width="6dp"
+                                    android:layout_height="5dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginLeft="13dp"
+                                    android:layout_marginTop="2dp"
+                                    android:alpha="0.3"
+                                    android:background="@drawable/circle_white"
+                                    android:rotation="-15" />
 
                             </RelativeLayout>
 
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/img_user_bgr1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignBottom="@+id/rel_user_image"
+                                android:layout_alignLeft="@+id/rel_user_image"
+                                android:layout_alignRight="@+id/rel_user_image"
+                                android:layout_alignTop="@+id/rel_user_image"
+                                android:layout_centerVertical="true"
+                                android:padding="1dp"
+                                android:src="@color/brown_4"
+                                app:riv_corner_radius="26dp" />
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/img_user_bgr2"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignBottom="@+id/rel_user_image"
+                                android:layout_alignLeft="@+id/rel_user_image"
+                                android:layout_alignRight="@+id/rel_user_image"
+                                android:layout_alignTop="@+id/rel_user_image"
+                                android:padding="3dp"
+                                android:src="@drawable/bgr_color_picker"
+                                android:tint="@color/light_level_0"
+                                app:riv_corner_radius="40dp" />
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/userImage"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignBottom="@+id/rel_user_image"
+                                android:layout_alignLeft="@+id/rel_user_image"
+                                android:layout_alignRight="@+id/rel_user_image"
+                                android:layout_alignTop="@+id/rel_user_image"
+                                android:padding="4dp"
+                                android:src="@drawable/user_empty_gray"
+                                android:tint="@color/light_level_0"
+                                app:riv_corner_radius="40dp" />
+
                         </RelativeLayout>
 
-                        <psb.com.cview.CustomTextViewBold
-                            android:id="@+id/text_user_name"
+                        <!-- rel medal-->
+                        <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/rel_user_image"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="@dimen/space_small"
-                            android:text="مهدی شجاعیان زنجانی"
-                            android:textColor="@color/md_blue_800"
-                            android:textSize="@dimen/text_size_large" />
+                            android:layout_toLeftOf="@+id/rel_user_register"
+                            android:layout_alignTop="@+id/rel_user_register"
+                            android:gravity="center"
+                            android:layout_alignBottom="@+id/rel_user_register"
+                            android:layout_marginRight="@dimen/margin_25"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/bronzeMedal"
+                                android:layout_width="40dp"
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:src="@drawable/bronze_medal"
+                                android:layout_height="40dp" />
+                            <ImageView
+                                android:id="@+id/silverMedal"
+                                android:layout_toRightOf="@+id/bronzeMedal"
+                                android:layout_width="40dp"
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:src="@drawable/silver_medal"
+                                android:layout_height="40dp" />
+                            <ImageView
+                                android:id="@+id/goldMedal"
+                                android:layout_toRightOf="@+id/silverMedal"
+                                android:layout_width="40dp"
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:src="@drawable/gold_medal"
+                                android:layout_height="40dp" />
+                        </RelativeLayout>
+
+                        <!-- spinner-->
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:background="@drawable/bgr_top_round"
+                            android:layout_marginTop="@dimen/margin_5"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.AppCompatSpinner
+                                android:layout_width="200dp"
+                                android:layout_marginLeft="@dimen/margin_15"
+                                android:layout_marginRight="@dimen/margin_15"
+                                android:padding="2.5dp"
+                                android:id="@+id/spinner_match"
+                                android:minHeight="50dp"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar"
+                                android:layout_width="30dp"
+                                android:layout_centerVertical="true"
+                                android:layout_centerHorizontal="true"
+                                android:visibility="gone"
+                                android:layout_height="30dp" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <android.support.v7.widget.Toolbar
@@ -104,7 +225,7 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
+                                android:layout_alignParentLeft="true"
                                 app:cardBackgroundColor="@color/md_red_500"
                                 app:cardCornerRadius="20dp"
                                 app:cardElevation="0dp">
@@ -218,7 +339,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="150dp"
                 android:layout_alignParentBottom="true">
 
                 <RelativeLayout
@@ -233,7 +354,7 @@
                         android:layout_height="150dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="50dp"
+                        android:layout_marginBottom="40dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/tree_trunk" />
                 </RelativeLayout>
@@ -242,13 +363,13 @@
                 <RelativeLayout
                     android:id="@+id/view_footer"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
                     android:layout_alignParentBottom="true">
 
                     <ImageView
                         android:id="@+id/img_grass_1"
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
+                        android:layout_height="45dp"
                         android:layout_alignParentBottom="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/grass_7" />
@@ -257,7 +378,7 @@
                     <ImageView
                         android:id="@+id/img_grass_2"
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/grass_8" />
@@ -266,7 +387,7 @@
                     <ImageView
                         android:id="@+id/img_grass_5"
                         android:layout_width="130dp"
-                        android:layout_height="92dp"
+                        android:layout_height="62dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="-20dp"
@@ -275,21 +396,21 @@
 
                     <ImageView
                         android:id="@+id/img_animal_1"
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_height="90dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="@dimen/space_normal"
-                        android:scaleType="fitStart"
+                        android:scaleType="fitEnd"
                         android:src="@drawable/animal_2" />
 
 
                     <ImageView
                         android:id="@+id/img_grass_4"
                         android:layout_width="130dp"
-                        android:layout_height="60dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="-20dp"
+                        android:layout_marginLeft="-50dp"
                         android:layout_toRightOf="@+id/img_grass_3"
                         android:scaleType="fitEnd"
                         android:src="@drawable/grass_3" />
@@ -297,17 +418,17 @@
                     <ImageView
                         android:id="@+id/img_grass_3"
                         android:layout_width="90dp"
-                        android:layout_height="40dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="-20dp"
+                        android:layout_marginLeft="-40dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/grass_2" />
 
                     <ImageView
                         android:id="@+id/img_grass_8"
                         android:layout_width="170dp"
-                        android:layout_height="120dp"
+                        android:layout_height="80dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="-10dp"
@@ -318,18 +439,18 @@
                     <ImageView
                         android:id="@+id/img_animal_3"
                         android:layout_width="70dp"
-                        android:layout_height="90dp"
+                        android:layout_height="50dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="@dimen/space_normal"
-                        android:layout_marginRight="100dp"
+                        android:layout_marginRight="70dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/animal_3" />
 
                     <ImageView
                         android:id="@+id/img_grass_7"
                         android:layout_width="140dp"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="-10dp"
@@ -340,7 +461,7 @@
                     <ImageView
                         android:id="@+id/img_animal_5"
                         android:layout_width="70dp"
-                        android:layout_height="105dp"
+                        android:layout_height="85dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="-10dp"
@@ -350,11 +471,11 @@
                     <ImageView
                         android:id="@+id/img_grass_6"
                         android:layout_width="90dp"
-                        android:layout_height="60dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="-10dp"
-                        android:layout_marginLeft="-20dp"
+                        android:layout_marginLeft="-30dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/grass_4" />
 

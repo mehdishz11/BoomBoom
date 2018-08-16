@@ -3,6 +3,9 @@ package psb.com.kidpaint.competition;
 import android.content.Context;
 
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.webApi.match.Get.iGetMatch;
+import psb.com.kidpaint.webApi.match.Get.model.ResponseGetMatch;
+import psb.com.kidpaint.webApi.match.Match;
 import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
@@ -26,6 +29,21 @@ public class MCompetition implements IMCompetition {
     @Override
     public Context getContext() {
         return context;
+    }
+
+    @Override
+    public void onGetMatch(int level) {
+        new Match().getMatch(new iGetMatch.iResult() {
+            @Override
+            public void onSuccessGetMatch(ResponseGetMatch responseGetMatch) {
+                ipCompetition.onSuccessGetGetMatch(responseGetMatch);
+            }
+
+            @Override
+            public void onFailedGetMatch(int errorCode, String ErrorMessage) {
+               ipCompetition.onFailedGetGetMatch(errorCode, ErrorMessage);
+            }
+        }).doGetGetMatch(level);
     }
 
     @Override
@@ -56,7 +74,7 @@ public class MCompetition implements IMCompetition {
               ipCompetition.onFailedGetAllPaints(errorId, ErrorMessage);
 
           }
-      }).doGetAllPaints(null,1,20);
+      }).doGetAllPaints(null,1,20,0,userProfile.get_KEY_LEVEL(1));
     }
 
     @Override
@@ -72,6 +90,6 @@ public class MCompetition implements IMCompetition {
                ipCompetition.onFailedGetLeaderBoard(errorId, ErrorMessage);
 
            }
-       }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,20);
+       }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,20,0,userProfile.get_KEY_LEVEL(1));
     }
 }

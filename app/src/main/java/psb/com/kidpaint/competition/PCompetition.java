@@ -2,6 +2,7 @@ package psb.com.kidpaint.competition;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.match.Get.model.ResponseGetMatch;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
@@ -20,6 +21,22 @@ public class PCompetition implements IPCompetition {
     @Override
     public Context getContext() {
         return context;
+    }
+
+    @Override
+    public void onGetMatch(int mode, int level) {
+        ivCompetition.onStartGetMatch(mode);
+        mCompetition.onGetMatch(level);
+    }
+
+    @Override
+    public void onSuccessGetGetMatch(ResponseGetMatch responseGetMatch) {
+         ivCompetition.onSuccessGetGetMatch(responseGetMatch);
+    }
+
+    @Override
+    public void onFailedGetGetMatch(int errorCode, String errorMessage) {
+         ivCompetition.onFailedGetGetMatch(errorCode, errorMessage);
     }
 
     @Override

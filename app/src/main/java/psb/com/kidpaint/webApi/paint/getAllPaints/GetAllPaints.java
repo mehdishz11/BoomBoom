@@ -27,8 +27,8 @@ public class GetAllPaints implements iGetAllPaints {
     }
 
     @Override
-    public void doGetAllPaints(String text,int page,int size) {
-        Call<ResponseGetAllPaints> call = new WebService().getClient().create(apiRequest.class).getAllPaints(text, page, size);
+    public void doGetAllPaints(String text,int page,int size,int matchId, int level) {
+        Call<ResponseGetAllPaints> call = new WebService().getClient().create(apiRequest.class).getAllPaints(text, page, size,matchId,level);
         call.enqueue(new Callback<ResponseGetAllPaints>() {
             @Override
             public void onResponse(Call<ResponseGetAllPaints> call, Response<ResponseGetAllPaints> response) {

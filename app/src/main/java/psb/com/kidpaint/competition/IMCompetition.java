@@ -6,6 +6,8 @@ public interface IMCompetition {
 
     Context getContext();
 
+    void onGetMatch(int level);
+
     void onGetMyPaints();
 
     void onGetAllPaints();

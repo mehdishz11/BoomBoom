@@ -10,7 +10,7 @@ public interface IMLeaderShip {
     Context getContext();
 
 
-    void onGetLeaderShip(int page, int size);
+    void onGetLeaderShip(int page, int size,int matchId, int level);
     void setResponseGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip);
 
 

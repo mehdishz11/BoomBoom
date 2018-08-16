@@ -30,9 +30,9 @@ public class PLeaderShip implements IPLeaderShip {
 
 
     @Override
-    public void onGetLeaderShip(int page, int size) {
+    public void onGetLeaderShip(int page, int size,int matchId, int level) {
        ivLeaderShip.onStartGetLeaderShip();
-       mPaints.onGetLeaderShip(page, size);
+       mPaints.onGetLeaderShip(page, size,matchId,level);
     }
 
     @Override
