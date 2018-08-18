@@ -338,10 +338,10 @@ public class DialogScorePackage extends Dialog implements IVScorePackage {
 
     @Override
     public void onSuccessBuyScorePackage(ResponseBuyScorePackage responseBuyScorePackage) {
-        Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
 
-        if (showBtnDiscardBuy && scorePackageDiscardBtnListener != null) {
+        if (scorePackageDiscardBtnListener != null) {
             scorePackageDiscardBtnListener.onSuccessBuyScorePackage(responseBuyScorePackage.getExtra());
             cancel();
 

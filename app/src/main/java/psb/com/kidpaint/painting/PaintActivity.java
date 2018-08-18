@@ -468,7 +468,7 @@ public class PaintActivity extends BaseActivity implements
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
 
-    void showDialogPackage(final String message, String showMode) {
+    void showDialogPackage(final String message, final String showMode) {
         DialogScorePackage cDialog = new DialogScorePackage(PaintActivity.this);
         cDialog.setDialogMessage(message);
         cDialog.setDialogMode(showMode);
@@ -491,8 +491,15 @@ public class PaintActivity extends BaseActivity implements
             public void onSuccessBuyScorePackage(int totalCoin) {
                 localCoinCount = totalCoin - localUsedCoinCount;
                 coinCount.setText(localCoinCount + "");
+                switch (showMode) {
+                    case "SaveWithWaterMark":
+                        Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
+                        saveFinalPaint("SaveWithOutWaterMark");
 
-                btnSave.performClick();
+                        break;
+                    case "Continue":
+                        break;
+                }
             }
 
             @Override

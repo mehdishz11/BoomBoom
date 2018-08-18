@@ -185,6 +185,23 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     void showDialogPackage() {
         DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
         cDialog.setShowBtnDiscardBuy(false);
+        cDialog.setScorePackageDiscardBtnListener(new DialogScorePackage.ScorePackageDiscardBtnListener() {
+            @Override
+            public void btnDiscardBuySelect(String mode) {
+
+            }
+
+            @Override
+            public void onSuccessBuyScorePackage(int totalCoin) {
+                setupUserInfo();
+
+            }
+
+            @Override
+            public void onFailedBuyScorePackage() {
+
+            }
+        });
         cDialog.show();
     }
 
@@ -534,6 +551,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
             }
         });
+        Log.d("ttag", "setupUserInfo: "+userProfile.get_KEY_SCORE(0));
         text_user_Coin.setText(userProfile.get_KEY_SCORE(0) + " سکه");
 
 

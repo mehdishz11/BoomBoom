@@ -18,7 +18,7 @@ public class ViewHolder_Message extends RecyclerView.ViewHolder {
     public View convertView;
     public TextView main_text,title;
     public TextView time;
-    public ImageView delivery,icon,content_image;
+    public ImageView delivery,icon,content_image,image_bg;
     public LinearLayout mainRel;
 
     public ViewHolder_Message(View itemView) {

@@ -36,7 +36,6 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
     public static int CODE_REGISTER = 107;
 
     private ProgressView progressView;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private EditText editText;
     private ImageView send;
@@ -59,7 +58,7 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
 
     void initView(){
         progressView=findViewById(R.id.progressView);
-        swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
+        //swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
         recyclerView=findViewById(R.id.recyclerView);
         editText=findViewById(R.id.chat_messages_txt);
         send=findViewById(R.id.btn_send);
@@ -73,12 +72,12 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
             }
         });
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      /*  swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pMessages.getMessageFromServer(1);
             }
-        });
+        });*/
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +152,6 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
 
         }else{
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-            swipeRefreshLayout.setRefreshing(false);
         }
 
         pMessages.getMessageFromDb(mLoadModeDb);
@@ -182,7 +180,6 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         }
 
       progressView.setVisibility(View.GONE);
-      swipeRefreshLayout.setRefreshing(false);
 
       if(pMessages.getFirstUnreadMessagePosition()<=(adapter_message.getItemCount()-1)){
           recyclerView.scrollToPosition(pMessages.getFirstUnreadMessagePosition());
@@ -336,7 +333,6 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         public void onReceive(Context context, Intent intent) {
             if (intent.hasExtra("Chat")) {
                 mLoadModeDb=2;
-                swipeRefreshLayout.setRefreshing(true);
                 pMessages.getMessageFromServer(2);
 
             }

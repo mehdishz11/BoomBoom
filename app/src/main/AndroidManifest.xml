@@ -67,7 +67,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".myMessages.ActivityMyMessages" />
+        <activity android:name=".myMessages.ActivityMyMessages"
+            android:screenOrientation="landscape"
+            />
+
         <activity android:name=".myPrize.ActivityMyPrize" />
 
         <receiver
