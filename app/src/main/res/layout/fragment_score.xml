@@ -4,87 +4,171 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
+    android:paddingBottom="45dp"
     android:clickable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".competition.score.FragmentScore">
 
 
+
+    <!--header-->
     <RelativeLayout
-        android:id="@+id/relToolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="150dp">
 
-
-        android:background="@color/colorPrimary">
-        <ImageView
-            android:id="@+id/icon_back"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:layout_alignParentLeft="true"
-            android:padding="@dimen/margin_15"
-            android:layout_centerVertical="true"
-            android:src="@drawable/img_icon_right_arrow"
-            android:scaleX="-1"
-
-            />
-
-        <RelativeLayout
-            android:id="@+id/relUserInfo"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/icon_back"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/margin_5">
-
-            <psb.com.cview.CustomTextViewBold
-                android:id="@+id/userName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/act_user_image"
-                android:layout_marginRight="@dimen/space_normal"
-                android:clickable="true"
-                android:gravity="right|center"
-                android:text="نام کاربری"
-                android:textColor="@color/White"
-                android:textSize="@dimen/font_size_13" />
-            <psb.com.cview.CustomTextView
-                android:id="@+id/imageScore"
-                android:layout_below="@+id/userName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/act_user_image"
-                android:layout_marginRight="@dimen/space_normal"
-                android:clickable="true"
-                android:gravity="right|center"
-                android:text="نام کاربری"
-                android:textColor="@color/White"
-                android:textSize="@dimen/font_size_12" />
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <View
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/act_user_image"
-                android:layout_alignLeft="@+id/act_user_image"
-                android:layout_alignRight="@+id/act_user_image"
-                android:layout_alignTop="@+id/act_user_image"
-                android:background="@drawable/circle_blue" />
+                android:layout_weight="1"
+                android:background="@drawable/clouds" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/clouds"
+                android:scaleX="-1" />
+        </LinearLayout>
+    </RelativeLayout>
+    <!--login or register-->
+    <RelativeLayout
+        android:id="@+id/relUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/space_small">
+
+        <!--login | register-->
+        <RelativeLayout
+            android:id="@+id/rel_user_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+
+            <RelativeLayout
+                android:id="@+id/rel_user_image"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-20dp"
+                android:layout_toRightOf="@+id/rel_register_text">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_user_bgr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@color/brown_5"
+                    app:riv_corner_radius="26dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_register_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bgr_top_round">
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="25dp"
+                    android:clickable="true"
+                    android:ellipsize="end"
+                    android:gravity="right|center"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="ثبت نام | ورود"
+                    android:textColor="@color/brown_5"
+                    android:textSize="@dimen/font_size_12" />
+
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="7dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-55" />
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-15" />
+
+            </RelativeLayout>
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_alignParentRight="true"
-                android:id="@+id/act_user_image"
-                android:layout_width="48dp"
+                android:id="@+id/img_user_bgr1"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:padding="5dp"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:layout_centerVertical="true"
+                android:padding="1dp"
+                android:src="@color/brown_4"
+                app:riv_corner_radius="26dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_user_bgr2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:padding="3dp"
+                android:src="@drawable/bgr_color_picker"
+                android:tint="@color/light_level_0"
+                app:riv_corner_radius="40dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/userImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:padding="4dp"
                 android:src="@drawable/user_empty_gray"
                 android:tint="@color/light_level_0"
                 app:riv_corner_radius="40dp" />
 
         </RelativeLayout>
 
-
-
+        <!--back-->
+        <ImageView
+            android:id="@+id/img_back_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/space_normal"
+            android:scaleX="-1"
+            android:src="@drawable/img_icon_right_arrow" />
 
     </RelativeLayout>
 
@@ -92,13 +176,11 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relToolbar"
+        android:layout_below="@+id/relUser"
         app:cardBackgroundColor="@color/brown_1"
-        android:layout_above="@+id/submit"
-        android:layout_marginTop="@dimen/margin_50"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="@dimen/margin_50"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="@dimen/margin_5"
         app:cardElevation="2dp"
         app:cardCornerRadius="40dp"
         >
@@ -149,12 +231,22 @@
     </android.support.v7.widget.CardView>
 
 
+
+
     <psb.com.cview.CButton
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimaryDark"
         android:id="@+id/submit"
-        android:text="ثبت امتیاز"
-        android:textColor="@color/White"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/coin_coin_1"
+        android:layout_gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:layout_marginRight="@dimen/space_normal"
+        android:layout_marginTop="@dimen/space_small"
+        android:background="@drawable/btn_rect"
+        android:paddingBottom="@dimen/space_small"
+        android:text="ثبت امتیاز"
+        android:textColor="@color/white_1"
+        android:textSize="@dimen/text_size_normal" />
 </RelativeLayout>

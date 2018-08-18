@@ -25,7 +25,7 @@ public class Adapter_LeaderShip extends RecyclerView.Adapter<ViewHolder_LeaderSh
     @Override
     public ViewHolder_LeaderShip onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_scoreboard, parent, false);
+                .inflate(R.layout.row_all_users, parent, false);
         ViewHolder_LeaderShip recViewHolderNews = new ViewHolder_LeaderShip(view);
         return recViewHolderNews;
     }

@@ -25,6 +25,7 @@ public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
     public ImageView imageUser;
     public RoundedImageView bgrBtnRate;
     public TextView textRate;
+    public TextView text_user_points;
 
 
     public ViewHolder_LeaderShip(View itemView) {
@@ -34,6 +35,7 @@ public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
 
 
         textRate=itemView.findViewById(R.id.text_rank);
+        text_user_points=itemView.findViewById(R.id.text_user_points);
         relParent=itemView.findViewById(R.id.rel_parent);
         imgOutline=itemView.findViewById(R.id.img_outline_template);
         imgMask=itemView.findViewById(R.id.img_mask);

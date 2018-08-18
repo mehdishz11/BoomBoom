@@ -260,7 +260,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
     @Override
     public void onSelectPaint(PaintModel paintModel) {
         if (mListener!=null) {
-            mListener.onSelectPaint(paintModel);
+          //  mListener.onSelectPaint(paintModel);
         }
     }
 
@@ -333,7 +333,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
     }
 
     public interface OnFragmentInteractionListener {
-        void onSelectPaint(PaintModel paintModel);
+       // void onSelectPaint(PaintModel paintModel);
         void onBackPressed();
         void setResponseMyPaint(ResponseGetMyPaints responseGetMyPaints);
 
