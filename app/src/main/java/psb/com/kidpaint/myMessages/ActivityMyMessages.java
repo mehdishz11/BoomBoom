@@ -108,7 +108,7 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter_message);
         emptyView.setVisibility(adapter_message.getItemCount()>0? View.GONE:View.VISIBLE);
-
+//
         IntentFilter iff = new IntentFilter(Utils.FCM_BROADCAST_CHAT);
         LocalBroadcastManager.getInstance(ActivityMyMessages.this).registerReceiver(chatBroadcastReceiver, iff);
         Utils.activitymyMessageIsRunning=true;
