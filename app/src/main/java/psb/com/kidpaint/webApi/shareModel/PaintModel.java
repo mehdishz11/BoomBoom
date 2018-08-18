@@ -30,7 +30,7 @@ public class PaintModel implements Serializable
     private String url;
     @SerializedName("score")
     @Expose
-    private Double score;
+    private Integer score;
     private final static long serialVersionUID = 788457169065957875L;
 
     public Integer getId() {
@@ -81,11 +81,11 @@ public class PaintModel implements Serializable
         this.url = url;
     }
 
-    public Double getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(Double score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 

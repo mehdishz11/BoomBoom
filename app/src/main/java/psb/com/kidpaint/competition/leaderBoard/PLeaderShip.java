@@ -127,17 +127,19 @@ public class PLeaderShip implements IPLeaderShip {
 
     @Override
     public void onSendScore(int position) {
+        ivLeaderShip.onStartSendScore();
 
+        mPaints.onSendScore(position);
     }
 
     @Override
     public void onSuccessSendScore(int position) {
-
+        ivLeaderShip.onSuccessSendScore(position);
     }
 
     @Override
     public void onFailedSendScore(int errorCode, String errorMessage) {
-
+        ivLeaderShip.onFailedSendScore(errorCode, errorMessage);
     }
 
 
