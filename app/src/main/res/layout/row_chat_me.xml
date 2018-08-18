@@ -3,107 +3,126 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:gravity="bottom">
 
-    >
-    <RelativeLayout
-        android:id="@+id/row_msg_user_main_icon_rel"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-       android:layout_marginRight="5dp">
+    <android.support.v7.widget.CardView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/row_msg_user_main_rel"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="5dp">
 
-        <ImageView
-            android:id="@+id/row_msg_user_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/user_profile"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="5dp"
-            />
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <LinearLayout
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/row_msg_user_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/temp_kid_2"
+                app:riv_border_color="#daf7c1"
+                app:riv_border_width="2dp"
+                app:riv_corner_radius="25dp" />
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <View
+        android:id="@+id/holder_bgr"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true" />
+
+
+    <ScrollView
         android:id="@+id/row_msg_user_main_rel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/row_msg_user_main_icon_rel"
-        android:layout_marginRight="-5dp"
+        android:layout_above="@+id/holder_bgr"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
+        android:layout_marginRight="@dimen/space_normal"
+        android:background="@drawable/bgr_chat_me"
         android:gravity="left"
-        android:background="@drawable/bgr_chat_user"
-        android:padding="10dp"
         android:layoutDirection="ltr"
-        >
-
-
-        <psb.com.cview.CustomTextView
-            android:id="@+id/row_msg_title"
+        android:padding="10dp">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/row_msg_img"
-            android:layout_alignRight="@+id/row_msg_img"
-            android:layout_alignLeft="@+id/row_msg_img"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:text="پیفام"
+            android:orientation="vertical">
 
-            android:textColor="@color/Black"
-            android:clickable="true"
-            android:linksClickable="true"
-            android:autoLink="all"
-            android:textColorLink="#15bbca"
-            />
 
-        <ImageView
-            android:id="@+id/row_msg_img"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_check"
-            android:visibility="visible"
-            />
-        <psb.com.cview.CustomTextView
-            android:id="@+id/row_msg_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/row_msg_img"
-            android:layout_alignRight="@+id/row_msg_img"
-            android:layout_alignLeft="@+id/row_msg_img"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:text="پیفام شما تحویل داده شد"
-            android:textColor="@color/Black"
-            android:clickable="true"
-            android:linksClickable="true"
-            android:autoLink="all"
-            android:textColorLink="#15bbca"
-            />
-        <psb.com.cview.CustomTextView
-            android:id="@+id/row_msg_send_mode_desc"
-            android:layout_width="wrap_content"
-            android:layout_gravity="right"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/row_msg_text"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:text="09:40 AM"
-            android:textColor="@color/light_level_2"
-            android:textSize="13dp" />
-    </LinearLayout>
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/row_msg_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/row_msg_img"
+                android:layout_alignRight="@+id/row_msg_img"
+                android:layout_gravity="right"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:autoLink="all"
+                android:clickable="true"
+                android:gravity="right"
+                android:linksClickable="true"
+                android:padding="5dp"
+                android:text="پیفام"
+                android:textColor="@color/md_green_900"
+                android:textColorLink="#15bbca"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/row_msg_img"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_check"
+                android:visibility="visible" />
+
+            <psb.com.cview.CustomTextView
+                android:id="@+id/row_msg_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/row_msg_img"
+                android:layout_alignRight="@+id/row_msg_img"
+                android:layout_below="@+id/row_msg_img"
+                android:layout_gravity="right"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:autoLink="all"
+                android:clickable="true"
+                android:gravity="right"
+                android:linksClickable="true"
+                android:padding="5dp"
+                android:text="پیفام شما تحویل داده شد"
+                android:textColor="@color/md_green_800"
+                android:textColorLink="#15bbca"
+                android:textSize="15dp" />
+
+            <psb.com.cview.CustomTextView
+                android:id="@+id/row_msg_send_mode_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/row_msg_text"
+                android:layout_gravity="right"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:text="09:40 AM"
+                android:textColor="@color/md_green_A700"
+                android:textSize="@dimen/text_size_small" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 
 </RelativeLayout>

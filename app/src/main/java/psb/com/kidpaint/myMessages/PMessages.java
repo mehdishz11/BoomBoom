@@ -1,15 +1,10 @@
 package psb.com.kidpaint.myMessages;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.util.Log;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -102,10 +97,7 @@ public class PMessages implements IPMessages {
             Picasso.get().load("".equals(mMessage.getUserImage()) ? "avatar" : mMessage.getUserImage()).placeholder(R.drawable.user_profile).error(R.drawable.user_profile).into(holder.icon, new Callback() {
                 @Override
                 public void onSuccess() {
-                    RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getContext().getResources(),
-                            Bitmap.createScaledBitmap(((BitmapDrawable) holder.icon.getDrawable()).getBitmap(), 100, 100, false));
-                    drawable.setCircular(true);
-                    holder.icon.setImageDrawable(drawable);
+
                 }
 
                 @Override
@@ -134,7 +126,7 @@ public class PMessages implements IPMessages {
         switch (chat.getStatus()) {
             case "success":
                 if ("".equals(chat.getUsername()) || mMessage.getMobileNumber().equals(chat.getUsername())) {// user
-                    holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_user);
+                    holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_me);
                     // holder.delivery.setImageResource(R.drawable.icon_tick);
 
                 } else {// admin
@@ -156,7 +148,7 @@ public class PMessages implements IPMessages {
 
                 break;
             case "pending":
-                holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_user);
+                holder.mainRel.setBackgroundResource(R.drawable.bgr_chat_me);
                 // holder.delivery.setImageResource(R.drawable.icon_clock);
                 break;
             case "failed":

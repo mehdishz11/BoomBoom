@@ -69,6 +69,7 @@
 
         <activity android:name=".myMessages.ActivityMyMessages"
             android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme"
             />
 
         <activity android:name=".myPrize.ActivityMyPrize" />

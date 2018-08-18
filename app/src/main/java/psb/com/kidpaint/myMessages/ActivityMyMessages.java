@@ -1,44 +1,39 @@
 package psb.com.kidpaint.myMessages;
 
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
-import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.myMessages.adapter.Adapter_Message;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.Utils;
-import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 
-public class ActivityMyMessages extends AppCompatActivity implements IVMessages {
+public class ActivityMyMessages extends BaseActivity implements IVMessages {
     public static int CODE_REGISTER = 107;
 
     private ProgressView progressView;
     private RecyclerView recyclerView;
     private EditText editText;
-    private ImageView send;
+    private Button send;
     private TextView emptyView,back;
 
     private PMessages pMessages;
@@ -54,6 +49,8 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         pMessages=new PMessages(this);
         initView();
         pMessages.getMessageFromServer(0);
+
+        createHelperWnd();
     }
 
     void initView(){
@@ -65,17 +62,10 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
         emptyView=findViewById(R.id.emptyView);
         back=findViewById(R.id.icon_back);
 
-        back.setOnClickListener(new View.OnClickListener() {
+       /* back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-            }
-        });
-
-      /*  swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pMessages.getMessageFromServer(1);
             }
         });*/
 
@@ -97,15 +87,19 @@ public class ActivityMyMessages extends AppCompatActivity implements IVMessages 
                 }
             }
         });
-
-
     }
 
     void setAdapter_message(){
         adapter_message=new Adapter_Message(pMessages);
+
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        layoutManager.setReverseLayout(true);
+
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setAdapter(adapter_message);
         emptyView.setVisibility(adapter_message.getItemCount()>0? View.GONE:View.VISIBLE);
 //

@@ -4,150 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_1"
     tools:context=".myMessages.ActivityMyMessages">
 
-    <RelativeLayout
-        android:id="@+id/relTop"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary">
-
-        <psb.com.cview.IconFont
-            android:id="@+id/icon_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/margin_5"
-            android:padding="@dimen/margin_10"
-            android:text=""
-            android:textColor="@color/light_level_0"
-            android:textSize="20dp" />
-
-        <psb.com.cview.CustomTextViewBold
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_5"
-            android:layout_toLeftOf="@+id/icon_back"
-            android:padding="@dimen/margin_10"
-            android:text="پیغام ها"
-            android:textColor="@color/light_level_0"
-            android:textSize="@dimen/font_size_14" />
-
-
-    </RelativeLayout>
-
-
-
-    <ScrollView
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relTop"
-        android:fillViewport="true"
-        >
-        <RelativeLayout
+        android:alpha="0.2"
+        android:background="@drawable/bgr_repeat_kids" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/frg_messages_msg_send_rel"
+        android:clipToPadding="false" />
+
+
+    <RelativeLayout
+        android:id="@+id/frg_messages_msg_send_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/frg_messages_msg_send_rel">
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/frg_messages_rel_send"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/chat_messages_txt"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/chat_messages_txt">
 
 
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clipToPadding="false" />
+                    <psb.com.cview.IconButton
+                        android:id="@+id/btn_send"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/btn_sqr_green"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_normal"
+                        android:text=""
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:paddingRight="2dp"
+                        />
+
+                </RelativeLayout>
 
 
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/frg_messages_msg_send_rel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true">
-
-                <android.support.v7.widget.CardView
+                <psb.com.cview.CEditTextBold
+                    android:id="@+id/chat_messages_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="2dp"
-                    app:cardUseCompatPadding="true">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <RelativeLayout
-                            android:id="@+id/frg_messages_rel_send"
-                            android:layout_width="50dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignBottom="@+id/chat_messages_txt"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignTop="@+id/chat_messages_txt">
-
-                            <ImageView
-                                android:id="@+id/btn_send"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_centerVertical="true"
-                                android:padding="5dp"
-                                android:tint="@color/colorPrimaryDark"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/button_send" />
-
-
-                        </RelativeLayout>
-
-
-                        <psb.com.cview.CEditText
-                            android:id="@+id/chat_messages_txt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:layout_toLeftOf="@+id/frg_messages_rel_send"
-                            android:background="@drawable/bgr_white_edittex"
-                            android:gravity="center_vertical"
-                            android:hint="پیغام"
-                            android:maxHeight="100dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="10dp"
-                            android:textColor="#000"
-                            android:textColorHint="#a5a5a5"
-                            android:textCursorDrawable="@drawable/cursor"
-                            android:textSize="13dp" />
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toLeftOf="@+id/frg_messages_rel_send"
+                    android:background="@drawable/bgr_white_edittex"
+                    android:gravity="center_vertical"
+                    android:hint="پیغام"
+                    android:maxHeight="100dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:textColor="#000"
+                    android:textColorHint="#a5a5a5"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textSize="13dp" />
             </RelativeLayout>
-        </RelativeLayout>
-    </ScrollView>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
 
     <psb.com.kidpaint.utils.customView.ProgressView
         android:id="@+id/progressView"
         android:layout_width="match_parent"
-        app:mode="0"
+        android:layout_height="match_parent"
         android:visibility="gone"
-        android:layout_height="match_parent">
+        app:mode="0">
 
     </psb.com.kidpaint.utils.customView.ProgressView>
 
     <psb.com.cview.CustomTextViewBold
-        android:layout_width="match_parent"
-        android:layout_centerInParent="true"
         android:id="@+id/emptyView"
-        android:text="لیست پیغام ها خالی است"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:padding="@dimen/margin_10"
-        android:visibility="gone"
-        android:layout_height="wrap_content" />
+        android:text="لیست پیغام ها خالی است"
+        android:visibility="gone" />
 
 
 </RelativeLayout>
