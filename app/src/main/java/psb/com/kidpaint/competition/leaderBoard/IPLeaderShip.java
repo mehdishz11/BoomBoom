@@ -22,4 +22,9 @@ public interface IPLeaderShip {
      int getArrSizeGetLeaderShip();
     int getServerGetLeaderShipSize();
 
+
+    void onSendScore(int position);
+    void onSuccessSendScore(int position);
+    void onFailedSendScore(int errorCode, String errorMessage);
+
 }

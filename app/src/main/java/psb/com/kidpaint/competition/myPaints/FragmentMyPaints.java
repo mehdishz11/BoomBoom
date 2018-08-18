@@ -2,6 +2,7 @@ package psb.com.kidpaint.competition.myPaints;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,14 +14,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.competition.myPaints.adapter.Adapter_MyPaints;
+import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.customView.ProgressView;
@@ -44,15 +51,17 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
 
     private View view;
     private RecyclerView recyclerViewMyPaints;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView emptyViewMyPaints;
     private ProgressBar progressBarLoading;
     private UserProfile userProfile;
     private PMyPaints pPaints;
      private Adapter_MyPaints adapter_myPaints;
      private int loadMode=0;
-     private ProgressView progressView;
      private ProgressDialog progressDialog;
+
+    private TextView text_user_name;
+    private ImageView back, userImage;
+
     public FragmentMyPaints() {
         // Required empty public constructor
     }
@@ -104,20 +113,9 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
 
 
         emptyViewMyPaints = view.findViewById(R.id.emptyViewAllPaints);
-        progressView = view.findViewById(R.id.progressView);
-        progressView.setVisibility(View.GONE);
+
         recyclerViewMyPaints = view.findViewById(R.id.recyclerViewMyPaints);
         progressBarLoading = view.findViewById(R.id.progressBar);
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pPaints.onGetMyPaints(1);
-            }
-        });
-
-
 
         adapter_myPaints=new Adapter_MyPaints(pPaints);
         LinearLayoutManager linearLayoutManager2 = new GridLayoutManager(getContext(), 1,GridLayoutManager.HORIZONTAL, false);
@@ -130,12 +128,59 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         recyclerViewMyPaints.setAdapter(animationAdapter2);
         emptyViewMyPaints.setVisibility(adapter_myPaints.getItemCount()>0?View.GONE:View.VISIBLE);
 
+        userImage = view.findViewById(R.id.userImage);
+        text_user_name = view.findViewById(R.id.text_user_name);
+        back = view.findViewById(R.id.img_back_1);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener!=null) {
+                    mListener.onBackPressed();
+                }
+            }
+        });
+
+        setUserInfo();
+
 
     }
     public void getMyPaints(){
         pPaints.onGetMyPaints(0);
 
     }
+    void setUserInfo() {
+        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            text_user_name.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
+            text_user_name.setOnClickListener(null);
+        } else {
+            text_user_name.setText("ثبت نام | ورود");
+            text_user_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                /*    Intent intent = new Intent(ActivityCompetition.this, ActivityRegisterUser.class);
+                    startActivityForResult(intent, CODE_REGISTER);*/
+                }
+            });
+        }
+
+
+        if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
+            Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    userImage.setImageResource(R.drawable.user_empty_gray);
+                }
+            });
+        }
+    }
+
+
 
 
     @Override
@@ -224,8 +269,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         this.loadMode=loadMode;
 
         if (loadMode==0) {
-            progressView.setVisibility(View.VISIBLE);
-            progressView.showProgress();
+           progressBarLoading.setVisibility(View.VISIBLE);
         }
     }
 
@@ -240,8 +284,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         }
         recyclerViewMyPaints.getAdapter().notifyDataSetChanged();
         emptyViewMyPaints.setVisibility(adapter_myPaints.getItemCount()>0?View.GONE:View.VISIBLE);
-        swipeRefreshLayout.setRefreshing(false);
-        progressView.setVisibility(View.GONE);
+        progressBarLoading.setVisibility(View.GONE);
 
 
 
@@ -250,17 +293,19 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
 
     @Override
     public void onFailedGetMyPaints(int errorCode, String errorMessage) {
-        if (loadMode==0) {
+/*        if (loadMode==0) {
                progressView.showError(errorMessage, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pPaints.onGetMyPaints(0);
             }
         });
-        }else{
-           swipeRefreshLayout.setRefreshing(false);
+        }else{*/
+          // swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-        }
+            progressBarLoading.setVisibility(View.GONE);
+
+        //  }
 
 
     }
@@ -289,6 +334,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
 
     public interface OnFragmentInteractionListener {
         void onSelectPaint(PaintModel paintModel);
+        void onBackPressed();
         void setResponseMyPaint(ResponseGetMyPaints responseGetMyPaints);
 
     }

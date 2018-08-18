@@ -4,24 +4,180 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_1"
+    android:paddingBottom="45dp"
     tools:context=".competition.myPaints.FragmentMyPaints">
 
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_marginTop="@dimen/margin_5"
-        android:layout_above="@+id/progressBar"
-        android:id="@+id/swipeRefreshLayout"
+    <!--header-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="150dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/clouds" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/clouds"
+                android:scaleX="-1" />
+        </LinearLayout>
+    </RelativeLayout>
+    <!--login or register-->
+    <RelativeLayout
+        android:id="@+id/relUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/space_small">
+
+        <!--login | register-->
+        <RelativeLayout
+            android:id="@+id/rel_user_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+
+            <RelativeLayout
+                android:id="@+id/rel_user_image"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-20dp"
+                android:layout_toRightOf="@+id/rel_register_text">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_user_bgr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@color/brown_5"
+                    app:riv_corner_radius="26dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_register_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bgr_top_round">
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="25dp"
+                    android:clickable="true"
+                    android:ellipsize="end"
+                    android:gravity="right|center"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="ثبت نام | ورود"
+                    android:textColor="@color/brown_5"
+                    android:textSize="@dimen/font_size_12" />
+
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="7dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-55" />
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-15" />
+
+            </RelativeLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_user_bgr1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:layout_centerVertical="true"
+                android:padding="1dp"
+                android:src="@color/brown_4"
+                app:riv_corner_radius="26dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_user_bgr2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:padding="3dp"
+                android:src="@drawable/bgr_color_picker"
+                android:tint="@color/light_level_0"
+                app:riv_corner_radius="40dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/userImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:padding="4dp"
+                android:src="@drawable/user_empty_gray"
+                android:tint="@color/light_level_0"
+                app:riv_corner_radius="40dp" />
+
+        </RelativeLayout>
+
+        <!--back-->
+        <ImageView
+            android:id="@+id/img_back_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/space_normal"
+            android:scaleX="-1"
+            android:src="@drawable/img_icon_right_arrow" />
+
+    </RelativeLayout>
         <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/relUser"
             android:id="@+id/recyclerViewMyPaints"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
 
     <psb.com.cview.CustomTextViewBold
         android:layout_width="match_parent"
@@ -44,10 +200,5 @@
         android:layout_margin="@dimen/margin_5"
         android:layout_height="wrap_content" />
 
-    <psb.com.kidpaint.utils.customView.ProgressView
-        android:id="@+id/progressView"
-        android:layout_width="match_parent"
-        app:mode="0"
-        android:layout_height="match_parent"></psb.com.kidpaint.utils.customView.ProgressView>
 
 </RelativeLayout>

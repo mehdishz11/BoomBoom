@@ -19,7 +19,7 @@ public class ResponseScore implements Serializable
     private List<Message> messages = null;
     @SerializedName("extra")
     @Expose
-    private Double extra;
+    private Integer extra;
     private final static long serialVersionUID = 946241060542535005L;
 
     public Boolean getOk() {
@@ -38,11 +38,11 @@ public class ResponseScore implements Serializable
         this.messages = messages;
     }
 
-    public Double getExtra() {
+    public Integer getExtra() {
         return extra;
     }
 
-    public void setExtra(Double extra) {
+    public void setExtra(Integer extra) {
         this.extra = extra;
     }
 

@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,11 +32,15 @@ import psb.com.kidpaint.competition.allPaint.FragmentAllPaints;
 import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
 import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.competition.score.FragmentScore;
+import psb.com.kidpaint.home.HomeActivity_2;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.intro.Intro;
 import psb.com.kidpaint.utils.customView.intro.IntroPosition;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
@@ -59,6 +64,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     private static final String TAG_FRAGMENT_LEADER_BOARD = "TAG_FRAGMENT_LEADER_BOARD";
     private static final String TAG_FRAGMENT_SCORE = "TAG_FRAGMENT_SCORE";
 
+
     public static int CODE_REGISTER = 107;
 
 
@@ -75,9 +81,6 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     private FrameLayout frameLayoutScore;
 
 
-    private TextView tabMe;
-    private TextView tabAll;
-    private TextView tabCompetition;
     private TextView text_user_name;
     private UserProfile userProfile;
 
@@ -85,15 +88,17 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     private ImageView cow;
     private ImageView rooster;
 
-    private ImageView imgBack, bronzeMedal, silverMedal, goldMedal;
-
+    private ImageView imgBack;
+    private ImageView bronzeMedal, silverMedal, goldMedal;
+    private ImageView img_winner_1, img_winner_2, img_winner_3;
     int matchId = 0;
     int levelId = 1;
-
     private Spinner spinnerMatch;
+
+    private RelativeLayout rel_my_paints;
     private ProgressBar progressBarMatch;
 
-    private int loadModeMatch=0;
+    private int loadModeMatch = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +110,12 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         levelId = userProfile.get_KEY_LEVEL(1);
         pCompetition = new PCompetition(this);
         setViewContent();
-        pCompetition.onGetMatch(0,levelId);
-
+        //pCompetition.onGetMatch(0,levelId);
+        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            pCompetition.onGetMyPaints();
+        } else {
+            pCompetition.onGetAllPaints();
+        }
         setUserInfo();
 
         sheep.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -129,9 +138,9 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
     void setFragment(int position) {
         animalAnimation(position);
-        setTabBgr(position);
+        //  setTabBgr(position);
         if (position == 0) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_PAINTS).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutScore, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_SCORE).commit();
         } else if (position == 1) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip, matchId, levelId), TAG_FRAGMENT_LEADER_BOARD).commit();
         } else if (position == 2) {
@@ -212,27 +221,6 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         animatorSet.start();
     }
 
-    private void setTabBgr(int position) {
-        tabAll.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
-        tabMe.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
-        tabCompetition.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
-
-        tabAll.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_2));
-        tabMe.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_2));
-        tabCompetition.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_2));
-
-        if (position == 0) {
-            tabMe.setBackgroundResource(R.drawable.pallet_drop);
-            tabMe.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_3));
-        } else if (position == 1) {
-            tabCompetition.setBackgroundResource(R.drawable.pallet_drop);
-            tabCompetition.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_3));
-        } else {
-            tabAll.setBackgroundResource(R.drawable.pallet_drop);
-            tabAll.setTextColor(ContextCompat.getColor(getContext(), R.color.brown_3));
-        }
-
-    }
 
     private void setViewContent() {
 
@@ -240,21 +228,22 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         frameLayoutScore = findViewById(R.id.frameLayoutScore);
 
         progressBarMatch = findViewById(R.id.progressBar);
-        spinnerMatch = findViewById(R.id.spinner_match);
+        // spinnerMatch = findViewById(R.id.spinner_match);
 
         sheep = findViewById(R.id.img_animal_1);
         cow = findViewById(R.id.img_animal_3);
         rooster = findViewById(R.id.img_animal_5);
 
         imgBack = findViewById(R.id.img_back_1);
-        bronzeMedal = findViewById(R.id.bronzeMedal);
+        rel_my_paints = findViewById(R.id.rel_my_paints);
+   /*     bronzeMedal = findViewById(R.id.bronzeMedal);
         silverMedal = findViewById(R.id.silverMedal);
-        goldMedal = findViewById(R.id.goldMedal);
+        goldMedal = findViewById(R.id.goldMedal);*/
 
 
-        tabAll = findViewById(R.id.text_All);
-        tabMe = findViewById(R.id.text_me);
-        tabCompetition = findViewById(R.id.text_competition);
+        img_winner_1 = findViewById(R.id.img_winner_1);
+        img_winner_2 = findViewById(R.id.img_winner_2);
+        img_winner_3 = findViewById(R.id.img_winner_3);
         userImage = findViewById(R.id.userImage);
         text_user_name = findViewById(R.id.text_user_name);
 
@@ -266,31 +255,23 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         });
 
 
-        tabAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(2);
-            }
-        });
-
-        tabMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(0);
-            }
-        });
-
-        tabCompetition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(1);
-            }
-        });
-
-
         frameLayoutScore.setVisibility(View.GONE);
 
+        rel_my_paints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    frameLayoutScore.setVisibility(View.VISIBLE);
+                    setFragment(0);
+                } else {
+                    showUserRegisterDialog();
+                }
 
+
+            }
+        });
+
+/*
         bronzeMedal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -339,15 +320,15 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
                 pCompetition.onGetMatch(1,levelId);
 
             }
-        });
+        });*/
 
     }
 
-    void setSpinnerAdapterMatch(){
+    void setSpinnerAdapterMatch() {
 
 
-        List<String> title=new ArrayList<>();
-        for (int i = 0; i <mResponseGetMatch.getExtra().size() ; i++) {
+        List<String> title = new ArrayList<>();
+        for (int i = 0; i < mResponseGetMatch.getExtra().size(); i++) {
             title.add(mResponseGetMatch.getExtra().get(i).getTitle());
         }
 
@@ -359,12 +340,11 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
         spinnerArrayAdapter.setDropDownViewResource(R.layout.row_spinner_dropdown);
         spinnerMatch.setAdapter(spinnerArrayAdapter);
-        spinnerMatch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spinnerMatch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
 
-                matchId=mResponseGetMatch.getExtra().get(position).getId();
+                matchId = mResponseGetMatch.getExtra().get(position).getId();
 
                 if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
                     ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
@@ -390,10 +370,10 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
     @Override
     public void onStartGetMatch(int mode) {
-        loadModeMatch=mode;
-        if (mode==0) {
+        loadModeMatch = mode;
+        if (mode == 0) {
             progressView.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             progressBarMatch.setVisibility(View.VISIBLE);
             spinnerMatch.setVisibility(View.GONE);
 
@@ -403,8 +383,8 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
     @Override
     public void onSuccessGetGetMatch(ResponseGetMatch responseGetMatch) {
-        this.mResponseGetMatch=responseGetMatch;
-        if (loadModeMatch==0) {
+        this.mResponseGetMatch = responseGetMatch;
+        if (loadModeMatch == 0) {
 
             if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
                 pCompetition.onGetMyPaints();
@@ -413,7 +393,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
             }
         }
 
-            setSpinnerAdapterMatch();
+        //   setSpinnerAdapterMatch();
 
     }
 
@@ -422,7 +402,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         progressView.showError(errorMessage, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pCompetition.onGetMatch(0,levelId);
+                pCompetition.onGetMatch(0, levelId);
             }
         });
     }
@@ -489,8 +469,9 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         mResponseGetLeaderShip = responseGetLeaderShip;
         progressView.setVisibility(View.GONE);
         setFragment(1);
-
+        setWinners();
         showIntro();
+
     }
 
     @Override
@@ -506,6 +487,8 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     @Override
     public void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints) {
         mResponseGetAllPaints = responseGetAllPaints;
+        setWinners();
+
     }
 
     @Override
@@ -553,13 +536,15 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
                 setResult(Activity.RESULT_OK, intent);
                 setUserInfo();
 
-                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS) != null) {
+                /*if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS) != null) {
                     ((FragmentMyPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS)).getMyPaints();
                 }
 
                 if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
                     ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
-                }
+                }*/
+
+                pCompetition.onGetMyPaints();
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();
             }
@@ -587,6 +572,88 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
             }
         });
         fancyShowCaseQueue.show();
+    }
+
+    void setWinners() {
+        if (mResponseGetLeaderShip != null) {
+            if (mResponseGetLeaderShip.getExtra().getLeaderModel().size() > 0) {
+
+                if (mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl() != null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl().isEmpty()) {
+                    Picasso
+                            .get()
+                            .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl())
+                            .resize(Value.dp(200), Value.dp(200))
+                            .onlyScaleDown()
+                            .into(img_winner_1);
+                }
+                if (mResponseGetLeaderShip.getExtra().getLeaderModel().size()>=2) {
+
+
+                    if (mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl() != null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()) {
+                        Picasso
+                                .get()
+                                .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl())
+                                .resize(Value.dp(200), Value.dp(200))
+                                .onlyScaleDown()
+                                .into(img_winner_2);
+                    }
+                }
+                if (mResponseGetLeaderShip.getExtra().getLeaderModel().size()>=3) {
+
+                    if (mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl() != null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()) {
+                        Picasso
+                                .get()
+                                .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl())
+                                .resize(Value.dp(200), Value.dp(200))
+                                .onlyScaleDown()
+                                .into(img_winner_3);
+                    }
+                }
+            }
+/*
+            if (mResponseGetLeaderShip.getExtra().getMyRank() != null) {
+                text_user_rate.setText("بهترین رتبه شما " + mResponseGetLeaderShip.getExtra().getMyRank().getRank());
+                text_user_rate.setOnClickListener(null);
+
+            } else {
+                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    text_user_rate.setText("ثبت نام کنید");
+                    text_user_rate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivityForResult(new Intent(HomeActivity_2.this, ActivityRegisterUser.class), CODE_REGISTER_First);
+                        }
+                    });
+
+                } else {
+                    text_user_rate.setText("شرکت نکرده اید");
+                    text_user_rate.setOnClickListener(null);
+                }
+            }*/
+        }
+
+    }
+
+    public void showUserRegisterDialog() {
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("برای نمایش لیست نقاشی باید ثبت نام کنید یا وارد شوید!");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                startActivityForResult(new Intent(getContext(), ActivityRegisterUser.class), CODE_REGISTER);
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.enter));
+        dialog.setTitle(getString(R.string.register_login));
+        dialog.show();
     }
 
 

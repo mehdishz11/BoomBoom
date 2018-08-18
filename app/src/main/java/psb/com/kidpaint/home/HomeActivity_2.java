@@ -706,21 +706,27 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                             .into(img_winner_1);
                 }
 
-                if (responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()) {
-                    Picasso
-                            .get()
-                            .load(responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl())
-                            .resize(Value.dp(200), Value.dp(200))
-                            .onlyScaleDown()
-                            .into(img_winner_2);
+
+                if (responseGetLeaderShip.getExtra().getLeaderModel().size()>=2) {
+                    if (responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()) {
+                        Picasso
+                                .get()
+                                .load(responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl())
+                                .resize(Value.dp(200), Value.dp(200))
+                                .onlyScaleDown()
+                                .into(img_winner_2);
+                    }
                 }
-                if (responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()) {
-                    Picasso
-                            .get()
-                            .load(responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl())
-                            .resize(Value.dp(200), Value.dp(200))
-                            .onlyScaleDown()
-                            .into(img_winner_3);
+                if (responseGetLeaderShip.getExtra().getLeaderModel().size()>=3) {
+
+                    if (responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()) {
+                        Picasso
+                                .get()
+                                .load(responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl())
+                                .resize(Value.dp(200), Value.dp(200))
+                                .onlyScaleDown()
+                                .into(img_winner_3);
+                    }
                 }
             }
 
@@ -1112,7 +1118,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
             }
         });
-        dialog.setSoundId(R.raw.are_you_sure_exit);
         dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
         dialog.setTitle(getString(R.string.danger));
         dialog.show();

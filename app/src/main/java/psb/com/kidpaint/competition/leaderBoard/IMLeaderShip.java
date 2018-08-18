@@ -19,4 +19,8 @@ public interface IMLeaderShip {
 
     LeaderModel getLeaderShipPositionAt(int position);
 
+    void onSendScore(int position);
+    boolean userIsRegistered();
+
+
 }

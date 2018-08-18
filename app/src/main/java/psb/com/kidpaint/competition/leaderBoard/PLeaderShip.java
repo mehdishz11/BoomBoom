@@ -1,6 +1,8 @@
 package psb.com.kidpaint.competition.leaderBoard;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -53,44 +55,63 @@ public class PLeaderShip implements IPLeaderShip {
 
 
     @Override
-    public void onBindViewHolder_GetLeaderShip(ViewHolder_LeaderShip holder, int position) {
-        LeaderModel leaderModel=mPaints.getLeaderShipPositionAt(position);
+    public void onBindViewHolder_GetLeaderShip(ViewHolder_LeaderShip holder, final int position) {
+        final LeaderModel leaderModel=mPaints.getLeaderShipPositionAt(position);
 
-        if (leaderModel.getUrl() != null && !leaderModel.getUrl().isEmpty()) {
+        if (leaderModel.getUrl()!=null && !leaderModel.getUrl().isEmpty()) {
             Picasso
                     .get()
                     .load(leaderModel.getUrl())
-                    .resize(Value.dp(200),Value.dp(200))
+                    .resize(Value.dp(200), 0)
                     .onlyScaleDown()
-                    .into(holder.imgPaint);
-        }
-        if(leaderModel.getUser().getImageUrl()!=null && !leaderModel.getUser().getImageUrl().isEmpty()){
-            Picasso
-                    .get()
-                    .load(leaderModel.getUser().getImageUrl())
-                    .resize(Value.dp(200),Value.dp(200))
-                    .onlyScaleDown()
-                    .into(holder.imgUser);
+                    .into(holder.imgOutline);
         }
 
-//        holder.imgPaint.setRotation(new Random().nextInt(8)+1);
+        if (leaderModel.getUser().getImageUrl()!=null && !leaderModel.getUser().getImageUrl().isEmpty()) {
+            Picasso.get().load(leaderModel.getUser().getImageUrl()).into(holder.imageUser);
+        }
 
-        holder.textRate.setText(""+leaderModel.getRank());
         holder.textUserName.setText(leaderModel.getUser().getFirstName()+" "+leaderModel.getUser().getLastName());
-        holder.textUserPoints.setText((leaderModel.getScore())+" امتیاز");
+        holder.textImageCode.setText(context.getString(R.string.image_code)+" "+leaderModel.getCode());
 
+        holder.parentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPaints.userIsRegistered()) {
+                    ivLeaderShip.onSelectPaint(leaderModel);
+                }else {
+                    Toast.makeText(getContext(), "برای دیدن جزئیات باید ثبت نام کنید", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPaints.userIsRegistered()) {
+                    ivLeaderShip.onStartSendScore();
+                    mPaints.onSendScore(position);
+                }else {
+                    ivLeaderShip.showUserRegisterDialog(position);
+                }
+            }
+        });
+
+      //  holder.textRate.setText(""+leaderModel.getRank());
+     //   holder.textUserPoints.setText((leaderModel.getScore())+" امتیاز");
+///////////////////////////////////////////////////////////////////////////////////
         if (position==0) {
-            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_yellow_300));
-            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_yellow_300));
+           /* holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_yellow_300));
+            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_yellow_300));*/
         }else if (position==1) {
-            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_grey_300));
-            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_grey_300));
+          /*  holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_grey_300));
+            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_grey_300));*/
         }else if (position==2) {
-            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_orange_300));
-            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_orange_300));
+         /*   holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_orange_300));
+            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_orange_300));*/
         }else  {
-            holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.brown_1));
-            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.brown_1));
+         /*   holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.brown_1));
+            holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.brown_1));*/
         }
     }
 
@@ -104,6 +125,20 @@ public class PLeaderShip implements IPLeaderShip {
         return mPaints.getServerLeaderShipSize();
     }
 
+    @Override
+    public void onSendScore(int position) {
+
+    }
+
+    @Override
+    public void onSuccessSendScore(int position) {
+
+    }
+
+    @Override
+    public void onFailedSendScore(int errorCode, String errorMessage) {
+
+    }
 
 
 }

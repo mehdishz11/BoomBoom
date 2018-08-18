@@ -31,6 +31,7 @@ import psb.com.kidpaint.utils.LinearLayoutManager_EndlessRecyclerOnScrollListene
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 
 
@@ -48,15 +49,12 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
     private View view;
     private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView emptyView,text_user_rate;
+    private TextView emptyView;
     private ProgressBar progressBarLoading;
 
     private PLeaderShip pLeaderShip;
     private Adapter_LeaderShip adapter_leaderShip;
 
-    private ImageView img_winner_1,img_winner_2,img_winner_3;
-    private RecyclerView.LayoutManager layoutManager;
     EndlessRecyclerViewScrollListener scrollListener;
     private UserProfile userProfile;
 
@@ -96,7 +94,6 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
 
         initView();
-        setWinnersAndUserRate();
 
         return view;
     }
@@ -112,27 +109,12 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         emptyView = view.findViewById(R.id.emptyView);
         recyclerView = view.findViewById(R.id.recyclerView);
         progressBarLoading = view.findViewById(R.id.progressBar);
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
-        img_winner_1 = view.findViewById(R.id.img_winner_1);
-        img_winner_2 = view.findViewById(R.id.img_winner_2);
-        img_winner_3 = view.findViewById(R.id.img_winner_3);
-        text_user_rate = view.findViewById(R.id.text_user_rate);
-
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                 pLeaderShip.onGetLeaderShip(1, 20, matchId,  level);
-            }
-        });
 
         adapter_leaderShip = new Adapter_LeaderShip(pLeaderShip);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-     /*   AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter_leaderShip);
-        animationAdapter.setDuration(100);
-        animationAdapter.setFirstOnly(false);*/
+
         recyclerView.setAdapter(adapter_leaderShip);
 
         emptyView.setVisibility(adapter_leaderShip.getItemCount()>0?View.GONE:View.VISIBLE);
@@ -159,52 +141,6 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         recyclerView.addOnScrollListener(scrollListener);
     }
 
-    void setWinnersAndUserRate(){
-        if (mResponseGetLeaderShip!=null) {
-            if (mResponseGetLeaderShip.getExtra().getLeaderModel().size()>0) {
-
-                if(mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl()!=null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl().isEmpty()){
-                    Picasso
-                            .get()
-                            .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(0).getUser().getImageUrl())
-                            .resize(Value.dp(200),Value.dp(200))
-                            .onlyScaleDown()
-                            .into(img_winner_1);
-                }
-
-                if(mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl()!=null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()){
-                    Picasso
-                            .get()
-                            .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl())
-                            .resize(Value.dp(200),Value.dp(200))
-                            .onlyScaleDown()
-                            .into(img_winner_2);
-                }
-                if(mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl()!=null && !mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()){
-                    Picasso
-                            .get()
-                            .load(mResponseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl())
-                            .resize(Value.dp(200),Value.dp(200))
-                            .onlyScaleDown()
-                            .into(img_winner_3);
-                }
-            }
-
-
-            if (mResponseGetLeaderShip.getExtra().getMyRank()!=null) {
-                text_user_rate.setText("بهترین رتبه شما "+mResponseGetLeaderShip.getExtra().getMyRank().getRank());
-            }else {
-                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    text_user_rate.setText("برای شرکت در رقابت ها ثبت نام کنید");
-
-                }else{
-
-                    text_user_rate.setText("شما در رقابت ها شرکت نکرده اید");
-                }
-
-            }
-        }
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -229,10 +165,8 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
     @Override
     public void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip) {
 
-        swipeRefreshLayout.setRefreshing(false);
         progressBarLoading.setVisibility(View.GONE);
         mResponseGetLeaderShip = responseGetLeaderShip;
-        setWinnersAndUserRate();
         if (mListener != null) {
             mListener.setResponseLeaderShip(mResponseGetLeaderShip);
         }
@@ -245,10 +179,32 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
     public void onFailedGetLeaderShip(int errorCode, String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         progressBarLoading.setVisibility(View.GONE);
-        swipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    public void onSuccessSendScore(int position) {
 
+    }
+
+    @Override
+    public void onFailedSendScore(int errorCode, String errorMessage) {
+
+    }
+
+    @Override
+    public void onStartSendScore() {
+
+    }
+
+    @Override
+    public void onSelectPaint(LeaderModel paintModel) {
+
+    }
+
+    @Override
+    public void showUserRegisterDialog(int position) {
+
+    }
 
 
     public interface OnFragmentInteractionListener {

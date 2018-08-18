@@ -125,6 +125,8 @@
     </RelativeLayout>
 
     <FrameLayout
+        android:layout_below="@+id/rel_search"
+        android:layout_toLeftOf="@+id/rel_my_paints"
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></FrameLayout>
