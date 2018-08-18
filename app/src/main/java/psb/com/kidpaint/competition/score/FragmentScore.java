@@ -21,13 +21,14 @@ import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class FragmentScore extends Fragment  implements IVScore {
     private static final String ARG_PARAM1 = "param1";
-    private PaintModel mPaintModel;
+    private LeaderModel mPaintModel;
     private OnFragmentInteractionListener mListener;
     private View view;
     private ImageView paintImage,userImage,back;
@@ -42,7 +43,7 @@ public class FragmentScore extends Fragment  implements IVScore {
         // Required empty public constructor
     }
 
-    public static FragmentScore newInstance(PaintModel paintModel) {
+    public static FragmentScore newInstance(LeaderModel paintModel) {
         FragmentScore fragment = new FragmentScore();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, paintModel);
@@ -54,7 +55,7 @@ public class FragmentScore extends Fragment  implements IVScore {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mPaintModel = (PaintModel) getArguments().getSerializable(ARG_PARAM1);
+            mPaintModel = (LeaderModel) getArguments().getSerializable(ARG_PARAM1);
         }
     }
 
@@ -76,16 +77,16 @@ public class FragmentScore extends Fragment  implements IVScore {
 
     void initView(){
         Log.d("TAG", "initView: "+new Gson().toJson(mPaintModel));
-        userImage=view.findViewById(R.id.act_user_image);
-        back=view.findViewById(R.id.icon_back);
-        userName=view.findViewById(R.id.userName);
-        imageScore=view.findViewById(R.id.imageScore);
+        userImage=view.findViewById(R.id.img_user_bgr);
+        back=view.findViewById(R.id.img_back_1);
+        userName=view.findViewById(R.id.text_user_name);
+       // imageScore=view.findViewById(R.id.imageScore);
         paintImage=view.findViewById(R.id.img_outline_bgr);
         send=view.findViewById(R.id.submit);
         progressBar=view.findViewById(R.id.progressBar);
 
         userName.setText(mPaintModel.getUser().getFirstName()+" "+mPaintModel.getUser().getFirstName());
-        imageScore.setText(mPaintModel.getScore()+"");
+       // imageScore.setText(mPaintModel.getScore()+"");
 
         progressBar.setVisibility(View.VISIBLE);
 

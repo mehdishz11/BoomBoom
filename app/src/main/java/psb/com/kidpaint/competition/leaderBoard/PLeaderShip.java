@@ -97,8 +97,8 @@ public class PLeaderShip implements IPLeaderShip {
             }
         });
 
-      //  holder.textRate.setText(""+leaderModel.getRank());
-     //   holder.textUserPoints.setText((leaderModel.getScore())+" امتیاز");
+        holder.textRate.setText(""+leaderModel.getRank());
+        holder.text_user_points.setText((leaderModel.getScore())+" امتیاز");
 ///////////////////////////////////////////////////////////////////////////////////
         if (position==0) {
            /* holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_yellow_300));

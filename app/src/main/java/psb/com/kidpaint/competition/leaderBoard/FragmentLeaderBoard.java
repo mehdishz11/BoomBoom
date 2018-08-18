@@ -1,6 +1,9 @@
 package psb.com.kidpaint.competition.leaderBoard;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,11 +28,14 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.PAllPaints;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.competition.leaderBoard.adapter.Adapter_LeaderShip;
+import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.EndlessRecyclerViewScrollListener;
 import psb.com.kidpaint.utils.GridLayoutManager_EndlessRecyclerOnScrollListener;
 import psb.com.kidpaint.utils.LinearLayoutManager_EndlessRecyclerOnScrollListener;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -57,6 +63,10 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
     EndlessRecyclerViewScrollListener scrollListener;
     private UserProfile userProfile;
+    private int sendPosition=-1;
+    private ProgressDialog progressDialog;
+    private static final int REQUEST_CODE_REGISTER = 120;
+
 
     public FragmentLeaderBoard() {
         // Required empty public constructor
@@ -92,7 +102,9 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
         pLeaderShip.setResponseGetLeaderShip(mResponseGetLeaderShip);
         userProfile=new UserProfile(getContext());
 
-
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("لطفا کمی صبر کنید ...");
         initView();
 
         return view;
@@ -112,7 +124,7 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
 
         adapter_leaderShip = new Adapter_LeaderShip(pLeaderShip);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter_leaderShip);
@@ -183,32 +195,115 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
     @Override
     public void onSuccessSendScore(int position) {
+        progressDialog.cancel();
+        recyclerView.getAdapter().notifyItemChanged(position);
 
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("امتیاز شما با موفقیت ثبت شد.");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                sendPosition = -1;
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle("امتیاز دهی");
+        dialog.show();
     }
 
     @Override
     public void onFailedSendScore(int errorCode, String errorMessage) {
+        progressDialog.cancel();
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage(errorMessage);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+            }
 
+            @Override
+            public void onNegativeClicked() {
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle("امتیاز دهی");
+        dialog.show();
+    }
+
+    @Override
+    public void showUserRegisterDialog(final int position) {
+        sendPosition = position;
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage("برای امتیاز دهی به نقاشی باید ثبت نام کنید یا وارد شوید!");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                startActivityForResult(new Intent(getContext(), ActivityRegisterUser.class), REQUEST_CODE_REGISTER);
+
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                sendPosition = -1;
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.enter));
+        dialog.setTitle(getString(R.string.register_login));
+        dialog.show();
     }
 
     @Override
     public void onStartSendScore() {
-
+        progressDialog.show();
     }
+
 
     @Override
     public void onSelectPaint(LeaderModel paintModel) {
-
+        if (mListener!=null) {
+            mListener.onSelectPaint(paintModel);
+        }
     }
+
 
     @Override
-    public void showUserRegisterDialog(int position) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if (requestCode == REQUEST_CODE_REGISTER) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (mListener!=null) {
+                    mListener.onRefreshUserData();
+                }
+                if (sendPosition != -1) {
+                    pLeaderShip.onSendScore(sendPosition);
+                }
+            }else{
+                sendPosition = -1;
+
+            }
+        }
     }
+
+
 
 
     public interface OnFragmentInteractionListener {
         void setResponseLeaderShip(ResponseGetLeaderShip responseLeaderShip);
-
+        void onRefreshUserData();
+        void onSelectPaint(LeaderModel leaderModel);
     }
 }

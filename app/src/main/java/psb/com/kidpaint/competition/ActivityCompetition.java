@@ -49,6 +49,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.match.Get.model.ResponseGetMatch;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
@@ -492,7 +493,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     }
 
     @Override
-    public void onSelectPaint(PaintModel paintModel) {
+    public void onSelectPaint(LeaderModel paintModel) {
         frameLayoutScore.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutScore, new FragmentScore().newInstance(paintModel), TAG_FRAGMENT_SCORE).commit();
 

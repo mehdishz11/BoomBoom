@@ -323,7 +323,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     @Override
     public void onSelectPaint(PaintModel paintModel) {
         if (mListener!=null) {
-            mListener.onSelectPaint(paintModel);
+           // mListener.onSelectPaint(paintModel);
         }
     }
 
@@ -428,7 +428,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints);
-        void onSelectPaint(PaintModel paintModel);
+      //  void onSelectPaint(PaintModel paintModel);
         void onRefreshUserData();
     }
 
