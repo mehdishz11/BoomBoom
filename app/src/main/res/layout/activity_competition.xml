@@ -771,6 +771,11 @@
 
 
     <FrameLayout
+        android:id="@+id/frameLayoutSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"></FrameLayout>
+    <FrameLayout
         android:id="@+id/frameLayoutScore"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

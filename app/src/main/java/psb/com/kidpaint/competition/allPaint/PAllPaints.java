@@ -10,6 +10,7 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.adapter.ViewHolder_AllPaints;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 public class PAllPaints implements IPAllPaints {
@@ -55,7 +56,7 @@ public class PAllPaints implements IPAllPaints {
 
     @Override
     public void onBindViewHolder_AllPaints(final ViewHolder_AllPaints holder, final int position) {
-        final PaintModel paintModel=mPaints.getAllPaintsPositionAt(position);
+        final LeaderModel paintModel=mPaints.getAllPaintsPositionAt(position);
 
         if (paintModel.getUrl()!=null && !paintModel.getUrl().isEmpty()) {
             Picasso
@@ -72,7 +73,8 @@ public class PAllPaints implements IPAllPaints {
 
         holder.textUserName.setText(paintModel.getUser().getFirstName()+" "+paintModel.getUser().getLastName());
         holder.textImageCode.setText(context.getString(R.string.image_code)+" "+paintModel.getCode());
-
+        holder.textRate.setText(""+paintModel.getRank());
+        holder.text_user_points.setText((paintModel.getScore())+" امتیاز");
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +130,7 @@ public class PAllPaints implements IPAllPaints {
     }
 
     @Override
-    public PaintModel getFirstPaintModel() {
+    public LeaderModel getFirstPaintModel() {
         return mPaints.getFirstPaintModel();
     }
 }

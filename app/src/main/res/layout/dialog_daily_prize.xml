@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rel_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/img_bgr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/rel_content"
+            android:layout_alignLeft="@+id/rel_content"
+            android:layout_alignRight="@+id/rel_content"
+            android:layout_below="@+id/rel_title"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="-26.5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_dialog_bgr_pich" />
+
+        <!--header-->
+        <RelativeLayout
+            android:id="@+id/rel_title"
+            android:layout_width="190dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/img_handle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/handle" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_title_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/space_small"
+                    android:scaleX="1.0"
+                    android:scaleY="1.1"
+                    android:text="@string/daily_prize"
+                    android:textColor="#7ca331"
+                    android:textSize="16sp" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_title_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/space_small"
+                    android:text="@string/daily_prize"
+                    android:textColor="@color/white_1"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <!--content-->
+        <RelativeLayout
+            android:id="@+id/rel_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-25dp"
+            android:visibility="visible">
+
+            <!--content parent-->
+            <RelativeLayout
+                android:id="@+id/rel_content_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <!--message-->
+                <psb.com.cview.CustomTextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/hint_daily_prize"
+                    android:textSize="@dimen/font_size_14"
+                    android:visibility="visible" />
+
+                <!--content-->
+                <LinearLayout
+                    android:id="@+id/lnr_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/message"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bgr_product"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/space_normal"
+                        android:paddingLeft="@dimen/space_small"
+                        android:paddingRight="@dimen/space_small"
+                        >
+
+                        <RelativeLayout
+                            android:id="@+id/rel_img_product"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/space_small">
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_green"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_white"
+                                android:layout_margin="3dp"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_green"
+                                android:layout_margin="4dp"
+                                />
+
+                            <ImageView
+                                android:id="@+id/coin_image_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="20dp"
+                                android:src="@drawable/gift" />
+
+                            <View
+                                android:layout_width="90dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:alpha="0.2"
+                                />
+                            <View
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:alpha="0.2"
+                                />
+                            <View
+                                android:layout_width="20dp"
+                                android:layout_height="10dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:alpha="0.2"
+                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="@dimen/space_normal">
+
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_coin_title_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="@dimen/space_small"
+                                    >
+
+
+
+                                </RelativeLayout>
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_coin_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/rel_img_product"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/brown_5"
+                            android:textSize="20dp" />
+
+                        <psb.com.cview.CButton
+                            android:id="@+id/btn_buy_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_below="@+id/coin_coin_1"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/space_normal"
+                            android:layout_marginRight="@dimen/space_normal"
+                            android:layout_marginTop="@dimen/space_small"
+                            android:background="@drawable/btn_rect"
+                            android:paddingBottom="@dimen/space_small"
+                            android:text="انتخاب"
+                            android:textColor="@color/white_1"
+                            android:textSize="@dimen/text_size_normal" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bgr_product"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:paddingBottom="@dimen/space_normal"
+                        android:paddingLeft="@dimen/space_small"
+                        android:paddingRight="@dimen/space_small"
+                        >
+
+                        <RelativeLayout
+                            android:id="@+id/rel_img_product_2"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/space_small">
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_green"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_white"
+                                android:layout_margin="3dp"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_green"
+                                android:layout_margin="4dp"
+                                />
+
+                            <ImageView
+                                android:id="@+id/coin_image_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="20dp"
+                                android:src="@drawable/gift" />
+
+                            <View
+                                android:layout_width="90dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:alpha="0.2"
+                                />
+                            <View
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:alpha="0.2"
+                                />
+                            <View
+                                android:layout_width="20dp"
+                                android:layout_height="10dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:alpha="0.2"
+                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="@dimen/space_normal">
+
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_coin_title_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="@dimen/space_small"
+                                    >
+
+
+                                </RelativeLayout>
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_coin_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/rel_img_product_2"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:textColor="@color/brown_5"
+                            android:textSize="20dp" />
+
+                        <psb.com.cview.CButton
+                            android:id="@+id/btn_buy_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_below="@+id/coin_coin_2"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/space_normal"
+                            android:layout_marginRight="@dimen/space_normal"
+                            android:layout_marginTop="@dimen/space_small"
+                            android:background="@drawable/btn_rect"
+                            android:paddingBottom="@dimen/space_small"
+                            android:text="انتخاب"
+                            android:textColor="@color/white_1"
+                            android:textSize="@dimen/text_size_normal" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bgr_product"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:paddingBottom="@dimen/space_normal"
+                        android:paddingLeft="@dimen/space_small"
+                        android:paddingRight="@dimen/space_small"
+                        >
+
+                        <RelativeLayout
+                            android:id="@+id/rel_img_product_3"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/space_small">
+
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_green"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_white"
+                                android:layout_margin="3dp"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/circle_green"
+                                android:layout_margin="4dp"
+                                />
+
+                            <ImageView
+                                android:id="@+id/coin_image_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="20dp"
+                                android:src="@drawable/gift" />
+
+                            <View
+                                android:layout_width="90dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:alpha="0.2"
+                                />
+                            <View
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:alpha="0.2"
+                                />
+                            <View
+                                android:layout_width="20dp"
+                                android:layout_height="10dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/circle_white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:alpha="0.2"
+                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="@dimen/space_normal">
+
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_coin_title_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="@dimen/space_small"
+                                    >
+
+
+
+                                </RelativeLayout>
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <psb.com.cview.CustomTextViewBold
+                            android:id="@+id/coin_coin_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/rel_img_product_3"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:textColor="@color/brown_5"
+                            android:textSize="20dp" />
+
+
+                        <psb.com.cview.CButton
+                            android:id="@+id/btn_buy_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_below="@+id/coin_coin_3"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/space_normal"
+                            android:layout_marginRight="@dimen/space_normal"
+                            android:layout_marginTop="@dimen/space_small"
+                            android:background="@drawable/btn_rect"
+                            android:paddingBottom="@dimen/space_small"
+                            android:text="انتخاب"
+                            android:textColor="@color/white_1"
+                            android:textSize="@dimen/text_size_normal" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!--discard-->
+            <psb.com.cview.CButton
+                android:id="@+id/btn_discard_buy_holder"
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_content_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_small"
+                android:background="@drawable/btn_rect"
+                android:paddingBottom="@dimen/space_small"
+                android:text="نمیخوام"
+                android:textColor="@color/white_1"
+                android:textSize="@dimen/text_size_large"
+                android:visibility="invisible" />
+
+            <!--discard-->
+            <psb.com.cview.CButton
+                android:id="@+id/btn_discard_buy"
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_content_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_small"
+                android:background="@drawable/btn_rect"
+                android:paddingBottom="@dimen/space_small"
+                android:text="نمیخوام"
+                android:textColor="@color/white_1"
+
+                android:textSize="@dimen/text_size_large" />
+        </RelativeLayout>
+
+        <!--progress-->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <!--error-->
+        <RelativeLayout
+            android:id="@+id/rel_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/TextError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="error"
+                android:textSize="@dimen/font_size_14"
+                android:visibility="visible" />
+
+            <psb.com.cview.CButton
+                android:id="@+id/btn_retry"
+                android:layout_width="95dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/TextError"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_small"
+                android:background="@drawable/btn_rect"
+                android:paddingBottom="@dimen/space_small"
+                android:text="@string/retry"
+                android:textColor="@color/white_1"
+                android:textSize="@dimen/text_size_normal"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <!--close-->
+        <ImageView
+            android:id="@+id/img_btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignRight="@+id/rel_content"
+            android:layout_alignTop="@+id/rel_content"
+            android:layout_marginTop="-20dp"
+            android:src="@drawable/btn_close" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

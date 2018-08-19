@@ -65,18 +65,18 @@ public class MLeaderShip implements IMLeaderShip {
 
     @Override
     public int getArrSizeLeaderShip() {
-        return mResponseGetLeaderShip.getExtra().getLeaderModel().size();
+        return mResponseGetLeaderShip==null?0:mResponseGetLeaderShip.getExtra().getLeaderModel().size();
     }
 
     @Override
     public int getServerLeaderShipSize() {
-        return mResponseGetLeaderShip.getExtra().getTotal();
+        return mResponseGetLeaderShip==null?0:mResponseGetLeaderShip.getExtra().getTotal();
     }
 
 
     @Override
     public LeaderModel getLeaderShipPositionAt(int position) {
-        return mResponseGetLeaderShip.getExtra().getLeaderModel().get(position);
+        return mResponseGetLeaderShip==null?null:mResponseGetLeaderShip.getExtra().getLeaderModel().get(position);
     }
 
     @Override

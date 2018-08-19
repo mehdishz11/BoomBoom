@@ -2,6 +2,7 @@ package psb.com.kidpaint.competition.allPaint;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 
@@ -17,12 +18,12 @@ public interface IMAllPaints {
      int getArrSizeAllPaints();
      int getServerAllPaintsSize();
 
-    PaintModel getAllPaintsPositionAt(int position);
+    LeaderModel getAllPaintsPositionAt(int position);
 
     void onSendScore(int position);
     boolean userIsRegistered();
 
-    PaintModel getFirstPaintModel();
+    LeaderModel getFirstPaintModel();
 
 
 

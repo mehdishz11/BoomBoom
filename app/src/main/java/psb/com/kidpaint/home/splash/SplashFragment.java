@@ -14,6 +14,7 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
+import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class SplashFragment extends Fragment implements IV_Splash {
 
@@ -110,15 +111,15 @@ public class SplashFragment extends Fragment implements IV_Splash {
         mListener.getRankSuccess(responseGetLeaderShip);
 
 
-            pSplash.getStickers();
+        pSplash.getStickers();
 
     }
 
     @Override
     public void getRankFailed(String msg) {
-         mListener.getRankFailed();
+        mListener.getRankFailed();
 
-            pSplash.getStickers();
+        pSplash.getStickers();
 
     }
 
@@ -153,13 +154,40 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (mListener != null) {
             mListener.setResponseOfferPackage(responseGetOfferPackage);
         }
-        pSplash.getPirze();
+
+        if (responseGetOfferPackage.getExtra().size()>0) {
+            if (mListener != null) {
+                mListener.setResponseDailyPrize(null);
+            }
+            pSplash.getPirze();
+
+
+        }else{
+
+            pSplash.getDailyPrize();
+        }
     }
 
     @Override
     public void onFailedGetOfferPackage(int errorCode, String errorMessage) {
         if (mListener != null) {
             mListener.setResponseOfferPackage(null);
+        }
+        pSplash.getDailyPrize();
+    }
+
+    @Override
+    public void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
+        if (mListener != null) {
+            mListener.setResponseDailyPrize(responseGetDailyPrize);
+        }
+        pSplash.getPirze();
+    }
+
+    @Override
+    public void onFailedGetDailyPrize(int errorCode, String errorMessage) {
+        if (mListener != null) {
+            mListener.setResponseDailyPrize(null);
         }
         pSplash.getPirze();
     }
@@ -182,5 +210,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         void getPrizeFailed(ResponsePrize responsePrize);
 
         void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage);
+
+        void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize);
     }
 }

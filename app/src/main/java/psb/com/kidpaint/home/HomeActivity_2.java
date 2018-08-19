@@ -32,6 +32,7 @@ import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
+import psb.com.kidpaint.dailyPrize.DialogDailyPrize;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
 import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
@@ -55,12 +56,14 @@ import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
+import psb.com.kidpaint.utils.task.TaskHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class HomeActivity_2 extends BaseActivity implements IV_Home,
         SplashFragment.OnFragmentInteractionListener {
@@ -72,6 +75,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     public static int CODE_PAINT_ACTIVITY = 109;
 
     private ResponseGetOfferPackage mResponseOfferPackage;
+    private ResponseGetDailyPrize mResponseGetDailyPrize;
 
     private ImageView  btn_settings;
     private int sendPosition = -1;
@@ -170,7 +174,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
 
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
 
         setupUserInfo();
@@ -178,6 +182,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         initAnimation();
 
         createHelperWnd();
+
+        TaskHelper.increaseNumberOfSignUps(getContext());
 
 
     }
@@ -299,7 +305,95 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             cDialog.setOfferResponse(mResponseOfferPackage);
 
             cDialog.show();
+        } else  {
+            showDialogDailyPrize();
         }
+    }
+
+    public void showDialogDailyPrize(){
+        if (mResponseGetDailyPrize!=null&&mResponseGetDailyPrize.getExtra().size()>0) {
+            DialogDailyPrize cDialog = new DialogDailyPrize(HomeActivity_2.this);
+            cDialog.setShowBtnDiscardBuy(true);
+            cDialog.setScorePackageDiscardBtnListener(new DialogDailyPrize.ScorePackageDiscardBtnListener() {
+                @Override
+                public void btnDiscardBuySelect() {
+
+                }
+
+                @Override
+                public void onSuccessBuyDailyPrizeCoin(int prize, int totalCoin) {
+                  setupUserInfo();
+                    showDailyPrizeMessage("",prize,totalCoin);
+
+                }
+
+                @Override
+                public void onSuccessBuyDailyPrizeText(String text) {
+                 showDailyPrizeMessage(text,-1,0);
+                }
+
+                @Override
+                public void onFailedBuyScorePackage() {
+
+                }
+            });
+
+            cDialog.setResponse(mResponseGetDailyPrize);
+            cDialog.show();
+        }else {
+            checkTaskIsShow();
+        }
+    }
+
+   void showDailyPrizeMessage(String message,int prize,int totalCoin) {
+        final MessageDialog dialog = new MessageDialog(getContext());
+        String mess="";
+         if (prize!=-1) {
+             mess="تبریک شما "+prize+" سکه جایزه گرفتید و تعداد سکه های شما به "+totalCoin+" افزایش یافت.";
+         }else{
+             mess=message;
+         }
+        dialog.setMessage(mess);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+
+            }
+
+            @Override
+            public void onNegativeClicked() {
+
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+        dialog.setTitle(getString(R.string.prize));
+        dialog.show();
+    }
+
+    void checkTaskIsShow(){
+
+        TaskHelper.checkTaskExistsForShow(getContext(), new TaskHelper.iTask() {
+            @Override
+            public void allTaskIsShow() {
+
+            }
+
+            @Override
+            public void nothingForShow() {
+            }
+
+            @Override
+            public void newTaskForShow(int taskId, String rateIsShowed, int coin, Intent intent) {
+
+                if (taskId==1) {
+                    TaskHelper.setTaskToShowed(getContext(),taskId);
+                }else {
+                    TaskHelper.setTaskToNextLevel(getContext(),taskId);
+                }
+            }
+        });
     }
 
     @Override
@@ -438,7 +532,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             setUnreadMessageCount();
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 //finish();
@@ -446,14 +540,14 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == CODE_Competition) {
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
@@ -480,7 +574,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
-        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
+        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commitNowAllowingStateLoss();
         //showIntro();
         if (isFirstRegister) {
             //  showIntroNewUser();
@@ -495,7 +589,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void splashFailed(String msg) {
         frameLayoutSplash.setVisibility(View.GONE);
-        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commit();
+        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commitNowAllowingStateLoss();
         //showIntro();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Log.d("TAG", "splashFailed: ");
@@ -531,6 +625,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage) {
         this.mResponseOfferPackage=responseOfferPackage;
+    }
+
+    @Override
+    public void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
+        this.mResponseGetDailyPrize=responseGetDailyPrize;
     }
 
 

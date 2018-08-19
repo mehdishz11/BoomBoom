@@ -34,6 +34,7 @@ import com.squareup.picasso.Picasso;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
@@ -53,6 +54,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnShowListener;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
@@ -63,35 +65,38 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     private ResponseGetAllPaints mResponseGetAllPaints;
     private static final String ARG_LEVEL = "ARG_LEVEL";
     private static final String ARG_MATCHID = "ARG_MATCHID";
-    int matchId=0;
-    int level=1;
+    int matchId = 0;
+    int level = 1;
+    private String searchText = "";
 
     private OnFragmentInteractionListener mListener;
 
     private View view;
     private RecyclerView recyclerViewAllPaints;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView emptyViewAllPaints;
     private ProgressBar progressBarLoading;
     private EditText searchView;
     private UserProfile userProfile;
     private PAllPaints pPaints;
-     private Adapter_AllPaints adapter_allPaints;
+    private Adapter_AllPaints adapter_allPaints;
     private ProgressDialog progressDialog;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private ImageView userImage, back;
+    private TextView text_user_name;
 
 
-    int sendPosition=-1;
+    int sendPosition = -1;
+
     public FragmentAllPaints() {
         // Required empty public constructor
     }
 
 
-    public static FragmentAllPaints newInstance(ResponseGetAllPaints responseGetAllPaints,int matchId, int level) {
+    public static FragmentAllPaints newInstance(String searchText, int matchId, int level) {
         FragmentAllPaints fragment = new FragmentAllPaints();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_All_PAINTS, responseGetAllPaints);
         fragment.setArguments(args);
+        args.putString(ARG_All_PAINTS, searchText);
         args.putInt(ARG_LEVEL, level);
         args.putInt(ARG_MATCHID, matchId);
         return fragment;
@@ -101,9 +106,9 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mResponseGetAllPaints = (ResponseGetAllPaints) getArguments().getSerializable(ARG_All_PAINTS);
-            level=getArguments().getInt(ARG_LEVEL);
-            matchId=getArguments().getInt(ARG_MATCHID);
+            searchText = getArguments().getString(ARG_All_PAINTS);
+            level = getArguments().getInt(ARG_LEVEL);
+            matchId = getArguments().getInt(ARG_MATCHID);
             getArguments().clear();
         }
     }
@@ -115,17 +120,54 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         userProfile = new UserProfile(getContext());
         pPaints = new PAllPaints(this);
         pPaints.setResponseGetAllPaints(mResponseGetAllPaints);
-        progressDialog=new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
         initView();
+        //  setUserInfo();
 
-        if (pPaints!=null) {
+        searchView.setText(searchText);
+        pPaints.onGetAllPaints(searchView.getText().toString(), 1, 20, matchId, level);
+
+
+        if (pPaints != null) {
             showIntro();
 
         }
         return view;
     }
+
+    void setUserInfo() {
+        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            text_user_name.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
+            text_user_name.setOnClickListener(null);
+        } else {
+            text_user_name.setText("ثبت نام | ورود");
+            text_user_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), ActivityRegisterUser.class);
+                    startActivityForResult(intent, REQUEST_CODE_REGISTER);
+                }
+            });
+        }
+
+
+        if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
+            Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    userImage.setImageResource(R.drawable.user_empty_gray);
+                }
+            });
+        }
+    }
+
 
     void initView() {
 
@@ -133,19 +175,22 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         emptyViewAllPaints = view.findViewById(R.id.emptyViewAllPaints);
         recyclerViewAllPaints = view.findViewById(R.id.recyclerViewAllPaints);
         progressBarLoading = view.findViewById(R.id.progressBar);
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        back = view.findViewById(R.id.img_back_1);
+/*        userImage = view.findViewById(R.id.userImage);
+        text_user_name = view.findViewById(R.id.text_user_name);*/
 
-
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRefresh() {
-                pPaints.onGetAllPaints(searchView.getText().toString(), 1, 20,matchId,level);
+            public void onClick(View view) {
+                if (mListener!=null) {
+                    mListener.onBackPressed();
+                }
             }
         });
 
-        adapter_allPaints=new Adapter_AllPaints(pPaints);
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),1, GridLayoutManager.HORIZONTAL, false);
+
+        adapter_allPaints = new Adapter_AllPaints(pPaints);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerViewAllPaints.setLayoutManager(linearLayoutManager);
         AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter_allPaints);
         animationAdapter.setDuration(100);
@@ -166,23 +211,20 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
 
-                if (pPaints.getServerAllPaintsSize()>adapter_allPaints.getItemCount()) {
-                    int  loadcount = 20;
-                    int  current_page= (int) Math.ceil((adapter_allPaints.getItemCount()+loadcount) / 20.0);
+                if (pPaints.getServerAllPaintsSize() > adapter_allPaints.getItemCount()) {
+                    int loadcount = 20;
+                    int current_page = (int) Math.ceil((adapter_allPaints.getItemCount() + loadcount) / 20.0);
 
-                    Log.d("TAG", "onLoadMore: "+current_page);
+                    Log.d("TAG", "onLoadMore: " + current_page);
                     progressBarLoading.setVisibility(View.VISIBLE);
-                    pPaints.onGetAllPaints(searchView.getText().toString().trim(), current_page, 20,matchId,level);
+                    pPaints.onGetAllPaints(searchView.getText().toString().trim(), current_page, 20, matchId, level);
 
                 }
                 // Log.d("TAG", "onLoadMore: "+page);
             }
         };
         // Adds the scroll listener to RecyclerView
-       // recyclerViewAllPaints.addOnScrollListener(scrollListener);
-
-
-
+        // recyclerViewAllPaints.addOnScrollListener(scrollListener);
 
 
         searchView.setImeActionLabel("Done", EditorInfo.IME_ACTION_DONE);
@@ -195,7 +237,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
                     inputMethodManager.toggleSoftInputFromWindow(
                             searchView.getApplicationWindowToken(),
                             InputMethodManager.SHOW_IMPLICIT, 0);
-                    pPaints.onGetAllPaints(searchView.getText().toString().trim(), 1, 20,matchId,level);
+                    pPaints.onGetAllPaints(searchView.getText().toString().trim(), 1, 20, matchId, level);
                     progressBarLoading.setVisibility(View.VISIBLE);
                     return true;
                 }
@@ -225,7 +267,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
                 }
                 if (spaceCount == characters.length) {
                 } else if (spaceCount < characters.length && characters[(characters.length - 1)] == ' ') {
-                    pPaints.onGetAllPaints(editable.toString().trim(), 1, 20,matchId,level);
+                    pPaints.onGetAllPaints(editable.toString().trim(), 1, 20, matchId, level);
                     progressBarLoading.setVisibility(View.VISIBLE);
 
                 }
@@ -267,13 +309,13 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         });*/
 
 
+    }
+
+    public void getAllPaints(int matchId, int level) {
+        pPaints.onGetAllPaints(searchView.getText().toString(), 1, 20, matchId, level);
 
     }
 
-    public void getAllPaints(int matchId, int level){
-        pPaints.onGetAllPaints(searchView.getText().toString(),1, 20,matchId,level);
-
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -292,13 +334,12 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
 
     @Override
     public void onStartGetAllPaints() {
-
+        progressBarLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSuccessGetAllPaints(ResponseGetAllPaints responseGetAllPaints) {
 
-        swipeRefreshLayout.setRefreshing(false);
         progressBarLoading.setVisibility(View.GONE);
         mResponseGetAllPaints = responseGetAllPaints;
         if (mListener != null) {
@@ -307,9 +348,11 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         recyclerViewAllPaints.getAdapter().notifyDataSetChanged();
         emptyViewAllPaints.setVisibility(recyclerViewAllPaints.getAdapter().getItemCount() > 0 ? View.GONE : View.VISIBLE);
 
-        showIntro();
+        //  showIntro();
 
         scrollListener.resetState();
+
+        progressBarLoading.setVisibility(View.GONE);
 
     }
 
@@ -317,13 +360,14 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     public void onFailedGetAllPaints(int errorCode, String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         progressBarLoading.setVisibility(View.GONE);
-        swipeRefreshLayout.setRefreshing(false);
+        emptyViewAllPaints.setVisibility(recyclerViewAllPaints.getAdapter().getItemCount() > 0 ? View.GONE : View.VISIBLE);
+
     }
 
     @Override
-    public void onSelectPaint(PaintModel paintModel) {
-        if (mListener!=null) {
-           // mListener.onSelectPaint(paintModel);
+    public void onSelectPaint(LeaderModel paintModel) {
+        if (mListener != null) {
+            mListener.onSelectPaint(paintModel);
         }
     }
 
@@ -411,13 +455,14 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
 
         if (requestCode == REQUEST_CODE_REGISTER) {
             if (resultCode == Activity.RESULT_OK) {
-                if (mListener!=null) {
+                setUserInfo();
+                if (mListener != null) {
                     mListener.onRefreshUserData();
                 }
                 if (sendPosition != -1) {
                     pPaints.onSendScore(sendPosition);
                 }
-            }else{
+            } else {
                 sendPosition = -1;
 
             }
@@ -428,12 +473,15 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints);
-      //  void onSelectPaint(PaintModel paintModel);
+
+        void onSelectPaint(LeaderModel paintModel);
+
         void onRefreshUserData();
+        void onBackPressed();
     }
 
     private void showIntro() {
-        final View v = view.findViewById(R.id.viewStep13_1);
+      /*  final View v = view.findViewById(R.id.viewStep13_1);
         final View v_2 = view.findViewById(R.id.viewStep13);
 
 
@@ -508,7 +556,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
-
+*/
 
     }
 }

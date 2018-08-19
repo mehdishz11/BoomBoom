@@ -24,6 +24,8 @@ public class ViewHolder_AllPaints extends RecyclerView.ViewHolder {
     public TextView textImageCode;
     public ImageView imageUser;
     public RoundedImageView bgrBtnRate;
+    public TextView textRate;
+    public TextView text_user_points;
 
     public ViewHolder_AllPaints(View itemView) {
         super(itemView);
@@ -42,6 +44,10 @@ public class ViewHolder_AllPaints extends RecyclerView.ViewHolder {
 
         textUserName=itemView.findViewById(R.id.text_user_name);
         textImageCode=itemView.findViewById(R.id.text_image_code);
+
+
+        textRate=itemView.findViewById(R.id.text_rank);
+        text_user_points=itemView.findViewById(R.id.text_user_points);
 
     }
 }

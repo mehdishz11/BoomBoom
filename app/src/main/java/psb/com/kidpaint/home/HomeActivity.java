@@ -64,6 +64,7 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class HomeActivity extends BaseActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
@@ -684,6 +685,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     @Override
     public void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage) {
+
+    }
+
+    @Override
+    public void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
 
     }
 

@@ -8,11 +8,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -61,7 +67,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         FragmentAllPaints.OnFragmentInteractionListener,
         FragmentLeaderBoard.OnFragmentInteractionListener {
     private static final String TAG_FRAGMENT_PAINTS = "TAG_FRAGMENT_PAINTS";
-    private static final String TAG_FRAGMENT_All_PAINTS = "TAG_FRAGMENT_All_PAINTS";
+    private static final String TAG_FRAGMENT_SEARCH = "TAG_FRAGMENT_SEARCH";
     private static final String TAG_FRAGMENT_LEADER_BOARD = "TAG_FRAGMENT_LEADER_BOARD";
     private static final String TAG_FRAGMENT_SCORE = "TAG_FRAGMENT_SCORE";
 
@@ -80,6 +86,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
 
     private FrameLayout frameLayoutScore;
+    private FrameLayout frameLayoutSearch;
 
 
     private TextView text_user_name;
@@ -88,6 +95,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     private ImageView sheep;
     private ImageView cow;
     private ImageView rooster;
+    private EditText searchView;
 
     private ImageView imgBack;
     private ImageView bronzeMedal, silverMedal, goldMedal;
@@ -115,7 +123,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             pCompetition.onGetMyPaints();
         } else {
-            pCompetition.onGetAllPaints();
+            pCompetition.onGetLeaderBoard();
         }
         setUserInfo();
 
@@ -145,7 +153,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         } else if (position == 1) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip, matchId, levelId), TAG_FRAGMENT_LEADER_BOARD).commit();
         } else if (position == 2) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentAllPaints().newInstance(mResponseGetAllPaints, matchId, levelId), TAG_FRAGMENT_All_PAINTS).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSearch, new FragmentAllPaints().newInstance(searchView.getText().toString().trim(), matchId, levelId), TAG_FRAGMENT_SEARCH).commit();
         }
     }
 
@@ -224,9 +232,11 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
 
     private void setViewContent() {
+        searchView = findViewById(R.id.search);
 
         progressView = findViewById(R.id.progressView);
         frameLayoutScore = findViewById(R.id.frameLayoutScore);
+        frameLayoutSearch = findViewById(R.id.frameLayoutSearch);
 
         progressBarMatch = findViewById(R.id.progressBar);
         // spinnerMatch = findViewById(R.id.spinner_match);
@@ -257,6 +267,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
 
         frameLayoutScore.setVisibility(View.GONE);
+        frameLayoutSearch.setVisibility(View.GONE);
 
         rel_my_paints.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,6 +334,32 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
             }
         });*/
 
+        searchView.setImeActionLabel("Done", EditorInfo.IME_ACTION_DONE);
+        searchView.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    InputMethodManager inputMethodManager =
+                            (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.toggleSoftInputFromWindow(
+                            searchView.getApplicationWindowToken(),
+                            InputMethodManager.SHOW_IMPLICIT, 0);
+
+                    if (searchView.getText().toString().trim().length()>0) {
+                        frameLayoutSearch.setVisibility(View.VISIBLE);
+                        setFragment(2);
+
+                        searchView.setText("");
+                    }
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
     }
 
     void setSpinnerAdapterMatch() {
@@ -350,9 +387,9 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
                 if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
                     ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);
                 }
-                if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS) != null) {
+              /*  if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS) != null) {
                     ((FragmentAllPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_All_PAINTS)).getAllPaints(matchId, levelId);
-                }
+                }*/
             }
 
             @Override
@@ -422,7 +459,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     @Override
     public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
         mResponseGetMyPaints = responseGetMyPaints;
-        pCompetition.onGetAllPaints();
+        pCompetition.onGetLeaderBoard();
 
     }
 
@@ -521,6 +558,10 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE)).commit();
             frameLayoutScore.setVisibility(View.GONE);
+
+        } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SEARCH) != null) {
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SEARCH)).commit();
+            frameLayoutSearch.setVisibility(View.GONE);
 
         } else {
             super.onBackPressed();

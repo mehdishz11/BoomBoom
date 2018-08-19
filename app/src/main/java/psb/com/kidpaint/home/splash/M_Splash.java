@@ -23,6 +23,9 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.GetPrize;
 import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
+import psb.com.kidpaint.webApi.prize.Prize;
+import psb.com.kidpaint.webApi.prize.getDailyPrize.iGetDailyPrize;
+import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.fcmToken.iFcmToken;
 
@@ -163,5 +166,21 @@ public class M_Splash implements IM_Splash {
              ipSplash.onFailedGetOfferPackage(errorCode, ErrorMessage);
             }
         }).doGetOfferPackage(userProfile.get_KEY_PHONE_NUMBER(""));
+    }
+
+    @Override
+    public void getDailyPrize() {
+        new Prize().getDailyPrize(new iGetDailyPrize.iResult() {
+            @Override
+            public void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
+                ipSplash.onSuccessGetDailyPrize(responseGetDailyPrize);
+
+            }
+
+            @Override
+            public void onFailedGetDailyPrize(int errorCode, String ErrorMessage) {
+        ipSplash.onFailedGetDailyPrize(errorCode, ErrorMessage);
+            }
+        }).doGetDailyPrize(userProfile.get_KEY_PHONE_NUMBER("0"));
     }
 }

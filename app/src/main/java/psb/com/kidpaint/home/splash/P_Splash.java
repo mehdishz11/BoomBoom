@@ -5,6 +5,7 @@ import android.content.Context;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
+import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class P_Splash implements IP_Splash {
 
@@ -102,5 +103,20 @@ public class P_Splash implements IP_Splash {
     @Override
     public void onFailedGetOfferPackage(int errorCode, String errorMessage) {
        ivSplash.onFailedGetOfferPackage(errorCode, errorMessage);
+    }
+
+    @Override
+    public void getDailyPrize() {
+        mSplash.getDailyPrize();
+    }
+
+    @Override
+    public void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
+    ivSplash.onSuccessGetDailyPrize(responseGetDailyPrize);
+    }
+
+    @Override
+    public void onFailedGetDailyPrize(int errorCode, String errorMessage) {
+          ivSplash.onFailedGetDailyPrize(errorCode, errorMessage);
     }
 }

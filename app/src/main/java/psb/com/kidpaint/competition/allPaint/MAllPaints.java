@@ -5,6 +5,7 @@ import android.content.Context;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.score.iScore;
 import psb.com.kidpaint.webApi.paint.score.model.ParamsScore;
 import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
@@ -67,17 +68,17 @@ public class MAllPaints implements IMAllPaints {
 
     @Override
     public int getArrSizeAllPaints() {
-        return mResponseGetAllPaints.getExtra().getPaintModel().size();
+        return mResponseGetAllPaints==null?0:mResponseGetAllPaints.getExtra().getPaintModel().size();
     }
 
     @Override
     public int getServerAllPaintsSize() {
-        return mResponseGetAllPaints.getExtra().getTotal();
+        return mResponseGetAllPaints==null?0:mResponseGetAllPaints.getExtra().getTotal();
     }
 
 
     @Override
-    public PaintModel getAllPaintsPositionAt(int position) {
+    public LeaderModel getAllPaintsPositionAt(int position) {
         return mResponseGetAllPaints.getExtra().getPaintModel().get(position);
     }
 
@@ -111,7 +112,7 @@ public class MAllPaints implements IMAllPaints {
     }
 
     @Override
-    public PaintModel getFirstPaintModel() {
+    public LeaderModel getFirstPaintModel() {
         return mResponseGetAllPaints==null||mResponseGetAllPaints.getExtra().getPaintModel().size()<=0?null:mResponseGetAllPaints.getExtra().getPaintModel().get(0);
     }
 }

@@ -16,5 +16,6 @@ public interface IM_Splash {
     void updateFcmToken();
 
     void getOfferPackage();
+    void getDailyPrize();
 
 }
