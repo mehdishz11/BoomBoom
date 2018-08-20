@@ -7,6 +7,7 @@ import java.io.File;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
 
 public interface IP_Home {
@@ -42,5 +43,9 @@ public interface IP_Home {
     void deletePaint(int position);
 
     File getLastPaintFile();
+
+    void doAddScore(int addScoreMode);
+    void onSuccessAddScore(ResponseAddScore responseAddScore);
+    void onFailedAddScore(int errorCode,String errorMessage);
 
 }

@@ -30,6 +30,7 @@ public class MDailyPrize implements IMDailyPrize {
         new Prize().buyDailyPrize(new iBuyDailyPrize.iResult() {
             @Override
             public void onSuccessBuyDailyPrize(ResponseBuyDailyPrize responseBuyDailyPrize) {
+                userProfile.set_KEY_SCORE(responseBuyDailyPrize.getExtra());
                  ipDailyPrize.onSuccessBuyDailyPrize(prize,responseBuyDailyPrize);
             }
 
