@@ -25,6 +25,9 @@ import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ResponsePrizeRequest;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.logout.iLogout;
+import psb.com.kidpaint.webApi.userScore.UserScore;
+import psb.com.kidpaint.webApi.userScore.addScore.iAddScore;
+import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
 
 public class MHome implements IM_Home {
@@ -183,5 +186,22 @@ public class MHome implements IM_Home {
     @Override
     public boolean userIsRegistered() {
         return userProfile.get_KEY_PHONE_NUMBER("").isEmpty() ? false : true;
+    }
+
+    @Override
+    public void doAddScore(int addScoreMode) {
+        new UserScore().addScore(new iAddScore.iResult() {
+            @Override
+            public void onSuccessAddScore(ResponseAddScore responseAddScore) {
+                userProfile.set_KEY_SCORE(responseAddScore.getExtra());
+                ip_home.onSuccessAddScore(responseAddScore);
+            }
+
+            @Override
+            public void onFailedAddScore(int errorCode, String ErrorMessage) {
+                ip_home.onFailedAddScore(errorCode, ErrorMessage);
+
+            }
+        }).doAddScore(userProfile.get_KEY_PHONE_NUMBER(""),addScoreMode);
     }
 }

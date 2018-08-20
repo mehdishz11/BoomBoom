@@ -4,6 +4,7 @@ import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
 
 public interface IV_Home {
@@ -31,5 +32,10 @@ public interface IV_Home {
     void showDeleteDialog(int position);
 
    void onOutlineSelected(int resId);
+
+
+    void onStartAddScore();
+    void onSuccessAddScore(ResponseAddScore responseAddScore);
+    void onFailedAddScore(int errorCode,String errorMessage);
 
 }

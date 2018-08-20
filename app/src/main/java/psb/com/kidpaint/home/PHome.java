@@ -15,6 +15,7 @@ import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
 
 public class PHome implements IP_Home {
@@ -206,5 +207,21 @@ public class PHome implements IP_Home {
     @Override
     public File getLastPaintFile() {
         return mHome.getLastPaintFile();
+    }
+
+    @Override
+    public void doAddScore(int addScoreMode) {
+        iv_home.onStartAddScore();
+        mHome.doAddScore(addScoreMode);
+    }
+
+    @Override
+    public void onSuccessAddScore(ResponseAddScore responseAddScore) {
+           iv_home.onSuccessAddScore(responseAddScore);
+    }
+
+    @Override
+    public void onFailedAddScore(int errorCode, String errorMessage) {
+        iv_home.onFailedAddScore(errorCode, errorMessage);
     }
 }

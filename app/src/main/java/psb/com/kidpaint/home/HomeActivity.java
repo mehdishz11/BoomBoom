@@ -65,6 +65,7 @@ import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
+import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
 public class HomeActivity extends BaseActivity implements IV_Home,
         HistoryFragment.OnFragmentInteractionListener,
@@ -424,6 +425,21 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         Intent intent = new Intent(HomeActivity.this, PaintActivity.class);
         intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
         startActivityForResult(intent, CODE_PAINT_ACTIVITY);
+    }
+
+    @Override
+    public void onStartAddScore() {
+
+    }
+
+    @Override
+    public void onSuccessAddScore(ResponseAddScore responseAddScore) {
+
+    }
+
+    @Override
+    public void onFailedAddScore(int errorCode, String errorMessage) {
+
     }
 
     @Override

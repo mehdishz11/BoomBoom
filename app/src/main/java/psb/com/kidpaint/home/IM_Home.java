@@ -28,4 +28,7 @@ public interface IM_Home {
 
     boolean userIsRegistered();
 
+    void doAddScore(int addScoreMode);
+
+
 }
