@@ -6,178 +6,173 @@
     android:layout_height="match_parent"
     android:alpha="0.95">
 
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardBackgroundColor="@color/brown_1"
-    android:layout_margin="8dp"
-    app:cardElevation="2dp"
-    app:cardCornerRadius="40dp"
-    >
-
-    <RelativeLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/brown_1"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp">
 
-
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/img_outline_bgr"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:riv_border_color="@color/brown_4"
-            app:riv_border_width="1dp"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/space_normal"
-            android:paddingBottom="2dp"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="40dp"
-            android:src="@color/white_1"
-            />
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/img_outline_template"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:riv_border_color="@color/brown_4"
-            app:riv_border_width="2dp"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/space_normal"
-            android:paddingBottom="2dp"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="40dp"
-            />
-        <psb.com.cview.CustomTextViewBold
-            android:id="@+id/textNew"
-            android:layout_width="match_parent"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/margin_10"
-            android:gravity="center"
-            android:text="+ نقاشی جدید"
-            android:layout_height="wrap_content" />
         <RelativeLayout
-            android:id="@+id/rel_btns_bg"
-
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="match_parent">
 
-            android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/rel_btns"
-            android:layout_alignRight="@+id/rel_btns"
-            >
 
             <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_outline_bgr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                app:riv_corner_radius="20dp"
-                android:src="@color/brown_1"
-                />
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/space_normal"
+                android:paddingBottom="2dp"
+                android:scaleType="centerCrop"
+                android:src="@color/white_1"
+                app:riv_border_color="@color/brown_4"
+                app:riv_border_width="1dp"
+                app:riv_corner_radius="20dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_outline_template"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/space_normal"
+                android:paddingBottom="2dp"
+                android:scaleType="centerCrop"
+                app:riv_border_color="@color/brown_4"
+                app:riv_border_width="2dp"
+                app:riv_corner_radius="20dp" />
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/textNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:padding="@dimen/margin_10"
+                android:text="+ نقاشی جدید" />
+
+            <RelativeLayout
+                android:id="@+id/rel_btns_bg"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_alignLeft="@+id/rel_btns"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/rel_btns"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="-5dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bgr_round_brown_stroke"
+                    android:scaleType="fitXY"
+                    app:riv_corner_radius="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="13dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/brown_1" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rel_btns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
+
+                <RelativeLayout
+                    android:id="@+id/rel_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <psb.com.cview.CButton
+                        android:id="@+id/btn_delete"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/btn_sqr_green"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_normal" />
+
+                    <psb.com.cview.IconFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:elevation="5dp"
+                        android:text=""
+                        android:textColor="@color/white_1"
+                        android:textSize="20dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:layout_toRightOf="@+id/rel_delete">
+
+                    <psb.com.cview.CButton
+                        android:id="@+id/btn_edit"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/btn_sqr_green"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_normal" />
+
+                    <psb.com.cview.IconFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:elevation="5dp"
+                        android:text=""
+                        android:textColor="@color/white_1"
+                        android:textSize="20dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_competition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_small"
+                    android:layout_toRightOf="@+id/rel_edit">
+
+                    <psb.com.cview.CButton
+                        android:id="@+id/btn_competition"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/btn_sqr_green"
+                        android:textColor="@color/white_1"
+                        android:textSize="@dimen/text_size_normal" />
+
+                    <psb.com.cview.IconFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:elevation="5dp"
+                        android:text=""
+                        android:textColor="@color/white_1"
+                        android:textSize="20dp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/rel_btns"
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            >
-            <RelativeLayout
-                android:id="@+id/rel_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <psb.com.cview.CButton
-                    android:id="@+id/btn_delete"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/btn_sqr_green"
-                    android:textColor="@color/white_1"
-                    android:textSize="@dimen/text_size_normal"
-                    />
-
-                <psb.com.cview.IconFont
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white_1"
-                    android:textSize="20dp"
-                    android:layout_centerInParent="true"
-                    android:text=""
-                    android:elevation="5dp"
-                    />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/rel_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/rel_delete"
-                >
-                <psb.com.cview.CButton
-                    android:id="@+id/btn_edit"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/btn_sqr_green"
-                    android:textColor="@color/white_1"
-                    android:textSize="@dimen/text_size_normal"
-                    />
-
-                <psb.com.cview.IconFont
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white_1"
-                    android:textSize="20dp"
-                    android:layout_centerInParent="true"
-                    android:text=""
-                    android:elevation="5dp"
-                    />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/rel_competition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/rel_edit"
-                android:layout_marginLeft="@dimen/space_small">
-                <psb.com.cview.CButton
-                    android:id="@+id/btn_competition"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/btn_sqr_green"
-                    android:textColor="@color/white_1"
-                    android:textSize="@dimen/text_size_normal"
-                    />
-
-                <psb.com.cview.IconFont
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white_1"
-                    android:textSize="20dp"
-                    android:layout_centerInParent="true"
-                    android:text=""
-                    android:elevation="5dp"
-                    />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-
-
-    </RelativeLayout>
-
-
-
-</android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
 
 
     <ImageView
         android:id="@+id/img_mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-         />
+        android:visibility="gone" />
 </psb.com.cview.SquareRelativeLayout>

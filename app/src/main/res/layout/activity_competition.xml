@@ -125,40 +125,32 @@
     </RelativeLayout>
 
     <FrameLayout
-        android:layout_below="@+id/rel_search"
-        android:layout_toLeftOf="@+id/rel_my_paints"
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
-
-
-
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rel_search"
+        android:layout_toLeftOf="@+id/rel_my_paints"></FrameLayout>
 
     <View
         android:layout_width="3dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rel_user_register_holder"
         android:layout_alignBottom="@+id/rel_competition"
         android:layout_alignLeft="@+id/rel_user_register_holder"
-        android:background="@drawable/sign_base"
-        android:layout_marginTop="-40dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
-        android:rotation="3"
-        />
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/sign_base"
+        android:rotation="3" />
 
     <View
         android:layout_width="3dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rel_user_register_holder"
         android:layout_alignBottom="@+id/rel_competition"
         android:layout_alignRight="@+id/rel_user_register_holder"
-        android:background="@drawable/sign_base"
-        android:layout_marginTop="-40dp"
-        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:rotation="-4"
-        />
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="-20dp"
+        android:background="@drawable/sign_base"
+        android:rotation="-4" />
 
     <!--login or register-->
     <RelativeLayout
@@ -283,16 +275,33 @@
 
         </RelativeLayout>
 
-        <!--back-->
-        <ImageView
-            android:id="@+id/img_back_1"
+        <RelativeLayout
+            android:id="@+id/rel_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/space_normal"
-            android:scaleX="-1"
-            android:src="@drawable/img_icon_right_arrow" />
+            android:layout_centerVertical="true">
+
+            <psb.com.cview.CButton
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_sqr_green" />
+
+            <ImageView
+                android:id="@+id/img_back_1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:paddingBottom="2dp"
+                android:elevation="5dp"
+                android:scaleX="-1"
+                android:src="@drawable/img_icon_right_arrow" />
+
+        </RelativeLayout>
+
+        <!--back-->
+
 
     </RelativeLayout>
 
@@ -301,48 +310,43 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rel_search"
         android:layout_alignLeft="@+id/rel_search"
-        android:background="@drawable/sign_base"
-        android:layout_marginLeft="20dp"
         android:layout_marginBottom="30dp"
-        android:rotation="3"
-        />
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/sign_base"
+        android:rotation="3" />
 
     <View
         android:layout_width="3dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rel_search"
         android:layout_alignRight="@+id/rel_search"
-        android:background="@drawable/sign_base"
-        android:layout_marginRight="20dp"
         android:layout_marginBottom="30dp"
-        android:rotation="-5"
-        />
+        android:layout_marginRight="20dp"
+        android:background="@drawable/sign_base"
+        android:rotation="-5" />
 
     <!--search-->
     <RelativeLayout
         android:id="@+id/rel_search"
         android:layout_width="300dp"
         android:layout_height="70dp"
-        android:layout_marginTop="@dimen/space_normal"
-        android:layout_marginLeft="80dp"
-        >
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="@dimen/space_normal">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@drawable/bgr_wood_single"
-            >
-
+            android:background="@drawable/bgr_wood_single">
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/pallet_drop"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_centerVertical="true"
-                >
+                android:background="@drawable/pallet_drop">
+
                 <psb.com.cview.IconFont
                     android:id="@+id/icon_search"
                     android:layout_width="wrap_content"
@@ -357,11 +361,11 @@
                 <View
                     android:id="@+id/viewStep13_1"
                     android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_height="40dp"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" />
 
 
                 <psb.com.cview.CEditTextBold
@@ -557,11 +561,10 @@
         android:layout_width="220dp"
         android:layout_height="140dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="-30dp"
         android:layout_below="@+id/rel_my_paints"
+        android:layout_marginRight="-30dp"
         android:layout_marginTop="15dp"
-        android:rotation="-5"
-        >
+        android:rotation="-5">
 
 
         <RelativeLayout
@@ -775,6 +778,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"></FrameLayout>
+
     <FrameLayout
         android:id="@+id/frameLayoutScore"
         android:layout_width="match_parent"

@@ -128,6 +128,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     private LottieAnimationView bunny;
 
+    private RelativeLayout relCompetition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +143,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
-                Log.e("newToken", newToken);
                 userProfile.set_KEY_FCM(newToken);
 
             }
@@ -169,10 +170,18 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         bunny = findViewById(R.id.bunny);
 
+        relCompetition=findViewById(R.id.rel_parent_competition);
+
         splashFragment = new SplashFragment().newInstance();
 
         ToolbarHandler.makeTansluteToolbar(this, getWindow(), getWindow().getDecorView());
 
+        relCompetition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
@@ -1146,8 +1155,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     }
 
 
-    //================================================== ===========
-    //===================================================== =        =
+    //==================================================
     @Override
     public void onStartMyPaintHistory() {
 
@@ -1157,6 +1165,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     public void onGetMyPaintHistorySuccess() {
         historyAdapter = new HistoryAdapter(pHome);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager.setReverseLayout(true);
+
         recyclerView.setLayoutManager(linearLayoutManager);
 
         AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(historyAdapter);

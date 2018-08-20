@@ -7,9 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -38,7 +36,6 @@ import psb.com.kidpaint.competition.allPaint.FragmentAllPaints;
 import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
 import psb.com.kidpaint.competition.myPaints.FragmentMyPaints;
 import psb.com.kidpaint.competition.score.FragmentScore;
-import psb.com.kidpaint.home.HomeActivity_2;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
@@ -58,7 +55,6 @@ import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class ActivityCompetition extends BaseActivity implements IVCompetition,
@@ -75,7 +71,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     public static int CODE_REGISTER = 107;
 
 
-    private ImageView back, userImage;
+    private ImageView  userImage;
     private PCompetition pCompetition;
     private ProgressView progressView;
 
@@ -97,7 +93,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     private ImageView rooster;
     private EditText searchView;
 
-    private ImageView imgBack;
+    private Button back;
     private ImageView bronzeMedal, silverMedal, goldMedal;
     private ImageView img_winner_1, img_winner_2, img_winner_3;
     int matchId = 0;
@@ -245,9 +241,10 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         cow = findViewById(R.id.img_animal_3);
         rooster = findViewById(R.id.img_animal_5);
 
-        imgBack = findViewById(R.id.img_back_1);
+        back = findViewById(R.id.btn_back);
         rel_my_paints = findViewById(R.id.rel_my_paints);
-   /*     bronzeMedal = findViewById(R.id.bronzeMedal);
+
+        /*     bronzeMedal = findViewById(R.id.bronzeMedal);
         silverMedal = findViewById(R.id.silverMedal);
         goldMedal = findViewById(R.id.goldMedal);*/
 
@@ -258,7 +255,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         userImage = findViewById(R.id.userImage);
         text_user_name = findViewById(R.id.text_user_name);
 
-        imgBack.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
