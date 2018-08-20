@@ -21,11 +21,11 @@ public class UserScore implements iUserScore {
 
     @Override
     public AddScore addScore() {
-        return addScore();
+        return new AddScore();
     }
 
     @Override
     public AddScore addScore(iAddScore.iResult iResult) {
-        return addScore(iResult);
+        return new AddScore(iResult);
     }
 }

@@ -89,5 +89,7 @@
     <string name="hint_daily_prize">برای دریافت جایزه خود یکی از بسته های زیر را انتخاب نمایید</string>
     <string name="special_offer">پیشنهاد ویژه</string>
     <string name="my_paints">نقاشی های من</string>
+    <string name="reward">پاداش</string>
+    <string name="reward_btn">دریافت</string>
 
 </resources>
