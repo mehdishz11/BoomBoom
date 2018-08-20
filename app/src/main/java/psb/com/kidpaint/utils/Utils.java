@@ -7,6 +7,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -21,6 +22,8 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import psb.com.kidpaint.App;
 
 public class Utils {
     public  static  boolean activitymyMessageIsRunning=false;
@@ -201,6 +204,16 @@ public class Utils {
     public static int getDisplayHeight(){
         return Resources.getSystem().getDisplayMetrics().heightPixels;
 
+    }
+
+    public static boolean isPackageExisted(String targetPackage) {
+        PackageManager pm = App.getContext().getPackageManager();
+        try {
+            PackageInfo info = pm.getPackageInfo(targetPackage, PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 
 

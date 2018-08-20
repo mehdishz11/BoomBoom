@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -184,7 +185,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         createHelperWnd();
 
-        TaskHelper.increaseNumberOfSignUps(getContext());
+        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            TaskHelper.increaseNumberOfSignUps(getContext());
+        }
+
 
 
     }
@@ -378,24 +382,80 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         TaskHelper.checkTaskExistsForShow(getContext(), new TaskHelper.iTask() {
             @Override
             public void allTaskIsShow() {
+                showIntro();
 
             }
 
             @Override
             public void nothingForShow() {
+                showIntro();
+
             }
 
             @Override
-            public void newTaskForShow(int taskId, String rateIsShowed, int coin, Intent intent) {
+            public void newTaskForShow(int taskId, String message, int coin, Intent intent) {
+                  showRewardDialog(taskId,message,intent,coin);
 
-                if (taskId==1) {
-                    TaskHelper.setTaskToShowed(getContext(),taskId);
-                }else {
-                    TaskHelper.setTaskToNextLevel(getContext(),taskId);
-                }
             }
         });
     }
+
+    public void showRewardDialog(final int taskId, String message, final Intent intent, final int coin) {
+        String btnTitle="";
+        if (taskId==1) {
+            btnTitle="اشتراک گذاری";
+        }else if (taskId==2) {
+            btnTitle="امتیاز دادن";
+
+        }
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage(message);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                TaskHelper.setTaskToShowed(getContext(),taskId);
+                int oldTotalCoin=userProfile.get_KEY_SCORE(0);
+
+                if (taskId==1) {
+
+                    if (intent!=null) {
+                        try {
+                            startActivity(intent);
+                            userProfile.set_KEY_SCORE((oldTotalCoin+coin));
+                            setupUserInfo();
+                            pHome.doAddScore(3);
+                        } catch (Exception ex) {
+
+                        }
+                    }
+                }  if (taskId==2) {
+
+                    if (intent!=null) {
+                        try {
+                            startActivity(Intent.createChooser(intent, "اشتراک گذاری با ..."));
+                            userProfile.set_KEY_SCORE((oldTotalCoin+coin));
+                            setupUserInfo();
+                            pHome.doAddScore(4);
+                        } catch (Exception ex) {
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                TaskHelper.setTaskToNextLevel(getContext(),taskId);
+
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(btnTitle);
+        dialog.setTitle(getString(R.string.reward));
+        dialog.show();
+    }
+
 
     @Override
     protected void onPause() {
@@ -574,6 +634,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 // TODO: 8/9/2018 adapter refresh
 
                 pHome.getMyPaintHistory();
+
+                showIntro();
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         }
@@ -591,10 +653,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commitNowAllowingStateLoss();
-        //showIntro();
-        if (isFirstRegister) {
-            //  showIntroNewUser();
-        }
+
 
 
         Log.d("TAG", "splashSuccess: ");
@@ -765,15 +824,20 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     }
 
     private void showIntro() {
-        final View view = findViewById(R.id.intro_view_1);
+        final View view = findViewById(R.id.ViewCenter);
         final View view2 = findViewById(R.id.intro_view_2);
-        FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(this, view, IntroEnum.getLayoutId(1), IntroPosition.TOP, IntroEnum.getSoundId(1), IntroEnum.getShareId(1), null, null);
-        FancyShowCaseView fancyShowCaseView_2 = Intro.addIntroTo(this, view2, IntroEnum.getLayoutId(2), IntroPosition.TOP, IntroEnum.getSoundId(2), IntroEnum.getShareId(2), null, null);
+        FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(this, view, IntroEnum.getLayoutId(14), IntroPosition.TOP, IntroEnum.getSoundId(14), IntroEnum.getShareId(14), null, null);
+        FancyShowCaseView fancyShowCaseView_2 = Intro.addIntroTo(this, view2, IntroEnum.getLayoutId(7), IntroPosition.RIGHT, IntroEnum.getSoundId(7), IntroEnum.getShareId(7), null, null);
 
 
         FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
-        fancyShowCaseQueue.add(fancyShowCaseView);
-        fancyShowCaseQueue.add(fancyShowCaseView_2);
+        if (isAnimationRooster) {
+            fancyShowCaseQueue.add(fancyShowCaseView);
+            isFirstRegister=false;
+        }
+        if (historyAdapter!=null&&historyAdapter.getItemCount()>=2) {
+            fancyShowCaseQueue.add(fancyShowCaseView_2);
+        }
         fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete() {
@@ -1156,7 +1220,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void onGetMyPaintHistorySuccess() {
         historyAdapter = new HistoryAdapter(pHome);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(historyAdapter);
@@ -1264,6 +1328,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         dialog.setTitle(getString(R.string.register_login));
         dialog.show();
     }
+
 
     @Override
     public void showDeleteDialog(final int position) {

@@ -3,6 +3,7 @@ package psb.com.kidpaint.utils.task;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -12,6 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import psb.com.kidpaint.utils.Utils;
 import psb.com.paintingview.DrawView;
 
 public class TaskHelper {
@@ -134,7 +136,28 @@ public class TaskHelper {
             ModelTask model=findSmallTaskStepsForShow(modelTasks);
             if (model!=null&&numberOfSignUps >= model.getStep()) {
                 if (itask != null) {
-                    itask.newTaskForShow(model.getId(), TaskEnum.getMessage(model.getId()), TaskEnum.getCoin(model.getId()), null);
+                    Intent intent = null;
+                    final String appPackageName = context.getPackageName(); // getPackageName() from Context or Activity object
+                    if (model.getId()==1) {
+
+                        intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "بوم بوم");
+                        String sAux = "\nدنیای نقاشی کودکان\n\n";
+                        sAux = sAux + "https://cafebazaar.ir/app/"+appPackageName+"/?l=fa \n\n";
+                        intent.putExtra(Intent.EXTRA_TEXT, sAux);
+
+
+
+                    }else if (model.getId()==2){
+                        if (Utils.isPackageExisted("com.farsitel.bazaar")) {
+                            intent = new Intent(Intent.ACTION_EDIT);
+                            intent.setData(Uri.parse("bazaar://details?id=" + appPackageName));
+                            intent.setPackage("com.farsitel.bazaar");
+                        }
+                    }
+                    
+                    itask.newTaskForShow(model.getId(), TaskEnum.getMessage(model.getId()), TaskEnum.getCoin(model.getId()), intent);
                 }
             }else {
                 if (itask != null) {

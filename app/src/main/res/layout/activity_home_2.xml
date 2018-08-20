@@ -46,6 +46,34 @@
         android:paddingRight="125dp">
 
     </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/recyclerView"
+        android:layout_alignTop="@+id/recyclerView"
+        android:layout_marginTop="20dp"
+        android:weightSum="4">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <psb.com.cview.SquareRelativeLayout
+                android:id="@+id/intro_view_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/intro_view_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -687,6 +715,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-10dp"
+        android:clickable="true"
         android:layout_marginRight="-30dp"
         android:rotation="10">
         <!--base-->
@@ -990,6 +1019,13 @@
         android:layout_height="match_parent"
         android:elevation="5dp"
         android:visibility="visible" />
+
+    <View
+        android:id="@+id/ViewCenter"
+        android:layout_width="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="10dp"/>
 
 </RelativeLayout>
 

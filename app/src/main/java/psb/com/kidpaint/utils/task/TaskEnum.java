@@ -3,8 +3,8 @@ package psb.com.kidpaint.utils.task;
 import psb.com.kidpaint.R;
 
 public enum TaskEnum {
-    STEP_1(1, 4,4,"اشتراک گذاری برنامه"),
-    STEP_2(2, 6,6,"امتیاز به برنامه");
+    STEP_1(1, 4,4,"برنامه را با دوستان خود به اشتراک بگذارید و 4 سکه جایزه بگیرید"),
+    STEP_2(2, 6,6,"به برنامه امتیاز دهید و 6 سکه جایزه بگیرید");
 
     private int id;
     private int step;
