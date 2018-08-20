@@ -420,7 +420,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     @Override
     public void onStartAddScore() {
-
+//
     }
 
     @Override
