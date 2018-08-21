@@ -30,11 +30,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.helper.OnPaymentResult;
+import com.helper.PaymentHelper;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.dailyPrize.DialogDailyPrize;
@@ -85,7 +88,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     private ResponseGetOfferPackage mResponseOfferPackage;
     private ResponseGetDailyPrize mResponseGetDailyPrize;
 
-    private ImageView  btn_settings;
+    private ImageView btn_settings;
     private int sendPosition = -1;
 
     private HistoryAdapter historyAdapter;
@@ -177,7 +180,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         bunny = findViewById(R.id.bunny);
 
-        relCompetition=findViewById(R.id.rel_parent_competition);
+        relCompetition = findViewById(R.id.rel_parent_competition);
 
         splashFragment = new SplashFragment().newInstance();
 
@@ -205,8 +208,45 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         }
 
 
+        paymentHelper = new PaymentHelper();
+
+        paymentHelper.setOnSetupFinished(new OnPaymentResult.OnSetupFinished() {
+            @Override
+            public void onSuccess() {
+                paymentHelper.buyProduct(HomeActivity_2.this, 123, "package_test");
+
+            }
+            @Override
+            public void onFailed(String message) {
+                Log.d(App.TAG, "onFailed: " + message);
+            }
+        });
+
+        paymentHelper.setOnPaymentFinished(new OnPaymentResult.OnPaymentFinished() {
+            @Override
+            public void onSuccessPayment(String sku) {
+                Toast.makeText(HomeActivity_2.this, "پرداخت موفق", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailedPayment(String message) {
+                Toast.makeText(HomeActivity_2.this, "پرداخت ناموفق", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        if(!paymentHelper.isSetupFinished()) {
+            paymentHelper.init(this);
+        }else{
+            paymentHelper.buyProduct(HomeActivity_2.this, 123, "package_test");
+        }
+
+
+
 
     }
+
+    PaymentHelper paymentHelper;
 
     void showDialogPackage() {
         DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
@@ -295,14 +335,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         });
 
 
-
-
-    showDialogOfferPackage();
+        showDialogOfferPackage();
 
     }
 
-    public void showDialogOfferPackage(){
-        if (mResponseOfferPackage!=null&&mResponseOfferPackage.getExtra().size()>0) {
+    public void showDialogOfferPackage() {
+        if (mResponseOfferPackage != null && mResponseOfferPackage.getExtra().size() > 0) {
             DialogOfferPackage cDialog = new DialogOfferPackage(HomeActivity_2.this);
             cDialog.setShowBtnDiscardBuy(false);
             cDialog.setDialogMessage("");
@@ -325,13 +363,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             cDialog.setOfferResponse(mResponseOfferPackage);
 
             cDialog.show();
-        } else  {
+        } else {
             showDialogDailyPrize();
         }
     }
 
-    public void showDialogDailyPrize(){
-        if (mResponseGetDailyPrize!=null&&mResponseGetDailyPrize.getExtra().size()>0) {
+    public void showDialogDailyPrize() {
+        if (mResponseGetDailyPrize != null && mResponseGetDailyPrize.getExtra().size() > 0) {
             DialogDailyPrize cDialog = new DialogDailyPrize(HomeActivity_2.this);
             cDialog.setShowBtnDiscardBuy(true);
             cDialog.setScorePackageDiscardBtnListener(new DialogDailyPrize.ScorePackageDiscardBtnListener() {
@@ -342,14 +380,14 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
                 @Override
                 public void onSuccessBuyDailyPrizeCoin(int prize, int totalCoin) {
-                  setupUserInfo();
-                    showDailyPrizeMessage("",prize,totalCoin);
+                    setupUserInfo();
+                    showDailyPrizeMessage("", prize, totalCoin);
 
                 }
 
                 @Override
                 public void onSuccessBuyDailyPrizeText(String text) {
-                 showDailyPrizeMessage(text,-1,0);
+                    showDailyPrizeMessage(text, -1, 0);
                 }
 
                 @Override
@@ -360,19 +398,19 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
             cDialog.setResponse(mResponseGetDailyPrize);
             cDialog.show();
-        }else {
+        } else {
             checkTaskIsShow();
         }
     }
 
-   void showDailyPrizeMessage(String message,int prize,int totalCoin) {
+    void showDailyPrizeMessage(String message, int prize, int totalCoin) {
         final MessageDialog dialog = new MessageDialog(getContext());
-        String mess="";
-         if (prize!=-1) {
-             mess="تبریک شما "+prize+" سکه جایزه گرفتید و تعداد سکه های شما به "+totalCoin+" افزایش یافت.";
-         }else{
-             mess=message;
-         }
+        String mess = "";
+        if (prize != -1) {
+            mess = "تبریک شما " + prize + " سکه جایزه گرفتید و تعداد سکه های شما به " + totalCoin + " افزایش یافت.";
+        } else {
+            mess = message;
+        }
         dialog.setMessage(mess);
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
@@ -392,7 +430,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         dialog.show();
     }
 
-    void checkTaskIsShow(){
+    void checkTaskIsShow() {
 
         TaskHelper.checkTaskExistsForShow(getContext(), new TaskHelper.iTask() {
             @Override
@@ -409,18 +447,18 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
             @Override
             public void newTaskForShow(int taskId, String message, int coin, Intent intent) {
-                  showRewardDialog(taskId,message,intent,coin);
+                showRewardDialog(taskId, message, intent, coin);
 
             }
         });
     }
 
     public void showRewardDialog(final int taskId, String message, final Intent intent, final int coin) {
-        String btnTitle="";
-        if (taskId==1) {
-            btnTitle="اشتراک گذاری";
-        }else if (taskId==2) {
-            btnTitle="امتیاز دادن";
+        String btnTitle = "";
+        if (taskId == 1) {
+            btnTitle = "اشتراک گذاری";
+        } else if (taskId == 2) {
+            btnTitle = "امتیاز دادن";
 
         }
         final MessageDialog dialog = new MessageDialog(getContext());
@@ -428,27 +466,28 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-                TaskHelper.setTaskToShowed(getContext(),taskId);
-                int oldTotalCoin=userProfile.get_KEY_SCORE(0);
+                TaskHelper.setTaskToShowed(getContext(), taskId);
+                int oldTotalCoin = userProfile.get_KEY_SCORE(0);
 
-                if (taskId==1) {
+                if (taskId == 1) {
 
-                    if (intent!=null) {
+                    if (intent != null) {
                         try {
                             startActivity(intent);
-                            userProfile.set_KEY_SCORE((oldTotalCoin+coin));
+                            userProfile.set_KEY_SCORE((oldTotalCoin + coin));
                             setupUserInfo();
                             pHome.doAddScore(3);
                         } catch (Exception ex) {
 
                         }
                     }
-                }  if (taskId==2) {
+                }
+                if (taskId == 2) {
 
-                    if (intent!=null) {
+                    if (intent != null) {
                         try {
                             startActivity(Intent.createChooser(intent, "اشتراک گذاری با ..."));
-                            userProfile.set_KEY_SCORE((oldTotalCoin+coin));
+                            userProfile.set_KEY_SCORE((oldTotalCoin + coin));
                             setupUserInfo();
                             pHome.doAddScore(4);
                         } catch (Exception ex) {
@@ -460,7 +499,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
             @Override
             public void onNegativeClicked() {
-                TaskHelper.setTaskToNextLevel(getContext(),taskId);
+                TaskHelper.setTaskToNextLevel(getContext(), taskId);
 
 
             }
@@ -602,6 +641,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if (paymentHelper != null && paymentHelper.checkActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+
         refreshUserRank();
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult home: " + requestCode);
@@ -670,7 +713,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commitNowAllowingStateLoss();
 
 
-
         Log.d("TAG", "splashSuccess: ");
         setInfo();
 
@@ -714,12 +756,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     @Override
     public void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage) {
-        this.mResponseOfferPackage=responseOfferPackage;
+        this.mResponseOfferPackage = responseOfferPackage;
     }
 
     @Override
     public void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
-        this.mResponseGetDailyPrize=responseGetDailyPrize;
+        this.mResponseGetDailyPrize = responseGetDailyPrize;
     }
 
 
@@ -740,7 +782,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
             }
         });
-        Log.d("ttag", "setupUserInfo: "+userProfile.get_KEY_SCORE(0));
+        Log.d("ttag", "setupUserInfo: " + userProfile.get_KEY_SCORE(0));
         text_user_Coin.setText(userProfile.get_KEY_SCORE(0) + " سکه");
 
 
@@ -848,9 +890,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
         if (isAnimationRooster) {
             fancyShowCaseQueue.add(fancyShowCaseView);
-            isFirstRegister=false;
+            isFirstRegister = false;
         }
-        if (historyAdapter!=null&&historyAdapter.getItemCount()>=2) {
+        if (historyAdapter != null && historyAdapter.getItemCount() >= 2) {
             fancyShowCaseQueue.add(fancyShowCaseView_2);
         }
         fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
@@ -905,7 +947,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 }
 
 
-                if (responseGetLeaderShip.getExtra().getLeaderModel().size()>=2) {
+                if (responseGetLeaderShip.getExtra().getLeaderModel().size() >= 2) {
                     if (responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(1).getUser().getImageUrl().isEmpty()) {
                         Picasso
                                 .get()
@@ -915,7 +957,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                                 .into(img_winner_2);
                     }
                 }
-                if (responseGetLeaderShip.getExtra().getLeaderModel().size()>=3) {
+                if (responseGetLeaderShip.getExtra().getLeaderModel().size() >= 3) {
 
                     if (responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl() != null && !responseGetLeaderShip.getExtra().getLeaderModel().get(2).getUser().getImageUrl().isEmpty()) {
                         Picasso
@@ -1404,6 +1446,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             requestPermission();
         }
     }
+
     private void requestPermission() {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSIONS);
@@ -1430,6 +1473,5 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         }
     }
-
 
 }
