@@ -1,6 +1,7 @@
 package com.helper;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -13,29 +14,33 @@ import com.util.Purchase;
 public class PaymentHelper {
 
 
-    private Inventory inventory;
     private String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDHKOv4rqDaWI4hKjvImGItZuQvttzVB7HCvDdc6OQfczRObhvAjn3MKz8e7BLIoniY1+I7YwEOuM+fvgEp6ann1TNJTzmqObsXFankVdwvtshpeeheff4OUtyS0X+ARBKXHW6Gtz7pSRJ6RiLN9nvu+95zBQB79Yge6uKOev7lzudlJk1HMS08rFrkDUTWU82GUxWbp1BPUOzriSHSRECYKr9Doti2WQhUE5TG/E0CAwEAAQ==\n";
 
     private OnPaymentResult.OnSetupFinished onSetupFinished;
     private OnPaymentResult.OnPaymentFinished onPaymentFinished;
 
+    private ProgressDialog pDialog;
 
 
     // Debug tag, for logging
-    static final String TAG = "";
+    static final String TAG = "purchase";
 
 
 
-    static IabHelper mHelper;
+    public static IabHelper mHelper;
 
 
     public void init(Context context) {
-        if(mHelper!=null){
-            if (onSetupFinished != null) {
-                onSetupFinished.onSuccess();
-            }
-            return;
-        }
+
+        pDialog=new ProgressDialog(context);
+        pDialog.setMessage("در حال برقراری ارتباط ...");
+
+      if(mHelper!=null){
+          if (onSetupFinished != null) {
+          onSetupFinished.onSuccess();
+      }
+          return;
+      }
         mHelper = new IabHelper(context, base64EncodedPublicKey);
         Log.d(TAG, "Starting setup.");
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
@@ -46,34 +51,20 @@ public class PaymentHelper {
                     // Oh noes, there was a problem.
                     Log.d(TAG, "Problem setting up In-app Billing: " + result);
                     showErrorSetup(result.getMessage());
+                    mHelper=null;
                 }
 
                 // Hooray, IAB is fully set up!
-                mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
-                    @Override
-                    public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-                        PaymentHelper.this.inventory=inventory;
-                        if (result.isFailure() && result.getResponse()!=6) {
-                            Log.d(TAG, "Failed to query inventory: " + result);
-                            showErrorSetup(result.getMessage());
-                            return;
-                        } else {
-                            Log.d(TAG, "Query inventory was successful.");
-//                            mIsPremium = inventory.hasPurchase(sku);
-                            if (onSetupFinished != null) {
-                                onSetupFinished.onSuccess();
-                            }
-                        }
-
-                    }
-                });
+                if (onSetupFinished != null) {
+                    onSetupFinished.onSuccess();
+                }
             }
         });
     }
 
     public void buyProduct(final Activity activity,final int requestCode,final String sku){
         if(mHelper==null){
-            showErrorPayment("not setup success");
+            showErrorPayment("not setup success 1");
             return;
         }
         try {
@@ -84,7 +75,7 @@ public class PaymentHelper {
 
                             // if we were disposed of in the meantime, quit.
                             if (mHelper == null){
-                                showErrorPayment("not setup success");
+                                showErrorPayment("not setup success 2");
                                 return;
                             }
 
@@ -102,7 +93,7 @@ public class PaymentHelper {
                             Log.d(TAG, "Purchase successful.");
 
                             if (purchase.getSku().equals(sku)) {
-                                consumeProduct(sku);
+                             queryInventory(sku);
                             }
 
                         }
@@ -113,23 +104,44 @@ public class PaymentHelper {
 
     }
 
-    private void consumeProduct(final String sku){
+    private void queryInventory(final String sku){
+        pDialog.show();
+        mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
+            @Override
+            public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+                if (result.isFailure() && result.getResponse()!=6) {
+                    Log.d(TAG, "Failed to query inventory: " + result);
+                    showErrorPayment(result.getMessage());
+                    return;
+                } else {
+                    Log.d(TAG, "Query inventory was successful.");
+                    consumeProduct(sku,inventory);
+                }
+
+            }
+        });
+    }
+
+    private void consumeProduct(final String sku,Inventory inventory){
 
         if(inventory==null){
-            showErrorPayment("not setup success");
+            showErrorPayment("not setup success 2");
             return;
         }
         // Check for gas delivery -- if we own gas, we should fill up the tank immediately
         Purchase gasPurchase = inventory.getPurchase(sku);
+
         if (gasPurchase != null && verifyDeveloperPayload(gasPurchase)) {
             Log.d(TAG, "We have gas. Consuming it.");
             mHelper.consumeAsync(inventory.getPurchase(sku), new IabHelper.OnConsumeFinishedListener() {
                 @Override
                 public void onConsumeFinished(Purchase purchase, IabResult result) {
+                    pDialog.cancel();
+
                     Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
                     // if we were disposed of in the meantime, quit.
                     if (mHelper == null){
-                        showErrorPayment("not setup success");
+                        showErrorPayment("not setup success 3");
                         return;
                     }
 
@@ -153,6 +165,7 @@ public class PaymentHelper {
                 }
             });
         }else{
+            pDialog.cancel();
             showErrorPayment("محصول خریداری نشده است");
         }
 
@@ -180,7 +193,7 @@ public class PaymentHelper {
     }
 
     public boolean isSetupFinished(){
-        return mHelper!=null && inventory !=null;
+        return mHelper!=null;
     }
 
     private void showErrorSetup(String message){

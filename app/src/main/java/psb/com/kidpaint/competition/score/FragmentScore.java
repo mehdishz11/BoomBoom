@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +32,11 @@ public class FragmentScore extends Fragment  implements IVScore {
     private LeaderModel mPaintModel;
     private OnFragmentInteractionListener mListener;
     private View view;
-    private ImageView paintImage,userImage,back;
+    private ImageView paintImage,userImage;
     private TextView userName,imageScore;
     private Button send;
     private ProgressBar progressBar;
+    private Button back;
 
     private ProgressDialog progressDialog;
     private PScore pScore;
@@ -78,7 +80,8 @@ public class FragmentScore extends Fragment  implements IVScore {
     void initView(){
         Log.d("TAG", "initView: "+new Gson().toJson(mPaintModel));
         userImage=view.findViewById(R.id.img_user_bgr);
-        back=view.findViewById(R.id.img_back_1);
+        back=view.findViewById(R.id.btn_back);
+        Log.d("TAG", "initView: "+(back==null));
         userName=view.findViewById(R.id.text_user_name);
        // imageScore=view.findViewById(R.id.imageScore);
         paintImage=view.findViewById(R.id.img_outline_bgr);
@@ -126,6 +129,7 @@ public class FragmentScore extends Fragment  implements IVScore {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("TAG", "onClick: ");
                 mListener.onBackPressed();
             }
         });

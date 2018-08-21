@@ -46,6 +46,7 @@ import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.offerPackage.DialogOfferPackage;
 import psb.com.kidpaint.painting.PaintActivity;
+import psb.com.kidpaint.score.ActivityScorePackage;
 import psb.com.kidpaint.score.DialogScorePackage;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
@@ -84,6 +85,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     public static int CODE_Competition = 108;
     public static int CODE_EDIT = 108;
     public static int CODE_PAINT_ACTIVITY = 109;
+    private static final int REQUEST_CODE_SCORE_PACKAGE = 122;
+
 
     private ResponseGetOfferPackage mResponseOfferPackage;
     private ResponseGetDailyPrize mResponseGetDailyPrize;
@@ -208,48 +211,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         }
 
 
-        paymentHelper = new PaymentHelper();
-
-        paymentHelper.setOnSetupFinished(new OnPaymentResult.OnSetupFinished() {
-            @Override
-            public void onSuccess() {
-                paymentHelper.buyProduct(HomeActivity_2.this, 123, "package_test");
-
-            }
-            @Override
-            public void onFailed(String message) {
-                Log.d(App.TAG, "onFailed: " + message);
-            }
-        });
-
-        paymentHelper.setOnPaymentFinished(new OnPaymentResult.OnPaymentFinished() {
-            @Override
-            public void onSuccessPayment(String sku) {
-                Toast.makeText(HomeActivity_2.this, "پرداخت موفق", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailedPayment(String message) {
-                Toast.makeText(HomeActivity_2.this, "پرداخت ناموفق", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        if(!paymentHelper.isSetupFinished()) {
-            paymentHelper.init(this);
-        }else{
-            paymentHelper.buyProduct(HomeActivity_2.this, 123, "package_test");
-        }
-
-
-
 
     }
 
-    PaymentHelper paymentHelper;
-
     void showDialogPackage() {
-        DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
+
+        Intent intent=new Intent(HomeActivity_2.this, ActivityScorePackage.class);
+        intent.putExtra("showBtnDiscardBuy",false);
+        startActivityForResult(intent,REQUEST_CODE_SCORE_PACKAGE);
+     /*   DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
         cDialog.setShowBtnDiscardBuy(false);
         cDialog.setScorePackageDiscardBtnListener(new DialogScorePackage.ScorePackageDiscardBtnListener() {
             @Override
@@ -268,7 +238,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
             }
         });
-        cDialog.show();
+        cDialog.show();*/
     }
 
     public void setInfo() {
@@ -641,9 +611,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (paymentHelper != null && paymentHelper.checkActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
+
 
         refreshUserRank();
         super.onActivityResult(requestCode, resultCode, data);
@@ -696,6 +664,19 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 showIntro();
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
+        }else  if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
+
+            if (resultCode == Activity.RESULT_OK) {
+
+
+                if (data.hasExtra("SuccessBuy")) {
+                    int totalCoin=data.getIntExtra("SuccessBuy",0);
+                    setupUserInfo();
+                }
+            }else{
+
+            }
+
         }
     }
 

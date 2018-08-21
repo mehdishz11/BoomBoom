@@ -12,7 +12,7 @@
     <!--header-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="170dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,6 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/space_normal"
+                android:paddingBottom="@dimen/space_normal"
                 android:paddingRight="190dp"
                 android:clipToPadding="false"
                 >
@@ -103,8 +105,8 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp">
@@ -124,23 +126,23 @@
 
         <View
             android:id="@+id/cloud_1"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/margin_50"
             android:background="@drawable/could_top_1" />
 
         <View
             android:id="@+id/cloud_2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/could_top_1" />
 
         <View
             android:id="@+id/cloud_3"
-            android:layout_width="100dp"
-            android:layout_height="90dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="40dp"
             android:layout_marginTop="-15dp"
@@ -149,11 +151,11 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="200dp"
+        android:layout_width="480dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="-100dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="-250dp"
         android:src="@drawable/tree" />
 
     <RelativeLayout
@@ -191,16 +193,16 @@
         <!--settings-->
         <ImageView
             android:id="@+id/btn_settings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/btn_settings" />
 
         <psb.com.cview.IconButton
             android:id="@+id/btn_messages"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_small"
             android:layout_toRightOf="@+id/btn_settings"
@@ -208,7 +210,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white_1"
-            android:textSize="20dp" />
+            android:textSize="35dp" />
 
         <psb.com.cview.CustomTextViewBold
             android:id="@+id/unreadMessageCount"
@@ -223,18 +225,18 @@
             android:paddingRight="6dp"
             android:text="0"
             android:textColor="@color/White"
-            android:textSize="@dimen/font_size_10"
+            android:textSize="@dimen/font_size_13"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/btn_shop"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_small"
             android:layout_toRightOf="@+id/btn_messages"
             android:background="@drawable/btn_sqr_green"
-            android:padding="5dp"
+            android:padding="9dp"
             android:src="@drawable/icon_shop"
 
             />
@@ -250,8 +252,8 @@
 
             <RelativeLayout
                 android:id="@+id/rel_user_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_register_text">
@@ -263,7 +265,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_corner_radius="36dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -288,7 +290,7 @@
                     android:paddingTop="5dp"
                     android:text="ثبت نام | ورود"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_14" />
 
                 <View
                     android:layout_width="12dp"
@@ -323,12 +325,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_corner_radius="36dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_user_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
@@ -336,12 +338,12 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_corner_radius="50dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/act_user_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
@@ -349,7 +351,7 @@
                 android:padding="4dp"
                 android:src="@drawable/user_empty_gray"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_corner_radius="50dp" />
 
         </RelativeLayout>
 
@@ -363,8 +365,8 @@
 
             <RelativeLayout
                 android:id="@+id/rel_coin_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_coin_text">
@@ -376,7 +378,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_corner_radius="36dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -402,7 +404,7 @@
                     android:paddingTop="5dp"
                     android:text="۱۵۰۰ سکه"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_14" />
 
                 <View
                     android:layout_width="12dp"
@@ -437,12 +439,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_corner_radius="36dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_coin_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_alignLeft="@+id/rel_coin_image"
                 android:layout_alignRight="@+id/rel_coin_image"
@@ -450,12 +452,12 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_corner_radius="50dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/act_coin_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_alignLeft="@+id/rel_coin_image"
                 android:layout_alignRight="@+id/rel_coin_image"
@@ -477,8 +479,8 @@
 
             <RelativeLayout
                 android:id="@+id/rel_rank_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_rank_text">
@@ -490,7 +492,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_corner_radius="36dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -516,7 +518,7 @@
                     android:paddingTop="5dp"
                     android:text="رتبه کلی"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_15" />
 
                 <View
                     android:layout_width="12dp"
@@ -551,12 +553,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_corner_radius="36dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_rank_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_alignLeft="@+id/rel_rank_image"
                 android:layout_alignRight="@+id/rel_rank_image"
@@ -564,12 +566,12 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_corner_radius="50dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/act_rank_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_alignLeft="@+id/rel_rank_image"
                 android:layout_alignRight="@+id/rel_rank_image"
@@ -590,14 +592,14 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="160dp"
+            android:layout_height="170dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true">
 
             <ImageView
                 android:id="@+id/lion"
                 android:layout_width="68dp"
-                android:layout_height="110dp"
+                android:layout_height="120dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="50dp"
@@ -607,8 +609,8 @@
 
             <ImageView
                 android:id="@+id/tree_1"
-                android:layout_width="70dp"
-                android:layout_height="150dp"
+                android:layout_width="80dp"
+                android:layout_height="170dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="50dp"
@@ -620,13 +622,13 @@
         <RelativeLayout
             android:id="@+id/view_footer"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="150dp"
             android:layout_alignParentBottom="true">
 
             <ImageView
                 android:id="@+id/img_grass_1"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/grass_7" />
@@ -635,7 +637,7 @@
             <ImageView
                 android:id="@+id/img_grass_2"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="80dp"
                 android:layout_alignParentBottom="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/grass_8" />
@@ -671,8 +673,8 @@
 
             <ImageView
                 android:id="@+id/img_grass_5"
-                android:layout_width="110dp"
-                android:layout_height="72dp"
+                android:layout_width="120dp"
+                android:layout_height="82dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="-20dp"
@@ -681,8 +683,8 @@
 
             <ImageView
                 android:id="@+id/img_grass_4"
-                android:layout_width="110dp"
-                android:layout_height="50dp"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/img_grass_3"
@@ -691,8 +693,8 @@
 
             <ImageView
                 android:id="@+id/img_grass_3"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="-20dp"
@@ -701,8 +703,8 @@
 
             <ImageView
                 android:id="@+id/img_grass_8"
-                android:layout_width="170dp"
-                android:layout_height="110dp"
+                android:layout_width="180dp"
+                android:layout_height="130dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="-10dp"
@@ -713,8 +715,8 @@
 
             <ImageView
                 android:id="@+id/chicken"
-                android:layout_width="30dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitCenter"
@@ -733,20 +735,20 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-10dp"
         android:clickable="true"
-        android:layout_marginRight="-30dp"
-        android:rotation="10">
+        android:layout_marginRight="-20dp"
+        android:rotation="8">
         <!--base-->
         <ImageView
             android:layout_width="20dp"
-            android:layout_height="280dp"
+            android:layout_height="400dp"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
             android:src="@drawable/sign_base" />
         <!--competition-->
         <RelativeLayout
             android:id="@+id/rel_competition"
-            android:layout_width="220dp"
-            android:layout_height="140dp"
+            android:layout_width="350dp"
+            android:layout_height="160dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp">
 
@@ -998,8 +1000,8 @@
     <!--right grass-->
     <ImageView
         android:id="@+id/img_grass_7"
-        android:layout_width="140dp"
-        android:layout_height="55dp"
+        android:layout_width="160dp"
+        android:layout_height="95dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-10dp"
@@ -1009,8 +1011,8 @@
 
     <ImageView
         android:id="@+id/rooster"
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="30dp"
@@ -1020,8 +1022,8 @@
 
     <ImageView
         android:id="@+id/img_grass_6"
-        android:layout_width="90dp"
-        android:layout_height="50dp"
+        android:layout_width="110dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-10dp"

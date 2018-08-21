@@ -160,15 +160,33 @@
         </RelativeLayout>
 
         <!--back-->
-        <ImageView
-            android:id="@+id/img_back_1"
+
+
+        <RelativeLayout
+            android:id="@+id/rel_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/space_normal"
-            android:scaleX="-1"
-            android:src="@drawable/img_icon_right_arrow" />
+            android:layout_centerVertical="true">
+
+            <psb.com.cview.CButton
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_sqr_green" />
+
+            <ImageView
+                android:id="@+id/img_back_1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:paddingBottom="2dp"
+                android:elevation="5dp"
+                android:scaleX="-1"
+                android:src="@drawable/img_icon_right_arrow" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

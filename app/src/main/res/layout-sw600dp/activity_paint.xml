@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_1"
+    android:layoutDirection="ltr"
+    tools:context=".painting.PaintActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rel_drawing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_1">
+
+            <ImageView
+                android:id="@+id/image_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <psb.com.paintingview.DrawView
+                android:id="@+id/paint_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
+
+            <psb.com.kidpaint.painting.bucket.BucketCanvas
+                android:id="@+id/bucket_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter" />
+
+
+            <psb.com.kidpaint.painting.canvas.sticker.StickerCanvas
+                android:id="@+id/sticker_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"></psb.com.kidpaint.painting.canvas.sticker.StickerCanvas>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/rel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/space_small">
+
+                <ImageView
+                    android:id="@+id/btn_settings"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/margin_15"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_settings" />
+
+                <ImageView
+                    android:id="@+id/btn_undo"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/margin_15"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_undo"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/margin_15"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_close"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_save"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:paddingBottom="@dimen/space_normal"
+                    android:paddingTop="@dimen/margin_15"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_check"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_more"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="top|left"
+                    android:src="@drawable/btn_more" />
+            </FrameLayout>
+
+        </RelativeLayout>
+
+
+  <ImageView
+      android:id="@+id/imageCoin"
+      android:layout_width="50dp"
+      android:layout_alignParentRight="true"
+      android:layout_margin="@dimen/margin_10"
+      android:src="@drawable/coin"
+      android:layout_height="50dp" />
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/coinCount"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@+id/imageCoin"
+            android:layout_alignTop="@+id/imageCoin"
+            android:layout_alignBottom="@+id/imageCoin"
+            android:gravity="right|center"
+            android:text="112"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/bottom_sheet_painting" />
+
+    <!--intro -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relIntroHandel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            >
+
+            <View
+                android:id="@+id/introViewCenter"
+                android:layout_width="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="150dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relIntroBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="48dp">
+
+            <View
+                android:id="@+id/introViewLeft"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                />
+
+            <View
+                android:id="@+id/introViewRight"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/introViewMore"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

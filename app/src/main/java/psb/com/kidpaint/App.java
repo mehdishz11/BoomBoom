@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.helper.PaymentHelper;
+
 public class App extends Application {
     protected static Context context = null;
 
@@ -14,6 +16,7 @@ public class App extends Application {
 //        Fabric.with(this, new Crashlytics());
         super.onCreate();
         context = getApplicationContext();
+        new PaymentHelper().init(getContext());
 
 
     }

@@ -48,6 +48,7 @@ import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
 import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.painting.palette.sticker.StickerFragment;
+import psb.com.kidpaint.score.ActivityScorePackage;
 import psb.com.kidpaint.score.DialogScorePackage;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
@@ -87,6 +88,7 @@ public class PaintActivity extends BaseActivity implements
     private int REQUEST_STORAGE_PERMISSIONS = 100;
     private static final int REQUEST_CODE_REGISTER_STICKER = 120;
     private static final int REQUEST_CODE_REGISTER_BTN_SAVE = 121;
+    private static final int REQUEST_CODE_SCORE_PACKAGE = 122;
 
     private static final String FRAGMENT_PALETTE = "FRAGMENT_PALETTE";
     private boolean isAnimating;
@@ -114,6 +116,8 @@ public class PaintActivity extends BaseActivity implements
     private int localCoinCount = 0;
     private int localUsedCoinCount = 0;
     private boolean SaveWithWaterMark = false;
+    private String sendShowMode="";
+
 
 
     public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
@@ -469,6 +473,14 @@ public class PaintActivity extends BaseActivity implements
     }
 
     void showDialogPackage(final String message, final String showMode) {
+        sendShowMode=showMode;
+        Intent intent=new Intent(PaintActivity.this, ActivityScorePackage.class);
+        intent.putExtra("dialogMessage",message);
+        intent.putExtra("dialogMode",showMode);
+        intent.putExtra("showBtnDiscardBuy",true);
+        startActivityForResult(intent,REQUEST_CODE_SCORE_PACKAGE);
+
+/*
         DialogScorePackage cDialog = new DialogScorePackage(PaintActivity.this);
         cDialog.setDialogMessage(message);
         cDialog.setDialogMode(showMode);
@@ -507,7 +519,7 @@ public class PaintActivity extends BaseActivity implements
                 //btnSave.performClick();
             }
         });
-        cDialog.show();
+        cDialog.show();*/
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1020,6 +1032,40 @@ public class PaintActivity extends BaseActivity implements
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
                  btnSave.performClick();
+            }else{
+
+            }
+
+        }else  if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
+
+            if (resultCode == Activity.RESULT_OK) {
+                if (data.hasExtra("dialogMode")) {
+                    String dialogMode=data.getStringExtra("dialogMode");
+                    switch (dialogMode) {
+                        case "SaveWithWaterMark":
+                            Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
+                            saveFinalPaint("SaveWithWaterMark");
+
+                            break;
+                        case "Continue":
+                            break;
+                    }
+                }
+
+                if (data.hasExtra("SuccessBuy")) {
+                    int totalCoin=data.getIntExtra("SuccessBuy",0);
+                    localCoinCount = totalCoin - localUsedCoinCount;
+                    coinCount.setText(localCoinCount + "");
+                    switch (sendShowMode) {
+                        case "SaveWithWaterMark":
+                            Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
+                            saveFinalPaint("SaveWithOutWaterMark");
+
+                            break;
+                        case "Continue":
+                            break;
+                    }
+                }
             }else{
 
             }

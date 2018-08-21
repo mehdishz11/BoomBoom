@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_1"
     android:clickable="true"
-    android:paddingBottom="45dp"
+    android:paddingBottom="80dp"
     tools:context=".competition.myPaints.FragmentMyPaints">
 
 
@@ -14,7 +14,7 @@
     <!--header-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="170dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,8 +56,8 @@
 
             <RelativeLayout
                 android:id="@+id/rel_user_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_register_text">
@@ -69,7 +69,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_corner_radius="36dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -94,7 +94,7 @@
                     android:paddingTop="5dp"
                     android:text="ثبت نام | ورود"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_14" />
 
                 <View
                     android:layout_width="12dp"
@@ -129,12 +129,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_corner_radius="36dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_user_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
@@ -142,12 +142,12 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_corner_radius="50dp" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/userImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
@@ -155,16 +155,17 @@
                 android:padding="4dp"
                 android:src="@drawable/user_empty_gray"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_corner_radius="50dp" />
 
         </RelativeLayout>
 
         <!--back-->
 
+
         <RelativeLayout
             android:id="@+id/rel_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true">
 
@@ -190,6 +191,7 @@
     </RelativeLayout>
         <android.support.v7.widget.RecyclerView
             android:layout_below="@+id/relUser"
+            android:padding="@dimen/space_normal"
             android:id="@+id/recyclerViewMyPaints"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -203,7 +205,7 @@
         android:gravity="center"
         android:visibility="gone"
         android:padding="@dimen/margin_10"
-        android:textSize="@dimen/font_size_14"
+        android:textSize="@dimen/font_size_16"
         android:text="لیست نقاشی ها خالی است"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content" />

@@ -505,7 +505,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         progressView.setVisibility(View.GONE);
         setFragment(1);
         setWinners();
-        showIntro();
+        //showIntro();
 
     }
 
@@ -551,6 +551,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
 
     @Override
     public void onBackPressed() {
+        Log.d("TAG", "onBackPressed: "+(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE) != null));
 
         if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SCORE)).commit();

@@ -59,7 +59,7 @@
             android:name=".competition.ActivityCompetition"
             android:screenOrientation="landscape"
             android:theme="@style/ThemeFullSCreen"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="stateHidden" />
 
         <service android:name=".utils.firebase.ServiceGetMessage">
             <intent-filter>
@@ -67,11 +67,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".myMessages.ActivityMyMessages"
+        <activity
+            android:name=".myMessages.ActivityMyMessages"
             android:screenOrientation="landscape"
-            android:theme="@style/FullscreenTheme"
-            />
-
+            android:theme="@style/FullscreenTheme" />
         <activity android:name=".myPrize.ActivityMyPrize" />
 
         <receiver
@@ -83,9 +82,11 @@
             </intent-filter>
         </receiver>
 
-<!--
-        <activity android:name=".ActivityTest"></activity>
--->
+        <!--         <activity android:name=".ActivityTest"></activity> -->
+        <activity android:name=".score.ActivityScorePackage"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme"
+            ></activity>
     </application>
 
 </manifest>
