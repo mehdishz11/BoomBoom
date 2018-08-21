@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
 import com.util.IabHelper;
 import com.util.IabResult;
 import com.util.Inventory;
 import com.util.Purchase;
+
 
 public class PaymentHelper {
 
@@ -108,13 +110,12 @@ public class PaymentHelper {
         pDialog.show();
         mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
             @Override
-            public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            public void onQueryInventoryFinished(IabResult result, final Inventory inventory) {
                 if (result.isFailure() && result.getResponse()!=6) {
                     Log.d(TAG, "Failed to query inventory: " + result);
                     showErrorPayment(result.getMessage());
                     return;
                 } else {
-                    Log.d(TAG, "Query inventory was successful.");
                     consumeProduct(sku,inventory);
                 }
 
