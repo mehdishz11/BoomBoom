@@ -1,1 +1,1 @@
-include ':app', ':customview', ':animatedfab', ':paintingview',":persianmaterialdatetimepicker"
+include ':app', ':customview', ':animatedfab', ':paintingview', ':payment',":persianmaterialdatetimepicker"

@@ -8,7 +8,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 2
-        versionName "1.0.1"
+        versionName "0.0.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -46,17 +46,15 @@ dependencies {
     implementation 'com.nightonke:jellytogglebutton:1.0.2'
     implementation 'com.airbnb.android:lottie:2.5.1'
     /////////
-
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
-
     testImplementation 'junit:junit:4.12'
     /*  androidTestImplementation 'com.android.support.intro_step_1:runner:1.0.1'
-    androidTestImplementation 'com.android.support.intro_step_1.espresso:espresso-core:3.0.1'*/
+        androidTestImplementation 'com.android.support.intro_step_1.espresso:espresso-core:3.0.1'*/
     implementation project(':customview')
     implementation project(':animatedfab')
     implementation project(':paintingview')
     implementation project(':persianmaterialdatetimepicker')
-
+    implementation project(':payment')
 }
 apply plugin: 'com.google.gms.google-services'
