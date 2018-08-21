@@ -1,5 +1,6 @@
 package psb.com.kidpaint.home;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -8,7 +9,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,6 +48,7 @@ import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customAnimation.AnimationHelper;
 import psb.com.kidpaint.utils.customView.BaseActivity;
@@ -69,6 +75,7 @@ import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 public class HomeActivity_2 extends BaseActivity implements IV_Home,
         SplashFragment.OnFragmentInteractionListener {
 
+    private int REQUEST_STORAGE_PERMISSIONS = 100;
     public static int CODE_REGISTER_First = 106;
     public static int CODE_REGISTER = 107;
     public static int CODE_Competition = 108;
@@ -833,7 +840,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     private void showIntro() {
         final View view = findViewById(R.id.ViewCenter);
-        final View view2 = findViewById(R.id.intro_view_2);
+        final View view2 = findViewById(R.id.intro_view_1);
         FancyShowCaseView fancyShowCaseView = Intro.addIntroTo(this, view, IntroEnum.getLayoutId(14), IntroPosition.TOP, IntroEnum.getSoundId(14), IntroEnum.getShareId(14), null, null);
         FancyShowCaseView fancyShowCaseView_2 = Intro.addIntroTo(this, view2, IntroEnum.getLayoutId(7), IntroPosition.RIGHT, IntroEnum.getSoundId(7), IntroEnum.getShareId(7), null, null);
 
@@ -850,6 +857,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onComplete() {
                 Log.d("TAG", "onComplete: ");
+
+                if (!Utils.gstoragePermissionIsGranted(HomeActivity_2.this)) {
+                    showDialogStoragePermission();
+                }
             }
         });
         fancyShowCaseQueue.show();
@@ -1360,6 +1371,64 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         dialog.setAcceptButtonMessage(getContext().getString(R.string.yes));
         dialog.setTitle("حذف");
         dialog.show();
+    }
+
+    public void showDialogStoragePermission() {
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("برای نمایش نقاشی ها یی که کشیده اید یا میخواهید بکشید. باید دسترسی خواندن اطلاعات از حافظه را بدهید.آیا مایل هستید؟");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                requestForGrantStoragePermission();
+
+            }
+
+            @Override
+            public void onNegativeClicked() {
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.yes));
+        dialog.setTitle("دسترسی");
+        dialog.show();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // permission granted
+    ///////////////////////////////////////////////////////////////////////////
+    public void requestForGrantStoragePermission() {
+        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permission2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED || permission2 != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+        }
+    }
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSIONS);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    /*    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);*/
+        if (requestCode == REQUEST_STORAGE_PERMISSIONS) {
+
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                pHome.getMyPaintHistory();
+                showIntro();
+            } else {
+
+            }
+
+        }
     }
 
 
