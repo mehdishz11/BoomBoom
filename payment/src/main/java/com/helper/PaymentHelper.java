@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 
 import com.util.IabHelper;
@@ -26,8 +25,6 @@ public class PaymentHelper {
 
     // Debug tag, for logging
     static final String TAG = "purchase";
-
-
 
     public static IabHelper mHelper;
 
