@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -30,14 +31,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.helper.OnPaymentResult;
-import com.helper.PaymentHelper;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.dailyPrize.DialogDailyPrize;
@@ -47,7 +45,6 @@ import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.offerPackage.DialogOfferPackage;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.score.ActivityScorePackage;
-import psb.com.kidpaint.score.DialogScorePackage;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
@@ -128,8 +125,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     private boolean isAnimationLion = false;
 
     private ImageView imageRooster;
-    private boolean isRossterShow = true;
-    private boolean isAnimationRooster = false;
 
     private View cloud1;
     private View cloud2;
@@ -835,6 +830,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         registerOrLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
                 if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
                     Intent intent = new Intent(HomeActivity_2.this, ActivityEditProfile.class);
                     startActivityForResult(intent, CODE_EDIT);
@@ -869,10 +865,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
 
         FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
-        if (isAnimationRooster) {
-            fancyShowCaseQueue.add(fancyShowCaseView);
-            isFirstRegister = false;
-        }
+
         if (historyAdapter != null && historyAdapter.getItemCount() >= 2) {
             fancyShowCaseQueue.add(fancyShowCaseView_2);
         }
@@ -1079,17 +1072,21 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         imageRooster.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                hideRooster(0);
+                SoundHelper.playSound(R.raw.rooster);
+                showRooster(true);
                 imageRooster.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+
+        RelativeLayout relCompatition=findViewById(R.id.rel_compatition);
+        scaleUpDown(relCompatition);
 
 
         cloud1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
-                new AnimationHelper().rightToLeft(cloud1, 50000);
+                new AnimationHelper().rightToLeft(cloud1, 80000);
                 cloud1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -1099,7 +1096,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onGlobalLayout() {
 
-                new AnimationHelper().rightToLeft(cloud2, 40000);
+                new AnimationHelper().rightToLeft(cloud2, 70000);
                 cloud2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -1108,7 +1105,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onGlobalLayout() {
 
-                new AnimationHelper().rightToLeft(cloud3, 30000);
+                new AnimationHelper().rightToLeft(cloud3, 60000);
                 cloud3.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -1118,69 +1115,67 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     }
 
-    private void hideLion() {
-        if (!isLionShow || isAnimationLion) return;
+    private void hideLion(final boolean showRooster) {
 
-        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion, "rotation", 0.0f, -20, 0);
-        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", 0.0f, -(imageLion.getWidth() - imageLion.getLeft()));
+        imageLion.setOnClickListener(null);
 
-        animRotate.setDuration(500); // miliseconds
-        animMove.setDuration(500); // miliseconds
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", 0.0f, -(imageLion.getWidth() -imageLion.getLeft()));
+
+        animMove.setDuration(300); // miliseconds
+
+        animMove.start();
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(animRotate, animMove);
 
+        animatorSet.playTogether(animMove);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isLionShow = false;
-                isAnimationLion = false;
+                if(showRooster){
+                    showRooster(false);
+                }
             }
         });
-        isAnimationLion = true;
+
         animatorSet.start();
     }
 
-    private void showLion() {
-        if (isLionShow || isAnimationLion) return;
-
-        ObjectAnimator animRotate = ObjectAnimator.ofFloat(imageLion, "rotation", -45, 0.0f);
+    private void showLion(final boolean hideRooster) {
+        imageLion.setOnClickListener(null);
+        SoundHelper.playSound(R.raw.lion);
         ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", -(imageLion.getWidth() - imageLion.getLeft()), 0.0f);
-
-        animRotate.setDuration(500); // miliseconds
         animMove.setDuration(500); // miliseconds
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(animRotate, animMove);
-
+        animatorSet.playTogether(animMove);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                imageLion.setRotation(0);
-                imageLion.setTranslationX(5);
-                isLionShow = true;
-                isAnimationLion = false;
+                imageLion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        hideLion(true);
+                    }
+                });
             }
         });
-        isAnimationLion = true;
+
         animatorSet.start();
     }
 
-    private void hideRooster() {
-        hideRooster(300);
-    }
+    private void hideRooster(final boolean showLion) {
 
-    private void hideRooster(int duration) {
-        if (!isRossterShow || isAnimationRooster) return;
+        imageRooster.setOnClickListener(null);
 
         ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster, "translationY", 0.0f, imageRooster.getHeight());
 
 
-        animMove.setDuration(duration); // miliseconds
+        animMove.setDuration(300); // miliseconds
+//        animMove.setStartDelay(delay);
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animMove);
@@ -1190,17 +1185,20 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isRossterShow = false;
-                isAnimationRooster = false;
+                if(showLion){
+                 showLion(false);
+                }
+
+
             }
         });
-        isAnimationRooster = true;
         animatorSet.start();
     }
 
-    private void showRooster() {
-        if (isRossterShow || isAnimationRooster) return;
+    private void showRooster(final boolean hideLion) {
 
+        SoundHelper.playSound(R.raw.rooster);
+        imageRooster.setOnClickListener(null);
         ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster, "translationY", imageRooster.getHeight(), 0.0f);
 
 
@@ -1209,17 +1207,42 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animMove);
 
-
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isRossterShow = true;
-                isAnimationRooster = false;
+
+                if (hideLion){
+                    hideLion(false);
+                }
+
+                imageRooster.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        hideRooster(true);
+                    }
+                });
+
             }
         });
-        isAnimationRooster = true;
         animatorSet.start();
+    }
+
+    private void scaleUpDown(View view){
+        ObjectAnimator animMoveX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.1f,1.0f);
+        ObjectAnimator animMoveY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 1.1f,1.0f);
+        animMoveX.setDuration(1500);
+        animMoveX.setRepeatCount(ValueAnimator.INFINITE);
+
+        animMoveY.setDuration(1500);
+        animMoveY.setRepeatCount(ValueAnimator.INFINITE);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+
+        animatorSet.playTogether(animMoveX);
+
+        animatorSet.start();
+
     }
 
     @Override

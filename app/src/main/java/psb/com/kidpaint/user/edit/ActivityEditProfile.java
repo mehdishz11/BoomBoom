@@ -12,6 +12,7 @@ import psb.com.kidpaint.user.edit.profile.FragmentEditUserInfo;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 
 
 public class ActivityEditProfile extends BaseActivity implements
@@ -27,6 +28,7 @@ public class ActivityEditProfile extends BaseActivity implements
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
+            SoundHelper.playSound(R.raw.click_bubbles_1);
             finish();
         }
     }
