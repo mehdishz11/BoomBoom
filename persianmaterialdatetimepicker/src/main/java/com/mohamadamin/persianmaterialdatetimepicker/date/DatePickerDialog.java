@@ -20,21 +20,25 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mohamadamin.persianmaterialdatetimepicker.HapticFeedbackController;
@@ -118,6 +122,8 @@ public class DatePickerDialog extends DialogFragment implements
     private String mYearPickerDescription;
     private String mSelectYear;
 
+
+    private View view;
     /**
      * The callback used to indicate the user is done filling in the date.
      */
@@ -145,6 +151,54 @@ public class DatePickerDialog extends DialogFragment implements
     public DatePickerDialog() {
         // Empty constructor required for dialog fragment.
     }
+
+
+    public void createHelperWnd() {
+        final ViewGroup rootView = getActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+        final WindowManager.LayoutParams p = new WindowManager.LayoutParams();
+        p.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+        p.gravity = Gravity.RIGHT | Gravity.TOP;
+        p.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        p.width = 1;
+        p.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        p.format = PixelFormat.TRANSPARENT;
+
+
+
+        final View helperWnd = new View(getContext()); //View helperWnd;
+
+        rootView.addView(helperWnd, p);
+        final ViewTreeObserver vto = helperWnd.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @Override
+            public void onGlobalLayout() {
+                if (isStatusBarVisible()) {
+                    makeFullScreen(getActivity().getWindow());
+                }
+            }
+        });
+
+    }
+
+    public  void makeFullScreen(Window window){
+        window.getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LOW_PROFILE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
+
+    public boolean isStatusBarVisible() {
+        Rect rectangle = new Rect();
+        Window window = getActivity().getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        int statusBarHeight = rectangle.top;
+        return statusBarHeight != 0;
+    }
+
 
     /**
      * @param callBack How the parent is notified that the date is set.
@@ -209,11 +263,12 @@ public class DatePickerDialog extends DialogFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
+
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        View view = inflater.inflate(R.layout.mdtp_date_picker_dialog, null);
+        view = inflater.inflate(R.layout.mdtp_date_picker_dialog, null);
+
 
 
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
@@ -311,6 +366,9 @@ public class DatePickerDialog extends DialogFragment implements
         }
 
         mHapticFeedbackController = new HapticFeedbackController(activity);
+
+
+
         return view;
     }
 
