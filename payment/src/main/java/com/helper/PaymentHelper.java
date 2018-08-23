@@ -11,6 +11,8 @@ import com.util.IabResult;
 import com.util.Inventory;
 import com.util.Purchase;
 
+import psb.com.payment.R;
+
 
 public class PaymentHelper {
 
@@ -22,6 +24,7 @@ public class PaymentHelper {
 
     private ProgressDialog pDialog;
 
+    private Context context;
 
     // Debug tag, for logging
     static final String TAG = "purchase";
@@ -30,6 +33,8 @@ public class PaymentHelper {
 
 
     public void init(Context context) {
+
+        this.context=context;
 
         pDialog=new ProgressDialog(context);
         pDialog.setMessage("در حال برقراری ارتباط ...");
@@ -127,44 +132,34 @@ public class PaymentHelper {
             return;
         }
         // Check for gas delivery -- if we own gas, we should fill up the tank immediately
-        Purchase gasPurchase = inventory.getPurchase(sku);
+        Purchase purchase = inventory.getPurchase(sku);
 
-        if (gasPurchase != null && verifyDeveloperPayload(gasPurchase)) {
-            Log.d(TAG, "We have gas. Consuming it.");
+        if (purchase != null && verifyDeveloperPayload(purchase)) {
             mHelper.consumeAsync(inventory.getPurchase(sku), new IabHelper.OnConsumeFinishedListener() {
                 @Override
                 public void onConsumeFinished(Purchase purchase, IabResult result) {
                     pDialog.cancel();
 
-                    Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
-                    // if we were disposed of in the meantime, quit.
                     if (mHelper == null){
                         showErrorPayment("not setup success 3");
                         return;
                     }
 
-                    // We know this is the "gas" sku because it's the only one we consume,
-                    // so we don't check which sku was consumed. If you have more than one
-                    // sku, you probably should check...
                     if (result.isSuccess()) {
-                        // successfully consumed, so we apply the effects of the item in our
-                        // game world's logic, which in our case means filling the gas tank a bit
-                        Log.d(TAG, "Consumption successful. Provisioning.");
-
                         if (onPaymentFinished != null) {
                             onPaymentFinished.onSuccessPayment(sku);
                         }
 
                     } else {
-                        Log.d(TAG, "Error while consuming: " + result);
-                        showErrorPayment("Error while consuming: " + result);
+//                        Log.d(TAG, "Error while consuming: " + result);
+                        showErrorPayment(context.getString(R.string.payment_msg_error_payment));
                     }
 
                 }
             });
         }else{
             pDialog.cancel();
-            showErrorPayment("محصول خریداری نشده است");
+            showErrorPayment(context.getString(R.string.payment_msg_error_payment));
         }
 
     }
@@ -196,13 +191,13 @@ public class PaymentHelper {
 
     private void showErrorSetup(String message){
         if (onSetupFinished != null) {
-            onSetupFinished.onFailed(message);
+            onSetupFinished.onFailed(context.getString(R.string.payment_msg_error_payment));
         }
     }
 
     private void showErrorPayment(String message){
         if (onPaymentFinished != null) {
-            onPaymentFinished.onFailedPayment(message);
+            onPaymentFinished.onFailedPayment(context.getString(R.string.payment_msg_error_payment));
         }
     }
 

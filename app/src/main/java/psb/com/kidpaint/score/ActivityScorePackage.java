@@ -4,18 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -27,13 +19,13 @@ import com.helper.OnPaymentResult;
 import com.helper.PaymentHelper;
 import com.squareup.picasso.Picasso;
 
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.BaseActivity;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
-import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
 import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 
@@ -64,32 +56,42 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_package);
 
-
+        final ProgressDialog pDialog=new ProgressDialog(ActivityScorePackage.this);
+        pDialog.setMessage("در حال بررسی اطلاعات ...");
 
         paymentHelper = new PaymentHelper();
         paymentHelper.setOnPaymentFinished(this);
 
-        Log.d(App.TAG, "onSuccess: 1234567890");
-
-        final ProgressDialog pDialog=new ProgressDialog(ActivityScorePackage.this);
-        pDialog.setMessage("در حال بررسی اطلاعات ...");
         paymentHelper.setOnSetupFinished(new OnPaymentResult.OnSetupFinished() {
             @Override
             public void onSuccess() {
                 pDialog.cancel();
-
             }
 
             @Override
             public void onFailed(String message) {
                 pDialog.cancel();
-                Toast.makeText(ActivityScorePackage.this, "اشکال در دریافت اطلاعات", Toast.LENGTH_SHORT).show();
-                finish();
+
+                showMessageDialog(getString(R.string.problem), getString(R.string.msg_error_payment), new CDialog.OnCLickListener() {
+                    @Override
+                    public void onPosetiveClicked() {
+                        setResult(Activity.RESULT_CANCELED);
+                        finish();
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+                        setResult(Activity.RESULT_CANCELED);
+                        finish();
+                    }
+                }).show();
+
             }
         });
 
         pDialog.show();
         paymentHelper.init(this);
+
 
         dialogMessage = getIntent().getStringExtra("dialogMessage");
         dialogMode = getIntent().getStringExtra("dialogMode");
@@ -361,44 +363,63 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
     }
 
     @Override
-    public void onSuccessBuyScorePackage(ResponseBuyScorePackage responseBuyScorePackage) {
-        //  Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+    public void onSuccessBuyScorePackage(final ResponseBuyScorePackage responseBuyScorePackage) {
         progressBar.setVisibility(View.GONE);
 
+        showMessageDialog("موفق", "با سپاس از شما\n بسته مورد نظر با موفق خریداری شد و مجموع سکه های شما به  " + responseBuyScorePackage.getExtra() + "  سکه ارتقا یافت.", new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                Intent intent = new Intent();
+                intent.putExtra("SuccessBuy", responseBuyScorePackage.getExtra());
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
 
-        Intent intent = new Intent();
-        intent.putExtra("SuccessBuy", responseBuyScorePackage.getExtra());
-        setResult(Activity.RESULT_OK, intent);
-        finish();
+            @Override
+            public void onNegativeClicked() {
+                Intent intent = new Intent();
+                intent.putExtra("SuccessBuy", responseBuyScorePackage.getExtra());
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        }).setSoundId(R.raw.cash).show();
 
     }
 
     @Override
     public void onFailedBuyScorePackage(int errorCode, String errorMessage) {
-        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
+        showMessageDialog(getString(R.string.problem),errorMessage,null).show();
 
-    }
-
-
-    public static void clearLightStatusBar(@NonNull View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int flags = view.getSystemUiVisibility();
-            flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            view.setSystemUiVisibility(flags);
-        }
     }
 
     @Override
     public void onSuccessPayment(String sku) {
-        Log.d("TAG", "onSuccessPayment: ");
         pScorePackage.doBuyScorePackage(buyPackagePosition);
-
     }
 
     @Override
     public void onFailedPayment(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        showMessageDialog(getString(R.string.problem),message,null).show();
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // activity mode
+    ///////////////////////////////////////////////////////////////////////////
+    private MessageDialog showMessageDialog(
+            String title,
+            String message,
+    @Nullable CDialog.OnCLickListener listener
+    ){
+
+        MessageDialog dialog=new MessageDialog(this);
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setAcceptButtonMessage(getString(R.string.test_ok));
+        if(listener!=null)dialog.setOnCLickListener(listener);
+
+        return dialog;
 
     }
 }

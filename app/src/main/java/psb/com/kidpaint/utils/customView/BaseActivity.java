@@ -58,4 +58,10 @@ public class BaseActivity extends AppCompatActivity {
         int statusBarHeight = rectangle.top;
         return statusBarHeight != 0;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createHelperWnd();
+    }
 }

@@ -42,6 +42,7 @@ public abstract class CDialog extends Dialog {
         ((CButton) findViewById(R.id.btn_save)).setText(message);
     }
 
+
     private void init() {
         setCanceledOnTouchOutside(false);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);

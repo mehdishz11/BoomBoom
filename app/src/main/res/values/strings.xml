@@ -91,5 +91,8 @@
     <string name="my_paints">نقاشی های من</string>
     <string name="reward">پاداش</string>
     <string name="reward_btn">دریافت</string>
+    <string name="msg_error_payment">اشکال در برقراری ارتباط، مجددا تلاش نمایید</string>
+    <string name="problem">اشکال</string>
+    <string name="test_ok">خب</string>
 
 </resources>

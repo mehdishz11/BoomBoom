@@ -71,8 +71,9 @@ public class MessageDialog extends CDialog {
         ((CustomTextViewBold) findViewById(R.id.text_desc)).setText(message);
     }
 
-    public void setSoundId(int soundId) {
+    public MessageDialog setSoundId(int soundId) {
         this.soundId = soundId;
+        return this;
     }
 
     public void setOnCLickListener(OnCLickListener onCLickListener) {

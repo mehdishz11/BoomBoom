@@ -85,7 +85,7 @@
         <!--         <activity android:name=".ActivityTest"></activity> -->
         <activity android:name=".score.ActivityScorePackage"
             android:screenOrientation="landscape"
-            android:theme="@style/FullscreenTheme"
+            android:theme="@style/TranslucentTheme"
             ></activity>
     </application>
 

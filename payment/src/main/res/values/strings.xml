@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Payment</string>
+    <string name="payment_msg_error_payment">اشکال در روند پرداخت، مجددا تلاش نمایید.</string>
 </resources>
