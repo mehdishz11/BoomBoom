@@ -205,25 +205,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundHelper.playSound(R.raw.click_1);
-
-                MessageDialog dialog = new MessageDialog(HomeActivity_2.this);
-                dialog.setTitle(getString(R.string.exit));
-                dialog.setMessage(getString(R.string.message_are_u_sure_exit));
-                dialog.setAcceptButtonMessage(getString(R.string.yes));
-                dialog.setOnCLickListener(new CDialog.OnCLickListener() {
-                    @Override
-                    public void onPosetiveClicked() {
-                        onBackPressed();
-                    }
-
-                    @Override
-                    public void onNegativeClicked() {
-
-                    }
-                });
-
-                dialog.show();
+             showExitDialog();
             }
         });
 
@@ -234,20 +216,24 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             }
         });
 
-        frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
+
+        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
+
+
+            TaskHelper.increaseNumberOfSignUps(getContext());
+        }else{
+            Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
+            startActivityForResult(intent, CODE_REGISTER_First);
+        }
 
         setupUserInfo();
 
         initAnimation();
 
         createHelperWnd();
-
-        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-            TaskHelper.increaseNumberOfSignUps(getContext());
-        }
-
 
     }
 
@@ -276,6 +262,27 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             }
         });
         cDialog.show();*/
+    }
+    void showExitDialog(){
+        SoundHelper.playSound(R.raw.click_1);
+
+        MessageDialog dialog = new MessageDialog(HomeActivity_2.this);
+        dialog.setTitle(getString(R.string.exit));
+        dialog.setMessage(getString(R.string.message_are_u_sure_exit));
+        dialog.setAcceptButtonMessage(getString(R.string.yes));
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                finish();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+
+            }
+        });
+
+        dialog.show();
     }
 
     public void setInfo() {
@@ -715,7 +722,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                //finish();
+                finish();
             }
         }
         if (requestCode == CODE_REGISTER) {
@@ -725,7 +732,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                //finish();
+                finish();
             }
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
@@ -1364,7 +1371,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             fragment_offerPackage=null;
 
         }  else {
-            super.onBackPressed();
+            showExitDialog();
         }
 
     }
