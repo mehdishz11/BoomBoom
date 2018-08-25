@@ -95,5 +95,6 @@
     <string name="problem">اشکال</string>
     <string name="test_ok">خب</string>
     <string name="msg_select_prize">شانس خودت و امتحان کن و سکه برنده شو</string>
+    <string name="total_points">مجموع امتیاز</string>
 
 </resources>

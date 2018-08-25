@@ -11,7 +11,6 @@ import psb.com.kidpaint.competition.allPaint.adapter.ViewHolder_AllPaints;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 public class PAllPaints implements IPAllPaints {
 
@@ -74,7 +73,7 @@ public class PAllPaints implements IPAllPaints {
         holder.textUserName.setText(paintModel.getUser().getFirstName()+" "+paintModel.getUser().getLastName());
         holder.textImageCode.setText(context.getString(R.string.image_code)+" "+paintModel.getCode());
         holder.textRate.setText(""+paintModel.getRank());
-        holder.text_user_points.setText((paintModel.getScore())+" امتیاز");
+        holder.text_user_points.setText(context.getString(R.string.total_points)+(paintModel.getScore()));
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
