@@ -6,14 +6,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
-import android.view.Window;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.user.register.register.FragmentUserInfo;
@@ -23,7 +21,6 @@ import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
-import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
@@ -107,16 +104,7 @@ public class ActivityRegisterUser extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-        ToolbarHandler.setToolbarColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
-        ToolbarHandler.setNavigationColor(this,getWindow(),getWindow().getDecorView(), R.color.color_black_trans,false);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Window window = this.getWindow();
-            clearLightStatusBar(window.getDecorView());
-        }
         IntentFilter iff = new IntentFilter(BROADCAST_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(onGotKey, iff);
         userProfile = new UserProfile(this);
