@@ -86,6 +86,7 @@
                 android:id="@+id/rel_content_parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 android:layout_centerHorizontal="true">
 
                 <!--message-->
@@ -727,7 +728,7 @@
 
         <!--error-->
         <RelativeLayout
-            android:id="@+id/rel_progress"
+            android:id="@+id/rel_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

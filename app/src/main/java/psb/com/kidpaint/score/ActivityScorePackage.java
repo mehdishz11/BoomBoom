@@ -38,7 +38,7 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
     private ImageView coin_image_1, coin_image_2, coin_image_3;
     private Button coin_btn_1, coin_btn_2, coin_btn_3, btnReTry, btn_discard_buy;
     private ProgressBar progressBar;
-    private RelativeLayout relContent;
+    private RelativeLayout relContent,rel_error;
     private PScorePackage pScorePackage;
 
     private RelativeLayout relDiscount1, relDiscount2, relDiscount3;
@@ -140,6 +140,7 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
         message = findViewById(R.id.message);
 
         relContent = findViewById(R.id.rel_content);
+        rel_error = findViewById(R.id.rel_error);
         textError = findViewById(R.id.TextError);
         btnReTry = findViewById(R.id.btn_retry);
 
@@ -315,6 +316,7 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
 
 
         relContent.setVisibility(View.VISIBLE);
+        rel_error.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
     }
 
@@ -337,8 +339,8 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
     @Override
     public void startGetScorePackage() {
         progressBar.setVisibility(View.VISIBLE);
-        btnReTry.setVisibility(View.GONE);
-        textError.setVisibility(View.GONE);
+
+        rel_error.setVisibility(View.GONE);
     }
 
     @Override
@@ -355,6 +357,9 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
         textError.setVisibility(View.VISIBLE);
 
         textError.setText(errorMessage);
+        relContent.setVisibility(View.INVISIBLE);
+        rel_error.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
