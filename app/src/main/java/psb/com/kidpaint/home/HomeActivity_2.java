@@ -379,6 +379,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     public void showDialogDailyPrize() {
         if (mResponseGetDailyPrize != null && mResponseGetDailyPrize.getExtra().size() > 0) {
             DialogDailyPrize cDialog = new DialogDailyPrize(HomeActivity_2.this);
+            cDialog.setDialogMessage(getString(R.string.msg_select_prize));
             cDialog.setShowBtnDiscardBuy(true);
             cDialog.setScorePackageDiscardBtnListener(new DialogDailyPrize.ScorePackageDiscardBtnListener() {
                 @Override
@@ -403,6 +404,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
                 }
             });
+            cDialog.setShowBtnDiscardBuy(false);
 
             cDialog.setResponse(mResponseGetDailyPrize);
             cDialog.show();

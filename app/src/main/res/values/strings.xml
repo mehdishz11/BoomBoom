@@ -94,5 +94,6 @@
     <string name="msg_error_payment">اشکال در برقراری ارتباط، مجددا تلاش نمایید</string>
     <string name="problem">اشکال</string>
     <string name="test_ok">خب</string>
+    <string name="msg_select_prize">شانس خودت و امتحان کن و سکه برنده شو</string>
 
 </resources>
