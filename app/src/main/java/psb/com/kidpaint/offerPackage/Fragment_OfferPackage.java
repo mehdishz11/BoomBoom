@@ -1,11 +1,13 @@
 package psb.com.kidpaint.offerPackage;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +28,8 @@ import com.squareup.picasso.Picasso;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.buy.model.ResponseBuyOfferPackage;
@@ -48,7 +52,7 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
     private POfferPackage pOfferPackage;
     private ResponseGetOfferPackage mResponseGetOfferPackagel;
     private PaymentHelper paymentHelper;
-
+    private ProgressDialog pDialog;
     public Fragment_OfferPackage() {
         // Required empty public constructor
     }
@@ -117,8 +121,9 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
         pOfferPackage = new POfferPackage(this);
 
 
-        final ProgressDialog pDialog=new ProgressDialog(getContext());
+        pDialog=new ProgressDialog(getContext());
         pDialog.setMessage("در حال بررسی اطلاعات ...");
+        pDialog.setCancelable(false);
 
         paymentHelper = new PaymentHelper();
         paymentHelper.setOnPaymentFinished(this);
@@ -132,9 +137,24 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
             @Override
             public void onFailed(String message) {
                 Log.d("TAG", "onFailed setOnSetupFinished frg: ");
-
                 pDialog.cancel();
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+                showMessageDialog(getString(R.string.problem), getString(R.string.msg_error_payment), new CDialog.OnCLickListener() {
+                    @Override
+                    public void onPosetiveClicked() {
+                        if (mListener!=null) {
+                            mListener.onBackPressed();
+                        }
+
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+                        if (mListener!=null) {
+                            mListener.onBackPressed();
+                        }
+                    }
+                }).show();
 
             }
         });
@@ -203,25 +223,41 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
 
     @Override
     public void startBuyOfferPackage() {
-        progressBar.setVisibility(View.VISIBLE);
+      //  progressBar.setVisibility(View.VISIBLE);
+        pDialog.show();
     }
 
     @Override
-    public void onSuccessBuyOfferPackage(ResponseBuyOfferPackage responseBuyOfferPackage) {
-        Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
-        progressBar.setVisibility(View.GONE);
+    public void onSuccessBuyOfferPackage(final ResponseBuyOfferPackage responseBuyOfferPackage) {
+        pDialog.cancel();
 
-        if (mListener != null) {
-            mListener.onSuccessBuyOfferPackage(responseBuyOfferPackage.getExtra());
-            mListener.onBackPressed();
-        }
+        showMessageDialog("موفق", "با سپاس از شما\n بسته مورد نظر با موفق خریداری شد و مجموع سکه های شما به  " + responseBuyOfferPackage.getExtra() + "  سکه ارتقا یافت.", new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                if (mListener != null) {
+                    mListener.onSuccessBuyOfferPackage(responseBuyOfferPackage.getExtra());
+                    mListener.onBackPressed();
+                }
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                if (mListener != null) {
+                    mListener.onSuccessBuyOfferPackage(responseBuyOfferPackage.getExtra());
+                    mListener.onBackPressed();
+                }
+            }
+        }).setSoundId(R.raw.cash).show();
+
+
 
     }
 
     @Override
     public void onFailedBuyOfferPackage(int errorCode, String errorMessage) {
-        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-        progressBar.setVisibility(View.GONE);
+        pDialog.cancel();
+        showMessageDialog(getString(R.string.problem),errorMessage,null).show();
+
 
     }
   @Override
@@ -279,5 +315,21 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
 
         void onSuccessBuyOfferPackage(int totalCoin);
         void onBackPressed();
+    }
+
+    private MessageDialog showMessageDialog(
+            String title,
+            String message,
+            @Nullable CDialog.OnCLickListener listener
+    ){
+
+        MessageDialog dialog=new MessageDialog(getContext());
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setAcceptButtonMessage(getString(R.string.test_ok));
+        if(listener!=null)dialog.setOnCLickListener(listener);
+
+        return dialog;
+
     }
 }
