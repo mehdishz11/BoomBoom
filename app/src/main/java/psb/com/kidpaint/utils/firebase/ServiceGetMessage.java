@@ -114,7 +114,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                 }
 
 
-            } else if ("Chat".equals(result.getString("mode"))) {
+            } else if ("Chat".equals(result.getString("Mode"))) {
                 if (Utils.activitymyMessageIsRunning) {
                     sendBroadCast();
                 } else {
@@ -130,9 +130,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                 }
 
 
-            } else if ("Push".equals(result.getString("mode"))) {
-
-            } else if ("RemovePush".equals(result.getString("mode"))) {
+            } else if ("RemovePush".equals(result.getString("Mode"))) {
 
             }
 

@@ -93,12 +93,12 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void getStickersSuccess() {
-        mListener.splashSuccess();
+        pSplash.getMessage();
     }
 
     @Override
     public void getStickersFailed(String msg) {
-        mListener.splashFailed(msg);
+        pSplash.getMessage();
     }
 
     @Override
@@ -190,6 +190,16 @@ public class SplashFragment extends Fragment implements IV_Splash {
             mListener.setResponseDailyPrize(null);
         }
         pSplash.getPirze();
+    }
+
+    @Override
+    public void onSuccessGetMessage() {
+        mListener.splashSuccess();
+    }
+
+    @Override
+    public void onFailedGetMessage(int errorCode, String errorMessage) {
+        mListener.splashSuccess();
     }
 
     public interface OnFragmentInteractionListener {

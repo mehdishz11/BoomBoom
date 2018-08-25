@@ -67,6 +67,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
+import psb.com.kidpaint.utils.task.TaskEnum;
 import psb.com.kidpaint.utils.task.TaskHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
@@ -87,6 +88,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     public static int CODE_EDIT = 108;
     public static int CODE_PAINT_ACTIVITY = 109;
     private static final int REQUEST_CODE_SCORE_PACKAGE = 122;
+    private static final int REQUEST_CODE_RATE = 123;
+    private static final int REQUEST_CODE_SHARE = 124;
 
 
     private ResponseGetOfferPackage mResponseOfferPackage;
@@ -348,7 +351,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             }
         });
 
-
+        setUnreadMessageCount();
         showDialogOfferPackage();
 
     }
@@ -499,27 +502,27 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
                 TaskHelper.setTaskToShowed(getContext(), taskId);
                 int oldTotalCoin = userProfile.get_KEY_SCORE(0);
 
-                if (taskId == 1) {
+                if (taskId == 2) {
 
                     if (intent != null) {
                         try {
-                            startActivity(intent);
+                            startActivityForResult(intent,REQUEST_CODE_RATE);
                             userProfile.set_KEY_SCORE((oldTotalCoin + coin));
                             setupUserInfo();
-                            pHome.doAddScore(3);
+                            pHome.doAddScore(4);
                         } catch (Exception ex) {
 
                         }
                     }
                 }
-                if (taskId == 2) {
+                if (taskId == 1) {
 
                     if (intent != null) {
                         try {
-                            startActivity(Intent.createChooser(intent, "اشتراک گذاری با ..."));
+                            startActivityForResult(Intent.createChooser(intent, "اشتراک گذاری با ..."),REQUEST_CODE_SHARE);
                             userProfile.set_KEY_SCORE((oldTotalCoin + coin));
                             setupUserInfo();
-                            pHome.doAddScore(4);
+                            pHome.doAddScore(3);
                         } catch (Exception ex) {
 
                         }
@@ -537,6 +540,27 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
         dialog.setAcceptButtonMessage(btnTitle);
         dialog.setTitle(getString(R.string.reward));
+        dialog.show();
+    }
+    public void showRewardDialogResult(final int taskId) {
+        String  message = "با تشکر از شما "+TaskEnum.getCoin(taskId)+"  تا سکه به شما تعلق گرفت";
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage(message);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+
+            }
+
+            @Override
+            public void onNegativeClicked() {
+
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getString(R.string.test_ok));
+        dialog.setTitle(getString(R.string.tanks));
         dialog.show();
     }
 
@@ -670,6 +694,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
         if ( fragment_offerPackage != null && requestCode==321) {
             fragment_offerPackage.onActivityResult(requestCode, resultCode, data);
             return;
@@ -738,6 +764,14 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             } else {
 
             }
+
+        }else if (requestCode == REQUEST_CODE_RATE) {
+
+            showRewardDialogResult(2);
+
+        }else if (requestCode == REQUEST_CODE_SHARE) {
+
+            showRewardDialogResult(1);
 
         }
     }
@@ -818,6 +852,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         text_user_Coin = findViewById(R.id.text_userCoin);
         text_user_rate = findViewById(R.id.text_userRank);
         img_podium = findViewById(R.id.img_podium);
+        RelativeLayout relMosabeghat = findViewById(R.id.rel_compatition);
 
         img_podium.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -825,6 +860,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
                 startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
             }
         });
+
+        relMosabeghat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+            }
+        });
+
+
         Log.d("ttag", "setupUserInfo: " + userProfile.get_KEY_SCORE(0));
         text_user_Coin.setText(userProfile.get_KEY_SCORE(0) + " سکه");
 

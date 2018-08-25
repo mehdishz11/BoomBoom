@@ -72,7 +72,8 @@ public class PAllPaints implements IPAllPaints {
 
         holder.textUserName.setText(paintModel.getUser().getFirstName()+" "+paintModel.getUser().getLastName());
         holder.textImageCode.setText(context.getString(R.string.image_code)+" "+paintModel.getCode());
-        holder.textRate.setText(""+paintModel.getRank());
+        //holder.textRate.setText(""+paintModel.getRank());
+        holder.textRate.setVisibility(View.GONE);
         holder.text_user_points.setText(context.getString(R.string.total_points)+(paintModel.getScore()));
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override

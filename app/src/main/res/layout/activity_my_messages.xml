@@ -20,6 +20,33 @@
         android:layout_above="@+id/frg_messages_msg_send_rel"
         android:clipToPadding="false" />
 
+    <RelativeLayout
+        android:id="@+id/rel_back"
+        android:layout_width="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/margin_5"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true">
+
+        <psb.com.cview.CButton
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_sqr_green" />
+
+        <ImageView
+            android:id="@+id/img_back_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerInParent="true"
+            android:paddingBottom="2dp"
+            android:elevation="5dp"
+            android:scaleX="-1"
+            android:src="@drawable/img_icon_right_arrow" />
+
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/frg_messages_msg_send_rel"
@@ -55,7 +82,7 @@
                         android:background="@drawable/btn_sqr_green"
                         android:textColor="@color/white_1"
                         android:textSize="@dimen/text_size_normal"
-                        android:text=""
+                        android:text=""
                         android:layout_centerVertical="true"
                         android:gravity="center"
                         android:paddingRight="2dp"

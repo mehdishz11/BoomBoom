@@ -17,5 +17,7 @@ public interface IM_Splash {
 
     void getOfferPackage();
     void getDailyPrize();
+    void getMessage();
+
 
 }

@@ -119,4 +119,19 @@ public class P_Splash implements IP_Splash {
     public void onFailedGetDailyPrize(int errorCode, String errorMessage) {
           ivSplash.onFailedGetDailyPrize(errorCode, errorMessage);
     }
+
+    @Override
+    public void getMessage() {
+        mSplash.getMessage();
+    }
+
+    @Override
+    public void onSuccessGetMessage() {
+        ivSplash.onSuccessGetMessage();
+    }
+
+    @Override
+    public void onFailedGetMessage(int errorCode, String errorMessage) {
+       ivSplash.onFailedGetMessage(errorCode, errorMessage);
+    }
 }

@@ -37,4 +37,8 @@ public interface IP_Splash {
     void getDailyPrize();
     void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize);
     void onFailedGetDailyPrize(int errorCode,String errorMessage);
+
+    void getMessage();
+    void onSuccessGetMessage();
+    void onFailedGetMessage(int errorCode,String errorMessage);
 }

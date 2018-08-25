@@ -7,13 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
+import psb.com.kidpaint.utils.database.TblMessage.TblMessage;
 import psb.com.kidpaint.utils.prizePrefrence.SavePrize;
 import psb.com.kidpaint.webApi.Category.Category;
 import psb.com.kidpaint.webApi.Category.GetCategory.iGetCategory;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
+import psb.com.kidpaint.webApi.chat.Chat;
+import psb.com.kidpaint.webApi.chat.Get.iGetChat;
+import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
 import psb.com.kidpaint.webApi.offerPackage.Get.iGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.OfferPackage;
@@ -182,5 +188,28 @@ public class M_Splash implements IM_Splash {
         ipSplash.onFailedGetDailyPrize(errorCode, ErrorMessage);
             }
         }).doGetDailyPrize(userProfile.get_KEY_PHONE_NUMBER("0"));
+    }
+
+    @Override
+    public void getMessage() {
+        final String time=new Database().tblMessage(getContext()).getMessageLastUpdateTime();
+        new Chat().getChat(new iGetChat.iResult() {
+            @Override
+            public void onSuccessGetChat(ResponseMyMessages responseMyMessages) {
+                new Database().tblMessage(getContext()).insertMessageList(responseMyMessages.getExtra(), ("0".equals(time) ? true : false), new TblMessage.interFaceDB_InsertChats() {
+                    @Override
+                    public void onSuccessInsertChats(int size) {
+                        ipSplash.onSuccessGetMessage();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailedGetChat(int errorId, String ErrorMessage) {
+                ipSplash.onFailedGetMessage(errorId, ErrorMessage);
+
+            }
+        }).doGetChat(Utils.getDeviceId(getContext()),userProfile.get_KEY_PHONE_NUMBER(""),time );
+
     }
 }

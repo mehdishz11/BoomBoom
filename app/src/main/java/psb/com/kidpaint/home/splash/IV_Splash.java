@@ -29,4 +29,7 @@ public interface IV_Splash {
 
     void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize);
     void onFailedGetDailyPrize(int errorCode,String errorMessage);
+
+    void onSuccessGetMessage();
+    void onFailedGetMessage(int errorCode,String errorMessage);
 }

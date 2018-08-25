@@ -34,13 +34,14 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
     private RecyclerView recyclerView;
     private EditText editText;
     private Button send;
-    private TextView emptyView,back;
+    private TextView emptyView;
 
     private PMessages pMessages;
     private Adapter_Message adapter_message;
 
     private int mLoadMode=0;
     private int mLoadModeDb=0;
+    private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +61,15 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
         editText=findViewById(R.id.chat_messages_txt);
         send=findViewById(R.id.btn_send);
         emptyView=findViewById(R.id.emptyView);
-        back=findViewById(R.id.icon_back);
 
-       /* back.setOnClickListener(new View.OnClickListener() {
+        back = findViewById(R.id.btn_back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });*/
+        });
+
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override

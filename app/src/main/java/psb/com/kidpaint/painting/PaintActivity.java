@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import psb.com.cview.IconFont;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.HomeActivity;
@@ -118,6 +119,8 @@ public class PaintActivity extends BaseActivity implements
     private boolean SaveWithWaterMark = false;
     private String sendShowMode="";
 
+    private IconFont iconAddCoin;
+    private RelativeLayout rel_user_coin;
 
 
     public static final String KEY_RESOURCE_OUTLINE = "KEY_RESOURCE_OUTLINE";
@@ -229,6 +232,8 @@ public class PaintActivity extends BaseActivity implements
         relHandle = findViewById(R.id.rel_handle);
         mPager = findViewById(R.id.view_pager);
         imageHistory = findViewById(R.id.image_history);
+        rel_user_coin = findViewById(R.id.rel_user_coin);
+        iconAddCoin = findViewById(R.id.icon_add_coin);
 
         btnCancel = findViewById(R.id.btn_cancel);
         btnSave = findViewById(R.id.btn_save);
@@ -236,6 +241,27 @@ public class PaintActivity extends BaseActivity implements
         btnSettings = findViewById(R.id.btn_settings);
 
         coinCount.setText(localCoinCount + "");
+
+        iconAddCoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+                showDialogPackage("", "Continue");
+
+            }
+        });
+
+
+        rel_user_coin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+
+                showDialogPackage("", "Continue");
+
+
+            }
+        });
 
         stickerCanvas.setOnStickerListener(this);
 

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -81,9 +82,10 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
     private Adapter_AllPaints adapter_allPaints;
     private ProgressDialog progressDialog;
     private EndlessRecyclerViewScrollListener scrollListener;
-    private ImageView userImage, back;
+    private ImageView userImage;
     private TextView text_user_name;
 
+    private Button back;
 
     int sendPosition = -1;
 
@@ -175,7 +177,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         emptyViewAllPaints = view.findViewById(R.id.emptyViewAllPaints);
         recyclerViewAllPaints = view.findViewById(R.id.recyclerViewAllPaints);
         progressBarLoading = view.findViewById(R.id.progressBar);
-        back = view.findViewById(R.id.img_back_1);
+        back = view.findViewById(R.id.btn_back);
 /*        userImage = view.findViewById(R.id.userImage);
         text_user_name = view.findViewById(R.id.text_user_name);*/
 
@@ -190,7 +192,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
 
 
         adapter_allPaints = new Adapter_AllPaints(pPaints);
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, true);
         recyclerViewAllPaints.setLayoutManager(linearLayoutManager);
         AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(adapter_allPaints);
         animationAdapter.setDuration(100);

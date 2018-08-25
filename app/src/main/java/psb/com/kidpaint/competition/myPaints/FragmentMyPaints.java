@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,7 +61,8 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
      private ProgressDialog progressDialog;
 
     private TextView text_user_name;
-    private ImageView back, userImage;
+    private ImageView  userImage;
+    private Button back;
 
     public FragmentMyPaints() {
         // Required empty public constructor
@@ -118,7 +120,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         progressBarLoading = view.findViewById(R.id.progressBar);
 
         adapter_myPaints=new Adapter_MyPaints(pPaints);
-        LinearLayoutManager linearLayoutManager2 = new GridLayoutManager(getContext(), 1,GridLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager2 = new GridLayoutManager(getContext(), 1,GridLayoutManager.HORIZONTAL, true);
        // LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         recyclerViewMyPaints.setLayoutManager(linearLayoutManager2);
@@ -130,7 +132,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
 
         userImage = view.findViewById(R.id.userImage);
         text_user_name = view.findViewById(R.id.text_user_name);
-        back = view.findViewById(R.id.img_back_1);
+        back = view.findViewById(R.id.btn_back);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

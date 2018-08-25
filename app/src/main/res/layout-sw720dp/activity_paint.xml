@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_1"
     android:layoutDirection="ltr"
     tools:context=".painting.PaintActivity">
@@ -120,22 +121,133 @@
         </RelativeLayout>
 
 
-  <ImageView
-      android:id="@+id/imageCoin"
-      android:layout_width="50dp"
-      android:layout_alignParentRight="true"
-      android:layout_margin="@dimen/margin_10"
-      android:src="@drawable/coin"
-      android:layout_height="50dp" />
-        <psb.com.cview.CustomTextViewBold
-            android:id="@+id/coinCount"
+        <!--coin-->
+        <RelativeLayout
+            android:id="@+id/rel_user_coin"
             android:layout_width="wrap_content"
-            android:layout_toLeftOf="@+id/imageCoin"
-            android:layout_alignTop="@+id/imageCoin"
-            android:layout_alignBottom="@+id/imageCoin"
-            android:gravity="right|center"
-            android:text="112"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_toLeftOf="@+id/rel_user_register">
+
+            <RelativeLayout
+                android:id="@+id/rel_coin_image"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-20dp"
+                android:layout_toRightOf="@+id/rel_coin_text">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_coin_bgr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@color/brown_5"
+                    app:riv_corner_radius="36dp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rel_coin_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="20dp"
+                android:background="@drawable/bgr_top_round">
+
+                <psb.com.cview.IconFont
+                    android:id="@+id/icon_add_coin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/brown_5"
+                    android:textSize="25dp"
+                    android:text=""
+                    />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/coinCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/icon_add_coin"
+                    android:paddingLeft="5dp"
+                    android:clickable="true"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|left"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="۱۵۰۰ سکه"
+                    android:textColor="@color/brown_5"
+                    android:textSize="@dimen/font_size_14" />
+
+
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="7dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-55" />
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-15" />
+
+            </RelativeLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_coin_bgr1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/rel_coin_image"
+                android:layout_alignLeft="@+id/rel_coin_image"
+                android:layout_alignRight="@+id/rel_coin_image"
+                android:layout_alignTop="@+id/rel_coin_image"
+                android:layout_centerVertical="true"
+                android:padding="1dp"
+                android:src="@color/brown_4"
+                app:riv_corner_radius="36dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_coin_bgr2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignBottom="@+id/rel_coin_image"
+                android:layout_alignLeft="@+id/rel_coin_image"
+                android:layout_alignRight="@+id/rel_coin_image"
+                android:layout_alignTop="@+id/rel_coin_image"
+                android:padding="3dp"
+                android:src="@drawable/bgr_color_picker"
+                android:tint="@color/light_level_0"
+                app:riv_corner_radius="50dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/act_coin_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignBottom="@+id/rel_coin_image"
+                android:layout_alignLeft="@+id/rel_coin_image"
+                android:layout_alignRight="@+id/rel_coin_image"
+                android:layout_alignTop="@+id/rel_coin_image"
+                android:padding="10dp"
+                android:src="@drawable/icon_coin"
+                android:tint="@color/light_level_0" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 
