@@ -501,7 +501,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onPosetiveClicked() {
                 TaskHelper.setTaskToShowed(getContext(), taskId);
                 int oldTotalCoin = userProfile.get_KEY_SCORE(0);
-
+//
                 if (taskId == 2) {
 
                     if (intent != null) {
