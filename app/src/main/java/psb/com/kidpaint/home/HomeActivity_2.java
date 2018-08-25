@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import psb.com.cview.IconFont;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.dailyPrize.DialogDailyPrize;
@@ -138,6 +139,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     private RelativeLayout relCompetition;
 
+    private Button btnExit;
+
+    private IconFont iconAddCoin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,9 +185,37 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         relCompetition = findViewById(R.id.rel_parent_competition);
 
+        btnExit= findViewById(R.id.btn_exit);
+
+        iconAddCoin= findViewById(R.id.icon_add_coin);
+
         splashFragment = new SplashFragment().newInstance();
 
-        ToolbarHandler.makeTansluteToolbar(this, getWindow(), getWindow().getDecorView());
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+
+                MessageDialog dialog=new MessageDialog(HomeActivity_2.this);
+                dialog.setTitle(getString(R.string.exit));
+                dialog.setMessage(getString(R.string.message_are_u_sure_exit));
+                dialog.setAcceptButtonMessage(getString(R.string.yes));
+                dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+                    @Override
+                    public void onPosetiveClicked() {
+                        onBackPressed();
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+
+                    }
+                });
+
+                dialog.show();
+            }
+        });
 
         relCompetition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,6 +308,16 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 cDialog.show();
                 // exitProfileDialog();
 
+            }
+        });
+
+
+        iconAddCoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
+
+                showDialogPackage();
             }
         });
 
@@ -1080,7 +1123,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         RelativeLayout relCompatition=findViewById(R.id.rel_compatition);
         scaleUpDown(relCompatition);
-
 
         cloud1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

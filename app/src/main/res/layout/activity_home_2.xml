@@ -384,21 +384,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:paddingRight="20dp"
                 android:background="@drawable/bgr_top_round">
+
+                <psb.com.cview.IconFont
+                    android:id="@+id/icon_add_coin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/brown_5"
+                    android:textSize="20dp"
+                    android:text=""
+                    />
 
                 <psb.com.cview.CustomTextViewBold
                     android:id="@+id/text_userCoin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
+                    android:layout_toRightOf="@+id/icon_add_coin"
+                    android:paddingLeft="5dp"
                     android:clickable="true"
                     android:ellipsize="end"
-                    android:gravity="center"
+                    android:gravity="center_vertical|left"
                     android:maxLines="1"
-                    android:minWidth="80dp"
                     android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="۱۵۰۰ سکه"
                     android:textColor="@color/brown_5"
@@ -582,6 +593,23 @@
 
     </RelativeLayout>
 
+    <!--exit-->
+    <psb.com.cview.IconButton
+        android:id="@+id/btn_exit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/space_small"
+        android:layout_below="@+id/relUser"
+        android:layout_marginTop="-10dp"
+        android:background="@drawable/btn_sqr_green"
+        android:textColor="@color/white_1"
+        android:textSize="18dp"
+        android:paddingBottom="2dp"
+        android:paddingRight="3dp"
+        android:text=""
+        />
+
     <!--footer-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -628,7 +656,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/grass_7" />
 
 
@@ -637,7 +665,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_alignParentBottom="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/grass_8" />
 
 
