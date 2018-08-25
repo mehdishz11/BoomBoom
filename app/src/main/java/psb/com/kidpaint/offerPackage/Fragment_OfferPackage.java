@@ -1,13 +1,16 @@
 package psb.com.kidpaint.offerPackage;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,16 +24,19 @@ import com.helper.PaymentHelper;
 import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.score.ActivityScorePackage;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
-import psb.com.kidpaint.utils.customView.dialog.CDialog;
-import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.buy.model.ResponseBuyOfferPackage;
 
-public class DialogOfferPackage extends Dialog implements IVOfferPackage {
+
+public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,OnPaymentResult.OnPaymentFinished {
+    private static final String ARG_PARAM1 = "param1";
+    private OnFragmentInteractionListener mListener;
+    private View view;
+
+
     private TextView message;
     private TextView coin_coin_1;
     private TextView coin_discount_1;
@@ -42,128 +48,68 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
     private POfferPackage pOfferPackage;
     private ResponseGetOfferPackage mResponseGetOfferPackagel;
     private PaymentHelper paymentHelper;
-    private Activity activity;
 
+    public Fragment_OfferPackage() {
+        // Required empty public constructor
+    }
 
-    private String dialogMessage = "";
-    private boolean showBtnDiscardBuy = false;
+    public static Fragment_OfferPackage newInstance(ResponseGetOfferPackage mResponseGetOfferPackagel) {
+        Fragment_OfferPackage fragment = new Fragment_OfferPackage();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_PARAM1, mResponseGetOfferPackagel);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-    private offerPackageDiscardBtnListener offerPackageDiscardBtnListener;
-    private OnPaymentResult.OnPaymentFinished onPaymentFinished;
-
-    private boolean defaultSound = SharePrefrenceHelper.getSoundEffect();
-    private boolean defaultMusic = SharePrefrenceHelper.getMusic();
-
-    public DialogOfferPackage(@NonNull Context context) {
-        super(context);
-        if (context instanceof Activity) {
-            this.activity= (Activity) context;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mResponseGetOfferPackagel = (ResponseGetOfferPackage) getArguments().getSerializable(ARG_PARAM1);
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view=inflater.inflate(R.layout.fragment_offer_package, container, false);
         init();
-    }
-
-    public DialogOfferPackage(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-        if (context instanceof Activity) {
-            this.activity= (Activity) context;
-        }
-        init();
-    }
-
-    protected DialogOfferPackage(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-        if (context instanceof Activity) {
-            this.activity= (Activity) context;
-        }
-        init();
-    }
-
-    public void setOnPaymentFinished(OnPaymentResult.OnPaymentFinished onPaymentFinished){
-        this.onPaymentFinished=onPaymentFinished;
-
-        if (paymentHelper!=null) {
-            paymentHelper.setOnPaymentFinished(onPaymentFinished);
-        }
-
-    }
-
-    public void setDialogMessage(String dialogMessage) {
-        this.dialogMessage = dialogMessage;
-
-        if ("".equals(dialogMessage)) {
-            message.setVisibility(View.INVISIBLE);
-        } else {
-            message.setText(dialogMessage);
-            message.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void setOfferResponse(ResponseGetOfferPackage response) {
-        this.mResponseGetOfferPackagel = response;
-
         setInfo(mResponseGetOfferPackagel);
 
+        return view;
     }
-
-    public void setShowBtnDiscardBuy(boolean showBtnDiscardBuy) {
-        this.showBtnDiscardBuy = showBtnDiscardBuy;
-
-
-    }
-
-    public void setScorePackageDiscardBtnListener(offerPackageDiscardBtnListener offerPackageDiscardBtnListener) {
-        this.offerPackageDiscardBtnListener = offerPackageDiscardBtnListener;
-
-
-    }
-
     private void init() {
-        setCanceledOnTouchOutside(false);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
 
-        setContentView(R.layout.dialog_offer_package);
-        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-        findViewById(R.id.img_btn_close).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.img_btn_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_bubbles_1);
+                if (mListener!=null) {
+                    mListener.onBackPressed();
+                }
 
-                cancel();
             }
         });
-
-
-        progressBar = findViewById(R.id.progressBar);
-        message = findViewById(R.id.message);
+        progressBar = view.findViewById(R.id.progressBar);
+        message = view.findViewById(R.id.message);
         message.setVisibility(View.GONE);
 
-        relContent = findViewById(R.id.rel_content);
+        relContent = view.findViewById(R.id.rel_content);
 
 
-        coin_coin_1 = findViewById(R.id.coin_coin_1);
+        coin_coin_1 = view.findViewById(R.id.coin_coin_1);
 
 
-        coin_discount_1 = findViewById(R.id.coin_discount_1);
-        relDiscount = findViewById(R.id.rel_discount_1);
+        coin_discount_1 = view.findViewById(R.id.coin_discount_1);
+        relDiscount = view.findViewById(R.id.rel_discount_1);
 
 
-        coin_image_1 = findViewById(R.id.coin_image_1);
+        coin_image_1 = view.findViewById(R.id.coin_image_1);
 
 
-        coin_btn_1 = findViewById(R.id.btn_buy_1);
+        coin_btn_1 = view.findViewById(R.id.btn_buy_1);
 
 
         relContent.setVisibility(View.GONE);
@@ -175,25 +121,26 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
         pDialog.setMessage("در حال بررسی اطلاعات ...");
 
         paymentHelper = new PaymentHelper();
-
+        paymentHelper.setOnPaymentFinished(this);
         paymentHelper.setOnSetupFinished(new OnPaymentResult.OnSetupFinished() {
             @Override
             public void onSuccess() {
+                Log.d("TAG", "onSuccess setOnSetupFinished frg: ");
                 pDialog.cancel();
             }
 
             @Override
             public void onFailed(String message) {
-                pDialog.cancel();
+                Log.d("TAG", "onFailed setOnSetupFinished frg: ");
 
+                pDialog.cancel();
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                cancel();
 
             }
         });
 
         pDialog.show();
-        paymentHelper.init(activity);
+        paymentHelper.init(getContext());
 
     }
 
@@ -233,7 +180,7 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
             @Override
             public void onClick(View view) {
                 if (paymentHelper.isSetupFinished()) {
-                    paymentHelper.buyProduct(activity,321,responseGetScorePackage.getExtra().get(0).getSku());
+                    paymentHelper.buyProduct(getActivity(),321,responseGetScorePackage.getExtra().get(0).getSku());
                 }
             }
         });
@@ -242,6 +189,17 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
         relContent.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
+    public void setDialogMessage(String dialogMessage) {
+
+
+        if ("".equals(dialogMessage)) {
+            message.setVisibility(View.INVISIBLE);
+        } else {
+            message.setText(dialogMessage);
+            message.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     @Override
     public void startBuyOfferPackage() {
@@ -253,10 +211,9 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
         Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
 
-        if (showBtnDiscardBuy && offerPackageDiscardBtnListener != null) {
-            offerPackageDiscardBtnListener.onSuccessBuyOfferPackage(responseBuyOfferPackage.getExtra());
-            cancel();
-
+        if (mListener != null) {
+            mListener.onSuccessBuyOfferPackage(responseBuyOfferPackage.getExtra());
+            mListener.onBackPressed();
         }
 
     }
@@ -265,14 +222,11 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
     public void onFailedBuyOfferPackage(int errorCode, String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
-        if (showBtnDiscardBuy && offerPackageDiscardBtnListener != null) {
-            /*scorePackageDiscardBtnListener.onFailedBuyScorePackage();
-            cancel();*/
 
-        }
     }
-
+  @Override
     public void onSuccessPayment(String sku) {
+      Log.d("TAG", "onSuccessPayment frag: ");
         if (pOfferPackage!=null) {
             if (mResponseGetOfferPackagel!=null&& mResponseGetOfferPackagel.getExtra().size()>0) {
                 for (int i = 0; i <mResponseGetOfferPackagel.getExtra().size() ; i++) {
@@ -286,19 +240,44 @@ public class DialogOfferPackage extends Dialog implements IVOfferPackage {
         }
     }
 
+    @Override
 
     public void onFailedPayment(String message) {
+        Log.d("TAG", "onSuccessPayment frag: ");
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
 
-    public interface offerPackageDiscardBtnListener {
-        void btnDiscardBuySelect();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (paymentHelper != null && paymentHelper.checkActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+    public interface OnFragmentInteractionListener {
 
         void onSuccessBuyOfferPackage(int totalCoin);
-
-        void onFailedBuyScorePackage();
-        void startBuyOfferPackage(String sku);
+        void onBackPressed();
     }
 }

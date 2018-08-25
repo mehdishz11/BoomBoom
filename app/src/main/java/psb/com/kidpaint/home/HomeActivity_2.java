@@ -31,6 +31,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.helper.OnPaymentResult;
+import com.helper.PaymentHelper;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +46,7 @@ import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
 import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.offerPackage.DialogOfferPackage;
+import psb.com.kidpaint.offerPackage.Fragment_OfferPackage;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.score.ActivityScorePackage;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
@@ -74,7 +77,7 @@ import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
-public class HomeActivity_2 extends BaseActivity implements IV_Home,
+public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_OfferPackage.OnFragmentInteractionListener,
         SplashFragment.OnFragmentInteractionListener {
 
     private int REQUEST_STORAGE_PERMISSIONS = 100;
@@ -95,6 +98,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     private HistoryAdapter historyAdapter;
 
     private final String TAG_FRAGMENT_SPLASH = "TAG_FRAGMENT_SPLASH";
+    private final String TAG_FRAGMENT_OFFER = "TAG_FRAGMENT_OFFER";
 
 
     private TextView registerOrLogin, text_user_rate, text_user_Coin, unreadMessageCount;
@@ -143,6 +147,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     private IconFont iconAddCoin;
 
+    private Fragment_OfferPackage fragment_offerPackage;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +167,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
             }
         });
-
+       // initPayment();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
@@ -185,9 +192,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         relCompetition = findViewById(R.id.rel_parent_competition);
 
-        btnExit= findViewById(R.id.btn_exit);
+        btnExit = findViewById(R.id.btn_exit);
 
-        iconAddCoin= findViewById(R.id.icon_add_coin);
+        iconAddCoin = findViewById(R.id.icon_add_coin);
 
         splashFragment = new SplashFragment().newInstance();
 
@@ -197,7 +204,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                MessageDialog dialog=new MessageDialog(HomeActivity_2.this);
+                MessageDialog dialog = new MessageDialog(HomeActivity_2.this);
                 dialog.setTitle(getString(R.string.exit));
                 dialog.setMessage(getString(R.string.message_are_u_sure_exit));
                 dialog.setAcceptButtonMessage(getString(R.string.yes));
@@ -239,14 +246,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         }
 
 
-
     }
 
     void showDialogPackage() {
 
-        Intent intent=new Intent(HomeActivity_2.this, ActivityScorePackage.class);
-        intent.putExtra("showBtnDiscardBuy",false);
-        startActivityForResult(intent,REQUEST_CODE_SCORE_PACKAGE);
+        Intent intent = new Intent(HomeActivity_2.this, ActivityScorePackage.class);
+        intent.putExtra("showBtnDiscardBuy", false);
+        startActivityForResult(intent, REQUEST_CODE_SCORE_PACKAGE);
      /*   DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
         cDialog.setShowBtnDiscardBuy(false);
         cDialog.setScorePackageDiscardBtnListener(new DialogScorePackage.ScorePackageDiscardBtnListener() {
@@ -349,10 +355,16 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     public void showDialogOfferPackage() {
         if (mResponseOfferPackage != null && mResponseOfferPackage.getExtra().size() > 0) {
-            DialogOfferPackage cDialog = new DialogOfferPackage(HomeActivity_2.this);
-            cDialog.setShowBtnDiscardBuy(false);
-            cDialog.setDialogMessage("");
-            cDialog.setScorePackageDiscardBtnListener(new DialogOfferPackage.offerPackageDiscardBtnListener() {
+            frameLayoutSplash.setVisibility(View.VISIBLE);
+            fragment_offerPackage=new Fragment_OfferPackage().newInstance(mResponseOfferPackage);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, fragment_offerPackage, TAG_FRAGMENT_OFFER).commitNowAllowingStateLoss();
+
+/*
+
+            dialogOfferPackage = new DialogOfferPackage(HomeActivity_2.this);
+            dialogOfferPackage.setShowBtnDiscardBuy(false);
+            dialogOfferPackage.setDialogMessage("");
+            dialogOfferPackage.setScorePackageDiscardBtnListener(new DialogOfferPackage.offerPackageDiscardBtnListener() {
                 @Override
                 public void btnDiscardBuySelect() {
 
@@ -367,14 +379,22 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 public void onFailedBuyScorePackage() {
 
                 }
-            });
-            cDialog.setOfferResponse(mResponseOfferPackage);
 
-            cDialog.show();
+                @Override
+                public void startBuyOfferPackage(String sku) {
+                    if (paymentHelper.isSetupFinished()) {
+                        paymentHelper.buyProduct(HomeActivity_2.this, 321, sku);
+                    }
+                }
+            });
+            dialogOfferPackage.setOfferResponse(mResponseOfferPackage);
+
+            dialogOfferPackage.show();*/
         } else {
             showDialogDailyPrize();
         }
     }
+
 
     public void showDialogDailyPrize() {
         if (mResponseGetDailyPrize != null && mResponseGetDailyPrize.getExtra().size() > 0) {
@@ -650,8 +670,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
+        if ( fragment_offerPackage != null && requestCode==321) {
+            fragment_offerPackage.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
 
         refreshUserRank();
         super.onActivityResult(requestCode, resultCode, data);
@@ -704,16 +726,16 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
                 showIntro();
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
-        }else  if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
+        } else if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
 
             if (resultCode == Activity.RESULT_OK) {
 
 
                 if (data.hasExtra("SuccessBuy")) {
-                    int totalCoin=data.getIntExtra("SuccessBuy",0);
+                    int totalCoin = data.getIntExtra("SuccessBuy", 0);
                     setupUserInfo();
                 }
-            }else{
+            } else {
 
             }
 
@@ -1123,7 +1145,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             }
         });
 
-        RelativeLayout relCompatition=findViewById(R.id.rel_compatition);
+        RelativeLayout relCompatition = findViewById(R.id.rel_compatition);
         scaleUpDown(relCompatition);
 
         cloud1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -1163,7 +1185,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         imageLion.setOnClickListener(null);
 
-        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", 0.0f, -(imageLion.getWidth() -imageLion.getLeft()));
+        ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", 0.0f, -(imageLion.getWidth() - imageLion.getLeft()));
 
         animMove.setDuration(300); // miliseconds
 
@@ -1177,7 +1199,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                if(showRooster){
+                if (showRooster) {
                     showRooster(false);
                 }
             }
@@ -1229,8 +1251,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                if(showLion){
-                 showLion(false);
+                if (showLion) {
+                    showLion(false);
                 }
 
 
@@ -1256,7 +1278,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
 
-                if (hideLion){
+                if (hideLion) {
                     hideLion(false);
                 }
 
@@ -1272,9 +1294,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
         animatorSet.start();
     }
 
-    private void scaleUpDown(View view){
-        ObjectAnimator animMoveX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.1f,1.0f);
-        ObjectAnimator animMoveY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 1.1f,1.0f);
+    private void scaleUpDown(View view) {
+        ObjectAnimator animMoveX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.1f, 1.0f);
+        ObjectAnimator animMoveY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 1.1f, 1.0f);
         animMoveX.setDuration(1500);
         animMoveX.setRepeatCount(ValueAnimator.INFINITE);
 
@@ -1292,7 +1314,14 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
     @Override
     public void onBackPressed() {
 
-        super.onBackPressed();
+        if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_OFFER) != null) {
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_OFFER)).commit();
+            frameLayoutSplash.setVisibility(View.GONE);
+            fragment_offerPackage=null;
+
+        }  else {
+            super.onBackPressed();
+        }
 
     }
 
@@ -1521,5 +1550,28 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,
 
         }
     }
+
+  /*  @Override
+    public void onSuccessPayment(String sku) {
+        Log.d("TAG", "onSuccessPayment act: ");
+        if (dialogOfferPackage != null && dialogOfferPackage.isShowing()) {
+            dialogOfferPackage.onSuccessPayment(sku);
+        }
+    }
+
+    @Override
+    public void onFailedPayment(String message) {
+        Log.d("TAG", "onFailedPayment act: " + message);
+
+        if (dialogOfferPackage != null && dialogOfferPackage.isShowing()) {
+            dialogOfferPackage.onFailedPayment(message);
+        }
+    }*/
+
+    @Override
+    public void onSuccessBuyOfferPackage(int totalCoin) {
+        setupUserInfo();
+    }
+
 
 }
