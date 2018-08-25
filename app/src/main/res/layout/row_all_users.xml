@@ -1,94 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<psb.com.cview.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rel_parent"
-    android:layout_width="match_parent"
-    android:layout_margin="@dimen/space_small"
+    android:layout_width="300dp"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_bgr"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:contentPadding="@dimen/space_small"
-        app:cardBackgroundColor="@color/brown_1"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="3dp"
-        app:cardPreventCornerOverlap="true">
+    <View
+        android:layout_width="4dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/card_user"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="-20dp"
 
+        android:background="@drawable/sign_base"
+        />
+    <View
+        android:layout_width="4dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/card_user"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="-20dp"
+
+        android:background="@drawable/sign_base"
+        />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:elevation="@dimen/space_normal"
+        android:layout_margin="@dimen/space_small"
+        app:cardBackgroundColor="@color/brown_1"
+        >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!--paint-->
-            <RelativeLayout
-                android:id="@+id/rel_images"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/img_outline_bgr"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@color/white_1"
-                    app:riv_corner_radius="20dp" />
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/img_outline_template"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:riv_border_color="@color/md_grey_200"
-                    app:riv_border_width="0.5dp"
-                    app:riv_corner_radius="20dp" />
-
-            </RelativeLayout>
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:riv_corner_radius="20dp"
-                android:alpha="0.7"
-                android:src="@drawable/sqr_gradient_dark" />
-
-            <!--points-->
-            <psb.com.cview.CustomTextView
-                android:id="@+id/text_user_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/rel_delete"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="123"
-                android:textColor="@color/white_1"
-                android:textSize="@dimen/text_size_small" />
-
-            <!--like-->
-            <RelativeLayout
-                android:id="@+id/rel_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true">
-
-                <psb.com.cview.CButton
-                    android:id="@+id/btn_like"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/btn_sqr_green"
-                    android:textColor="@color/white_1"
-                    android:textSize="@dimen/text_size_normal" />
-
-                <psb.com.cview.IconFont
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:elevation="5dp"
-                    android:text=""
-                    android:textColor="@color/white_1"
-                    android:textSize="20dp" />
-            </RelativeLayout>
+            android:layout_height="wrap_content">
 
             <!--user image-->
             <RelativeLayout
@@ -97,25 +46,14 @@
                 android:layout_height="80dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="-3dp"
-                android:layout_marginTop="-3dp"
-                android:elevation="10dp">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:elevation="3dp"
-                    android:src="@color/White"
-                    app:riv_border_color="@color/brown_1"
-                    app:riv_border_width="4dp"
-                    app:riv_corner_radius="40dp" />
+                android:padding="2dp"
+                >
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:elevation="3dp"
                     android:padding="@dimen/margin_15"
                     android:src="@drawable/user_profile" />
 
@@ -125,10 +63,9 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:elevation="3dp"
-                    app:riv_border_color="@color/brown_1"
-                    app:riv_border_width="4dp"
-                    app:riv_corner_radius="40dp" />
+                    app:riv_oval="true"
+                    android:layout_margin="5dp"
+                    />
 
 
                 <View
@@ -138,85 +75,130 @@
                     android:layout_centerHorizontal="true"
                     android:layout_margin="4dp"
                     android:alpha="0.5"
-                    android:background="@drawable/circle_drak_gradient"
-                    android:elevation="3dp" />
+                    android:background="@drawable/circle_drak_gradient" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/winner_leave"
+                    />
 
                 <View
                     android:layout_width="55dp"
                     android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="4dp"
-                    android:alpha="0.2"
-                    android:background="@drawable/circle_white"
-                    android:elevation="3dp" />
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white" />
 
                 <View
                     android:layout_width="40dp"
                     android:layout_height="20dp"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="4dp"
-                    android:alpha="0.2"
-                    android:background="@drawable/circle_white"
-                    android:elevation="3dp" />
+                    android:alpha="0.4"
+                    android:background="@drawable/circle_white"/>
 
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/rel_user_image"
-                android:layout_alignRight="@id/rel_user_image"
-                android:layout_marginTop="-5dp"
-                android:layout_below="@id/rel_user_image"
-                >
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/gold_medal"
-                    android:scaleType="fitCenter"
-                    />
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/text_rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:text="1"
-                    android:textColor="@color/white_1"
-                    android:textSize="22sp" />
-
-            </RelativeLayout>
-
-            <!--user name-->
+            <!--user rank-->
             <psb.com.cview.CustomTextViewBold
-                android:id="@+id/text_user_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/text_rank"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/rel_user_image"
-                android:layout_marginRight="@dimen/space_small"
                 android:layout_centerHorizontal="true"
+                android:layout_alignRight="@id/rel_user_image"
+                android:layout_alignLeft="@id/rel_user_image"
+                android:layout_alignBottom="@id/rel_user_image"
+                android:layout_marginBottom="-5dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="مهدی شجاعیان"
+                android:text="1"
                 android:textColor="@color/white_1"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="22sp"
+                android:gravity="center_horizontal"
+                />
 
-            <!--image code-->
+            <!--user details-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/rel_user_image"
+                android:layout_marginRight="@dimen/space_normal"
+                android:layout_toRightOf="@+id/btn_like"
+                android:layout_centerVertical="true"
+                >
+                <!--user name-->
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="مهدی شجاعیان"
+                    android:textColor="@color/brown_3"
+                    android:textSize="@dimen/text_size_small" />
+
+                <!--image code-->
+                <psb.com.cview.CustomTextView
+                    android:id="@+id/text_image_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/space_normal"
+                    android:gravity="center"
+                    android:text="123"
+                    android:textColor="@color/brown_3"
+                    android:layout_below="@+id/text_user_name"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:background="@drawable/circle_white"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="2dp"
+                android:alpha="0.4"
+                android:rotation="-50"
+                />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="7dp"
+                android:background="@drawable/circle_white"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="23dp"
+                android:alpha="0.4"
+                android:rotation="-30"
+                />
+
+            <!--like-->
+            <psb.com.cview.IconButton
+                android:id="@+id/btn_like"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:background="@drawable/btn_sqr_green"
+                android:textColor="@color/white_1"
+                android:text=""
+                android:paddingBottom="5dp"
+                android:textSize="@dimen/text_size_normal" />
+
+            <!--points-->
             <psb.com.cview.CustomTextView
-                android:id="@+id/text_image_code"
+                android:id="@+id/text_user_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_like"
                 android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:text="123"
-                android:textColor="@color/white_1"
-                android:layout_below="@+id/text_user_name"
-                android:layout_toLeftOf="@id/rel_user_image"
-                android:layout_marginRight="@dimen/space_small"
+                android:textColor="@color/brown_3"
                 android:textSize="@dimen/text_size_small" />
 
         </RelativeLayout>
@@ -224,4 +206,40 @@
 
     </android.support.v7.widget.CardView>
 
-</psb.com.cview.SquareRelativeLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/card_user"
+        android:elevation="@dimen/space_normal"
+        android:layout_margin="@dimen/space_small"
+        app:cardBackgroundColor="@color/brown_1"
+        app:cardCornerRadius="10dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            >
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_outline_bgr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@color/white_1"
+                app:riv_corner_radius="10dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_outline_template"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:riv_border_color="@color/md_grey_200"
+                app:riv_border_width="0.5dp"
+                app:riv_corner_radius="10dp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

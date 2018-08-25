@@ -129,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rel_search"
-        android:layout_toLeftOf="@+id/rel_my_paints"></FrameLayout>
+        ></FrameLayout>
 
     <View
         android:layout_width="3dp"
@@ -556,6 +556,7 @@
     </RelativeLayout>
 
 
+    <!--leader board-->
     <RelativeLayout
         android:id="@+id/rel_competition"
         android:layout_width="220dp"
