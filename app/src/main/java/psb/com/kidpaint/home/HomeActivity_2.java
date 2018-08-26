@@ -983,13 +983,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
         FancyShowCaseQueue fancyShowCaseQueue = new FancyShowCaseQueue();
 
-        if (historyAdapter != null && historyAdapter.getItemCount() >= 2) {
+        /*if (historyAdapter != null && historyAdapter.getItemCount() >= 2) {
             fancyShowCaseQueue.add(fancyShowCaseView_2);
-        }
+        }*/
         fancyShowCaseQueue.setCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete() {
-                Log.d("TAG", "onComplete: ");
 
                 if (!Utils.gstoragePermissionIsGranted(HomeActivity_2.this)) {
                     showDialogStoragePermission();

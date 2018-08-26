@@ -33,6 +33,12 @@ public class PaymentHelper {
 
 
     public void init(Context context) {
+        if(true){
+            if (onSetupFinished != null) {
+                onSetupFinished.onSuccess();
+            }
+            return;
+        }
 
         this.context=context;
 
@@ -67,6 +73,14 @@ public class PaymentHelper {
     }
 
     public void buyProduct(final Activity activity,final int requestCode,final String sku){
+
+        if(true){
+            if (onPaymentFinished != null) {
+                onPaymentFinished.onSuccessPayment(sku);
+            }
+            return;
+        }
+
         if(mHelper==null){
             showErrorPayment("not setup success 1");
             return;
@@ -186,7 +200,8 @@ public class PaymentHelper {
     }
 
     public boolean isSetupFinished(){
-        return mHelper!=null;
+//        return mHelper!=null;
+        return true;
     }
 
     private void showErrorSetup(String message){

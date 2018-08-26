@@ -118,10 +118,8 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         setViewContent();
         //pCompetition.onGetMatch(0,levelId);
         if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-            Log.d(App.TAG, "onCreate mehdi: 1");
             pCompetition.onGetMyPaints();
         } else {
-            Log.d(App.TAG, "onCreate mehdi: 2");
             pCompetition.onGetLeaderBoard();
         }
         setUserInfo();
