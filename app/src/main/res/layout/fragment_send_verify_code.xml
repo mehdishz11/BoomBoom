@@ -157,6 +157,7 @@
                                 android:gravity="center"
                                 android:hint="کد دریافت شده"
                                 android:inputType="number"
+                                android:imeOptions="actionDone"
                                 android:maxLength="11"
                                 android:paddingLeft="25dp"
                                 android:textColor="@color/colorPrimaryDark"

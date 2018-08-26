@@ -128,7 +128,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
             @Override
             public void onClick(View v) {
                 startActivityForResult(
-                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", false),
+                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", true),
                         REQUEST_SELECT_IMAGE);
             }
         });
@@ -137,7 +137,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
             @Override
             public void onClick(View v) {
                 startActivityForResult(
-                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", false),
+                        new Intent(getContext(), ActivityCropImage.class).putExtra("KEY_HAS_ASPECT", true),
                         REQUEST_SELECT_IMAGE);
             }
         });

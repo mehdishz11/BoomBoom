@@ -19,7 +19,6 @@ import android.system.ErrnoException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -161,7 +160,6 @@ public class ActivityCropImage extends AppCompatActivity {
             onLoadImageClick();
         } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
             finish();
-            Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
         }
     }
 

@@ -1024,6 +1024,17 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/img_owl"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/rel_parent_competition"
+        android:layout_above="@+id/rel_parent_competition"
+        android:src="@drawable/owl"
+        android:layout_marginBottom="-15dp"
+        android:layout_marginLeft="20dp"
+        />
+
     <!--right grass-->
     <ImageView
         android:id="@+id/img_grass_7"

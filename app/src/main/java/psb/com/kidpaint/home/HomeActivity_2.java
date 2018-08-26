@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ import psb.com.kidpaint.score.ActivityScorePackage;
 import psb.com.kidpaint.user.edit.ActivityEditProfile;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
+import psb.com.kidpaint.utils.NotificationCreator;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
@@ -149,12 +151,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     private Fragment_OfferPackage fragment_offerPackage;
 
+    private ImageView imgOwl;
+    private boolean isFirstRun =true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_2);
-
+        NotificationCreator.clearNotifications(this);
 
         pHome = new PHome(this);
         userProfile = new UserProfile(this);
@@ -197,6 +202,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         iconAddCoin = findViewById(R.id.icon_add_coin);
 
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
+
+        imgOwl=findViewById(R.id.img_owl);
+
+        imgOwl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                animateOwl();
+            }
+        });
 
         splashFragment = new SplashFragment().newInstance();
 
@@ -262,6 +276,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         });
         cDialog.show();*/
     }
+
     void showExitDialog(){
         SoundHelper.playSound(R.raw.click_1);
 
@@ -548,6 +563,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         dialog.setTitle(getString(R.string.reward));
         dialog.show();
     }
+
     public void showRewardDialogResult(final int taskId) {
         String  message = "با تشکر از شما "+TaskEnum.getCoin(taskId)+"  تا سکه به شما تعلق گرفت";
         final MessageDialog dialog = new MessageDialog(getContext());
@@ -569,7 +585,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         dialog.setTitle(getString(R.string.tanks));
         dialog.show();
     }
-
 
     @Override
     protected void onPause() {
@@ -1188,7 +1203,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         imageRooster.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                SoundHelper.playSound(R.raw.rooster);
                 showRooster(true);
                 imageRooster.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
@@ -1225,8 +1239,24 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             }
         });
 
+    }
 
-//        new AnimationHelper().rotation(40000,sunGlow);
+    private void animateOwl(){
+
+                    SoundHelper.playSound(R.raw.owl);
+
+                imgOwl.setPivotX(imgOwl.getWidth()/2);
+                imgOwl.setPivotY(imgOwl.getHeight());
+
+                ObjectAnimator animRotate1 = ObjectAnimator.ofFloat(imgOwl, "rotation", 0.0f, 10,0,0,-10,0);
+
+
+                animRotate1.setInterpolator(new LinearInterpolator());
+                animRotate1.setDuration(2000);
+                animRotate1.setStartDelay(200);
+
+                animRotate1.start();
+
 
     }
 
@@ -1312,7 +1342,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     private void showRooster(final boolean hideLion) {
 
-        SoundHelper.playSound(R.raw.rooster);
+        if(isFirstRun) {
+           isFirstRun=false;
+            SoundHelper.playSound(R.raw.owl);
+        }else{
+            SoundHelper.playSound(R.raw.rooster);
+
+        }
         imageRooster.setOnClickListener(null);
         ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster, "translationY", imageRooster.getHeight(), 0.0f);
 

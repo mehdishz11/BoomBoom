@@ -1,6 +1,5 @@
 package psb.com.kidpaint.utils;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -9,9 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.nfc.cardemulation.HostApduService;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -26,14 +26,25 @@ import psb.com.kidpaint.R;
 
 public class NotificationCreator {
 
+    public static void clearNotifications(Context context){
+        NotificationManager notificationManager;
+        notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
+    }
+
     public static void showTextNotification(Context context,Intent intent,int notificationId,int smallIcon,String contentTitle,String contentText){
+
         PackageManager pm = context.getPackageManager();
         NotificationCompat.Builder notificationBuilder;
         NotificationManager notificationManager;
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationBuilder = new NotificationCompat.Builder(context, "CHANEL_ID_1")
-                .setSmallIcon(smallIcon)
+                .setSmallIcon(R.mipmap.icn_notification)
+                .setColor(ContextCompat.getColor(context,R.color.colorAccent))
+                .setColorized(true)
+                .setSound(getSoundEffectUri(context))
                 .setAutoCancel(true);
+
 
 
         if (intent!=null) {
@@ -62,7 +73,10 @@ public class NotificationCreator {
         NotificationManager notificationManager;
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationBuilder = new NotificationCompat.Builder(context, "CHANEL_ID_1")
-                .setSmallIcon(smallIcon)
+                .setSmallIcon(R.mipmap.icn_notification)
+                .setColor(ContextCompat.getColor(context,R.color.colorAccent))
+                .setColorized(true)
+                .setSound(getSoundEffectUri(context))
                 .setAutoCancel(true);
 
 
@@ -96,7 +110,11 @@ public class NotificationCreator {
         NotificationManager notificationManager;
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationBuilder = new NotificationCompat.Builder(context, "CHANEL_ID_1")
-                .setSmallIcon(smallIcon)
+
+                .setSound(getSoundEffectUri(context))
+                .setSmallIcon(R.mipmap.icn_notification)
+                .setColor(ContextCompat.getColor(context,R.color.colorAccent))
+                .setColorized(true)
                 .setAutoCancel(true);
 
 
@@ -150,7 +168,12 @@ public class NotificationCreator {
 
           NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANEL_ID_1")
                   // these are the three things a NotificationCompat.Builder object requires at a minimum
-                  .setSmallIcon(smallIcon)
+
+                  .setSmallIcon(R.mipmap.icn_notification)
+                  .setColor(ContextCompat.getColor(context,R.color.colorAccent))
+                  .setColorized(true)
+
+                  .setSound(getSoundEffectUri(context))
                   .setContentTitle(contentTitle)
                   .setContentText(contentText)
                   // notification will be dismissed when tapped
@@ -195,6 +218,10 @@ public class NotificationCreator {
                e.printStackTrace();
                return null;
           }
+     }
+
+     private static Uri getSoundEffectUri(Context context){
+         return Uri.parse("android.resource://"+context.getPackageName()+"/raw/owl_small");
      }
 
 }
