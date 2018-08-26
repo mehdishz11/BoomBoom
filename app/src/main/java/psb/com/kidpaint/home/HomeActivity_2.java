@@ -1005,11 +1005,14 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             @Override
             public void onComplete() {
 
-                if (!Utils.gstoragePermissionIsGranted(HomeActivity_2.this)) {
+                /*if (!Utils.gstoragePermissionIsGranted(HomeActivity_2.this)) {
                     showDialogStoragePermission();
-                }
+                }*/
             }
         });
+        if (!Utils.gstoragePermissionIsGranted(HomeActivity_2.this)) {
+            showDialogStoragePermission();
+        }
         fancyShowCaseQueue.show();
     }
 

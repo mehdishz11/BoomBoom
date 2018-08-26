@@ -146,11 +146,11 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         animalAnimation(position);
         //  setTabBgr(position);
         if (position == 0) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutScore, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_SCORE).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutScore, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_SCORE).commitNowAllowingStateLoss();
         } else if (position == 1) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip, matchId, levelId), TAG_FRAGMENT_LEADER_BOARD).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip, matchId, levelId), TAG_FRAGMENT_LEADER_BOARD).commitNowAllowingStateLoss();
         } else if (position == 2) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSearch, new FragmentAllPaints().newInstance(searchView.getText().toString().trim(), matchId, levelId), TAG_FRAGMENT_SEARCH).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSearch, new FragmentAllPaints().newInstance(searchView.getText().toString().trim(), matchId, levelId), TAG_FRAGMENT_SEARCH).commitNowAllowingStateLoss();
         }
     }
 

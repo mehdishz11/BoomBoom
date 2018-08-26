@@ -39,6 +39,8 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.ActivityCropImage;
 import psb.com.kidpaint.utils.CalendarTool;
 import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.ParamsRegister;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
 
@@ -101,9 +103,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mListener != null) {
-                    mListener.cancelRegister();
-                }
+                showDialogDiscardRegister();
             }
         });
 
@@ -208,6 +208,41 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
                 dialogDatePicker();
             }
         });
+    }
+
+    private void showDialogDiscardRegister() {
+        final MessageDialog dialog = new MessageDialog(getContext());
+
+        dialog.setMessage("اطلاعات شما کافی نیست. لطفا بعدا اطلاعات خود را کامل کنید");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                paramsRegister.setPhoneNumber(Utils.getStringPreference(getContext(),
+                        Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, "-1"));
+                paramsRegister.setEmail("");
+                paramsRegister.setFirstName("نام کاربر");
+                paramsRegister.setLastName("");
+
+                paramsRegister.setImageUrl(encodedImageData);
+                paramsRegister.setMale(true);
+                CalendarTool calendarTool=new CalendarTool();
+                paramsRegister.setBirthDay(paramsRegister.getBirthDay()!=null?paramsRegister.getBirthDay():calendarTool.getGregorianYear() + "-" + (calendarTool.getGregorianMonth()<10?("0"+calendarTool.getGregorianMonth()):calendarTool.getGregorianMonth()) + "-" + (calendarTool.getGregorianDay()<10?("0"+calendarTool.getGregorianDay()):calendarTool.getGregorianDay()));
+                pUserInfo.setUserInfo(paramsRegister);
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                if (mListener != null) {
+                    mListener.cancelRegister();
+                }
+            }
+        });
+        dialog.setAcceptButtonMessage("قبول");
+        dialog.setTitle("اخطار");
+
+        dialog.show();
     }
 
     private boolean validateName() {
@@ -386,7 +421,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
                         birthDay.setVisibility(View.VISIBLE);
                         CalendarTool calendarTool=new CalendarTool();
                         calendarTool.setIranianDate(year,(monthOfYear+1),dayOfMonth);
-                        paramsRegister.setBirthDay(calendarTool.getGregorianYear() + "-" + (calendarTool.getGregorianMonth()<10?("0"+calendarTool.getGregorianMonth()):calendarTool.getGregorianMonth()) + "-" + calendarTool.getGregorianDay());
+                        paramsRegister.setBirthDay(calendarTool.getGregorianYear() + "-" + (calendarTool.getGregorianMonth()<10?("0"+calendarTool.getGregorianMonth()):calendarTool.getGregorianMonth())+ "-" + (calendarTool.getGregorianDay()<10?("0"+calendarTool.getGregorianDay()):calendarTool.getGregorianDay()));
                         birthDay.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
                         selectBirthDay.setVisibility(View.GONE);
 

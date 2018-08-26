@@ -444,7 +444,7 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
                         birthDay.setVisibility(View.VISIBLE);
                         CalendarTool calendarTool=new CalendarTool();
                         calendarTool.setIranianDate(year,(monthOfYear+1),dayOfMonth);
-                        paramsRegister.setBirthDay(calendarTool.getGregorianYear() + "-" + (calendarTool.getGregorianMonth()<10?("0"+calendarTool.getGregorianMonth()):calendarTool.getGregorianMonth()) + "-" + calendarTool.getGregorianDay());
+                        paramsRegister.setBirthDay(calendarTool.getGregorianYear() + "-" + (calendarTool.getGregorianMonth()<10?("0"+calendarTool.getGregorianMonth()):calendarTool.getGregorianMonth()) + "-" + (calendarTool.getGregorianDay()<10?("0"+calendarTool.getGregorianDay()):calendarTool.getGregorianDay()));
                         birthDay.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
                         selectBirthDay.setVisibility(View.GONE);
 
