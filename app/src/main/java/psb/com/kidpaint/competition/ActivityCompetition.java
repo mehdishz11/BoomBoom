@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.allPaint.FragmentAllPaints;
 import psb.com.kidpaint.competition.leaderBoard.FragmentLeaderBoard;
@@ -117,8 +118,10 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         setViewContent();
         //pCompetition.onGetMatch(0,levelId);
         if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            Log.d(App.TAG, "onCreate mehdi: 1");
             pCompetition.onGetMyPaints();
         } else {
+            Log.d(App.TAG, "onCreate mehdi: 2");
             pCompetition.onGetLeaderBoard();
         }
         setUserInfo();
@@ -380,6 +383,8 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
 
                 matchId = mResponseGetMatch.getExtra().get(position).getId();
+
+                Log.d(App.TAG, "onItemSelected: "+matchId);
 
                 if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD) != null) {
                     ((FragmentLeaderBoard) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_LEADER_BOARD)).onGetLeaderShip(matchId, levelId);

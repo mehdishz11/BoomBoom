@@ -31,8 +31,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.helper.OnPaymentResult;
-import com.helper.PaymentHelper;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +43,6 @@ import psb.com.kidpaint.dailyPrize.DialogDailyPrize;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
 import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
-import psb.com.kidpaint.offerPackage.DialogOfferPackage;
 import psb.com.kidpaint.offerPackage.Fragment_OfferPackage;
 import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.score.ActivityScorePackage;
@@ -199,6 +196,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
         iconAddCoin = findViewById(R.id.icon_add_coin);
 
+        frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
+
         splashFragment = new SplashFragment().newInstance();
 
 
@@ -219,7 +218,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
 
         if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-            frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
 

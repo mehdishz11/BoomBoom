@@ -103,13 +103,17 @@ public class PLeaderShip implements IPLeaderShip {
         if (position==0) {
            /* holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_yellow_300));
             holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_yellow_300));*/
+           holder.imgLeaves.setVisibility(View.VISIBLE);
         }else if (position==1) {
           /*  holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_grey_300));
             holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_grey_300));*/
+            holder.imgLeaves.setVisibility(View.VISIBLE);
         }else if (position==2) {
          /*   holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.md_orange_300));
             holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.md_orange_300));*/
+            holder.imgLeaves.setVisibility(View.VISIBLE);
         }else  {
+            holder.imgLeaves.setVisibility(View.INVISIBLE);
          /*   holder.viewBackground.setBackgroundColor(getContext().getResources().getColor(R.color.brown_1));
             holder.imgPaint.setBorderColor(getContext().getResources().getColor(R.color.brown_1));*/
         }

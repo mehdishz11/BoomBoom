@@ -26,6 +26,7 @@ public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
     public RoundedImageView bgrBtnRate;
     public TextView textRate;
     public TextView text_user_points;
+    public ImageView imgLeaves;
 
 
     public ViewHolder_LeaderShip(View itemView) {
@@ -46,6 +47,7 @@ public class ViewHolder_LeaderShip extends RecyclerView.ViewHolder {
         like=itemView.findViewById(R.id.btn_like);
         textUserName=itemView.findViewById(R.id.text_user_name);
         textImageCode=itemView.findViewById(R.id.text_image_code);
+        imgLeaves=itemView.findViewById(R.id.img_leaves);
 
     }
 }
