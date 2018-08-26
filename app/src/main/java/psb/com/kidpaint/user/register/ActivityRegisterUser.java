@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 
 import psb.com.kidpaint.R;
@@ -104,6 +105,8 @@ public class ActivityRegisterUser extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
+
+        Log.d("TAG", "onCreateRegister_user: "+(userProfile!=null));
 
         IntentFilter iff = new IntentFilter(BROADCAST_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(onGotKey, iff);

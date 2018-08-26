@@ -19,8 +19,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".home.HomeActivity_2"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,12 +40,16 @@
         <activity
             android:name=".user.register.ActivityRegisterUser"
             android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
             android:theme="@style/TranslucentTheme"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".user.edit.ActivityEditProfile"
             android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
             android:theme="@style/TranslucentTheme"
             android:windowSoftInputMode="stateHidden" />
 
@@ -57,6 +62,8 @@
         <activity
             android:name=".competition.ActivityCompetition"
             android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
             android:theme="@style/ThemeFullSCreen"
             android:windowSoftInputMode="stateHidden" />
 
@@ -69,6 +76,8 @@
         <activity
             android:name=".myMessages.ActivityMyMessages"
             android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".myPrize.ActivityMyPrize" />
 
@@ -84,6 +93,8 @@
         <!--         <activity android:name=".ActivityTest"></activity> -->
         <activity android:name=".score.ActivityScorePackage"
             android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
             android:theme="@style/TranslucentTheme"
             ></activity>
     </application>
