@@ -32,4 +32,7 @@ public interface IV_Splash {
 
     void onSuccessGetMessage();
     void onFailedGetMessage(int errorCode,String errorMessage);
+
+    void onSuccessGetProfile();
+    void onFailedGetProfile(int errorCode,String errorMessage);
 }

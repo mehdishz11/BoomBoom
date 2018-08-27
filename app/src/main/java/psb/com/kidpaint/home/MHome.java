@@ -121,7 +121,9 @@ public class MHome implements IM_Home {
 
 
             for (int i = 0; files != null && i < files.length; i++) {
-                imageList.add(files[i]);
+                if (files[i].getAbsolutePath().toLowerCase().contains("jpg")) {
+                    imageList.add(files[i]);
+                }
             }
         }
         Log.d("TAG", "getMyPaintHistory: "+imageList.size());

@@ -88,7 +88,7 @@ public class FragmentScore extends Fragment  implements IVScore {
         send=view.findViewById(R.id.submit);
         progressBar=view.findViewById(R.id.progressBar);
 
-        userName.setText(mPaintModel.getUser().getFirstName()+" "+mPaintModel.getUser().getFirstName());
+        userName.setText(mPaintModel.getUser().getFirstName()+" "+mPaintModel.getUser().getLastName());
        // imageScore.setText(mPaintModel.getScore()+"");
 
         progressBar.setVisibility(View.VISIBLE);

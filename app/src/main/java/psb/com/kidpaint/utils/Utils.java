@@ -12,9 +12,13 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -215,6 +219,38 @@ public class Utils {
         }
         return true;
     }
+
+    public static boolean writeNoMediaFile( File directoryPath ) {
+        Log.d("TAG", "writeNoMediaFile: "+directoryPath);
+        String storageState = Environment.getExternalStorageState();
+
+            try
+            {
+                File noMedia = new File ( directoryPath, ".nomedia" );
+
+                if ( noMedia.exists() )
+                {
+
+                    Log.i ( "TAG", ".no media appears to exist already, returning without writing a new file" );
+                    return true;
+                }
+                noMedia.createNewFile();
+               /* FileOutputStream noMediaOutStream = new FileOutputStream ( noMedia );
+                noMediaOutStream.write ( 0 );
+                noMediaOutStream.close ( );*/
+            }
+            catch ( Exception e )
+            {
+                Log.e( "TAG", "error writing file .no media" );
+                e.printStackTrace();
+                return false;
+            }
+
+
+        return true;
+
+    }
+
 
 
 

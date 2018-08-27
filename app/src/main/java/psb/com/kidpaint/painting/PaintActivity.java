@@ -768,7 +768,8 @@ public class PaintActivity extends BaseActivity implements
             mydir.mkdirs();
         }
 
-
+        boolean no= Utils.writeNoMediaFile(mydir);
+        Log.d("TAG", "saveImage: "+no);
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String fname = "paint_" + timeStamp + ".jpg";
         File file = new File(mydir, fname);
@@ -804,6 +805,7 @@ public class PaintActivity extends BaseActivity implements
         }
         return false;
     }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Color palette view

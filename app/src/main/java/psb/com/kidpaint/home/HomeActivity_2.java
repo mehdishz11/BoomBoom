@@ -8,13 +8,16 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -89,6 +92,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     private static final int REQUEST_CODE_SCORE_PACKAGE = 122;
     private static final int REQUEST_CODE_RATE = 123;
     private static final int REQUEST_CODE_SHARE = 124;
+    private static final int REQUEST_CODE_MESSAGE = 125;
 
 
     private ResponseGetOfferPackage mResponseOfferPackage;
@@ -137,6 +141,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     private View cloud2;
     private View cloud3;
     private View sunGlow;
+    private View bunnySound;
 
     private Button btn_messages;
     private RelativeLayout rel_user_coin;
@@ -194,6 +199,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         sunGlow = findViewById(R.id.sun_glow);
 
         bunny = findViewById(R.id.bunny);
+        bunnySound = findViewById(R.id.bunnySound);
 
         relCompetition = findViewById(R.id.rel_parent_competition);
 
@@ -300,7 +306,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     }
 
     public void setInfo() {
-
+        setupUserInfo();
         pHome.getMyPaintHistory();
 
         bunny.addAnimatorListener(new AnimatorListenerAdapter() {
@@ -311,7 +317,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             }
         });
 
-        bunny.setOnClickListener(new View.OnClickListener() {
+        bunnySound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bunny.playAnimation();
@@ -320,11 +326,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         });
 
 
+
+
         btn_messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity_2.this, ActivityMyMessages.class);
-                startActivityForResult(intent, CODE_REGISTER);
+                startActivityForResult(intent, REQUEST_CODE_MESSAGE);
             }
         });
 
@@ -598,6 +606,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         ToolbarHandler.makeFullScreen(getWindow());
         MusicHelper.stopMusic();
         MusicHelper.playMusic(R.raw.bgr_happy_sunshine);
+
+        IntentFilter iff = new IntentFilter(Utils.FCM_BROADCAST_CHAT);
+        LocalBroadcastManager.getInstance(HomeActivity_2.this).registerReceiver(chatBroadcastReceiver, iff);
     }
 
     @Override
@@ -738,8 +749,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finish();
             }
-        }
-        if (requestCode == CODE_REGISTER) {
+        }else  if (requestCode == CODE_REGISTER) {
             setUnreadMessageCount();
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
@@ -747,6 +757,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finish();
+            }
+        }else  if (requestCode == REQUEST_CODE_MESSAGE) {
+            setUnreadMessageCount();
+            if (resultCode == Activity.RESULT_OK) {
+                setupUserInfo();
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
@@ -1660,6 +1677,25 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     public void onSuccessBuyOfferPackage(int totalCoin) {
         setupUserInfo();
     }
+
+
+    //======================== chat =======================
+
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(HomeActivity_2.this).unregisterReceiver(chatBroadcastReceiver);
+
+        super.onDestroy();
+    }
+    private BroadcastReceiver chatBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra("Chat")) {
+                setUnreadMessageCount();
+            }
+        }
+    };
 
 
 }

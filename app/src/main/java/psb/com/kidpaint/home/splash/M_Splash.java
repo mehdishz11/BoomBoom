@@ -34,6 +34,8 @@ import psb.com.kidpaint.webApi.prize.getDailyPrize.iGetDailyPrize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.fcmToken.iFcmToken;
+import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
+import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
 
 public class M_Splash implements IM_Splash {
 
@@ -211,5 +213,32 @@ public class M_Splash implements IM_Splash {
             }
         }).doGetChat(Utils.getDeviceId(getContext()),userProfile.get_KEY_PHONE_NUMBER(""),time );
 
+    }
+
+    @Override
+    public void getProfile() {
+        new Register().profile(new iProfile.iResult() {
+            @Override
+            public void onSuccessGetUserInfo(UserInfo userInfo) {
+              userProfile.set_KEY_USER_INFO(userInfo);
+              ipSplash.onSuccessGetProfile();
+            }
+
+            @Override
+            public void onFailedGetUserInfo(int ErrorId, String ErrorMessage) {
+                ipSplash.onFailedGetProfile(ErrorId, ErrorMessage);
+
+            }
+
+            @Override
+            public void onSuccessSetUserInfo(UserInfo userInfo) {
+
+            }
+
+            @Override
+            public void onFailedSetUserInfo(int ErrorId, String ErrorMessage) {
+
+            }
+        }).startGetUserInfo(userProfile.get_KEY_JWT("-1"),userProfile.get_KEY_PHONE_NUMBER("0"));
     }
 }

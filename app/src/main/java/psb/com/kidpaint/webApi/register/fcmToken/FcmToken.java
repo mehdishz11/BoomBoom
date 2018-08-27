@@ -46,7 +46,7 @@ public class FcmToken implements iFcmToken {
         paramsVerifyCode.setOsType(Long.valueOf(0));
         paramsVerifyCode.setOsVersion(""+ Build.VERSION.SDK_INT);
         paramsVerifyCode.setFcmToken(token);
-        paramsVerifyCode.setJwtToken("Bearer "+jwt);
+        paramsVerifyCode.setJwtToken(jwt);
 
         Call<ResponseFcmToken> call = new WebService().getClient().create(apiRequest.class).fcmToken(paramsVerifyCode);
 

@@ -137,7 +137,7 @@ public class PMessages implements IPMessages {
                         @Override
                         public void onClick(View view) {
                             Log.d("TAG", "onClick: " + chat.getUrl());
-                            if (!chat.getUrl().isEmpty()) {
+                            if (!chat.getUrl().isEmpty()&&!"null".equals(chat.getUrl())&&chat.getUrl()!=null) {
                                 ivMessages.startActionView(chat.getUrl());
                             }
                         }

@@ -1,8 +1,11 @@
 package psb.com.kidpaint.utils.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import psb.com.kidpaint.utils.Utils;
 
 
 public class Sql extends SQLiteOpenHelper {
@@ -11,7 +14,7 @@ public class Sql extends SQLiteOpenHelper {
     //------------------------------------------
 
     public Sql(Context context) {
-        super(context, dbName, null,5);
+        super(context, dbName, null,8);
     }
 
     @Override
@@ -57,6 +60,21 @@ public class Sql extends SQLiteOpenHelper {
                 "sender TEXT ," +
                 "insertTime CURRENT_TIMESTAMP)"
         );
+
+        ContentValues cv = new ContentValues();
+        cv.put("chatId", 0);
+        cv.put("messageId", 0);
+        cv.put("title", "پشتیبانی");
+        cv.put("imageUrl", "");
+        cv.put("body", "هر سوال ، نظر یا پیشنهادی که داشتی اینجا میتونی به ما بگی");
+        cv.put("type", "Chat");
+        cv.put("url", "");
+        cv.put("isRead", 0);
+        cv.put("sender", "admin");
+        cv.put("insertTime", Utils.getCurrentTime());
+        cv.put("status", "success");
+
+            db.insert("tbl_Message", null, cv);
 
     }
 

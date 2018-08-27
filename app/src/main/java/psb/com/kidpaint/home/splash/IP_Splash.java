@@ -41,4 +41,8 @@ public interface IP_Splash {
     void getMessage();
     void onSuccessGetMessage();
     void onFailedGetMessage(int errorCode,String errorMessage);
+
+    void getProfile();
+    void onSuccessGetProfile();
+    void onFailedGetProfile(int errorCode,String errorMessage);
 }

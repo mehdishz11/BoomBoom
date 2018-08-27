@@ -7,8 +7,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 4
+        versionName "0.0.4"
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

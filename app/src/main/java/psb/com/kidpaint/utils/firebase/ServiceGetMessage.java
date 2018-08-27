@@ -22,8 +22,14 @@ import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.utils.NotificationCreator;
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.database.Database;
+import psb.com.kidpaint.utils.database.TblMessage.TblMessage;
 import psb.com.kidpaint.utils.firebase.model.Push;
+import psb.com.kidpaint.webApi.chat.Chat;
+import psb.com.kidpaint.webApi.chat.Get.iGetChat;
+import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
 
 
 /**
@@ -54,6 +60,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                     if (Utils.activitymyMessageIsRunning) {
                         sendBroadCast();
                     } else {
+                        getMessageFromServer();
 
                         if (push.getUrl().isEmpty()) {
                             intent = new Intent(App.getContext(), ActivityMyMessages.class);
@@ -69,6 +76,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                     if (Utils.activitymyMessageIsRunning) {
                         sendBroadCast();
                     } else {
+                        getMessageFromServer();
 
                         if (push.getUrl().isEmpty()) {
                             intent = new Intent(App.getContext(), ActivityMyMessages.class);
@@ -84,6 +92,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                     if (Utils.activitymyMessageIsRunning) {
                         sendBroadCast();
                     } else {
+                        getMessageFromServer();
 
                         if (push.getUrl().isEmpty()) {
                             intent = new Intent(App.getContext(), ActivityMyMessages.class);
@@ -100,6 +109,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                     if (Utils.activitymyMessageIsRunning) {
                         sendBroadCast();
                     } else {
+                        getMessageFromServer();
 
 
                         if (push.getUrl().isEmpty()) {
@@ -118,6 +128,9 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                 if (Utils.activitymyMessageIsRunning) {
                     sendBroadCast();
                 } else {
+
+                    getMessageFromServer();
+
 
                     Push push = gson.fromJson(String.valueOf(result), Push.class);
                     if (push.getUrl().isEmpty()) {
@@ -150,6 +163,30 @@ public class ServiceGetMessage extends FirebaseMessagingService {
         Intent in = new Intent(Utils.FCM_BROADCAST_CHAT);
         in.putExtra("Chat", "Chat");
         LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(in);
+    }
+
+    public void getMessageFromServer() {
+        UserProfile userProfile=new UserProfile(App.getContext());
+        final String time=new Database().tblMessage(App.getContext()).getMessageLastUpdateTime();
+        new Chat().getChat(new iGetChat.iResult() {
+            @Override
+            public void onSuccessGetChat(ResponseMyMessages responseMyMessages) {
+                new Database().tblMessage(App.getContext()).insertMessageList(responseMyMessages.getExtra(), ("0".equals(time) ? true : false), new TblMessage.interFaceDB_InsertChats() {
+                    @Override
+                    public void onSuccessInsertChats(int size) {
+                       // ipMessages.onSuccessGetMessageFromServer();
+                        sendBroadCast();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailedGetChat(int errorId, String ErrorMessage) {
+               // ipMessages.onFailedGetMessageFromServer(errorId, ErrorMessage);
+
+            }
+        }).doGetChat(Utils.getDeviceId(App.getContext()),userProfile.get_KEY_PHONE_NUMBER(""),time );
+
     }
 
 

@@ -134,4 +134,20 @@ public class P_Splash implements IP_Splash {
     public void onFailedGetMessage(int errorCode, String errorMessage) {
        ivSplash.onFailedGetMessage(errorCode, errorMessage);
     }
+
+    @Override
+    public void getProfile() {
+        mSplash.getProfile();
+    }
+
+    @Override
+    public void onSuccessGetProfile() {
+         ivSplash.onSuccessGetProfile();
+    }
+
+    @Override
+    public void onFailedGetProfile(int errorCode, String errorMessage) {
+        ivSplash.onFailedGetProfile(errorCode, errorMessage);
+
+    }
 }

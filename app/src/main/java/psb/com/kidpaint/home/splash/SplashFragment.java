@@ -194,12 +194,24 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void onSuccessGetMessage() {
-        mListener.splashSuccess();
+        pSplash.getProfile();
     }
 
     @Override
     public void onFailedGetMessage(int errorCode, String errorMessage) {
+        pSplash.getProfile();
+    }
+
+    @Override
+    public void onSuccessGetProfile() {
         mListener.splashSuccess();
+
+    }
+
+    @Override
+    public void onFailedGetProfile(int errorCode, String errorMessage) {
+        mListener.splashSuccess();
+
     }
 
     public interface OnFragmentInteractionListener {

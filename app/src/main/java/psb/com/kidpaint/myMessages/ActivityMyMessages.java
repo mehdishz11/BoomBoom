@@ -21,6 +21,7 @@ import android.widget.Toast;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.myMessages.adapter.Adapter_Message;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.NotificationCreator;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
@@ -47,6 +48,8 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
+        NotificationCreator.clearNotifications(this);
+
         pMessages=new PMessages(this);
         initView();
         pMessages.getMessageFromServer(0);
@@ -207,6 +210,8 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
 
     @Override
     public void onSuccessSendMessage(int position,boolean sendToServer) {
+        emptyView.setVisibility(adapter_message.getItemCount()>0? View.GONE:View.VISIBLE);
+
         if (position!=-1) {
             recyclerView.getAdapter().notifyItemChanged(position);
         }
@@ -273,8 +278,8 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
 
     @Override
     public void startActionView(String url) {
-       Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
+       Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+        //intent.setData(Uri.parse(url));
         startActivity(intent);
     }
 
