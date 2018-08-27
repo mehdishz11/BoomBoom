@@ -42,7 +42,6 @@ import java.util.Date;
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.home.HomeActivity;
 import psb.com.kidpaint.painting.bucket.BucketCanvas;
 import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
 import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
@@ -50,7 +49,6 @@ import psb.com.kidpaint.painting.palette.color.PaintType;
 import psb.com.kidpaint.painting.palette.color.PaletteFragment;
 import psb.com.kidpaint.painting.palette.sticker.StickerFragment;
 import psb.com.kidpaint.score.ActivityScorePackage;
-import psb.com.kidpaint.score.DialogScorePackage;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
@@ -445,6 +443,9 @@ public class PaintActivity extends BaseActivity implements
     }
 
     private void saveFinalPaint(String mode) {
+
+        stickerCanvas.hideShowController(false);
+
         SaveWithWaterMark = "SaveWithWaterMark".equals(mode);
         SoundHelper.playSound(R.raw.save);
         if (Utils.gstoragePermissionIsGranted(PaintActivity.this)) {
@@ -759,8 +760,6 @@ public class PaintActivity extends BaseActivity implements
     }
 
     void saveImage(Bitmap finalBitmap) {
-
-        stickerCanvas.hideShowController(false);
 
         String folder_main = "kidPaint";
         File mydir = new File(Environment.getExternalStorageDirectory(), folder_main);
