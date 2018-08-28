@@ -1509,7 +1509,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             @Override
             public void onPosetiveClicked() {
                 dialog.cancel();
-                //  showIntroCompetition();
+                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+
             }
 
             @Override

@@ -36,6 +36,7 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".utils.ActivityCropImage"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
             android:name=".user.register.ActivityRegisterUser"

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_1"
+    android:clickable="true"
+    tools:context=".competition.myPaints.FragmentMyPaints"
+
+    >
+
+    <!--header-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/clouds" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/clouds"
+                android:scaleX="-1" />
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="3dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rel_search"
+        android:layout_alignLeft="@+id/rel_search"
+        android:background="@drawable/sign_base"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="30dp"
+        android:rotation="3"
+        />
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rel_search"
+        android:layout_alignRight="@+id/rel_search"
+        android:background="@drawable/sign_base"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:rotation="-5"
+        />
+    <!--search-->
+    <RelativeLayout
+        android:id="@+id/rel_search"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_normal"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/bgr_wood_single"
+            >
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/pallet_drop"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
+                >
+                <psb.com.cview.IconFont
+                    android:id="@+id/icon_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_small"
+                    android:text=""
+                    android:textColor="@color/brown_2"
+                    android:textSize="20dp" />
+
+                <View
+                    android:id="@+id/viewStep13_1"
+                    android:layout_width="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="40dp"/>
+
+
+                <psb.com.cview.CEditTextBold
+                    android:id="@+id/search"
+                    style="@style/SearchViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:layout_toLeftOf="@+id/icon_search"
+                    android:background="@android:color/transparent"
+                    android:hint="جست و جو بر اساس نام کودک یا کد عکس"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:paddingLeft="@dimen/space_small"
+                    android:textColor="@color/brown_3"
+                    android:textColorHint="@color/brown_2"
+                    android:textCursorDrawable="@drawable/cursor_white"
+                    android:textSize="@dimen/font_size_14"
+
+                    />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <!--login or register-->
+    <RelativeLayout
+        android:id="@+id/relUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/space_small">
+
+
+
+      
+
+        <RelativeLayout
+            android:id="@+id/rel_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true">
+
+            <psb.com.cview.CButton
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_sqr_green" />
+
+            <ImageView
+                android:id="@+id/img_back_1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:paddingBottom="2dp"
+                android:elevation="5dp"
+                android:scaleX="-1"
+                android:src="@drawable/img_icon_right_arrow" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewAllPaints"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/rel_search"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+           >
+
+        </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:layout_margin="@dimen/margin_5"
+        android:visibility="gone" />
+
+    <psb.com.cview.CustomTextViewBold
+        android:layout_width="match_parent"
+        android:id="@+id/emptyViewAllPaints"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="@dimen/margin_10"
+        android:textSize="@dimen/font_size_14"
+        android:text="نتیجه ای یافت نشد"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -171,7 +171,13 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
 
         coin_coin_1.setText(Utils.LongToCurrency(responseGetScorePackage.getExtra().get(0).getScore()) + " " + getContext().getString(R.string.coin));
 
-        String btnText=(responseGetScorePackage.getExtra().get(0).getPrice()==0?"دریافت":Utils.LongToCurrency(responseGetScorePackage.getExtra().get(0).getPrice()) + " " + getContext().getString(R.string.price_unit));
+        String btnText=getContext().getString(R.string.reward_btn);
+        if (!Utils.isAgrigator()) {
+             btnText=(responseGetScorePackage.getExtra().get(0).getPrice()==0?"دریافت":Utils.LongToCurrency(responseGetScorePackage.getExtra().get(0).getPrice()) + " " + getContext().getString(R.string.price_unit));
+        }else{
+             btnText=getContext().getString(R.string.reward_btn);
+
+        }
 
         coin_btn_1.setText(btnText);
 

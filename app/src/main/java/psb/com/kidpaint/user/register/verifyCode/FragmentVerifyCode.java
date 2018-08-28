@@ -40,7 +40,7 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
     private Button send;
 
     private TextView textPhoneNumber;
-    private ImageView iconBack;
+    private Button iconBack;
 
     private TextView textResendCode;
 

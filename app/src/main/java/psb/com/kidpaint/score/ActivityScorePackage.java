@@ -205,19 +205,27 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             coin_coin_2.setText(Utils.LongToCurrency(responseGetScorePackage.getExtra().get(1).getScore()) + " " + getContext().getString(R.string.coin));
             coin_coin_3.setText(Utils.LongToCurrency(responseGetScorePackage.getExtra().get(2).getScore()) + " " + getContext().getString(R.string.coin));
 
-            coin_btn_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + " " + getContext().getString(R.string.price_unit));
-            coin_btn_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + " " + getContext().getString(R.string.price_unit));
-            coin_btn_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + " " + getContext().getString(R.string.price_unit));
+            if (!Utils.isAgrigator()) {
+                coin_btn_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + " " + getContext().getString(R.string.price_unit));
+                coin_btn_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + " " + getContext().getString(R.string.price_unit));
+                coin_btn_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + " " + getContext().getString(R.string.price_unit));
+            }else{
+                coin_btn_1.setText(getContext().getString(R.string.reward_btn));
+                coin_btn_2.setText(getContext().getString(R.string.reward_btn));
+                coin_btn_3.setText(getContext().getString(R.string.reward_btn));
+            }
+
 
 //////////////////// discount 1 ////////////////////////////////////////
             if (responseGetScorePackage.getExtra().get(0).getDiscountPercent() > 0) {
                 int dis = (int) ((responseGetScorePackage.getExtra().get(0).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(0).getDiscountPercent());
                 int lastPrice = responseGetScorePackage.getExtra().get(0).getPrice() - dis;
 
-                coin_discount_1.setText("تخفیف\n" + (Utils.LongToCurrency(dis)) + " " + getContext().getString(R.string.price_unit));
-                coin_btn_1.setText(Utils.LongToCurrency(lastPrice) + " " + getContext().getString(R.string.price_unit));
-                relDiscount1.setVisibility(View.VISIBLE);
-
+                if (!Utils.isAgrigator()) {
+                    coin_discount_1.setText("تخفیف\n" + (Utils.LongToCurrency(dis)) + " " + getContext().getString(R.string.price_unit));
+                    coin_btn_1.setText(Utils.LongToCurrency(lastPrice) + " " + getContext().getString(R.string.price_unit));
+                    relDiscount1.setVisibility(View.VISIBLE);
+                }
 
             }
 
@@ -226,11 +234,11 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             if (responseGetScorePackage.getExtra().get(1).getDiscountPercent() > 0) {
                 int dis = (int) ((responseGetScorePackage.getExtra().get(1).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(1).getDiscountPercent());
                 int lastPrice = responseGetScorePackage.getExtra().get(1).getPrice() - dis;
-
-
-                coin_discount_2.setText("تخفیف\n" + (Utils.LongToCurrency(dis)) + " " + getContext().getString(R.string.price_unit));
-                coin_btn_2.setText(Utils.LongToCurrency(lastPrice) + " " + getContext().getString(R.string.price_unit));
-                relDiscount2.setVisibility(View.VISIBLE);
+                if (!Utils.isAgrigator()) {
+                    coin_discount_2.setText("تخفیف\n" + (Utils.LongToCurrency(dis)) + " " + getContext().getString(R.string.price_unit));
+                    coin_btn_2.setText(Utils.LongToCurrency(lastPrice) + " " + getContext().getString(R.string.price_unit));
+                    relDiscount2.setVisibility(View.VISIBLE);
+                }
 
 
             }
@@ -239,12 +247,13 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             if (responseGetScorePackage.getExtra().get(2).getDiscountPercent() > 0) {
                 int dis = (int) ((responseGetScorePackage.getExtra().get(2).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(2).getDiscountPercent());
                 int lastPrice = responseGetScorePackage.getExtra().get(2).getPrice() - dis;
+                if (!Utils.isAgrigator()) {
 
-                coin_discount_3.setText("تخفیف\n" + (Utils.LongToCurrency(dis)) + " " + getContext().getString(R.string.price_unit));
-                coin_btn_3.setText(Utils.LongToCurrency(lastPrice) + " " + getContext().getString(R.string.price_unit));
-                relDiscount3.setVisibility(View.VISIBLE);
+                    coin_discount_3.setText("تخفیف\n" + (Utils.LongToCurrency(dis)) + " " + getContext().getString(R.string.price_unit));
+                    coin_btn_3.setText(Utils.LongToCurrency(lastPrice) + " " + getContext().getString(R.string.price_unit));
+                    relDiscount3.setVisibility(View.VISIBLE);
 
-
+                }
             }
 
 
