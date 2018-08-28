@@ -237,15 +237,20 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
 
 
-        if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
 
+        if(Utils.isAgrigator()){
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
-
-
             TaskHelper.increaseNumberOfSignUps(getContext());
         }else{
-            Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
-            startActivityForResult(intent, CODE_REGISTER_First);
+            if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
+                TaskHelper.increaseNumberOfSignUps(getContext());
+
+            }else{
+                Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
+                startActivityForResult(intent, CODE_REGISTER_First);
+            }
         }
 
         setupUserInfo();
@@ -749,7 +754,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                finish();
+                if(!Utils.isAgrigator()){
+                    finish();
+                }
             }
         }else  if (requestCode == CODE_REGISTER) {
             setUnreadMessageCount();
@@ -758,7 +765,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                finish();
+                if(!Utils.isAgrigator()){
+                    finish();
+                }
             }
         }else  if (requestCode == REQUEST_CODE_MESSAGE) {
             setUnreadMessageCount();
@@ -784,11 +793,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         } else if (requestCode == CODE_PAINT_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
-
-                // TODO: 8/9/2018 adapter refresh
-
                 pHome.getMyPaintHistory();
-
                 showIntro();
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
