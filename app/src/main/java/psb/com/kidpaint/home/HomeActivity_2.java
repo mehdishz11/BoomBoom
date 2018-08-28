@@ -509,7 +509,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
             @Override
             public void newTaskForShow(int taskId, String message, int coin, Intent intent) {
-                showRewardDialog(taskId, message, intent, coin);
+                if (!Utils.isAgrigator()) {
+                    showRewardDialog(taskId, message, intent, coin);
+                }
 
             }
         });
