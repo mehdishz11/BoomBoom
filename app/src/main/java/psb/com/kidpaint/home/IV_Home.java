@@ -32,6 +32,7 @@ public interface IV_Home {
     void showDeleteDialog(int position);
 
    void onOutlineSelected(int resId);
+   void onNewPaintSelected();
 
 
     void onStartAddScore();

@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +46,7 @@ import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.dailyPrize.DialogDailyPrize;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
+import psb.com.kidpaint.home.newPaint.NewPaintFragment;
 import psb.com.kidpaint.home.splash.SplashFragment;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.offerPackage.Fragment_OfferPackage;
@@ -81,7 +83,7 @@ import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
 public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_OfferPackage.OnFragmentInteractionListener,
-        SplashFragment.OnFragmentInteractionListener {
+        SplashFragment.OnFragmentInteractionListener , NewPaintFragment.OnFragmentInteractionListener{
 
     private int REQUEST_STORAGE_PERMISSIONS = 100;
     public static int CODE_REGISTER_First = 106;
@@ -105,6 +107,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     private final String TAG_FRAGMENT_SPLASH = "TAG_FRAGMENT_SPLASH";
     private final String TAG_FRAGMENT_OFFER = "TAG_FRAGMENT_OFFER";
+    private final String TAG_FRAGMENT_NEW_PAINT = "TAG_FRAGMENT_NEW_PAINT";
 
 
     private TextView registerOrLogin, text_user_rate, text_user_Coin, unreadMessageCount;
@@ -635,6 +638,27 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         Intent intent = new Intent(HomeActivity_2.this, PaintActivity.class);
         intent.putExtra(PaintActivity.KEY_RESOURCE_OUTLINE, resId);
         startActivityForResult(intent, CODE_PAINT_ACTIVITY);
+
+        if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT) != null) {
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT)).commit();
+            frameLayoutSplash.setVisibility(View.GONE);
+
+        }
+    }
+
+    @Override
+    public void onNewPaintSelected() {
+
+        frameLayoutSplash.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, new NewPaintFragment(), TAG_FRAGMENT_NEW_PAINT).commitNowAllowingStateLoss();
+
+
+
+    }
+
+    @Override
+    public void onFragmentAttached(Fragment fragment) {
+
     }
 
     @Override
@@ -1473,6 +1497,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_OFFER)).commit();
             frameLayoutSplash.setVisibility(View.GONE);
             fragment_offerPackage=null;
+
+        } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT) != null) {
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT)).commit();
+            frameLayoutSplash.setVisibility(View.GONE);
 
         }  else {
             showExitDialog();

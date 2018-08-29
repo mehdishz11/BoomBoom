@@ -428,6 +428,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     }
 
     @Override
+    public void onNewPaintSelected() {
+
+    }
+
+    @Override
     public void onStartAddScore() {
 
     }

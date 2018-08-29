@@ -83,6 +83,8 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
 
         return view;
     }
+
+
     private void init() {
 
 

@@ -2,15 +2,148 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@color/color_black_trans"
+    android:layoutDirection="ltr">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_outlines"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/margin_25"
 
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/img_bgr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/bottom_holder"
+            android:layout_alignLeft="@+id/rel_content"
+            android:layout_alignRight="@+id/rel_content"
+            android:layout_below="@+id/rel_title"
+            android:layout_marginTop="-26.5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_dialog_bgr_pich" />
+
+        <!--header-->
+        <RelativeLayout
+            android:id="@+id/rel_title"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/img_handle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/handle" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_title_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/space_small"
+                    android:scaleX="1.0"
+                    android:scaleY="1.1"
+                    android:text="@string/new_paint"
+                    android:textColor="#7ca331"
+                    android:textSize="16sp" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_title_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/space_small"
+                    android:text="@string/new_paint"
+                    android:textColor="@color/white_1"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <!--content-->
+        <RelativeLayout
+            android:id="@+id/rel_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-25dp"
+            android:visibility="visible">
+
+            <!--content parent-->
+            <RelativeLayout
+                android:id="@+id/rel_content_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:minWidth="350dp">
+
+                <!--message-->
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:textSize="@dimen/font_size_14" />
+
+                <!--content-->
+                <LinearLayout
+                    android:id="@+id/lnr_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/message"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:visibility="visible">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_outlines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <!--bottom holder-->
+        <View
+            android:id="@+id/bottom_holder"
+            android:layout_width="10dp"
+            android:layout_height="@dimen/space_normal"
+            android:layout_below="@+id/rel_content" />
+
+
+        <!--close-->
+        <ImageView
+            android:id="@+id/img_btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignRight="@+id/rel_content"
+            android:layout_alignTop="@+id/rel_content"
+            android:layout_marginTop="-20dp"
+            android:src="@drawable/btn_close" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

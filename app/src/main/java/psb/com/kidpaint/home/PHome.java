@@ -112,7 +112,7 @@ public class PHome implements IP_Home {
             holder.relParent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iv_home.onOutlineSelected(R.drawable.small_picture_0);
+                    iv_home.onNewPaintSelected();
                 }
             });
             Picasso.get().invalidate("gfgfg");
