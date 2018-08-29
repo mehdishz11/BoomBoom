@@ -158,6 +158,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     private ImageView imgOwl;
     private boolean isFirstRun =true;
+    private int REQUEST_COMPATITIPN=25;
+    private int REQUEST_SHOP=26;
 
 
     @Override
@@ -360,7 +362,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                showDialogPackage();
+                if(isRegistered()){
+                    showDialogPackage();
+                }else{
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
+                }
             }
         });
 
@@ -369,7 +375,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                showDialogPackage();
+                if(isRegistered()){
+                    showDialogPackage();
+                }else{
+                    showRegisterDialog(getString(R.string.msg_login_for_store),REQUEST_SHOP);
+                }
 
 
             }
@@ -379,8 +389,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                showDialogPackage();
-
+                if(isRegistered()){
+                    showDialogPackage();
+                }else{
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
+                }
 
             }
         });
@@ -431,7 +444,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             showDialogDailyPrize();
         }
     }
-
 
     public void showDialogDailyPrize() {
         if (mResponseGetDailyPrize != null && mResponseGetDailyPrize.getExtra().size() > 0) {
@@ -818,6 +830,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
             showRewardDialogResult(1);
 
+        }else if (requestCode == REQUEST_COMPATITIPN && resultCode==Activity.RESULT_OK) {
+            startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+        }else if (requestCode == REQUEST_SHOP && resultCode==Activity.RESULT_OK) {
+            showDialogPackage();
         }
     }
 
@@ -902,19 +918,26 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         img_podium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+                if(!isRegistered()){
+                    showRegisterDialog(getString(R.string.msg_login_for_compatition),REQUEST_COMPATITIPN);
+                }else{
+                    startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+                }
             }
         });
 
         relMosabeghat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+                if(!isRegistered()){
+                    showRegisterDialog(getString(R.string.msg_login_for_compatition),REQUEST_COMPATITIPN);
+                }else{
+                    startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
+                }
             }
         });
 
 
-        Log.d("ttag", "setupUserInfo: " + userProfile.get_KEY_SCORE(0));
         text_user_Coin.setText(userProfile.get_KEY_SCORE(0) + " سکه");
 
 
@@ -1003,6 +1026,27 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
                 exitProfileDialog();
             }
         });*/
+    }
+
+    private void showRegisterDialog(String message, final int requestCode){
+        MessageDialog dialog=new MessageDialog(this);
+        dialog.setTitle(getString(R.string.register_login));
+        dialog.setMessage(message);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                if(requestCode!=-1){
+                    startActivityForResult(new Intent(HomeActivity_2.this, ActivityRegisterUser.class), requestCode);
+                }
+            }
+
+            @Override
+            public void onNegativeClicked() {
+
+            }
+        });
+
+        dialog.show();
     }
 
     void setUnreadMessageCount() {
@@ -1138,7 +1182,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     private boolean isRegistered() {
         UserProfile userProfile = new UserProfile(this);
-        Log.d("isRegistered", "isRegistered: " + userProfile.get_KEY_PHONE_NUMBER("-1"));
         if (!userProfile.get_KEY_PHONE_NUMBER("").equals("")) {
             return true;
         } else {
@@ -1580,7 +1623,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         dialog.setTitle(getString(R.string.register_login));
         dialog.show();
     }
-
 
     @Override
     public void showDeleteDialog(final int position) {
