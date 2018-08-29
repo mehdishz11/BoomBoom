@@ -42,6 +42,7 @@ import java.util.Date;
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.home.HomeActivity_2;
 import psb.com.kidpaint.painting.bucket.BucketCanvas;
 import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
 import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
@@ -88,6 +89,8 @@ public class PaintActivity extends BaseActivity implements
     private static final int REQUEST_CODE_REGISTER_STICKER = 120;
     private static final int REQUEST_CODE_REGISTER_BTN_SAVE = 121;
     private static final int REQUEST_CODE_SCORE_PACKAGE = 122;
+    private int REQUEST_SHOP=26;
+
 
     private static final String FRAGMENT_PALETTE = "FRAGMENT_PALETTE";
     private boolean isAnimating;
@@ -244,7 +247,13 @@ public class PaintActivity extends BaseActivity implements
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
-                showDialogPackage("", "Continue");
+
+                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
+
+                }else {
+                    showDialogPackage("", "Continue");
+                }
 
             }
         });
@@ -255,8 +264,12 @@ public class PaintActivity extends BaseActivity implements
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                showDialogPackage("", "Continue");
+                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
 
+                }else {
+                    showDialogPackage("", "Continue");
+                }
 
             }
         });
@@ -1097,7 +1110,34 @@ public class PaintActivity extends BaseActivity implements
 
             }
 
+        }else if (requestCode == REQUEST_SHOP && resultCode==Activity.RESULT_OK) {
+            Intent intent = new Intent();
+            setResult(Activity.RESULT_OK, intent);
+            localCoinCount = userProfile.get_KEY_SCORE(0) - localUsedCoinCount;
+            coinCount.setText(localCoinCount + "");
+            showDialogPackage("", "Continue");
         }
+    }
+
+    private void showRegisterDialog(String message, final int requestCode){
+        MessageDialog dialog=new MessageDialog(this);
+        dialog.setTitle(getString(R.string.register_login));
+        dialog.setMessage(message);
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                if(requestCode!=-1){
+                    startActivityForResult(new Intent(PaintActivity.this, ActivityRegisterUser.class), requestCode);
+                }
+            }
+
+            @Override
+            public void onNegativeClicked() {
+
+            }
+        });
+        dialog.setAcceptButtonMessage(getString(R.string.accept));
+        dialog.show();
     }
 
 }

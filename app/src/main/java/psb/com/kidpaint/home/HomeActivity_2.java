@@ -1069,7 +1069,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
             }
         });
-
+        dialog.setAcceptButtonMessage(getString(R.string.accept));
         dialog.show();
     }
 
