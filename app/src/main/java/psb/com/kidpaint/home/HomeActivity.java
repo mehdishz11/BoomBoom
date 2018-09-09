@@ -448,6 +448,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     }
 
     @Override
+    public void onSuccessDelete(int position) {
+
+    }
+
+    @Override
     public void onFragmentAttached(Fragment fragment) {
         if (fragment instanceof NewPaintFragment) {
 

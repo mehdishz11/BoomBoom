@@ -165,7 +165,7 @@ public class MHome implements IM_Home {
             file.delete();
         }
 
-        ip_home.onGetMyPaintHistorySuccess();
+        ip_home.onSuccessDelete(position);
 
 
     }

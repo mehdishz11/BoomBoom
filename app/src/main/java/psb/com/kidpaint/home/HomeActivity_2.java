@@ -677,6 +677,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     }
 
     @Override
+    public void onSuccessDelete(int position) {
+        recyclerView.getAdapter().notifyItemRemoved(position);
+        recyclerView.getAdapter().notifyItemRangeChanged(position, historyAdapter.getItemCount());
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -855,8 +861,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             showRewardDialogResult(1);
 
         }else if (requestCode == REQUEST_COMPATITIPN && resultCode==Activity.RESULT_OK) {
+            setupUserInfo();
+
             startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
         }else if (requestCode == REQUEST_SHOP && resultCode==Activity.RESULT_OK) {
+            setupUserInfo();
+
             showDialogPackage();
         }
     }

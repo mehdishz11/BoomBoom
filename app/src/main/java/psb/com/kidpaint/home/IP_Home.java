@@ -48,4 +48,7 @@ public interface IP_Home {
     void onSuccessAddScore(ResponseAddScore responseAddScore);
     void onFailedAddScore(int errorCode,String errorMessage);
 
+    void onSuccessDelete(int position);
+
+
 }

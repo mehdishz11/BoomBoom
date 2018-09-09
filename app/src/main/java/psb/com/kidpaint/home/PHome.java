@@ -224,4 +224,9 @@ public class PHome implements IP_Home {
     public void onFailedAddScore(int errorCode, String errorMessage) {
         iv_home.onFailedAddScore(errorCode, errorMessage);
     }
+
+    @Override
+    public void onSuccessDelete(int position) {
+        iv_home.onSuccessDelete(position);
+    }
 }
