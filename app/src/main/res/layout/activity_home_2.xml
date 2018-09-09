@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_1"
-    android:layoutDirection="ltr"
-
-    android:clickable="true">
+    android:clickable="true"
+    android:layoutDirection="ltr">
 
 
     <!--header-->
@@ -40,25 +39,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="100">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="25"
-                />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="25" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="55"
             android:layout_gravity="center_horizontal"
-            >
+            android:layout_weight="55">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:paddingRight="190dp"
+                android:layout_centerHorizontal="true"
                 android:clipToPadding="false"
-                >
+                android:paddingRight="190dp">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -72,8 +71,8 @@
 
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_marginLeft="40dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
                     android:layout_weight="1">
 
                     <psb.com.cview.SquareRelativeLayout
@@ -94,9 +93,6 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -191,16 +187,16 @@
         <!--settings-->
         <ImageView
             android:id="@+id/btn_settings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/btn_size_sqr"
+            android:layout_height="@dimen/btn_size_sqr"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/btn_settings" />
 
         <psb.com.cview.IconButton
             android:id="@+id/btn_messages"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/btn_size_sqr"
+            android:layout_height="@dimen/btn_size_sqr"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_small"
             android:layout_toRightOf="@+id/btn_settings"
@@ -217,19 +213,21 @@
             android:layout_marginLeft="-20dp"
             android:layout_toRightOf="@+id/btn_messages"
             android:background="@drawable/circle_red"
-            android:elevation="20dp"
-
+            android:minWidth="20dp"
+            android:minHeight="20dp"
+            android:gravity="center"
+            android:elevation="2dp"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:text="0"
             android:textColor="@color/White"
-            android:textSize="@dimen/font_size_10"
+            android:textSize="@dimen/text_size_small"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/btn_shop"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/btn_size_sqr"
+            android:layout_height="@dimen/btn_size_sqr"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_small"
             android:layout_toRightOf="@+id/btn_messages"
@@ -250,8 +248,8 @@
 
             <RelativeLayout
                 android:id="@+id/rel_user_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="@dimen/img_sqr_medium"
+                android:layout_height="@dimen/img_sqr_medium"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_register_text">
@@ -263,7 +261,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_oval="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -288,7 +286,7 @@
                     android:paddingTop="5dp"
                     android:text="ثبت نام | ورود"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <View
                     android:layout_width="12dp"
@@ -323,12 +321,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_oval="true"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_user_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
@@ -336,20 +334,21 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_oval="true" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/act_user_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
                 android:layout_alignTop="@+id/rel_user_image"
                 android:padding="4dp"
+                android:layout_margin="1dp"
                 android:src="@drawable/user_empty_gray"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_oval="true" />
 
         </RelativeLayout>
 
@@ -358,13 +357,13 @@
             android:id="@+id/rel_user_coin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/space_too_large"
             android:layout_toLeftOf="@+id/rel_user_register">
 
             <RelativeLayout
                 android:id="@+id/rel_coin_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="@dimen/img_sqr_medium"
+                android:layout_height="@dimen/img_sqr_medium"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_coin_text">
@@ -376,7 +375,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_oval="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -384,8 +383,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingRight="20dp"
-                android:background="@drawable/bgr_top_round">
+                android:background="@drawable/bgr_top_round"
+                android:paddingRight="20dp">
 
                 <psb.com.cview.IconFont
                     android:id="@+id/icon_add_coin"
@@ -393,10 +392,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/brown_5"
-                    android:textSize="20dp"
                     android:text=""
-                    />
+                    android:textColor="@color/brown_5"
+                    android:textSize="20dp" />
 
                 <psb.com.cview.CustomTextViewBold
                     android:id="@+id/text_userCoin"
@@ -404,16 +402,16 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/icon_add_coin"
-                    android:paddingLeft="5dp"
                     android:clickable="true"
                     android:ellipsize="end"
                     android:gravity="center_vertical|left"
                     android:maxLines="1"
                     android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
                     android:paddingTop="5dp"
                     android:text="۱۵۰۰ سکه"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <View
                     android:layout_width="12dp"
@@ -448,12 +446,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_oval="true" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_coin_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_alignLeft="@+id/rel_coin_image"
                 android:layout_alignRight="@+id/rel_coin_image"
@@ -461,19 +459,19 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_oval="true" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/act_coin_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_alignLeft="@+id/rel_coin_image"
                 android:layout_alignRight="@+id/rel_coin_image"
                 android:layout_alignTop="@+id/rel_coin_image"
                 android:padding="10dp"
                 android:src="@drawable/icon_coin"
-                android:tint="@color/light_level_0" />
+                android:tint="@color/light_level_0"/>
 
         </RelativeLayout>
 
@@ -483,13 +481,13 @@
             android:id="@+id/rel_user_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/space_too_large"
             android:layout_toLeftOf="@+id/rel_user_coin">
 
             <RelativeLayout
                 android:id="@+id/rel_rank_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="@dimen/img_sqr_medium"
+                android:layout_height="@dimen/img_sqr_medium"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_rank_text">
@@ -501,7 +499,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_oval="true"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -527,7 +525,7 @@
                     android:paddingTop="5dp"
                     android:text="رتبه کلی"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <View
                     android:layout_width="12dp"
@@ -562,12 +560,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_oval="true"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_rank_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/img_sqr_medium"
+                android:layout_height="@dimen/img_sqr_medium"
                 android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_alignLeft="@+id/rel_rank_image"
                 android:layout_alignRight="@+id/rel_rank_image"
@@ -575,12 +573,12 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_oval="true"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/act_rank_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/img_sqr_medium"
+                android:layout_height="@dimen/img_sqr_medium"
                 android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_alignLeft="@+id/rel_rank_image"
                 android:layout_alignRight="@+id/rel_rank_image"
@@ -596,19 +594,18 @@
     <!--exit-->
     <psb.com.cview.IconButton
         android:id="@+id/btn_exit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/btn_size_sqr"
+        android:layout_height="@dimen/btn_size_sqr"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/space_small"
         android:layout_below="@+id/relUser"
+        android:layout_marginLeft="@dimen/space_small"
         android:layout_marginTop="-10dp"
         android:background="@drawable/btn_sqr_green"
-        android:textColor="@color/white_1"
-        android:textSize="18dp"
         android:paddingBottom="2dp"
         android:paddingRight="3dp"
         android:text=""
-        />
+        android:textColor="@color/white_1"
+        android:textSize="18dp" />
 
     <!--footer-->
     <RelativeLayout
@@ -746,6 +743,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitCenter"
+                android:scaleX="-1"
                 android:src="@drawable/chicken" />
 
         </RelativeLayout>
@@ -760,8 +758,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-10dp"
-        android:clickable="true"
         android:layout_marginRight="-30dp"
+        android:clickable="true"
         android:rotation="10">
         <!--base-->
         <ImageView
@@ -964,16 +962,9 @@
                                 android:rotation="-40"
                                 android:src="@drawable/crown" />
                         </RelativeLayout>
-
-
                     </RelativeLayout>
-
                 </RelativeLayout>
-
-
             </RelativeLayout>
-
-
         </RelativeLayout>
 
         <!--start-->
@@ -1028,12 +1019,11 @@
         android:id="@+id/img_owl"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignLeft="@+id/rel_parent_competition"
         android:layout_above="@+id/rel_parent_competition"
-        android:src="@drawable/owl"
+        android:layout_alignLeft="@+id/rel_parent_competition"
         android:layout_marginBottom="-15dp"
         android:layout_marginLeft="20dp"
-        />
+        android:src="@drawable/owl" />
 
     <!--right grass-->
     <ImageView
@@ -1080,16 +1070,16 @@
     <View
         android:id="@+id/ViewCenter"
         android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_height="10dp"/>
+        android:layout_centerHorizontal="true" />
 
     <View
         android:id="@+id/bunnySound"
         android:layout_width="80dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_height="60dp"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 

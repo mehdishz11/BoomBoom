@@ -2,7 +2,6 @@ package psb.com.kidpaint.competition.score;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,19 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class FragmentScore extends Fragment  implements IVScore {
@@ -78,12 +74,11 @@ public class FragmentScore extends Fragment  implements IVScore {
 
 
     void initView(){
-        Log.d("TAG", "initView: "+new Gson().toJson(mPaintModel));
-        userImage=view.findViewById(R.id.img_user_bgr);
+        userImage=view.findViewById(R.id.userImage);
         back=view.findViewById(R.id.btn_back);
-        Log.d("TAG", "initView: "+(back==null));
         userName=view.findViewById(R.id.text_user_name);
-       // imageScore=view.findViewById(R.id.imageScore);
+
+
         paintImage=view.findViewById(R.id.img_outline_bgr);
         send=view.findViewById(R.id.submit);
         progressBar=view.findViewById(R.id.progressBar);
@@ -95,8 +90,6 @@ public class FragmentScore extends Fragment  implements IVScore {
 
         Picasso.get()
                 .load(mPaintModel.getUrl())
-                .resize(Value.dp(400),Value.dp(400))
-                .onlyScaleDown()
                 .into(paintImage, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -129,7 +122,7 @@ public class FragmentScore extends Fragment  implements IVScore {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "onClick: ");
+                SoundHelper.playSound(R.raw.click_1);
                 mListener.onBackPressed();
             }
         });
@@ -138,6 +131,7 @@ public class FragmentScore extends Fragment  implements IVScore {
             @Override
             public void onClick(View view) {
                // mListener.onBackPressed();
+                SoundHelper.playSound(R.raw.click_1);
                 pScore.onSendScore(mPaintModel.getId());
             }
         });

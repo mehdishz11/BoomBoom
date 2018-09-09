@@ -2,15 +2,11 @@ package psb.com.kidpaint.competition.myPaints;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +22,11 @@ import com.squareup.picasso.Picasso;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.competition.myPaints.adapter.Adapter_MyPaints;
-import psb.com.kidpaint.user.register.ActivityRegisterUser;
-import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
-import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
-import psb.com.kidpaint.utils.customView.intro.Intro;
-import psb.com.kidpaint.utils.customView.intro.IntroPosition;
-import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
-import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
-import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
@@ -137,6 +125,7 @@ public class FragmentMyPaints extends Fragment implements IVMyPaints {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
                 if (mListener!=null) {
                     mListener.onBackPressed();
                 }

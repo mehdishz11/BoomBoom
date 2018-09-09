@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.newPaint.adapter.OutlineAdapter;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
@@ -52,11 +49,12 @@ public class NewPaintFragment extends Fragment {
             }
         });
 
-        AnimationAdapter animationAdapter=new SlideInBottomAnimationAdapter(adapter);
+        /*AnimationAdapter animationAdapter=new SlideInBottomAnimationAdapter(adapter);
         animationAdapter.setDuration(300);
         animationAdapter.setFirstOnly(false);
+        recyclerOutlines.setAdapter(animationAdapter);*/
 
-        recyclerOutlines.setAdapter(animationAdapter);
+        recyclerOutlines.setAdapter(adapter);
 
         if (listener != null) {
             listener.onFragmentAttached(this);

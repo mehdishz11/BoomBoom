@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<psb.com.cview.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rel_parent"
+    android:layout_width="350dp"
+    android:layout_height="350dp"
+    android:background="@drawable/bgr_white_1"
+    android:alpha="0.95"
+    >
+        <ImageView
+            android:id="@+id/img_outline_template"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="45dp"
+            android:src="@drawable/small_picture_1"
+            android:layout_centerInParent="true"
+            />
+        <ImageView
+            android:id="@+id/img_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/mask_bgr_white_1"
+            />
+</psb.com.cview.SquareRelativeLayout>

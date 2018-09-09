@@ -12,7 +12,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:paddingRight="250dp"
             android:paddingTop="@dimen/space_normal"
             android:paddingBottom="@dimen/space_normal"
@@ -26,7 +27,7 @@
     <psb.com.cview.CustomTextViewBold
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_10"
         android:gravity="center"
         android:layout_centerInParent="true"

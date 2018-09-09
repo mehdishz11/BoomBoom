@@ -5,13 +5,11 @@
     android:background="@color/color_black_trans"
     android:layoutDirection="ltr">
 
-
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_margin="@dimen/margin_25"
-
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/margin_select_paint">
 
         <ImageView
             android:id="@+id/img_bgr"
@@ -88,29 +86,14 @@
                 android:layout_centerHorizontal="true"
                 android:minWidth="350dp">
 
-                <!--message-->
-                <psb.com.cview.CustomTextViewBold
-                    android:id="@+id/message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:textSize="@dimen/font_size_14" />
-
                 <!--content-->
                 <LinearLayout
                     android:id="@+id/lnr_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/message"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/space_small"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    android:layout_marginTop="@dimen/space_too_large"
+                    android:padding="@dimen/space_large"
                     android:visibility="visible">
 
                     <android.support.v7.widget.RecyclerView
@@ -131,7 +114,6 @@
             android:layout_width="10dp"
             android:layout_height="@dimen/space_normal"
             android:layout_below="@+id/rel_content" />
-
 
         <!--close-->
         <ImageView

@@ -166,14 +166,13 @@
             android:id="@+id/rel_user_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
+            android:layout_alignParentRight="true">
 
 
             <RelativeLayout
                 android:id="@+id/rel_user_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="@dimen/img_sqr_medium"
+                android:layout_height="@dimen/img_sqr_medium"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="-20dp"
                 android:layout_toRightOf="@+id/rel_register_text">
@@ -185,7 +184,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_corner_radius="26dp" />
+                    app:riv_oval="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -210,7 +209,7 @@
                     android:paddingTop="5dp"
                     android:text="ثبت نام | ورود"
                     android:textColor="@color/brown_5"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/text_size_small" />
 
                 <View
                     android:layout_width="12dp"
@@ -245,12 +244,12 @@
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_corner_radius="26dp" />
+                app:riv_oval="true"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_user_bgr2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
@@ -258,23 +257,25 @@
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_oval="true" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/userImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
                 android:layout_alignRight="@+id/rel_user_image"
                 android:layout_alignTop="@+id/rel_user_image"
                 android:padding="4dp"
+                android:layout_margin="1dp"
                 android:src="@drawable/user_empty_gray"
                 android:tint="@color/light_level_0"
-                app:riv_corner_radius="40dp" />
+                app:riv_oval="true" />
 
         </RelativeLayout>
 
+        <!--back-->
         <RelativeLayout
             android:id="@+id/rel_back"
             android:layout_width="40dp"
@@ -300,7 +301,7 @@
 
         </RelativeLayout>
 
-        <!--back-->
+
 
 
     </RelativeLayout>
@@ -554,7 +555,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
 
     <!--leader board-->
     <RelativeLayout

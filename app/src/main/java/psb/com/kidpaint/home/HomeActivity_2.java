@@ -956,6 +956,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
                 if(!isRegistered()){
                     showRegisterDialog(getString(R.string.msg_login_for_compatition),REQUEST_COMPATITIPN);
                 }else{
+                    SoundHelper.playSound(R.raw.click_1);
                     startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
                 }
             }

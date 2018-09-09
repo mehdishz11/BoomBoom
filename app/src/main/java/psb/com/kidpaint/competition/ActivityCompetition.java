@@ -50,6 +50,7 @@ import psb.com.kidpaint.utils.customView.intro.IntroPosition;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.match.Get.model.ResponseGetMatch;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
@@ -148,6 +149,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         if (position == 0) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutScore, new FragmentMyPaints().newInstance(mResponseGetMyPaints), TAG_FRAGMENT_SCORE).commitNowAllowingStateLoss();
         } else if (position == 1) {
+            SoundHelper.playSound(R.raw.audience);
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentLeaderBoard().newInstance(mResponseGetLeaderShip, matchId, levelId), TAG_FRAGMENT_LEADER_BOARD).commitNowAllowingStateLoss();
         } else if (position == 2) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSearch, new FragmentAllPaints().newInstance(searchView.getText().toString().trim(), matchId, levelId), TAG_FRAGMENT_SEARCH).commitNowAllowingStateLoss();
@@ -259,6 +261,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 onBackPressed();
             }
         });
@@ -270,6 +273,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         rel_my_paints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
                 if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
                     frameLayoutScore.setVisibility(View.VISIBLE);
                     setFragment(0);
@@ -482,8 +486,6 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     public void onSuccessGetAllPaints(ResponseGetAllPaints responseGetAllPaints) {
         mResponseGetAllPaints = responseGetAllPaints;
         pCompetition.onGetLeaderBoard();
-
-
     }
 
     @Override
@@ -533,6 +535,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     public void onSelectPaint(LeaderModel paintModel) {
         frameLayoutScore.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutScore, new FragmentScore().newInstance(paintModel), TAG_FRAGMENT_SCORE).commit();
+        SoundHelper.playSound(R.raw.click_1);
 
     }
 
@@ -565,6 +568,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
             frameLayoutSearch.setVisibility(View.GONE);
 
         } else {
+            SoundHelper.playSound(R.raw.click_1);
             super.onBackPressed();
         }
     }

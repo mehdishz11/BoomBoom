@@ -9,9 +9,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
+import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.myPaints.adapter.ViewHolder_MyPaints;
 import psb.com.kidpaint.utils.Value;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.MyPaint;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
@@ -60,8 +61,6 @@ public class PMyPaints implements IPMyPaints {
 
                     @Override
                     public void onError(Exception e) {
-
-                        Log.d("TAG", "onError: ");
                         e.printStackTrace();
                     }
                 });
@@ -69,6 +68,7 @@ public class PMyPaints implements IPMyPaints {
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
                 PaintModel paintModel=myPaint;
                 paintModel.setUser(mPaints.getUser());
                 ivMyPaints.onSelectPaint(paintModel);
@@ -78,6 +78,8 @@ public class PMyPaints implements IPMyPaints {
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SoundHelper.playSound(R.raw.click_1);
                 ivMyPaints.showDialogDelete(position);
             }
         });

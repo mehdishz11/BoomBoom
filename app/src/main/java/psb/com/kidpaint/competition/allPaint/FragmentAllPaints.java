@@ -5,9 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +16,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,28 +31,15 @@ import com.squareup.picasso.Picasso;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.competition.allPaint.adapter.Adapter_AllPaints;
-import psb.com.kidpaint.painting.PaintActivity;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.EndlessRecyclerViewScrollListener;
-import psb.com.kidpaint.utils.GridLayoutManager_EndlessRecyclerOnScrollListener;
-import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
-import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
-import psb.com.kidpaint.utils.customView.intro.Intro;
-import psb.com.kidpaint.utils.customView.intro.IntroPosition;
-import psb.com.kidpaint.utils.customView.intro.showCase.DismissListener;
-import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
-import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
-import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
-import psb.com.kidpaint.utils.customView.intro.showCase.OnShowListener;
-import psb.com.kidpaint.utils.customView.intro.showCase.OnViewInflateListener;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 public class FragmentAllPaints extends Fragment implements IVAllPaints {
@@ -148,6 +131,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
             text_user_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    SoundHelper.playSound(R.raw.click_1);
                     Intent intent = new Intent(getContext(), ActivityRegisterUser.class);
                     startActivityForResult(intent, REQUEST_CODE_REGISTER);
                 }
@@ -184,6 +168,8 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SoundHelper.playSound(R.raw.click_1);
                 if (mListener!=null) {
                     mListener.onBackPressed();
                 }
@@ -448,6 +434,7 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
 
     @Override
     public void onStartSendScore() {
+        SoundHelper.playSound(R.raw.click_1);
         progressDialog.show();
     }
 
