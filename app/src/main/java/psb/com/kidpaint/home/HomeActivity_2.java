@@ -1456,10 +1456,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         }
         imageRooster.setOnClickListener(null);
         ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster, "translationY", imageRooster.getHeight(), 0.0f);
-
-
         animMove.setDuration(300); // miliseconds
-
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animMove);
 

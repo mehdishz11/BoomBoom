@@ -409,6 +409,7 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
 
     @Override
     public void onSuccessPayment(String sku) {
+        Log.d("TAG", "onSuccessPayment: "+sku);
         pScorePackage.doBuyScorePackage(buyPackagePosition);
     }
 
