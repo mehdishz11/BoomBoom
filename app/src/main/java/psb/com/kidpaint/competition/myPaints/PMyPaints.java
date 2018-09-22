@@ -1,7 +1,6 @@
 package psb.com.kidpaint.competition.myPaints;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.squareup.picasso.Callback;
@@ -48,10 +47,13 @@ public class PMyPaints implements IPMyPaints {
         }else{
             holder.parentView.setRotation(-new Random().nextInt(4));
         }
+
+        int valueInPixels = (int) getContext().getResources().getDimension(R.dimen.size_my_paint);
+
         Picasso
                 .get()
                 .load(myPaint.getUrl())
-                .resize(Value.dp(120),0)
+                .resize(Value.dp(valueInPixels),0)
                 .onlyScaleDown()
                 .into(holder.imgOutline, new Callback() {
                     @Override
@@ -61,6 +63,7 @@ public class PMyPaints implements IPMyPaints {
 
                     @Override
                     public void onError(Exception e) {
+
                         e.printStackTrace();
                     }
                 });

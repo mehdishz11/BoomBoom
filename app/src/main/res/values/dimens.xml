@@ -42,5 +42,7 @@
     <dimen name="btn_size_sqr">40dp</dimen>
     <dimen name="img_sqr_medium">52dp</dimen>
     <dimen name="margin_select_paint">25dp</dimen>
+    <dimen name="size_my_paint">200dp</dimen>
+
 
 </resources>

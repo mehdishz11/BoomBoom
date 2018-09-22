@@ -41,7 +41,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="btn_size_sqr">60dp</dimen>
     <dimen name="img_sqr_medium">62dp</dimen>
-
+    <dimen name="size_my_paint">400dp</dimen>
 
 
 </resources>
