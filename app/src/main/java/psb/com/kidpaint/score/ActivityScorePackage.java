@@ -97,6 +97,8 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
         dialogMode = getIntent().getStringExtra("dialogMode");
         showBtnDiscardBuy = getIntent().getBooleanExtra("showBtnDiscardBuy", false);
 
+        dialogMessage=getString(R.string.msg_shop_title);
+
         init();
 
 

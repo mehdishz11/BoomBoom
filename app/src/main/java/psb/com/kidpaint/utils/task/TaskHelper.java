@@ -4,17 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.util.Log;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import psb.com.kidpaint.utils.Utils;
-import psb.com.paintingview.DrawView;
+
+import static psb.com.kidpaint.utils.task.TaskEnum.STEP_1;
+import static psb.com.kidpaint.utils.task.TaskEnum.STEP_2;
 
 public class TaskHelper {
     private static String KEY_TASK = "KEY_TASK";
@@ -46,9 +44,9 @@ public class TaskHelper {
 
     public static boolean checkTaskIsShow(Context context, int taskId) {
         SharedPreferences task = context.getSharedPreferences(KEY_TASK, Context.MODE_PRIVATE);
-        if (taskId == 1) {//share
+        if (taskId == STEP_1.getId()) {//share
             return task.getBoolean(KEY_SHARE_STATUS, false);
-        } else if (taskId == 2) {//rate
+        } else if (taskId == STEP_2.getId()) {//rate
             return task.getBoolean(KEY_RATE_STATUS, false);
         }
         return false;
@@ -56,9 +54,9 @@ public class TaskHelper {
 
     public static int getTaskShowStep(Context context, int taskId) {
         SharedPreferences task = context.getSharedPreferences(KEY_TASK, Context.MODE_PRIVATE);
-        if (taskId == 1) {//share
+        if (taskId == STEP_1.getId()) {//share
             return task.getInt(KEY_SHARE_STEP, TaskEnum.getStep(taskId));
-        } else if (taskId == 2) {//rate
+        } else if (taskId == STEP_2.getId()) {//rate
             return task.getInt(KEY_RATE_STEP, TaskEnum.getStep(taskId));
         }
         return 0;
@@ -74,11 +72,11 @@ public class TaskHelper {
         SharedPreferences task = context.getSharedPreferences(KEY_TASK, Context.MODE_PRIVATE);
         int taskStep = TaskEnum.getStep(taskId);
         SharedPreferences.Editor editor = task.edit();
-        if (taskId == 1) {
+        if (taskId == STEP_1.getId()) {
             int oldStep = task.getInt(KEY_SHARE_STEP, taskStep);
             editor.putInt(KEY_SHARE_STEP, (oldStep + taskStep));
 
-        } else if (taskId == 2) {
+        } else if (taskId == STEP_2.getId()) {
             int oldStep = task.getInt(KEY_RATE_STEP, taskStep);
             editor.putInt(KEY_RATE_STEP, (oldStep + taskStep));
         }
@@ -90,9 +88,9 @@ public class TaskHelper {
 
         SharedPreferences task = context.getSharedPreferences(KEY_TASK, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = task.edit();
-        if (taskId == 1) {
+        if (taskId == STEP_1.getId()) {
             editor.putBoolean(KEY_SHARE_STATUS, true);
-        } else if (taskId == 2) {
+        } else if (taskId == STEP_2.getId()) {
             editor.putBoolean(KEY_RATE_STATUS, true);
         }
         editor.apply();
@@ -104,11 +102,11 @@ public class TaskHelper {
 
         int numberOfSignUps = getNumberOfSignUps(context);
 
-        int shareShowStep = getTaskShowStep(context, 1);
-        int rateShowStep = getTaskShowStep(context, 2);
+        int shareShowStep = getTaskShowStep(context, STEP_1.getId());
+        int rateShowStep = getTaskShowStep(context, STEP_2.getId());
 
-        boolean shareIsShowed = checkTaskIsShow(context, 1);
-        boolean rateIsShowed = checkTaskIsShow(context, 2);
+        boolean shareIsShowed = checkTaskIsShow(context, STEP_1.getId());
+        boolean rateIsShowed = checkTaskIsShow(context, STEP_2.getId());
 
         if (shareIsShowed && rateIsShowed) {
             if (itask != null) {
@@ -121,12 +119,12 @@ public class TaskHelper {
             List<ModelTask> modelTasks=new ArrayList<>();
             //share
             ModelTask modelShare=new ModelTask();
-            modelShare.setId(1);
+            modelShare.setId(STEP_1.getId());
             modelShare.setStep(shareShowStep);
             modelShare.setShowed(shareIsShowed);
             //rate
             ModelTask modelRate=new ModelTask();
-            modelRate.setId(2);
+            modelRate.setId(STEP_2.getId());
             modelRate.setStep(rateShowStep);
             modelRate.setShowed(rateIsShowed);
             // add to list
@@ -138,7 +136,7 @@ public class TaskHelper {
                 if (itask != null) {
                     Intent intent = null;
                     final String appPackageName = context.getPackageName(); // getPackageName() from Context or Activity object
-                    if (model.getId()==1) {
+                    if (model.getId()==STEP_1.getId()) {
 
                         intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
@@ -149,7 +147,7 @@ public class TaskHelper {
 
 
 
-                    }else if (model.getId()==2){
+                    }else if (model.getId()==STEP_2.getId()){
                         if (Utils.isPackageExisted("com.farsitel.bazaar")) {
                             intent = new Intent(Intent.ACTION_EDIT);
                             intent.setData(Uri.parse("bazaar://details?id=" + appPackageName));

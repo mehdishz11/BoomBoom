@@ -33,53 +33,43 @@ public class PaymentHelper {
 
 
     public void init(Context context) {
-        if(true){
-            if (onSetupFinished != null) {
-                onSetupFinished.onSuccess();
-            }
-            return;
-        }
+
 
         this.context=context;
 
         pDialog=new ProgressDialog(context);
         pDialog.setMessage("در حال برقراری ارتباط ...");
 
-      if(mHelper!=null){
-          if (onSetupFinished != null) {
-          onSetupFinished.onSuccess();
-      }
-          return;
-      }
-        mHelper = new IabHelper(context, base64EncodedPublicKey);
-        Log.d(TAG, "Starting setup.");
-        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                Log.d(TAG, "Setup finished.");
+        try {
 
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
-                    showErrorSetup(result.getMessage());
-                    mHelper=null;
-                }
-
-                // Hooray, IAB is fully set up!
-                if (onSetupFinished != null) {
-                    onSetupFinished.onSuccess();
-                }
+            if (mHelper != null && onSetupFinished != null) {
+                onSetupFinished.onSuccess();
+                return;
             }
-        });
+            mHelper = new IabHelper(context, base64EncodedPublicKey);
+            Log.d(TAG, "Starting setup.");
+            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                public void onIabSetupFinished(IabResult result) {
+                    if (!result.isSuccess()) {
+                        // Oh noes, there was a problem.
+                        showErrorSetup(result.getMessage());
+                        mHelper = null;
+                    }
+
+                    // Hooray, IAB is fully set up!
+                    if (onSetupFinished != null) {
+                        onSetupFinished.onSuccess();
+                    }
+                }
+            });
+        }catch (Exception ex){
+            showErrorSetup("اشکال در بارگذاری");
+            mHelper = null;
+        }
     }
 
     public void buyProduct(final Activity activity,final int requestCode,final String sku){
 
-        if(true){
-            if (onPaymentFinished != null) {
-                onPaymentFinished.onSuccessPayment(sku);
-            }
-            return;
-        }
 
         if(mHelper==null){
             showErrorPayment("not setup success 1");

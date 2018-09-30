@@ -82,6 +82,9 @@ import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
+import static psb.com.kidpaint.utils.task.TaskEnum.STEP_1;
+import static psb.com.kidpaint.utils.task.TaskEnum.STEP_2;
+
 public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_OfferPackage.OnFragmentInteractionListener,
         SplashFragment.OnFragmentInteractionListener , NewPaintFragment.OnFragmentInteractionListener{
 
@@ -341,6 +344,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         btn_messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundHelper.playSound(R.raw.click_1);
                 Intent intent = new Intent(HomeActivity_2.this, ActivityMyMessages.class);
                 startActivityForResult(intent, REQUEST_CODE_MESSAGE);
             }
@@ -539,9 +543,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     public void showRewardDialog(final int taskId, String message, final Intent intent, final int coin) {
         String btnTitle = "";
-        if (taskId == 1) {
+        if (taskId == STEP_1.getId()) {
             btnTitle = "اشتراک گذاری";
-        } else if (taskId == 2) {
+        } else if (taskId == STEP_2.getId()) {
             btnTitle = "امتیاز دادن";
 
         }
@@ -552,33 +556,33 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onPosetiveClicked() {
                 TaskHelper.setTaskToShowed(getContext(), taskId);
                 int oldTotalCoin = userProfile.get_KEY_SCORE(0);
-//
-                if (taskId == 2) {
 
-                    if (intent != null) {
-                        try {
-                            startActivityForResult(intent,REQUEST_CODE_RATE);
-                            userProfile.set_KEY_SCORE((oldTotalCoin + coin));
-                            setupUserInfo();
-                            pHome.doAddScore(4);
-                        } catch (Exception ex) {
-
-                        }
-                    }
-                }
-                if (taskId == 1) {
+                if (taskId == STEP_1.getId()) {
 
                     if (intent != null) {
                         try {
                             startActivityForResult(Intent.createChooser(intent, "اشتراک گذاری با ..."),REQUEST_CODE_SHARE);
                             userProfile.set_KEY_SCORE((oldTotalCoin + coin));
                             setupUserInfo();
-                            pHome.doAddScore(3);
+                            pHome.doAddScore(taskId);
+                        } catch (Exception ex) {
+
+                        }
+                    }
+                }else if (taskId == STEP_2.getId()) {
+
+                    if (intent != null) {
+                        try {
+                            startActivityForResult(intent,REQUEST_CODE_RATE);
+                            userProfile.set_KEY_SCORE((oldTotalCoin + coin));
+                            setupUserInfo();
+                            pHome.doAddScore(taskId);
                         } catch (Exception ex) {
 
                         }
                     }
                 }
+
             }
 
             @Override
@@ -973,7 +977,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         });
 
 
-        text_user_Coin.setText(userProfile.get_KEY_SCORE(0) + " سکه");
+        text_user_Coin.setText(Utils.LongToCurrency(userProfile.get_KEY_SCORE(0) )+ " سکه");
 
 
         setUnreadMessageCount();

@@ -17,6 +17,7 @@ import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 
 public abstract class CDialog extends Dialog {
     private Button save;
+
     public CDialog(@NonNull Context context) {
         super(context);
         init();
@@ -33,7 +34,7 @@ public abstract class CDialog extends Dialog {
     }
 
 
-    public void setTitle(String message){
+    public void setTitle(String message) {
         ((CustomTextViewBold) findViewById(R.id.text_title_1)).setText(message);
         ((CustomTextViewBold) findViewById(R.id.text_title_2)).setText(message);
     }
@@ -45,11 +46,12 @@ public abstract class CDialog extends Dialog {
 
     private void init() {
         setCanceledOnTouchOutside(false);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -63,7 +65,7 @@ public abstract class CDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         inflateChildView((LinearLayout) findViewById(R.id.rel_content));
 
-        save=findViewById(R.id.btn_save);
+        save = findViewById(R.id.btn_save);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +102,10 @@ public abstract class CDialog extends Dialog {
 
     protected abstract OnCLickListener getOnCLickListener();
 
-   public void  goneBtnSave(){
-       save.setVisibility(View.GONE);
-   }
+    public void goneBtnSave() {
+        save.setVisibility(View.GONE);
+    }
+
     public interface OnCLickListener {
         void onPosetiveClicked();
 

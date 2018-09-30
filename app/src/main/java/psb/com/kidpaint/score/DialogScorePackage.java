@@ -41,7 +41,7 @@ public class DialogScorePackage extends Dialog implements IVScorePackage {
     private RelativeLayout relDiscount1,relDiscount2,relDiscount3;
 
 
-    private String dialogMessage = "";
+
     private String dialogMode = "";
     private boolean showBtnDiscardBuy = false;
 
@@ -67,8 +67,6 @@ public class DialogScorePackage extends Dialog implements IVScorePackage {
     }
 
     public void setDialogMessage(String dialogMessage) {
-        this.dialogMessage = dialogMessage;
-
         if ("".equals(dialogMessage)) {
             message.setVisibility(View.INVISIBLE);
         } else {

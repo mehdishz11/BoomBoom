@@ -99,6 +99,6 @@
         android:paddingBottom="@dimen/space_small"
         android:text="ذخیره"
         android:textColor="@color/white_1"
-        android:textSize="@dimen/text_size_large" />
+        android:textSize="@dimen/text_size_normal" />
 
 </RelativeLayout>
