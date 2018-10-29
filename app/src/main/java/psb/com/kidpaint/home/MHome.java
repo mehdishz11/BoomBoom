@@ -155,7 +155,7 @@ public class MHome implements IM_Home {
         }).doPostPaint(paramsPostPaint, bitmap);
 
     }
-
+//
     @Override
     public void deletePaint(int position) {
 
