@@ -86,7 +86,7 @@ public class PMessages implements IPMessages {
     public void onBindView_Message(final ViewHolder_Message holder, final int position) {
 
         final Extra chat = mMessage.getPositionAtMessage(position);
-
+        Log.d("TAG", "onBindView_Message: "+chat.getImageUrl()+"  -pos"+position);
         holder.main_text.setText(chat.getDescription());
         holder.title.setText(chat.getTitle());
         holder.title.setVisibility((chat.getTitle() == null || chat.getTitle().equals("null") || chat.getTitle().trim().isEmpty()) ? View.GONE : View.VISIBLE);

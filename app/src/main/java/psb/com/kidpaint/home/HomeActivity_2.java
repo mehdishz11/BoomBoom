@@ -181,6 +181,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
+
+                Log.d("TAG", "onSuccessToken: "+newToken);
                 userProfile.set_KEY_FCM(newToken);
 
             }
@@ -266,6 +268,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         initAnimation();
 
         createHelperWnd();
+
+     //   NotificationCreator.showCustomNotification(getContext(),null,1,"http://178.216.248.90/Naghashi/Files/PushNotification/20181029_122920_icn_heart_selected.png","hdgsjgdghsj","امتیاز به نقاشی شما","علی به نقاشی شما امتیاز داد ویبینبیتبنت نیبتیبت زنبتین تزرتیترنتمتتتبر ب یبیب");
 
     }
 

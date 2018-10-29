@@ -147,11 +147,16 @@ public class NotificationCreator {
     }
 
 
-     public static void showCustomNotification(Context context,Intent intent,int notificationId,int smallIcon,String contentTitle,String contentText) {
+     public static void showCustomNotification(Context context,Intent intent,int notificationId,String bigImage,String userIcon,String contentTitle,String contentText) {
 
           RemoteViews expandedView = new RemoteViews(context.getPackageName(), R.layout.view_expanded_notification);
           expandedView.setTextViewText(R.id.timestamp, DateUtils.formatDateTime(context, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME));
-          expandedView.setTextViewText(R.id.notification_message, contentText);
+          expandedView.setTextViewText(R.id.content_text, contentText);
+          expandedView.setTextViewText(R.id.content_title, contentTitle);
+         Bitmap bitmap=getBitmapFromURL(bigImage);
+         Bitmap bitmapUser=getBitmapFromURL(userIcon);
+         expandedView.setImageViewBitmap(R.id.notification_img, bitmap);
+          expandedView.setImageViewBitmap(R.id.big_icon, bitmapUser);
           // adding action to left button
 
 
@@ -165,8 +170,10 @@ public class NotificationCreator {
 */
           RemoteViews collapsedView = new RemoteViews(context.getPackageName(), R.layout.view_collapsed_notification);
           collapsedView.setTextViewText(R.id.timestamp, DateUtils.formatDateTime(context, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME));
-
-          NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANEL_ID_1")
+         collapsedView.setTextViewText(R.id.content_text, contentText);
+         collapsedView.setTextViewText(R.id.content_title, contentTitle);
+         collapsedView.setImageViewBitmap(R.id.big_icon, bitmapUser);
+         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANEL_ID_1")
                   // these are the three things a NotificationCompat.Builder object requires at a minimum
 
                   .setSmallIcon(R.mipmap.icn_notification)

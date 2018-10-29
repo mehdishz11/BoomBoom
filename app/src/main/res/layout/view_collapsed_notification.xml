@@ -6,8 +6,9 @@
 
     <RelativeLayout
         android:id="@+id/icon_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="@dimen/margin_50"
+        android:layout_alignParentRight="true"
+        android:layout_height="50dp">
 
         <ImageView
             android:id="@+id/big_icon"
@@ -18,30 +19,24 @@
             android:paddingRight="6dp"
             android:src="@drawable/icon_boy_normal"/>
 
-        <ImageView
-            android:id="@+id/small_icon"
-            android:layout_width="18.2dp"
-            android:layout_height="18.2dp"
-            android:layout_alignBottom="@id/big_icon"
-            android:layout_alignRight="@id/big_icon"
-            android:src="@drawable/icon_boy_normal"/>
+
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/notification_main"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="false"
         android:layout_marginTop="3dp"
-        android:layout_toRightOf="@+id/icon_container"
+        android:layout_toLeftOf="@+id/icon_container"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingLeft="6dp">
 
         <TextView
             android:id="@+id/content_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Notification Sample App"
             />
@@ -51,7 +46,7 @@
 
         <TextView
             android:id="@+id/content_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Expand me to see a detailed message!"
             />
@@ -65,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/notification_main"
         android:paddingRight="3.5dp"
         android:paddingTop="8dp"
         />

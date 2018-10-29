@@ -20,6 +20,7 @@ import java.util.Map;
 
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.utils.NotificationCreator;
 import psb.com.kidpaint.utils.UserProfile;
@@ -27,6 +28,7 @@ import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.utils.database.TblMessage.TblMessage;
 import psb.com.kidpaint.utils.firebase.model.Push;
+import psb.com.kidpaint.utils.firebase.model.PushCustom;
 import psb.com.kidpaint.webApi.chat.Chat;
 import psb.com.kidpaint.webApi.chat.Get.iGetChat;
 import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
@@ -139,9 +141,17 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                         intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(push.getUrl()));
                     }
-                    NotificationCreator.showTextNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getTitle(), null);
+                    NotificationCreator.showTextNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getBody(), null);
                 }
 
+
+            } else if ("PaintScore".equals(result.getString("Mode"))) {
+
+                PushCustom push = gson.fromJson(String.valueOf(result), PushCustom.class);
+
+                intent = new Intent(App.getContext(), ActivityCompetition.class);
+
+                NotificationCreator.showCustomNotification(App.getContext(), intent, push.getId(), push.getImageUrl(),push.getUserImage(), push.getTitle(), push.getBody());
 
             } else if ("RemovePush".equals(result.getString("Mode"))) {
 
