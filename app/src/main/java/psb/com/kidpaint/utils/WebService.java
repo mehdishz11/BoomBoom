@@ -14,12 +14,9 @@ import psb.com.kidpaint.App;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by AMiR ehsan on 4/12/2017.
- */
 
 public class WebService {
-    public static final String BASE_URL = "http://79.175.155.143/naghashi/api/";
+    public static final String BASE_URL = "http://178.216.248.90/naghashi/api/";
     private static Retrofit retrofit;
     private static UserProfile userProfile;
 
