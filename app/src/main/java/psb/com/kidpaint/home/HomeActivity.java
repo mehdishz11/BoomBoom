@@ -452,6 +452,8 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     }
 
+
+
     @Override
     public void onFragmentAttached(Fragment fragment) {
         if (fragment instanceof NewPaintFragment) {
@@ -691,6 +693,7 @@ public class HomeActivity extends BaseActivity implements IV_Home,
         this.responseGetLeaderShip = responseGetLeaderShip;
         setWinners();
     }
+
 
     @Override
     public void getRankFailed() {

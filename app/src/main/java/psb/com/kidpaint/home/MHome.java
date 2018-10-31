@@ -16,6 +16,9 @@ import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.webApi.paint.Paint;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ParamsPostPaint;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
@@ -206,4 +209,21 @@ public class MHome implements IM_Home {
             }
         }).doAddScore(userProfile.get_KEY_PHONE_NUMBER(""),addScoreMode);
     }
+
+    @Override
+    public void getRank() {
+        UserProfile userProfile = new UserProfile(getContext());
+        new GetLeaderShip(new iGetLeaderShip.iResult() {
+            @Override
+            public void onSuccessGetLeaderShip(ResponseGetLeaderShip responseGetLeaderShip) {
+                ip_home.getRankSuccess(responseGetLeaderShip);
+            }
+
+            @Override
+            public void onFailedGetLeaderShip(int errorId, String ErrorMessage) {
+                ip_home.getRankFailed(ErrorMessage);
+            }
+        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,3,0,userProfile.get_KEY_LEVEL(1));
+    }
+
 }

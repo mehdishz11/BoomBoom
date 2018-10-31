@@ -13,6 +13,7 @@ import java.util.Random;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
@@ -229,4 +230,21 @@ public class PHome implements IP_Home {
     public void onSuccessDelete(int position) {
         iv_home.onSuccessDelete(position);
     }
+
+    @Override
+    public void getRank() {
+        iv_home.getRankStarted();
+        mHome.getRank();
+    }
+
+    @Override
+    public void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip) {
+        iv_home.getRankSuccess(responseGetLeaderShip);
+    }
+
+    @Override
+    public void getRankFailed(String msg) {
+        iv_home.getRankFailed();
+    }
+
 }

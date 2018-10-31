@@ -5,6 +5,7 @@ import android.content.Context;
 import java.io.File;
 
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
+import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
@@ -49,6 +50,10 @@ public interface IP_Home {
     void onFailedAddScore(int errorCode,String errorMessage);
 
     void onSuccessDelete(int position);
+
+    void getRank();
+    void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip);
+    void getRankFailed(String msg);
 
 
 }

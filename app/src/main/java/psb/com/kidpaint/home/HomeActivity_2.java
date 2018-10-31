@@ -85,19 +85,19 @@ import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 import static psb.com.kidpaint.utils.task.TaskEnum.STEP_1;
 import static psb.com.kidpaint.utils.task.TaskEnum.STEP_2;
 
-public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_OfferPackage.OnFragmentInteractionListener,
-        SplashFragment.OnFragmentInteractionListener , NewPaintFragment.OnFragmentInteractionListener{
+public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_OfferPackage.OnFragmentInteractionListener,
+        SplashFragment.OnFragmentInteractionListener, NewPaintFragment.OnFragmentInteractionListener {
 
     private int REQUEST_STORAGE_PERMISSIONS = 100;
     public static int CODE_REGISTER_First = 106;
     public static int CODE_REGISTER = 107;
     public static int CODE_Competition = 108;
-    public static int CODE_EDIT = 108;
     public static int CODE_PAINT_ACTIVITY = 109;
     private static final int REQUEST_CODE_SCORE_PACKAGE = 122;
     private static final int REQUEST_CODE_RATE = 123;
     private static final int REQUEST_CODE_SHARE = 124;
     private static final int REQUEST_CODE_MESSAGE = 125;
+    public static int CODE_EDIT = 126;
 
 
     private ResponseGetOfferPackage mResponseOfferPackage;
@@ -163,9 +163,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     private Fragment_OfferPackage fragment_offerPackage;
 
     private ImageView imgOwl;
-    private boolean isFirstRun =true;
-    private int REQUEST_COMPATITIPN=25;
-    private int REQUEST_SHOP=26;
+    private boolean isFirstRun = true;
+    private int REQUEST_COMPATITIPN = 25;
+    private int REQUEST_SHOP = 26;
 
 
     @Override
@@ -182,12 +182,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
 
-                Log.d("TAG", "onSuccessToken: "+newToken);
+                Log.d("TAG", "onSuccessToken: " + newToken);
                 userProfile.set_KEY_FCM(newToken);
 
             }
         });
-       // initPayment();
+        // initPayment();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
@@ -219,7 +219,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
 
-        imgOwl=findViewById(R.id.img_owl);
+        imgOwl = findViewById(R.id.img_owl);
 
         imgOwl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +234,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             showExitDialog();
+                showExitDialog();
             }
         });
 
@@ -246,18 +246,16 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         });
 
 
-
-
-        if(Utils.isAgrigator()){
+        if (Utils.isAgrigator()) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
             TaskHelper.increaseNumberOfSignUps(getContext());
-        }else{
+        } else {
             if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
                 TaskHelper.increaseNumberOfSignUps(getContext());
 
-            }else{
+            } else {
                 Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
                 startActivityForResult(intent, CODE_REGISTER_First);
             }
@@ -269,7 +267,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
         createHelperWnd();
 
-     //   NotificationCreator.showCustomNotification(getContext(),null,1,"http://178.216.248.90/Naghashi/Files/PushNotification/20181029_122920_icn_heart_selected.png","hdgsjgdghsj","امتیاز به نقاشی شما","علی به نقاشی شما امتیاز داد ویبینبیتبنت نیبتیبت زنبتین تزرتیترنتمتتتبر ب یبیب");
+        //   NotificationCreator.showCustomNotification(getContext(),null,1,"http://178.216.248.90/Naghashi/Files/PushNotification/20181029_122920_icn_heart_selected.png","hdgsjgdghsj","امتیاز به نقاشی شما","علی به نقاشی شما امتیاز داد ویبینبیتبنت نیبتیبت زنبتین تزرتیترنتمتتتبر ب یبیب");
 
     }
 
@@ -300,7 +298,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         cDialog.show();*/
     }
 
-    void showExitDialog(){
+    void showExitDialog() {
         SoundHelper.playSound(R.raw.click_1);
 
         MessageDialog dialog = new MessageDialog(HomeActivity_2.this);
@@ -343,8 +341,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         });
 
 
-
-
         btn_messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -373,10 +369,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                if(isRegistered()){
+                if (isRegistered()) {
                     showDialogPackage();
-                }else{
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
+                } else {
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
                 }
             }
         });
@@ -386,10 +382,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                if(isRegistered()){
+                if (isRegistered()) {
                     showDialogPackage();
-                }else{
-                    showRegisterDialog(getString(R.string.msg_login_for_store),REQUEST_SHOP);
+                } else {
+                    showRegisterDialog(getString(R.string.msg_login_for_store), REQUEST_SHOP);
                 }
 
 
@@ -400,10 +396,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                if(isRegistered()){
+                if (isRegistered()) {
                     showDialogPackage();
-                }else{
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
+                } else {
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
                 }
 
             }
@@ -417,7 +413,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     public void showDialogOfferPackage() {
         if (mResponseOfferPackage != null && mResponseOfferPackage.getExtra().size() > 0) {
             frameLayoutSplash.setVisibility(View.VISIBLE);
-            fragment_offerPackage=new Fragment_OfferPackage().newInstance(mResponseOfferPackage);
+            fragment_offerPackage = new Fragment_OfferPackage().newInstance(mResponseOfferPackage);
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, fragment_offerPackage, TAG_FRAGMENT_OFFER).commitNowAllowingStateLoss();
 
 /*
@@ -565,7 +561,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
                     if (intent != null) {
                         try {
-                            startActivityForResult(Intent.createChooser(intent, "اشتراک گذاری با ..."),REQUEST_CODE_SHARE);
+                            startActivityForResult(Intent.createChooser(intent, "اشتراک گذاری با ..."), REQUEST_CODE_SHARE);
                             userProfile.set_KEY_SCORE((oldTotalCoin + coin));
                             setupUserInfo();
                             pHome.doAddScore(taskId);
@@ -573,11 +569,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
                         }
                     }
-                }else if (taskId == STEP_2.getId()) {
+                } else if (taskId == STEP_2.getId()) {
 
                     if (intent != null) {
                         try {
-                            startActivityForResult(intent,REQUEST_CODE_RATE);
+                            startActivityForResult(intent, REQUEST_CODE_RATE);
                             userProfile.set_KEY_SCORE((oldTotalCoin + coin));
                             setupUserInfo();
                             pHome.doAddScore(taskId);
@@ -603,7 +599,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     }
 
     public void showRewardDialogResult(final int taskId) {
-        String  message = "با تشکر از شما "+TaskEnum.getCoin(taskId)+"  تا سکه به شما تعلق گرفت";
+        String message = "با تشکر از شما " + TaskEnum.getCoin(taskId) + "  تا سکه به شما تعلق گرفت";
         final MessageDialog dialog = new MessageDialog(getContext());
         dialog.setMessage(message);
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
@@ -661,7 +657,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, new NewPaintFragment(), TAG_FRAGMENT_NEW_PAINT).commitNowAllowingStateLoss();
 
 
-
     }
 
     @Override
@@ -689,6 +684,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         recyclerView.getAdapter().notifyItemRemoved(position);
         recyclerView.getAdapter().notifyItemRangeChanged(position, historyAdapter.getItemCount());
     }
+
 
     @Override
     public Context getContext() {
@@ -785,7 +781,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        if ( fragment_offerPackage != null && requestCode==321) {
+        if (fragment_offerPackage != null && requestCode == 321) {
             fragment_offerPackage.onActivityResult(requestCode, resultCode, data);
             return;
         }
@@ -793,6 +789,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         refreshUserRank();
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult home: " + requestCode);
+
         if (requestCode == CODE_REGISTER_First) {
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
@@ -804,22 +801,22 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                if(!Utils.isAgrigator()){
+                if (!Utils.isAgrigator()) {
                     finish();
                 }
             }
-        }else  if (requestCode == CODE_REGISTER) {
+        } else if (requestCode == CODE_REGISTER) {
             setUnreadMessageCount();
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                if(!Utils.isAgrigator()){
+                if (!Utils.isAgrigator()) {
                     finish();
                 }
             }
-        }else  if (requestCode == REQUEST_CODE_MESSAGE) {
+        } else if (requestCode == REQUEST_CODE_MESSAGE) {
             setUnreadMessageCount();
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
@@ -834,11 +831,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == CODE_Competition) {
+
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
+                pHome.getRank();
             }
         } else if (requestCode == CODE_PAINT_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
@@ -860,19 +859,19 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
             }
 
-        }else if (requestCode == REQUEST_CODE_RATE) {
+        } else if (requestCode == REQUEST_CODE_RATE) {
 
             showRewardDialogResult(2);
 
-        }else if (requestCode == REQUEST_CODE_SHARE) {
+        } else if (requestCode == REQUEST_CODE_SHARE) {
 
             showRewardDialogResult(1);
 
-        }else if (requestCode == REQUEST_COMPATITIPN && resultCode==Activity.RESULT_OK) {
+        } else if (requestCode == REQUEST_COMPATITIPN && resultCode == Activity.RESULT_OK) {
             setupUserInfo();
 
             startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
-        }else if (requestCode == REQUEST_SHOP && resultCode==Activity.RESULT_OK) {
+        } else if (requestCode == REQUEST_SHOP && resultCode == Activity.RESULT_OK) {
             setupUserInfo();
 
             showDialogPackage();
@@ -919,6 +918,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         setWinners();
     }
 
+
     @Override
     public void getRankFailed() {
 
@@ -960,9 +960,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         img_podium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isRegistered()){
-                    showRegisterDialog(getString(R.string.msg_login_for_compatition),REQUEST_COMPATITIPN);
-                }else{
+                if (!isRegistered()) {
+                    showRegisterDialog(getString(R.string.msg_login_for_compatition), REQUEST_COMPATITIPN);
+                } else {
                     startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
                 }
             }
@@ -971,9 +971,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         relMosabeghat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isRegistered()){
-                    showRegisterDialog(getString(R.string.msg_login_for_compatition),REQUEST_COMPATITIPN);
-                }else{
+                if (!isRegistered()) {
+                    showRegisterDialog(getString(R.string.msg_login_for_compatition), REQUEST_COMPATITIPN);
+                } else {
                     SoundHelper.playSound(R.raw.click_1);
                     startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
                 }
@@ -981,7 +981,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         });
 
 
-        text_user_Coin.setText(Utils.LongToCurrency(userProfile.get_KEY_SCORE(0) )+ " سکه");
+        text_user_Coin.setText(Utils.LongToCurrency(userProfile.get_KEY_SCORE(0)) + " سکه");
 
 
         setUnreadMessageCount();
@@ -1071,14 +1071,14 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         });*/
     }
 
-    private void showRegisterDialog(String message, final int requestCode){
-        MessageDialog dialog=new MessageDialog(this);
+    private void showRegisterDialog(String message, final int requestCode) {
+        MessageDialog dialog = new MessageDialog(this);
         dialog.setTitle(getString(R.string.register_login));
         dialog.setMessage(message);
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-                if(requestCode!=-1){
+                if (requestCode != -1) {
                     startActivityForResult(new Intent(HomeActivity_2.this, ActivityRegisterUser.class), requestCode);
                 }
             }
@@ -1354,21 +1354,21 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     }
 
-    private void animateOwl(){
+    private void animateOwl() {
 
-                    SoundHelper.playSound(R.raw.owl);
+        SoundHelper.playSound(R.raw.owl);
 
-                imgOwl.setPivotX(imgOwl.getWidth()/2);
-                imgOwl.setPivotY(imgOwl.getHeight());
+        imgOwl.setPivotX(imgOwl.getWidth() / 2);
+        imgOwl.setPivotY(imgOwl.getHeight());
 
-                ObjectAnimator animRotate1 = ObjectAnimator.ofFloat(imgOwl, "rotation", 0.0f, 10,0,0,-10,0);
+        ObjectAnimator animRotate1 = ObjectAnimator.ofFloat(imgOwl, "rotation", 0.0f, 10, 0, 0, -10, 0);
 
 
-                animRotate1.setInterpolator(new LinearInterpolator());
-                animRotate1.setDuration(2000);
-                animRotate1.setStartDelay(200);
+        animRotate1.setInterpolator(new LinearInterpolator());
+        animRotate1.setDuration(2000);
+        animRotate1.setStartDelay(200);
 
-                animRotate1.start();
+        animRotate1.start();
 
 
     }
@@ -1455,10 +1455,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
     private void showRooster(final boolean hideLion) {
 
-        if(isFirstRun) {
-           isFirstRun=false;
+        if (isFirstRun) {
+            isFirstRun = false;
             SoundHelper.playSound(R.raw.owl);
-        }else{
+        } else {
             SoundHelper.playSound(R.raw.rooster);
 
         }
@@ -1512,13 +1512,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
         if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_OFFER) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_OFFER)).commit();
             frameLayoutSplash.setVisibility(View.GONE);
-            fragment_offerPackage=null;
+            fragment_offerPackage = null;
 
         } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT)).commit();
             frameLayoutSplash.setVisibility(View.GONE);
 
-        }  else {
+        } else {
             showExitDialog();
         }
 
@@ -1782,6 +1782,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home,Fragment_Off
 
         super.onDestroy();
     }
+
     private BroadcastReceiver chatBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

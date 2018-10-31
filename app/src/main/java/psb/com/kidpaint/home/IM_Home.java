@@ -30,5 +30,7 @@ public interface IM_Home {
 
     void doAddScore(int addScoreMode);
 
+    void getRank();
+
 
 }
