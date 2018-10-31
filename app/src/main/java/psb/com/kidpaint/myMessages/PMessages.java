@@ -2,6 +2,7 @@ package psb.com.kidpaint.myMessages;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
@@ -94,6 +95,7 @@ public class PMessages implements IPMessages {
 
         //  set profile image
         if ("".equals(chat.getUsername()) || mMessage.getMobileNumber().equals(chat.getUsername())) {// user
+
             Picasso.get().load("".equals(mMessage.getUserImage()) ? "avatar" : mMessage.getUserImage()).placeholder(R.drawable.user_profile).error(R.drawable.user_profile).into(holder.icon, new Callback() {
                 @Override
                 public void onSuccess() {
@@ -117,6 +119,9 @@ public class PMessages implements IPMessages {
                 holder.content_image.setVisibility(View.GONE);
             } else {
                 holder.content_image.setVisibility(View.VISIBLE);
+
+                String urlEncoder = Uri.encode(chat.getImageUrl(), Utils.ALLOWED_URI_CHARS);
+                chat.setImageUrl(urlEncoder);
                 Picasso.get().load(chat.getImageUrl()).placeholder(R.drawable.user_empty_gray).into(holder.content_image);
 
             }
@@ -141,6 +146,23 @@ public class PMessages implements IPMessages {
                                 ivMessages.startActionView(chat.getUrl());
                             }
                         }
+                    });  holder.content_image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.d("TAG", "onClick: " + chat.getUrl());
+                            if (!chat.getUrl().isEmpty()&&!"null".equals(chat.getUrl())&&chat.getUrl()!=null) {
+                                ivMessages.startActionView(chat.getUrl());
+                            }
+                        }
+                    });
+                    holder.main_text.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.d("TAG", "onClick: " + chat.getUrl());
+                            if (!chat.getUrl().isEmpty()&&!"null".equals(chat.getUrl())&&chat.getUrl()!=null) {
+                                ivMessages.startActionView(chat.getUrl());
+                            }
+                        }
                     });
 
                 }
@@ -156,7 +178,7 @@ public class PMessages implements IPMessages {
                 //holder.delivery.setImageResource(R.drawable.icon_warning);
                 holder.time.setTextColor(Color.parseColor("#FF495264"));
                 holder.time.setText("پیغام ارسال نشد،برای ارسال مجدد روی پیغام کلیک کنید.");
-                holder.convertView.setOnClickListener(new View.OnClickListener() {
+                holder.time.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         mMessage.deleteMessage(chat.getDbId(), position);

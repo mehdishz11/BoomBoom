@@ -53,6 +53,7 @@ public class Utils {
     public static String KEY_CURRENT_POSITION = "KEY_CURRENT_POSITION";
     public static String FCM_BROADCAST_CHAT = "FCM_BROADCAST_CHAT";
 
+    public static final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%20";
 
     public static void setIntegerPreference(Context context, String masterKey, String key, int value) {
         SharedPreferences settings = context.getSharedPreferences(masterKey, Context.MODE_PRIVATE);
