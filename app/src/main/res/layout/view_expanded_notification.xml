@@ -6,51 +6,53 @@
 
     <RelativeLayout
         android:id="@+id/icon_container"
-        android:layout_width="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_height="50dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
 
         <ImageView
             android:id="@+id/big_icon"
             android:layout_width="50dp"
-            android:layout_alignParentRight="true"
             android:layout_height="50dp"
-            android:paddingBottom="1dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="6dp"
-            android:src="@drawable/icon_boy_normal"/>
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_boy_normal" />
+        <ImageView
+            android:id="@+id/big_icon_overlay"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/overlay_mask_round"
+            />
 
+        <LinearLayout
+            android:id="@+id/notification_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/big_icon"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:orientation="vertical"
+            android:paddingLeft="6dp">
 
+            <TextView
+                android:id="@+id/content_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:text="Notification Sample App" />
 
+            <TextView
+                android:id="@+id/content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Expand me to see a detailed message!" />
+        </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/notification_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_marginTop="3dp"
-        android:layout_toLeftOf="@+id/icon_container"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingLeft="6dp">
-
-        <TextView
-            android:id="@+id/content_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Notification Sample App"
-            />
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Notification.Title"
--->
-        <TextView
-            android:id="@+id/content_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Expand me to see a detailed message!"
-            />
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Notification"-->
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/notification_info"
@@ -65,27 +67,31 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginLeft="4dp"
+            android:layout_marginTop="@dimen/space_small"
             android:layout_marginRight="4dp"
-            android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/icon_boy_selected"/>
-
-
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Notification.Info"-->
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_boy_selected"
+            />
+        <ImageView
+            android:id="@+id/notification_img_over"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="@dimen/space_small"
+            android:layout_marginRight="4dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/overlay_round"
+            />
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/timestamp"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/notification_info"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/notification_info"
         android:layout_alignParentRight="true"
-        android:paddingRight="3.5dp"
         android:paddingTop="8dp"
-        />
-<!--
-    android:textAppearance="@style/TextAppearance.AppCompat.Notification.Time"
--->
-
+        android:paddingRight="3.5dp" />
 </RelativeLayout>

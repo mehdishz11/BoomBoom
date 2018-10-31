@@ -1,22 +1,16 @@
 package psb.com.kidpaint.utils.firebase;
 
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
 
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
@@ -41,13 +35,7 @@ public class ServiceGetMessage extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(final RemoteMessage remoteMessage) {
-        Log.d(App.TAG, "FCM ----------> getMessage");
-        Log.d(App.TAG, "FCM " + remoteMessage.getData().toString());
-        for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            Log.d("Fcm", "hash map key:" + key + ":" + value);
-        }
+
         JSONObject result = null;
         Gson gson = new Gson();
         Intent intent;
@@ -150,7 +138,6 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                 PushCustom push = gson.fromJson(String.valueOf(result), PushCustom.class);
 
                 intent = new Intent(App.getContext(), ActivityCompetition.class);
-
                 NotificationCreator.showCustomNotification(App.getContext(), intent, push.getId(), push.getImageUrl(),push.getUserImage(), push.getTitle(), push.getBody());
 
             } else if ("RemovePush".equals(result.getString("Mode"))) {
