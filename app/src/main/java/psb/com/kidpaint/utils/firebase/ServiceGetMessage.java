@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
+import psb.com.kidpaint.home.HomeActivity;
+import psb.com.kidpaint.home.HomeActivity_2;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
 import psb.com.kidpaint.utils.NotificationCreator;
 import psb.com.kidpaint.utils.UserProfile;
@@ -142,6 +144,10 @@ public class ServiceGetMessage extends FirebaseMessagingService {
 
             } else if ("RemovePush".equals(result.getString("Mode"))) {
 
+            }else if ("UnSignInPush".equals(result.getString("Mode"))) {
+                Push push = gson.fromJson(String.valueOf(result), Push.class);
+                    intent = new Intent(App.getContext(), HomeActivity_2.class);
+                NotificationCreator.showBigTextStyleNotification(App.getContext(), intent, 1, R.mipmap.ic_launcher, push.getTitle(), "",push.getBody());
             }
 
         } catch (JSONException e) {
