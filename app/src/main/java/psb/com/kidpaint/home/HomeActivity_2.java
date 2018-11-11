@@ -61,6 +61,7 @@ import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customAnimation.AnimationHelper;
 import psb.com.kidpaint.utils.customView.BaseActivity;
+import psb.com.kidpaint.utils.customView.BasketPrize;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
@@ -167,6 +168,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     private int REQUEST_COMPATITIPN = 25;
     private int REQUEST_SHOP = 26;
 
+    private BasketPrize basketPrize;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +201,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         btn_settings = findViewById(R.id.btn_settings);
         btn_messages = findViewById(R.id.btn_messages);
         btn_shop = findViewById(R.id.btn_shop);
+
         unreadMessageCount = findViewById(R.id.unreadMessageCount);
+
         rel_user_coin = findViewById(R.id.rel_user_coin);
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -220,6 +225,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         frameLayoutSplash = findViewById(R.id.frameLayoutSplash);
 
         imgOwl = findViewById(R.id.img_owl);
+
+        basketPrize= findViewById(R.id.basket_prize);
 
         imgOwl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -685,7 +692,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         recyclerView.getAdapter().notifyItemRangeChanged(position, historyAdapter.getItemCount());
     }
 
-
     @Override
     public Context getContext() {
         return this;
@@ -927,6 +933,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     @Override
     public void getPrizeSuccess(ResponsePrize responsePrize) {
         this.responsePrize = responsePrize;
+        basketPrize.setPrizeList(responsePrize);
     }
 
     @Override

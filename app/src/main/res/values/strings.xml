@@ -102,5 +102,6 @@
     <string name="msg_login_for_add_coin">برای افزودن سکه وارد شوید</string>
     <string name="msg_login_for_store">برای مشاهده فروشگاه وارد شوید</string>
     <string name="msg_shop_title">از سکه ها برای خرید مثل استیکر برای نقاشی می تونی استفاده کنی</string>
+    <string name="prizes">جوایز</string>
 
 </resources>
