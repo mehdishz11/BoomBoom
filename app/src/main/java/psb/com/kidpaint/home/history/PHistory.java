@@ -4,12 +4,12 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.Random;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
@@ -61,25 +61,16 @@ public class PHistory implements  IPHistory {
         }else{
             holder.parentView.setRotation(-new Random().nextInt(8));
         }
+
+
+
         Picasso.get().invalidate(filePath);
         Picasso
                 .get()
                 .load(filePath)
-                .resize(Value.dp(200),0)
+                .resize(Value.dp(Value.getScreenHeight()/2),Value.dp(Value.getScreenHeight()/2))
                 .onlyScaleDown()
-                .into(holder.imgOutline, new Callback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-
-                        Log.d("TAG", "onError: ");
-                        e.printStackTrace();
-                    }
-                });
+                .into(holder.imgOutline);
 
 
         holder.relParent.setOnClickListener(new View.OnClickListener() {

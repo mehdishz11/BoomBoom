@@ -665,35 +665,6 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/grass_8" />
 
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="65dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/bunny"
-                android:visibility="gone" />
-
-            <View
-                android:layout_width="30dp"
-                android:layout_height="10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="15dp"
-                android:alpha="0.5"
-                android:background="@drawable/circle_black" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/bunny"
-                android:layout_width="100dp"
-                android:layout_height="140dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="rabbit.json" />
-
-
             <ImageView
                 android:id="@+id/img_grass_5"
                 android:layout_width="110dp"
@@ -750,6 +721,38 @@
 
     </RelativeLayout>
 
+    <!--bunny-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/basket_prize"
+        android:layout_alignParentBottom="true"
+        >
+        <View
+            android:layout_width="30dp"
+            android:layout_height="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/bunny"
+            android:layout_marginBottom="15dp"
+            android:alpha="0.5"
+            android:background="@drawable/circle_black" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/bunny"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="rabbit.json"
+            android:elevation="13dp"
+            />
+        <View
+            android:id="@+id/bunnySound"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignBottom="@+id/bunny"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
     <!--prize-->
     <ImageView
@@ -1091,13 +1094,6 @@
         android:id="@+id/ViewCenter"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <View
-        android:id="@+id/bunnySound"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

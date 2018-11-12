@@ -1,16 +1,13 @@
 package psb.com.kidpaint.home;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.Random;
 
-import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -108,7 +105,6 @@ public class PHome implements IP_Home {
         if (filePath==null) {
 
             holder.relBtns.setVisibility(View.GONE);
-            holder.relBtnsBg.setVisibility(View.GONE);
             holder.textViewnew.setVisibility(View.VISIBLE);
             holder.relParent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,27 +122,14 @@ public class PHome implements IP_Home {
         }else {
 
             holder.relBtns.setVisibility(View.VISIBLE);
-            holder.relBtnsBg.setVisibility(View.VISIBLE);
             holder.textViewnew.setVisibility(View.GONE);
             Picasso.get().invalidate(filePath);
             Picasso
                     .get()
                     .load(filePath)
-                    .resize(Value.dp(200), 0)
-                    .onlyScaleDown()
-                    .into(holder.imgOutline, new Callback() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-
-                            Log.d("TAG", "onError: ");
-                            e.printStackTrace();
-                        }
-                    });
+                    .resize(Value.getScreenHeight()/3,0)
+                    .centerCrop()
+                    .into(holder.imgOutline);
 
 
             holder.relParent.setOnClickListener(new View.OnClickListener() {

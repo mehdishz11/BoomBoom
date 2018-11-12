@@ -1,7 +1,6 @@
 package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +25,6 @@ import psb.com.kidpaint.webApi.offerPackage.OfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
-import psb.com.kidpaint.webApi.prize.Get.GetPrize;
-import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
-import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.Prize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.iGetDailyPrize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
@@ -118,22 +114,6 @@ public class M_Splash implements IM_Splash {
                 ipSplash.getRankFailed(ErrorMessage);
             }
         }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,3,0,userProfile.get_KEY_LEVEL(1));
-    }
-
-    @Override
-    public void getPirze() {
-        new GetPrize(new iGetPrize.iResult() {
-            @Override
-            public void onSuccessGetPrize(ResponsePrize responsePrize) {
-                savePrize.savePrizeToPrefrence(responsePrize);
-                ipSplash.getPirzeSuccess(responsePrize);
-            }
-
-            @Override
-            public void onFailedGetPrize(int errorId, String ErrorMessage) {
-                ipSplash.getPrizeFailed(ErrorMessage, savePrize.getResponsePrize());
-            }
-        }).doGetPrize();
     }
 
     @Override

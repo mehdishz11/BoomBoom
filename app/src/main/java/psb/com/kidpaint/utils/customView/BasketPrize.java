@@ -11,6 +11,8 @@ import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.Value;
+import psb.com.kidpaint.webApi.prize.Get.GetPrize;
+import psb.com.kidpaint.webApi.prize.Get.iGetPrize;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 
 public class BasketPrize extends RelativeLayout {
@@ -60,6 +62,21 @@ public class BasketPrize extends RelativeLayout {
         textPrize3 = findViewById(R.id.text_prize_3);
 
 
+        refresh();
+    }
+
+    public void refresh(){
+        new GetPrize(new iGetPrize.iResult() {
+            @Override
+            public void onSuccessGetPrize(ResponsePrize responsePrize) {
+                setPrizeList(responsePrize);
+            }
+
+            @Override
+            public void onFailedGetPrize(int errorId, String ErrorMessage) {
+
+            }
+        }).doGetPrize();
     }
 
     public void setPrizeList(ResponsePrize responsePrize) {
@@ -104,6 +121,10 @@ public class BasketPrize extends RelativeLayout {
 
             }
 
+        }else{
+            cardPrize1.setVisibility(INVISIBLE);
+            cardPrize2.setVisibility(INVISIBLE);
+            cardPrize3.setVisibility(INVISIBLE);
         }
     }
 

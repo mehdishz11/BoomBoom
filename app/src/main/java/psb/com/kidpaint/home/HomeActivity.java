@@ -701,18 +701,6 @@ public class HomeActivity extends BaseActivity implements IV_Home,
     }
 
     @Override
-    public void getPrizeSuccess(ResponsePrize responsePrize) {
-        this.responsePrize = responsePrize;
-        setPrizes();
-    }
-
-    @Override
-    public void getPrizeFailed(ResponsePrize responsePrize) {
-        this.responsePrize = responsePrize;
-        setPrizes();
-    }
-
-    @Override
     public void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage) {
 
     }

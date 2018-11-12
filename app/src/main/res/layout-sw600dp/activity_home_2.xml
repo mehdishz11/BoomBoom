@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_1"
-    android:layoutDirection="ltr"
-    android:clickable="true">
+    android:clickable="true"
+    android:layoutDirection="ltr">
 
     <!--header-->
     <RelativeLayout
@@ -38,42 +38,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="100">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="25"
-                />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="25" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="55"
             android:layout_gravity="center_horizontal"
-            >
+            android:layout_weight="55">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/space_normal"
-                android:paddingBottom="@dimen/space_normal"
-                android:paddingRight="190dp"
+                android:layout_centerHorizontal="true"
                 android:clipToPadding="false"
-                >
+                android:paddingTop="@dimen/space_normal"
+                android:paddingRight="190dp"
+                android:paddingBottom="@dimen/space_normal">
 
             </android.support.v7.widget.RecyclerView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/recyclerView"
                 android:layout_alignTop="@+id/recyclerView"
+                android:layout_alignBottom="@+id/recyclerView"
                 android:layout_marginTop="20dp"
                 android:weightSum="4">
 
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_marginLeft="40dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
                     android:layout_weight="1">
 
                     <psb.com.cview.SquareRelativeLayout
@@ -139,8 +139,8 @@
             android:layout_width="110dp"
             android:layout_height="100dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="40dp"
             android:layout_marginTop="-15dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/could_top_1" />
 
     </RelativeLayout>
@@ -180,8 +180,8 @@
         android:id="@+id/relUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
         android:padding="@dimen/space_small">
 
         <!--settings-->
@@ -214,9 +214,9 @@
             android:layout_toRightOf="@+id/btn_messages"
             android:background="@drawable/circle_red"
             android:elevation="10dp"
+            android:gravity="center"
             android:minWidth="30dp"
             android:minHeight="30dp"
-            android:gravity="center"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:text="0"
@@ -281,9 +281,9 @@
                     android:ellipsize="end"
                     android:gravity="right|center"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="ثبت نام | ورود"
                     android:textColor="@color/brown_5"
                     android:textSize="@dimen/text_size_small" />
@@ -314,23 +314,23 @@
                 android:id="@+id/img_user_bgr1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
-                android:layout_alignRight="@+id/rel_user_image"
                 android:layout_alignTop="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_oval="true"/>
+                app:riv_oval="true" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_user_bgr2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
-                android:layout_alignRight="@+id/rel_user_image"
                 android:layout_alignTop="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignBottom="@+id/rel_user_image"
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
@@ -340,12 +340,12 @@
                 android:id="@+id/act_user_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_alignLeft="@+id/rel_user_image"
-                android:layout_alignRight="@+id/rel_user_image"
                 android:layout_alignTop="@+id/rel_user_image"
-                android:padding="4dp"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignBottom="@+id/rel_user_image"
                 android:layout_margin="1dp"
+                android:padding="4dp"
                 android:src="@drawable/user_empty_gray"
                 android:tint="@color/light_level_0"
                 app:riv_oval="true" />
@@ -406,9 +406,9 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical|left"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="۱۵۰۰ سکه"
                     android:textColor="@color/brown_5"
                     android:textSize="@dimen/text_size_small" />
@@ -439,10 +439,10 @@
                 android:id="@+id/img_coin_bgr1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_alignLeft="@+id/rel_coin_image"
-                android:layout_alignRight="@+id/rel_coin_image"
                 android:layout_alignTop="@+id/rel_coin_image"
+                android:layout_alignRight="@+id/rel_coin_image"
+                android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
@@ -452,10 +452,10 @@
                 android:id="@+id/img_coin_bgr2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_alignLeft="@+id/rel_coin_image"
-                android:layout_alignRight="@+id/rel_coin_image"
                 android:layout_alignTop="@+id/rel_coin_image"
+                android:layout_alignRight="@+id/rel_coin_image"
+                android:layout_alignBottom="@+id/rel_coin_image"
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
@@ -465,13 +465,13 @@
                 android:id="@+id/act_coin_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/rel_coin_image"
                 android:layout_alignLeft="@+id/rel_coin_image"
-                android:layout_alignRight="@+id/rel_coin_image"
                 android:layout_alignTop="@+id/rel_coin_image"
+                android:layout_alignRight="@+id/rel_coin_image"
+                android:layout_alignBottom="@+id/rel_coin_image"
                 android:padding="10dp"
                 android:src="@drawable/icon_coin"
-                android:tint="@color/light_level_0"/>
+                android:tint="@color/light_level_0" />
 
         </RelativeLayout>
 
@@ -499,7 +499,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@color/brown_5"
-                    app:riv_oval="true"/>
+                    app:riv_oval="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -520,9 +520,9 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:minWidth="80dp"
-                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="رتبه کلی"
                     android:textColor="@color/brown_5"
                     android:textSize="@dimen/text_size_small" />
@@ -553,36 +553,36 @@
                 android:id="@+id/img_rank_bgr1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_alignLeft="@+id/rel_rank_image"
-                android:layout_alignRight="@+id/rel_rank_image"
                 android:layout_alignTop="@+id/rel_rank_image"
+                android:layout_alignRight="@+id/rel_rank_image"
+                android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_centerVertical="true"
                 android:padding="1dp"
                 android:src="@color/brown_4"
-                app:riv_oval="true"/>
+                app:riv_oval="true" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_rank_bgr2"
                 android:layout_width="@dimen/img_sqr_medium"
                 android:layout_height="@dimen/img_sqr_medium"
-                android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_alignLeft="@+id/rel_rank_image"
-                android:layout_alignRight="@+id/rel_rank_image"
                 android:layout_alignTop="@+id/rel_rank_image"
+                android:layout_alignRight="@+id/rel_rank_image"
+                android:layout_alignBottom="@+id/rel_rank_image"
                 android:padding="3dp"
                 android:src="@drawable/bgr_color_picker"
                 android:tint="@color/light_level_0"
-                app:riv_oval="true"/>
+                app:riv_oval="true" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/act_rank_image"
                 android:layout_width="@dimen/img_sqr_medium"
                 android:layout_height="@dimen/img_sqr_medium"
-                android:layout_alignBottom="@+id/rel_rank_image"
                 android:layout_alignLeft="@+id/rel_rank_image"
-                android:layout_alignRight="@+id/rel_rank_image"
                 android:layout_alignTop="@+id/rel_rank_image"
+                android:layout_alignRight="@+id/rel_rank_image"
+                android:layout_alignBottom="@+id/rel_rank_image"
                 android:padding="12dp"
                 android:src="@drawable/icon_winning"
                 android:tint="@color/light_level_0" />
@@ -596,17 +596,16 @@
         android:id="@+id/btn_exit"
         android:layout_width="@dimen/btn_size_sqr"
         android:layout_height="@dimen/btn_size_sqr"
+        android:layout_below="@+id/relUser"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/space_small"
-        android:layout_below="@+id/relUser"
         android:layout_marginBottom="5dp"
         android:background="@drawable/btn_sqr_green"
-        android:textColor="@color/white_1"
-        android:textSize="25dp"
-        android:paddingBottom="5dp"
         android:paddingRight="6dp"
+        android:paddingBottom="5dp"
         android:text=""
-        />
+        android:textColor="@color/white_1"
+        android:textSize="25dp" />
 
     <!--footer-->
     <RelativeLayout
@@ -617,17 +616,17 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="190dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true">
 
             <ImageView
                 android:id="@+id/lion"
                 android:layout_width="80dp"
                 android:layout_height="120dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="70dp"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="-20dp"
+                android:layout_marginBottom="70dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/lion" />
 
@@ -635,8 +634,8 @@
                 android:id="@+id/tree_1"
                 android:layout_width="80dp"
                 android:layout_height="170dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="50dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/tree_trunk" />
@@ -666,41 +665,12 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/grass_8" />
 
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="65dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/bunny"
-                android:visibility="gone" />
-
-            <View
-                android:layout_width="30dp"
-                android:layout_height="10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="15dp"
-                android:alpha="0.5"
-                android:background="@drawable/circle_black" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/bunny"
-                android:layout_width="100dp"
-                android:layout_height="140dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="rabbit.json" />
-
-
             <ImageView
                 android:id="@+id/img_grass_5"
                 android:layout_width="120dp"
                 android:layout_height="82dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="-20dp"
                 android:scaleType="fitEnd"
                 android:src="@drawable/grass_1" />
@@ -719,8 +689,8 @@
                 android:id="@+id/img_grass_3"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="-20dp"
                 android:scaleType="fitEnd"
                 android:src="@drawable/grass_2" />
@@ -729,10 +699,10 @@
                 android:id="@+id/img_grass_8"
                 android:layout_width="180dp"
                 android:layout_height="130dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="-10dp"
+                android:layout_alignParentBottom="true"
                 android:layout_marginRight="-50dp"
+                android:layout_marginBottom="-10dp"
                 android:scaleType="fitEnd"
                 android:src="@drawable/grass_1" />
 
@@ -751,16 +721,70 @@
 
     </RelativeLayout>
 
+    <!--bunny-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/basket_prize"
+        android:layout_alignParentBottom="true"
+        >
+        <View
+            android:layout_width="30dp"
+            android:layout_height="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/bunny"
+            android:layout_marginBottom="15dp"
+            android:alpha="0.5"
+            android:background="@drawable/circle_black" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/bunny"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="rabbit.json"
+            android:elevation="13dp"
+            />
+        <View
+            android:id="@+id/bunnySound"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_alignBottom="@+id/bunny"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <!--prize-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="205dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="-40dp"
+        android:layout_marginLeft="-50dp"
+        android:layout_marginBottom="40dp"
+        android:layout_toLeftOf="@+id/rel_parent_competition"
+        android:layout_toRightOf="@+id/basket_prize"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_arrow" />
+
+    <psb.com.kidpaint.utils.customView.BasketPrize
+        android:id="@+id/basket_prize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="50dp"
+        android:layout_toLeftOf="@+id/rel_parent_competition" />
+
     <!--competition-->
     <RelativeLayout
         android:id="@+id/rel_parent_competition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="-20dp"
         android:layout_marginBottom="-10dp"
         android:clickable="true"
-        android:layout_marginRight="-20dp"
         android:rotation="8">
         <!--base-->
         <ImageView
@@ -818,9 +842,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_above="@id/img_podium"
-                                android:layout_marginBottom="-35dp"
                                 android:layout_marginLeft="7dp"
                                 android:layout_marginRight="5dp"
+                                android:layout_marginBottom="-35dp"
                                 android:orientation="horizontal"
                                 android:weightSum="100">
 
@@ -844,10 +868,10 @@
                                         android:layout_height="30dp"
                                         android:layout_alignParentBottom="true"
                                         android:layout_marginBottom="15dp"
-                                        android:paddingBottom="3dp"
                                         android:paddingLeft="3dp"
-                                        android:paddingRight="3dp"
                                         android:paddingTop="3dp"
+                                        android:paddingRight="3dp"
+                                        android:paddingBottom="3dp"
                                         android:rotation="-10"
                                         android:src="@drawable/user_profile"
                                         app:riv_border_color="@color/White"
@@ -888,8 +912,8 @@
                                         android:layout_alignParentBottom="true"
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginBottom="25dp"
-                                        android:paddingBottom="5dp"
                                         android:paddingRight="10dp"
+                                        android:paddingBottom="5dp"
                                         android:src="@drawable/user_profile"
                                         app:riv_border_color="@color/White"
                                         app:riv_corner_radius="10dp" />
@@ -915,10 +939,10 @@
                                     <com.makeramen.roundedimageview.RoundedImageView
                                         android:layout_width="25dp"
                                         android:layout_height="25dp"
-                                        android:layout_alignParentBottom="true"
                                         android:layout_alignParentRight="true"
-                                        android:layout_marginBottom="3dp"
+                                        android:layout_alignParentBottom="true"
                                         android:layout_marginRight="5dp"
+                                        android:layout_marginBottom="3dp"
                                         android:rotation="10"
                                         android:src="@color/white_1"
 
@@ -928,14 +952,14 @@
                                     <com.makeramen.roundedimageview.RoundedImageView
                                         android:layout_width="25dp"
                                         android:layout_height="25dp"
-                                        android:layout_alignParentBottom="true"
                                         android:layout_alignParentRight="true"
-                                        android:layout_marginBottom="3dp"
+                                        android:layout_alignParentBottom="true"
                                         android:layout_marginRight="5dp"
-                                        android:paddingBottom="3dp"
+                                        android:layout_marginBottom="3dp"
                                         android:paddingLeft="3dp"
-                                        android:paddingRight="3dp"
                                         android:paddingTop="3dp"
+                                        android:paddingRight="3dp"
+                                        android:paddingBottom="3dp"
                                         android:rotation="10"
                                         android:src="@drawable/user_profile"
                                         app:riv_border_color="@color/white_1"
@@ -945,10 +969,10 @@
                                         android:id="@+id/img_winner_3"
                                         android:layout_width="25dp"
                                         android:layout_height="25dp"
-                                        android:layout_alignParentBottom="true"
                                         android:layout_alignParentRight="true"
-                                        android:layout_marginBottom="3dp"
+                                        android:layout_alignParentBottom="true"
                                         android:layout_marginRight="5dp"
+                                        android:layout_marginBottom="3dp"
                                         android:rotation="10"
                                         app:riv_border_color="@color/white_1"
                                         app:riv_corner_radius="10dp" />
@@ -1027,22 +1051,21 @@
         android:id="@+id/img_owl"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignLeft="@+id/rel_parent_competition"
         android:layout_above="@+id/rel_parent_competition"
-        android:src="@drawable/owl"
-        android:layout_marginBottom="-15dp"
+        android:layout_alignLeft="@+id/rel_parent_competition"
         android:layout_marginLeft="20dp"
-        />
+        android:layout_marginBottom="-15dp"
+        android:src="@drawable/owl" />
 
     <!--right grass-->
     <ImageView
         android:id="@+id/img_grass_7"
         android:layout_width="160dp"
         android:layout_height="95dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="-10dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="-10dp"
         android:scaleType="fitEnd"
         android:src="@drawable/grass_5" />
 
@@ -1050,10 +1073,10 @@
         android:id="@+id/rooster"
         android:layout_width="40dp"
         android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
         android:scaleType="fitEnd"
         android:src="@drawable/hen" />
 
@@ -1061,10 +1084,10 @@
         android:id="@+id/img_grass_6"
         android:layout_width="110dp"
         android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="-10dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="-20dp"
+        android:layout_marginBottom="-10dp"
         android:scaleType="fitEnd"
         android:src="@drawable/grass_4" />
 
@@ -1078,16 +1101,9 @@
     <View
         android:id="@+id/ViewCenter"
         android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_height="10dp"/>
-
-    <View
-        android:id="@+id/bunnySound"
-        android:layout_width="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_height="60dp"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 

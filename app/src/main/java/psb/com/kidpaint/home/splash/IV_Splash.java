@@ -4,7 +4,6 @@ import android.content.Context;
 
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
-import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public interface IV_Splash {
@@ -17,9 +16,6 @@ public interface IV_Splash {
     void startGetRank();
     void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip);
     void getRankFailed(String msg);
-
-    void getPirzeSuccess(ResponsePrize responsePrize);
-    void getPrizeFailed(String msg,ResponsePrize responsePrize);
 
     void onSuccessUpdateFcmToken();
     void onFailedUpdateFcmToken(int errorCode,String errorMessage);

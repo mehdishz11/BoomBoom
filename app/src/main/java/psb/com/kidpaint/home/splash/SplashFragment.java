@@ -1,10 +1,8 @@
 package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import android.widget.ProgressBar;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
-import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class SplashFragment extends Fragment implements IV_Splash {
@@ -60,7 +57,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (pSplash.userIsRegistered()) {
             pSplash.updateFcmToken();
         } else {
-            pSplash.getPirze();
+            pSplash.getRank();
         }
     }
 
@@ -68,7 +65,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (pSplash.userIsRegistered()) {
             pSplash.updateFcmToken();
         } else {
-            pSplash.getPirze();
+            pSplash.getRank();
         }
     }
 
@@ -109,8 +106,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip) {
         mListener.getRankSuccess(responseGetLeaderShip);
-
-
         pSplash.getStickers();
 
     }
@@ -118,22 +113,8 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void getRankFailed(String msg) {
         mListener.getRankFailed();
-
         pSplash.getStickers();
 
-    }
-
-    @Override
-    public void getPirzeSuccess(ResponsePrize responsePrize) {
-
-        mListener.getPrizeSuccess(responsePrize);
-        pSplash.getRank();
-    }
-
-    @Override
-    public void getPrizeFailed(String msg, ResponsePrize responsePrize) {
-        mListener.getPrizeFailed(responsePrize);
-        pSplash.getRank();
     }
 
     @Override
@@ -159,9 +140,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
             if (mListener != null) {
                 mListener.setResponseDailyPrize(null);
             }
-            pSplash.getPirze();
-
-
+            pSplash.getRank();
         }else{
 
             pSplash.getDailyPrize();
@@ -181,7 +160,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (mListener != null) {
             mListener.setResponseDailyPrize(responseGetDailyPrize);
         }
-        pSplash.getPirze();
+        pSplash.getRank();
     }
 
     @Override
@@ -189,7 +168,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (mListener != null) {
             mListener.setResponseDailyPrize(null);
         }
-        pSplash.getPirze();
+        pSplash.getRank();
     }
 
     @Override
@@ -226,10 +205,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
         void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip);
 
         void getRankFailed();
-
-        void getPrizeSuccess(ResponsePrize responsePrize);
-
-        void getPrizeFailed(ResponsePrize responsePrize);
 
         void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage);
 

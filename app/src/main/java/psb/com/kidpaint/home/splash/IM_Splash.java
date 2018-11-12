@@ -10,8 +10,6 @@ public interface IM_Splash {
 
     void getRank();
 
-    void getPirze();
-
     boolean userIsRegistered();
     void updateFcmToken();
 

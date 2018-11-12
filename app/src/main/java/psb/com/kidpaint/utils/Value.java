@@ -1,7 +1,9 @@
 package psb.com.kidpaint.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.util.DisplayMetrics;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,5 +51,25 @@ public class Value {
         } catch (Exception e) {
         }
         return imageFile;
+    }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+
+    public static int height_16_9(int width){
+        return (int)((float)width*0.5625);
+    }
+
+    public static float pixelToDp(float px){
+        return px / ((float) App.getContext().getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public static float dpToPixel(int dp){
+        return (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 }

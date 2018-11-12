@@ -39,8 +39,6 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
@@ -274,7 +272,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
         createHelperWnd();
 
-        //   NotificationCreator.showCustomNotification(getContext(),null,1,"http://178.216.248.90/Naghashi/Files/PushNotification/20181029_122920_icn_heart_selected.png","hdgsjgdghsj","امتیاز به نقاشی شما","علی به نقاشی شما امتیاز داد ویبینبیتبنت نیبتیبت زنبتین تزرتیترنتمتتتبر ب یبیب");
+
 
     }
 
@@ -924,21 +922,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         setWinners();
     }
 
-
     @Override
     public void getRankFailed() {
 
-    }
-
-    @Override
-    public void getPrizeSuccess(ResponsePrize responsePrize) {
-        this.responsePrize = responsePrize;
-        basketPrize.setPrizeList(responsePrize);
-    }
-
-    @Override
-    public void getPrizeFailed(ResponsePrize responsePrize) {
-        this.responsePrize = responsePrize;
     }
 
     @Override
@@ -1568,17 +1554,14 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(historyAdapter);
+        /*AnimationAdapter animationAdapter = new SlideInBottomAnimationAdapter(historyAdapter);
         animationAdapter.setDuration(100);
         animationAdapter.setFirstOnly(false);
 
-        recyclerView.setAdapter(animationAdapter);
+        recyclerView.setAdapter(animationAdapter);*/
 
-        Log.d("TAG", "onGetMyPaintHistorySuccess: " + historyAdapter.getItemCount());
+        recyclerView.setAdapter(historyAdapter);
 
-        //  emptyView.setVisibility(historyAdapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
-
-        // showIntro();
     }
 
     @Override
@@ -1698,6 +1681,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         dialog.show();
     }
 
+    @Override
+    public void onSuccessBuyOfferPackage(int totalCoin) {
+        setupUserInfo();
+    }
+
     public void showDialogStoragePermission() {
         final MessageDialog dialog = new MessageDialog(getContext());
         dialog.setMessage("برای نمایش نقاشی ها یی که کشیده اید یا میخواهید بکشید. باید دسترسی خواندن اطلاعات از حافظه را بدهید.آیا مایل هستید؟");
@@ -1774,10 +1762,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         }
     }*/
 
-    @Override
-    public void onSuccessBuyOfferPackage(int totalCoin) {
-        setupUserInfo();
-    }
+
 
 
     //======================== chat =======================

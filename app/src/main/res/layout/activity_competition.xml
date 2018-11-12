@@ -780,12 +780,12 @@
         android:layout_height="match_parent"
         android:visibility="visible"></FrameLayout>
 
+
     <FrameLayout
         android:id="@+id/frameLayoutScore"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"></FrameLayout>
-
 
     <!--footer-->
     <RelativeLayout
@@ -865,64 +865,89 @@
                 android:scaleType="fitEnd"
                 android:src="@drawable/grass_2" />
 
-            <ImageView
-                android:id="@+id/img_grass_8"
-                android:layout_width="170dp"
-                android:layout_height="80dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="-10dp"
-                android:layout_marginRight="-50dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/grass_1" />
-
-            <ImageView
-                android:id="@+id/img_animal_3"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="@dimen/space_normal"
-                android:layout_marginRight="70dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/animal_3" />
-
-            <ImageView
-                android:id="@+id/img_grass_7"
-                android:layout_width="140dp"
-                android:layout_height="55dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="-10dp"
-                android:layout_marginRight="20dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/grass_5" />
-
-            <ImageView
-                android:id="@+id/img_animal_5"
-                android:layout_width="70dp"
-                android:layout_height="85dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="-10dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/animal_5" />
-
-            <ImageView
-                android:id="@+id/img_grass_6"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="-10dp"
-                android:layout_marginLeft="-30dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/grass_4" />
-
-
         </RelativeLayout>
-    </RelativeLayout>
 
+
+        <ImageView
+            android:id="@+id/img_grass_7"
+            android:layout_width="140dp"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/basket_prize"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="-40dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/grass_5" />
+
+        <psb.com.kidpaint.utils.customView.BasketPrize
+            android:id="@+id/basket_prize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-5dp"
+            android:layout_alignParentRight="true"
+            android:scaleY="0.6"
+            android:scaleX="0.6"
+            />
+
+        <ImageView
+            android:id="@+id/img_animal_3"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/img_grass_6"
+            android:layout_marginBottom="@dimen/space_normal"
+            android:layout_marginLeft="20dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/animal_3" />
+
+        <ImageView
+            android:id="@+id/img_grass_6"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/basket_prize"
+            android:layout_marginRight="-40dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/grass_4" />
+
+        <ImageView
+            android:id="@+id/img_grass_8"
+            android:layout_width="170dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="-10dp"
+            android:layout_marginRight="-50dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/grass_1" />
+
+
+        <ImageView
+            android:id="@+id/img_animal_5"
+            android:layout_width="70dp"
+            android:layout_height="85dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="-10dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/animal_5" />
+
+
+        <ImageView
+            android:id="@+id/img_grass_9"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="-15dp"
+            android:layout_marginBottom="-5dp"
+            android:scaleType="fitEnd"
+            android:scaleX="-1"
+            android:src="@drawable/grass_2" />
+
+
+    </RelativeLayout>
     <!--reserved state of user -->
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -990,4 +1015,5 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
+
 </RelativeLayout>
