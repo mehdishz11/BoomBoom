@@ -898,6 +898,8 @@
                 android:scaleType="fitEnd"
                 android:src="@drawable/grass_5" />
 
+
+
             <ImageView
                 android:id="@+id/img_animal_5"
                 android:layout_width="80dp"
@@ -921,6 +923,16 @@
 
 
         </RelativeLayout>
+
+        <psb.com.kidpaint.utils.customView.BasketPrize
+            android:id="@+id/basket_prize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            />
+
     </RelativeLayout>
 
     <!--reserved state of user -->

@@ -61,6 +61,7 @@ import psb.com.kidpaint.utils.customAnimation.AnimationHelper;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.BasketPrize;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.DialogPrizeDescription;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.intro.Intro;
@@ -236,6 +237,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         splashFragment = new SplashFragment().newInstance();
 
 
+        basketPrize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogPrizeDescription dialogPrizeDescription=new DialogPrizeDescription(HomeActivity_2.this);
+                dialogPrizeDescription.show();
+
+            }
+        });
+
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,6 +281,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         initAnimation();
 
         createHelperWnd();
+
+
 
 
 
@@ -635,6 +647,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     protected void onResume() {
         super.onResume();
         ToolbarHandler.makeFullScreen(getWindow());
+
         MusicHelper.stopMusic();
         MusicHelper.playMusic(R.raw.bgr_happy_sunshine);
 
