@@ -64,7 +64,9 @@ public class M_Splash implements IM_Splash {
     public void getStickers() {
         stickerList.clear();
         categoryList.clear();
+
         String fromDate=tblStickers.getStickerLastUpdateTime();
+
         new Category().getCategory(new iGetCategory.iResult() {
             @Override
             public void onSuccessGetCategory(ResponseStickers responseStickers) {
@@ -89,15 +91,12 @@ public class M_Splash implements IM_Splash {
 
 
     private void addStickersToDataBase(List<Sticker> stickerList){
-        for (int i = 0; i < stickerList.size(); i++) {
-            tblStickers.insert(stickerList.get(i));
-        }
+            tblStickers.insert(stickerList);
+
     }
 
     private void addCategoryToDataBase(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList){
-        for (int i = 0; i < categoryList.size(); i++) {
-            tblCategory.insert(categoryList.get(i));
-        }
+            tblCategory.insert(categoryList);
     }
 
     @Override

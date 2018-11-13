@@ -3,7 +3,6 @@ package psb.com.kidpaint.myMessages;
 import android.content.Context;
 import android.util.Log;
 
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -124,11 +124,12 @@ public class StickerFragment extends Fragment implements IV_Stickers{
     }
 
     @Override
-    public void onStickerSelected(Bitmap stickerBitmap,int price) {
+    public void onStickerSelected(Bitmap stickerBitmap,int price,String stickerSound) {
         if (mListener != null) {
             StickerImageView stickerImageView=new StickerImageView(getContext());
             stickerImageView.setImageBitmap(stickerBitmap);
             stickerImageView.setStickerPrice(price);
+            stickerImageView.setStickerSound(stickerSound);
             mListener.onStickerSelected(stickerImageView);
         }
     }

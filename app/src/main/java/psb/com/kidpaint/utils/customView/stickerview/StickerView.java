@@ -32,6 +32,7 @@ public abstract class StickerView extends FrameLayout {
     private ImageView iv_check;
     private ImageView iv_flip;
     private int stickerPrice=0;
+    private String stickerSound;
 
     // For scalling
     private float this_orgX = -1, this_orgY = -1;
@@ -206,6 +207,14 @@ public abstract class StickerView extends FrameLayout {
 
     public void setStickerPrice(int stickerPrice) {
         this.stickerPrice = stickerPrice;
+    }
+
+    public String getStickerSound() {
+        return stickerSound;
+    }
+
+    public void setStickerSound(String stickerSound) {
+        this.stickerSound = stickerSound;
     }
 
     public void removeSticker() {

@@ -5,13 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import psb.com.kidpaint.utils.database.Sql;
 import psb.com.kidpaint.webApi.chat.Get.model.Extra;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 
 
@@ -253,8 +251,10 @@ public class TblMessage {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"insertTime"};
+
         Cursor c = db.query("tbl_Message", columns, null,null, null, null, "insertTime ASC");
-        if (c.moveToLast()) {
+
+        if (c.moveToLast() && c.getCount()>1) {
             time = c.getString(0);
         }
 

@@ -42,7 +42,6 @@ import java.util.Date;
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.home.HomeActivity_2;
 import psb.com.kidpaint.painting.bucket.BucketCanvas;
 import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
 import psb.com.kidpaint.painting.palette.adapter.PaletteViewPagerAdapter;
@@ -991,6 +990,8 @@ public class PaintActivity extends BaseActivity implements
 
 
             Log.d("TAG", "onStickerSelected: " + sticker.getStickerPrice());
+
+            MusicHelper.playSingleMedia(sticker.getStickerSound());
 
             if (bottomSheetBehavior != null) {
                 if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {

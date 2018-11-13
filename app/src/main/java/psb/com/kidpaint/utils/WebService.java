@@ -32,9 +32,7 @@ public class WebService {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request.Builder ongoing = chain.request().newBuilder();
-                        if (userProfile.get_KEY_JWT( "-1")!=null) {
-                            Log.d("TAG" ,"Authorization: "+"Bearer "+ userProfile.get_KEY_JWT("-1"));
-                            Log.d("TAG" ,"DeviceId: "+" "+ Utils.getDeviceId(App.getContext()));
+                        if (userProfile.get_KEY_JWT( "-1")!=null && !userProfile.get_KEY_JWT( "-1").equals("-1")) {
                             ongoing.addHeader("Authorization", "Bearer "+userProfile.get_KEY_JWT("-1"));
                           ongoing.addHeader("DeviceId", Utils.getDeviceId(App.getContext()));
                         }

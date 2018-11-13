@@ -88,7 +88,11 @@ public class P_Stickers implements IP_Stickers {
                     holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ivStickers.onStickerSelected(((BitmapDrawable)holder.imageViewStickers.getDrawable()).getBitmap(),sticker.getPrice());
+                            ivStickers.onStickerSelected(
+                                    ((BitmapDrawable)holder.imageViewStickers.getDrawable()).getBitmap(),
+                                    sticker.getPrice(),
+                                    sticker.getSongUrl()
+                            );
                         }
                     });
                 }

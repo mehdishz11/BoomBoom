@@ -4,12 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import org.json.JSONObject;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.utils.database.Sql;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 
@@ -23,23 +23,29 @@ public class TblStickers {
     }
 
 
-    public void insert(Sticker sticker) {
+    public void insert(List<Sticker> stickerList) {
 
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("id", sticker.getId());
-        cv.put("imageUrl", sticker.getImageUrl());
-        cv.put("price", sticker.getPrice());
-        cv.put("songUrl", sticker.getSongUrl());
-        cv.put("categoryId", sticker.getCategoryId());
-        cv.put("deleted", sticker.getDeleted()?1:0);
-        cv.put("updateTime", sticker.getCreateDate());
+        for (Sticker sticker : stickerList) {
+            cv.put("id", sticker.getId());
+            cv.put("imageUrl", sticker.getImageUrl());
+            cv.put("price", sticker.getPrice());
+            cv.put("songUrl", sticker.getSongUrl());
+            cv.put("categoryId", sticker.getCategoryId());
+            cv.put("deleted", sticker.getDeleted() ? 1 : 0);
+            cv.put("updateTime", sticker.getCreateDate());
 
-        int update = db.update("tbl_Stickers", cv, "id=?", new String[]{sticker.getId()+""});
-        if (update == 0) {
-            db.insert("tbl_Stickers", null, cv);
+            if (sticker.getDeleted()) {
+                db.delete("tbl_Stickers", "id=?", new String[]{sticker.getId() + ""});
+            } else {
+                int update = db.update("tbl_Stickers", cv, "id=?", new String[]{sticker.getId() + ""});
+                if (update == 0) {
+                    db.insert("tbl_Stickers", null, cv);
+                }
+            }
         }
         db.close();
         sql.close();
@@ -50,7 +56,7 @@ public class TblStickers {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId"};
-        Cursor c = db.query("tbl_Stickers", columns, "id=?", new String[]{id+""}, null, null,null);
+        Cursor c = db.query("tbl_Stickers", columns, "id=?", new String[]{id + ""}, null, null, null);
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 content.setId(c.getInt(0));
@@ -70,7 +76,7 @@ public class TblStickers {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId"};
-        Cursor c = db.query("tbl_Stickers", columns, "deleted=?", new String[]{"0"}, null, null,null);
+        Cursor c = db.query("tbl_Stickers", columns, "deleted=?", new String[]{"0"}, null, null, null);
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 for (int i = 0; i < c.getCount(); i++) {
@@ -104,13 +110,17 @@ public class TblStickers {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"updateTime"};
-        Cursor c = db.query("tbl_Stickers", columns, null,null, null, null, "updateTime ASC");
+        Cursor c = db.query("tbl_Stickers", columns, null, null, null, null, "updateTime ASC");
         if (c.moveToLast()) {
             time = c.getString(0);
         }
 
         db.close();
         sql.close();
+
+
+        Log.d(App.TAG, "getStickerLastUpdateTime: " + time);
+//2018-07-25 16:55:42
         return time;
     }
 }

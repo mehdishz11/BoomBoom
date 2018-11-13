@@ -11,7 +11,6 @@ import java.util.List;
 
 import psb.com.kidpaint.utils.database.Sql;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Category;
-import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 
 
 public class TblCategory {
@@ -22,25 +21,30 @@ public class TblCategory {
         this.mContext = c;
     }
 
-
-    public void insert(Category category) {
+    public void insert(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList) {
 
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("id", category.getId());
-        cv.put("name", category.getName());
-        cv.put("sort", category.getOrder());
-        cv.put("parentId", category.getParentId());
-        cv.put("imageUrl", category.getImageUrl());
-        cv.put("price", category.getPrice());
-        cv.put("songUrl", category.getSongUrl());
+        for (Category category : categoryList
+                ) {
 
-        int update = db.update("tbl_Category", cv, "id=?", new String[]{category.getId()+""});
-        if (update == 0) {
-            db.insert("tbl_Category", null, cv);
+            cv.put("id", category.getId());
+            cv.put("name", category.getName());
+            cv.put("sort", category.getOrder());
+            cv.put("parentId", category.getParentId());
+            cv.put("imageUrl", category.getImageUrl());
+            cv.put("price", category.getPrice());
+            cv.put("songUrl", category.getSongUrl());
+
+            int update = db.update("tbl_Category", cv, "id=?", new String[]{category.getId() + ""});
+            if (update == 0) {
+                db.insert("tbl_Category", null, cv);
+            }
+
         }
+
         db.close();
         sql.close();
         return;
@@ -52,7 +56,7 @@ public class TblCategory {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "name", "sort", "parentId", "imageUrl", "price", "songUrl"};
-        Cursor c = db.query("tbl_Category", columns, "id=?", new String[]{id+""}, null, null,null);
+        Cursor c = db.query("tbl_Category", columns, "id=?", new String[]{id + ""}, null, null, null);
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 category.setId(c.getInt(0));
@@ -75,7 +79,7 @@ public class TblCategory {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "name", "sort", "parentId", "imageUrl", "price", "songUrl"};
-        Cursor c = db.query("tbl_Category", columns, null, null, null, null,null);
+        Cursor c = db.query("tbl_Category", columns, null, null, null, null, null);
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 for (int i = 0; i < c.getCount(); i++) {
@@ -94,15 +98,8 @@ public class TblCategory {
         }
         db.close();
         sql.close();
-        Log.d("sizeis", "getAllStickers: "+categoryList.size());
+        Log.d("sizeis", "getAllStickers: " + categoryList.size());
         return categoryList;
     }
 
-    public void delete(int id) {
-        Sql sql = new Sql(mContext);
-        SQLiteDatabase db = sql.getWritableDatabase();
-        db.delete("tbl_Category", "id=?", new String[]{id + ""});
-        db.close();
-        sql.close();
-    }
 }

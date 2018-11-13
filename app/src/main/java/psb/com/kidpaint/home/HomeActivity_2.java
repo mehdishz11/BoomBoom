@@ -183,12 +183,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String newToken = instanceIdResult.getToken();
-
-                Log.d("TAG", "onSuccessToken: " + newToken);
                 userProfile.set_KEY_FCM(newToken);
 
             }
         });
+
         // initPayment();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -261,10 +260,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         });
 
 
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
+        TaskHelper.increaseNumberOfSignUps(getContext());
+        /*
         if (Utils.isAgrigator()) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
             TaskHelper.increaseNumberOfSignUps(getContext());
         } else {
+
             if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
@@ -275,16 +279,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
                 startActivityForResult(intent, CODE_REGISTER_First);
             }
         }
-
+*/
         setupUserInfo();
 
         initAnimation();
 
         createHelperWnd();
-
-
-
-
 
     }
 
