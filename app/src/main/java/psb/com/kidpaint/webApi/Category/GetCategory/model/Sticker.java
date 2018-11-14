@@ -1,9 +1,10 @@
 
 package psb.com.kidpaint.webApi.Category.GetCategory.model;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class Sticker implements Serializable
 {
@@ -23,6 +24,9 @@ public class Sticker implements Serializable
     @SerializedName("createDate")
     @Expose
     private String createDate;
+    @SerializedName("lastEditDate")
+    @Expose
+    private String lastEditDate;
 
     @SerializedName("deleted")
     @Expose
@@ -86,5 +90,13 @@ public class Sticker implements Serializable
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getLastEditDate() {
+        return lastEditDate;
+    }
+
+    public void setLastEditDate(String lastEditDate) {
+        this.lastEditDate = lastEditDate;
     }
 }

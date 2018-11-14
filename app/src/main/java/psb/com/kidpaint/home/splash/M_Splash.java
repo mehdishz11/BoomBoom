@@ -88,8 +88,6 @@ public class M_Splash implements IM_Splash {
         }).doGetCategory(fromDate);
     }
 
-
-
     private void addStickersToDataBase(List<Sticker> stickerList){
             tblStickers.insert(stickerList);
 

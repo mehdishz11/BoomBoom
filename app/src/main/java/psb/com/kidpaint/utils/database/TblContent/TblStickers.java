@@ -37,13 +37,17 @@ public class TblStickers {
             cv.put("categoryId", sticker.getCategoryId());
             cv.put("deleted", sticker.getDeleted() ? 1 : 0);
             cv.put("updateTime", sticker.getCreateDate());
+            cv.put("lastEditDate", sticker.getLastEditDate());
 
+            Log.d(App.TAG, "insert: "+sticker.getPrice());
             if (sticker.getDeleted()) {
                 db.delete("tbl_Stickers", "id=?", new String[]{sticker.getId() + ""});
             } else {
                 int update = db.update("tbl_Stickers", cv, "id=?", new String[]{sticker.getId() + ""});
+                Log.d(App.TAG, "insert: "+update);
                 if (update == 0) {
                     db.insert("tbl_Stickers", null, cv);
+                    Log.d(App.TAG, "insert: "+update);
                 }
             }
         }
@@ -109,8 +113,8 @@ public class TblStickers {
         String time = "2000-07-02 17:07:19";
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
-        String[] columns = new String[]{"updateTime"};
-        Cursor c = db.query("tbl_Stickers", columns, null, null, null, null, "updateTime ASC");
+        String[] columns = new String[]{"lastEditDate"};
+        Cursor c = db.query("tbl_Stickers", columns, null, null, null, null, "lastEditDate ASC");
         if (c.moveToLast()) {
             time = c.getString(0);
         }

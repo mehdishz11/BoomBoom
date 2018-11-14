@@ -14,7 +14,7 @@ public class Sql extends SQLiteOpenHelper {
     //------------------------------------------
 
     public Sql(Context context) {
-        super(context, dbName, null,8);
+        super(context, dbName, null,9);
     }
 
     @Override
@@ -29,7 +29,9 @@ public class Sql extends SQLiteOpenHelper {
                 "songUrl TEXT ," +
                 "categoryId INTEGER,"  +
                 "deleted INTEGER,"  +
-                "updateTime CURRENT_TIMESTAMP)"
+                "updateTime CURRENT_TIMESTAMP," +
+                "lastEditDate CURRENT_TIMESTAMP" +
+                ")"
         );
 
         db.execSQL("CREATE TABLE tbl_Category (" +
@@ -42,7 +44,6 @@ public class Sql extends SQLiteOpenHelper {
                 "price INTEGER ," +
                 "songUrl TEXT,"   +
                 "deleted INTEGER,"  +
-
                 "updateTime CURRENT_TIMESTAMP)"
         );
 
@@ -66,7 +67,7 @@ public class Sql extends SQLiteOpenHelper {
         cv.put("messageId", 0);
         cv.put("title", "پشتیبانی");
         cv.put("imageUrl", "");
-        cv.put("body", "هر سوال ، نظر یا پیشنهادی که داشتی اینجا میتونی به ما بگی");
+        cv.put("body", "هر سوال ، نظر یا پیشنهادی که داشتی اینجا میتونی به ما بگی\nیا تو اینستاگرام به ما پیغام بدی");
         cv.put("type", "Chat");
         cv.put("url", "");
         cv.put("isRead", 0);
