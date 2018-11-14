@@ -69,6 +69,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.OnShowListener;
 import psb.com.kidpaint.utils.customView.paintingBucket.QueueLinearFloodFiller;
 import psb.com.kidpaint.utils.customView.stickerview.StickerView;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
+import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.userScore.buySticker.model.ResponseBuySticker;
@@ -133,6 +134,8 @@ public class PaintActivity extends BaseActivity implements
     private PPaint pPaint;
 
     private ProgressDialog progressDialog;
+
+    private boolean isFirstRun=true;
 
 
     @Override
@@ -836,7 +839,8 @@ public class PaintActivity extends BaseActivity implements
         }
 
         if (paintType == PaintType.ERASER) {
-            SoundHelper.playSound(R.raw.sf_eraser);
+            if(!isFirstRun)SoundHelper.playSound(R.raw.sf_eraser);
+            isFirstRun=false;
             //enable and set paint canvas
             paintCanvas.setMode(DrawView.Mode.ERASER);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
@@ -853,7 +857,8 @@ public class PaintActivity extends BaseActivity implements
 
 
         } else if (paintType == PaintType.BUCKET) {
-            SoundHelper.playSound(R.raw.paint_bucket);
+            if(!isFirstRun)SoundHelper.playSound(R.raw.paint_bucket);
+            isFirstRun=false;
             //ENABLE BUCKET
             bucketCanvas.initOntouchListener();
 
@@ -879,7 +884,8 @@ public class PaintActivity extends BaseActivity implements
             bucketCanvas.removeTouchListener();
 
         } else if (paintType == PaintType.PENCIL) {
-            SoundHelper.playSound(R.raw.pencil);
+            if(!isFirstRun)SoundHelper.playSound(R.raw.pencil);
+            isFirstRun=false;
             //enable and set paint canvas
             paintCanvas.setMode(DrawView.Mode.DRAW);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
@@ -988,10 +994,7 @@ public class PaintActivity extends BaseActivity implements
                 showDialogPackage(mess, "Continue");
             }
 
-
-            Log.d("TAG", "onStickerSelected: " + sticker.getStickerPrice());
-
-            MusicHelper.playSingleMedia(sticker.getStickerSound());
+            new SingleMusicPlayer().playSingleMedia(sticker.getStickerSound());
 
             if (bottomSheetBehavior != null) {
                 if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {

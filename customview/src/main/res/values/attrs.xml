@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="type">
+        <flag name="keepSmall" value="1" />
+        <flag name="keepBig" value="2" />
+    </attr>
+
     <declare-styleable name="SquareRelativeLayout">
-        <attr name="type">
-            <flag name="keepSmall" value="1"/>
-            <flag name="keepBig" value="2"/>
-        </attr>
+        <attr name="type" />
+    </declare-styleable>
+
+    <declare-styleable name="SquareImageView">
+        <attr name="type" />
     </declare-styleable>
 </resources>

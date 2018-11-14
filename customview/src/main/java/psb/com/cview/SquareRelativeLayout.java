@@ -41,6 +41,7 @@ public class SquareRelativeLayout extends RelativeLayout {
 
     private static final double WIDTH_RATIO = 1;
     private static final double HEIGHT_RATIO = 1;
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
