@@ -224,7 +224,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
         imgOwl = findViewById(R.id.img_owl);
 
-        basketPrize= findViewById(R.id.basket_prize);
+        basketPrize = findViewById(R.id.basket_prize);
 
         imgOwl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,7 +239,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         basketPrize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogPrizeDescription dialogPrizeDescription=new DialogPrizeDescription(HomeActivity_2.this);
+                DialogPrizeDescription dialogPrizeDescription = new DialogPrizeDescription(HomeActivity_2.this);
                 dialogPrizeDescription.show();
 
             }
@@ -258,7 +258,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
             }
         });
-
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
@@ -281,8 +280,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         }
 */
         setupUserInfo();
-
-        initAnimation();
 
         createHelperWnd();
 
@@ -907,10 +904,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commitNowAllowingStateLoss();
-
-
-        Log.d("TAG", "splashSuccess: ");
         setInfo();
+        initAnimation();
 
     }
 
@@ -918,9 +913,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     public void splashFailed(String msg) {
         frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commitNowAllowingStateLoss();
-        //showIntro();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        Log.d("TAG", "splashFailed: ");
         setInfo();
     }
 
@@ -1468,6 +1461,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
             SoundHelper.playSound(R.raw.rooster);
 
         }
+
         imageRooster.setOnClickListener(null);
         ObjectAnimator animMove = ObjectAnimator.ofFloat(imageRooster, "translationY", imageRooster.getHeight(), 0.0f);
         animMove.setDuration(300); // miliseconds
@@ -1774,8 +1768,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
             dialogOfferPackage.onFailedPayment(message);
         }
     }*/
-
-
 
 
     //======================== chat =======================

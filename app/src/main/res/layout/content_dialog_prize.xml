@@ -411,7 +411,7 @@
                 android:layout_marginTop="@dimen/space_small"
                 android:textSize="@dimen/text_size_normal"
                 android:text="فقط ۴ روز مانده به پایان مسابقه "
-                android:visibility="invisible"
+                android:visibility="gone"
                 />
 
         </LinearLayout>
