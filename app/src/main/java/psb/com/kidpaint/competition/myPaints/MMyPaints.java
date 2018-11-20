@@ -99,7 +99,7 @@ public class MMyPaints implements IMMyPaints {
             public void onFailedGetMyPaints(int errorId, String ErrorMessage) {
                 ipMyPaints.onFailedGetMyPaints(errorId, ErrorMessage);
             }
-        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"));
+        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"),true);
     }
 
 

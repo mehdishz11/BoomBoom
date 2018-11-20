@@ -4,7 +4,9 @@ import android.content.Context;
 
 import java.io.File;
 
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.shareModel.HistoryModel;
 
 public interface IM_Home {
     Context getContext();
@@ -22,8 +24,7 @@ public interface IM_Home {
     void postPaint(int position);
     void deletePaint(int position);
 
-    File getPositionAt(int position);
-    File getLastPaintFile();
+    HistoryModel getPositionAt(int position);
     int getArrSize();
 
     boolean userIsRegistered();
@@ -31,6 +32,8 @@ public interface IM_Home {
     void doAddScore(int addScoreMode);
 
     void getRank();
+
+    void setResponseMyPaints(ResponseGetMyPaints responseMyPaints);
 
 
 }

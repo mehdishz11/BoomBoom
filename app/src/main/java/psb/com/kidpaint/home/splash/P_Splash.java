@@ -1,9 +1,11 @@
 package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
+import android.util.Log;
 
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class P_Splash implements IP_Splash {
@@ -132,6 +134,26 @@ public class P_Splash implements IP_Splash {
     @Override
     public void onFailedGetProfile(int errorCode, String errorMessage) {
         ivSplash.onFailedGetProfile(errorCode, errorMessage);
+
+    }
+
+    @Override
+    public void getMyPaints() {
+        mSplash.getMyPaints();
+    }
+
+    @Override
+    public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
+        Log.d("TAG", "onSuccessGetMyPaints pSuc: "+responseGetMyPaints.getMyPaint().size());
+
+        ivSplash.onSuccessGetMyPaints(responseGetMyPaints);
+    }
+
+    @Override
+    public void onFailedGetGetMyPaints(int errorCode, String errorMessage) {
+        Log.d("TAG", "onSuccessGetMyPaints pFail: "+errorMessage);
+
+        ivSplash.onFailedGetGetMyPaints(errorCode, errorMessage);
 
     }
 }

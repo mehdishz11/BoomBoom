@@ -76,6 +76,7 @@ import psb.com.kidpaint.utils.task.TaskHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
@@ -102,6 +103,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
     private ResponseGetOfferPackage mResponseOfferPackage;
     private ResponseGetDailyPrize mResponseGetDailyPrize;
+    private ResponseGetMyPaints mResponseGetMyPaints;
 
     private ImageView btn_settings;
     private int sendPosition = -1;
@@ -336,6 +338,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
     public void setInfo() {
         setupUserInfo();
+        pHome.setResponseMyPaints(mResponseGetMyPaints);
         pHome.getMyPaintHistory();
 
         bunny.addAnimatorListener(new AnimatorListenerAdapter() {
@@ -941,6 +944,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     @Override
     public void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
         this.mResponseGetDailyPrize = responseGetDailyPrize;
+    }
+
+    @Override
+    public void setResponseMyPaints(ResponseGetMyPaints responseMyPaints) {
+
+        Log.d("TAG", "setResponseMyPaints: "+responseMyPaints.getMyPaint().size());
+        mResponseGetMyPaints=responseMyPaints;
+
+
     }
 
 

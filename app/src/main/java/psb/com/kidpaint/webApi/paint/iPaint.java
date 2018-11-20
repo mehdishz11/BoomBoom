@@ -9,8 +9,12 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.GetMyPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
+import psb.com.kidpaint.webApi.paint.paintToMatch.PaintToMatch;
+import psb.com.kidpaint.webApi.paint.paintToMatch.iPaintToMatch;
 import psb.com.kidpaint.webApi.paint.postPaint.PostPaint;
 import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
+import psb.com.kidpaint.webApi.paint.savePaints.SavePaints;
+import psb.com.kidpaint.webApi.paint.savePaints.iSavePaints;
 import psb.com.kidpaint.webApi.paint.score.Score;
 import psb.com.kidpaint.webApi.paint.score.iScore;
 
@@ -34,5 +38,11 @@ public interface iPaint {
 
     DeletePaint deletePaint();
     DeletePaint deletePaint(iDeletePaint.iResult iResult);
+
+    SavePaints savePaints();
+    SavePaints savePaints(iSavePaints.iResult iResult);
+
+    PaintToMatch paintToMatch();
+    PaintToMatch paintToMatch(iPaintToMatch.iResult iResult);
 
 }

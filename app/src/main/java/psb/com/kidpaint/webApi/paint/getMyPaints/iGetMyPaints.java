@@ -24,7 +24,7 @@ import retrofit2.http.Query;
 
 public interface iGetMyPaints {
 
-    void doGetMyPaints(String mobile);
+    void doGetMyPaints(String mobile,boolean isMatch);
 
     interface iResult {
         void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
@@ -34,6 +34,6 @@ public interface iGetMyPaints {
 
     interface apiRequest {
         @GET(iPaint.apiAddress+"GetMyPaints")
-        Call<ResponseGetMyPaints> getMyPaints( @Query("mobile") String mobile);
+        Call<ResponseGetMyPaints> getMyPaints( @Query("mobile") String mobile ,@Query("isMatch") boolean isMatch);
     }
 }

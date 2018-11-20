@@ -61,6 +61,7 @@ import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
@@ -707,6 +708,11 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     @Override
     public void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
+
+    }
+
+    @Override
+    public void setResponseMyPaints(ResponseGetMyPaints responseMyPaints) {
 
     }
 

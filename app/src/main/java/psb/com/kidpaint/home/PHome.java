@@ -1,6 +1,7 @@
 package psb.com.kidpaint.home;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
@@ -11,8 +12,10 @@ import java.util.Random;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
+import psb.com.kidpaint.webApi.shareModel.HistoryModel;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
 
@@ -94,7 +97,7 @@ public class PHome implements IP_Home {
 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, final int position) {
-        final File filePath=mHome.getPositionAt(position);
+        final HistoryModel filePath=mHome.getPositionAt(position);
 
         if(position%2==0){
             holder.parentView.setRotation(new Random().nextInt(8));
@@ -123,25 +126,37 @@ public class PHome implements IP_Home {
 
             holder.relBtns.setVisibility(View.VISIBLE);
             holder.textViewnew.setVisibility(View.GONE);
-            Picasso.get().invalidate(filePath);
-            Picasso
-                    .get()
-                    .load(filePath)
-                    .resize(Value.getScreenHeight()/3,0)
-                    .centerCrop()
-                    .into(holder.imgOutline);
+
+            if (filePath.getFile()!=null) {
+                Picasso.get().invalidate(filePath.getFile());
+                Picasso
+                        .get()
+                        .load(filePath.getFile())
+                        .resize(Value.getScreenHeight()/3,0)
+                        .centerCrop()
+                        .into(holder.imgOutline);
+            }else{
+
+                Picasso
+                        .get()
+                        .load(filePath.getPaintModel().getUrl())
+                        .resize(Value.getScreenHeight()/3,0)
+                        .centerCrop()
+                        .into(holder.imgOutline);
+            }
 
 
             holder.relParent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iv_home.onSelecteditem(filePath.getAbsolutePath());
+
+                    iv_home.onSelecteditem(filePath.getFile()!=null?filePath.getFile().getAbsolutePath():filePath.getPaintModel().getUrl());
                 }
             });
             holder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iv_home.onSelecteditem(filePath.getAbsolutePath());
+                    iv_home.onSelecteditem((filePath.getFile()!=null?filePath.getFile().getAbsolutePath():filePath.getPaintModel().getUrl()));
                 }
             });
 //
@@ -188,10 +203,6 @@ public class PHome implements IP_Home {
         mHome.deletePaint(position);
     }
 
-    @Override
-    public File getLastPaintFile() {
-        return mHome.getLastPaintFile();
-    }
 
     @Override
     public void doAddScore(int addScoreMode) {
@@ -228,6 +239,11 @@ public class PHome implements IP_Home {
     @Override
     public void getRankFailed(String msg) {
         iv_home.getRankFailed();
+    }
+
+    @Override
+    public void setResponseMyPaints(ResponseGetMyPaints responseMyPaints) {
+        mHome.setResponseMyPaints(responseMyPaints);
     }
 
 }

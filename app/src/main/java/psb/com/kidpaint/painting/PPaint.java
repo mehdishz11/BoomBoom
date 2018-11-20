@@ -1,7 +1,9 @@
 package psb.com.kidpaint.painting;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
+import psb.com.kidpaint.webApi.paint.savePaints.model.ResponseSavePaint;
 import psb.com.kidpaint.webApi.userScore.buySticker.model.ResponseBuySticker;
 
 public class PPaint implements IPPaint {
@@ -34,5 +36,23 @@ public class PPaint implements IPPaint {
     @Override
     public void onFailedBuySticker(int errorCode, String errorMessage) {
        ivPaint.onFailedBuySticker(errorCode, errorMessage);
+    }
+
+    @Override
+    public void onSavePaint(Bitmap bitmap) {
+        ivPaint.startSavePaint();
+        mPaint.onSavePaint(bitmap);
+    }
+
+    @Override
+    public void onSuccessSavePaint(ResponseSavePaint responseSavePaint) {
+
+        ivPaint.onSuccessSavePaint(responseSavePaint);
+
+    }
+
+    @Override
+    public void onFailedSavePaint(int errorCode, String errorMessage) {
+       ivPaint.onFailedSavePaint(errorCode, errorMessage);
     }
 }

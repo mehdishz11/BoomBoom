@@ -4,6 +4,7 @@ import android.content.Context;
 
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public interface IP_Splash {
@@ -41,4 +42,8 @@ public interface IP_Splash {
     void getProfile();
     void onSuccessGetProfile();
     void onFailedGetProfile(int errorCode,String errorMessage);
+
+    void getMyPaints();
+    void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
+    void onFailedGetGetMyPaints(int errorCode,String errorMessage);
 }

@@ -31,6 +31,9 @@ public class PaintModel implements Serializable
     @SerializedName("score")
     @Expose
     private Integer score;
+    @SerializedName("matchId")
+    @Expose
+    private Integer matchId=null;
     private final static long serialVersionUID = 788457169065957875L;
 
     public Integer getId() {
@@ -89,4 +92,11 @@ public class PaintModel implements Serializable
         this.score = score;
     }
 
+    public Integer getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(Integer matchId) {
+        this.matchId = matchId;
+    }
 }

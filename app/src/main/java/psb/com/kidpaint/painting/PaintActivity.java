@@ -72,6 +72,7 @@ import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
+import psb.com.kidpaint.webApi.paint.savePaints.model.ResponseSavePaint;
 import psb.com.kidpaint.webApi.userScore.buySticker.model.ResponseBuySticker;
 import psb.com.paintingview.BucketModel;
 import psb.com.paintingview.DrawView;
@@ -481,7 +482,10 @@ public class PaintActivity extends BaseActivity implements
                 pPaint.doBuySticker(localUsedCoinCount);
             } else {
                 //  save image
-                saveFinalPaint("SaveWithOutWaterMark");
+              //  saveFinalPaint("SaveWithOutWaterMark");
+
+                pPaint.onSavePaint(getPaintCanvasBitmap(false));
+
             }
         } else {
 
@@ -1025,14 +1029,40 @@ public class PaintActivity extends BaseActivity implements
 
     @Override
     public void onSuccessBuySticker(ResponseBuySticker responseBuySticker) {
-        saveFinalPaint("");
+       // saveFinalPaint("");
+        pPaint.onSavePaint(getPaintCanvasBitmap(false));
+
     }
 
     @Override
     public void onFailedBuySticker(int errorCode, String errorMessage) {
         progressDialog.cancel();
-
         Toast.makeText(this, errorCode, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startSavePaint() {
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public void onSuccessSavePaint(ResponseSavePaint responseSavePaint) {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
+        }
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    public void onFailedSavePaint(int errorCode, String errorMessage) {
+
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        saveFinalPaint("");
+
     }
 
 
@@ -1102,8 +1132,8 @@ public class PaintActivity extends BaseActivity implements
                     coinCount.setText(localCoinCount + "");
                     switch (sendShowMode) {
                         case "SaveWithWaterMark":
-                            Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
-                            saveFinalPaint("SaveWithOutWaterMark");
+                           // saveFinalPaint("SaveWithOutWaterMark");
+                            pPaint.onSavePaint(getPaintCanvasBitmap(false));
 
                             break;
                         case "Continue":

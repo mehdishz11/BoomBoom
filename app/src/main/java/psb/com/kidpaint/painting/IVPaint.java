@@ -4,6 +4,7 @@ import android.content.Context;
 
 import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
 import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
+import psb.com.kidpaint.webApi.paint.savePaints.model.ResponseSavePaint;
 import psb.com.kidpaint.webApi.userScore.buySticker.model.ResponseBuySticker;
 
 public interface IVPaint {
@@ -15,4 +16,8 @@ public interface IVPaint {
     void startBuySticker();
     void onSuccessBuySticker(ResponseBuySticker responseBuySticker);
     void onFailedBuySticker(int errorCode, String errorMessage);
+
+    void startSavePaint();
+    void onSuccessSavePaint(ResponseSavePaint responseSavePaint);
+    void onFailedSavePaint(int errorCode, String errorMessage);
 }

@@ -22,9 +22,12 @@ import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
 import psb.com.kidpaint.webApi.offerPackage.Get.iGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.OfferPackage;
+import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.prize.Prize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.iGetDailyPrize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
@@ -217,5 +220,33 @@ public class M_Splash implements IM_Splash {
 
             }
         }).startGetUserInfo(userProfile.get_KEY_JWT("-1"),userProfile.get_KEY_PHONE_NUMBER("0"));
+    }
+
+    @Override
+    public void getMyPaints() {
+       /* new Paint().getMyPaints(new iGetMyPaints.iResult() {
+            @Override
+            public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
+                ipSplash.onSuccessGetMyPaints(responseGetMyPaints);
+            }
+
+            @Override
+            public void onFailedGetMyPaints(int errorId, String ErrorMessage) {
+                 ipSplash.onFailedGetGetMyPaints(errorId, ErrorMessage);
+            }
+        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"),false);
+*/
+
+        new Paint().getMyPaints(new iGetMyPaints.iResult() {
+            @Override
+            public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
+                ipSplash.onSuccessGetMyPaints(responseGetMyPaints);
+            }
+
+            @Override
+            public void onFailedGetMyPaints(int errorId, String ErrorMessage) {
+                ipSplash.onFailedGetGetMyPaints(errorId, ErrorMessage);
+            }
+        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"),false);
     }
 }

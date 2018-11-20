@@ -18,6 +18,9 @@ public interface IM_Splash {
     void getMessage();
     void getProfile();
 
+    void getMyPaints();
+
+
 
 
 }

@@ -1,6 +1,7 @@
 package psb.com.kidpaint.webApi.paint.getMyPaints;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -38,8 +39,8 @@ public class GetMyPaints implements iGetMyPaints {
     }
 
     @Override
-    public void doGetMyPaints(String mobile) {
-        Call<ResponseGetMyPaints> call = new WebService().getClient().create(iGetMyPaints.apiRequest.class).getMyPaints(mobile);
+    public void doGetMyPaints(String mobile, boolean isMatch) {
+        Call<ResponseGetMyPaints> call = new WebService().getClient().create(iGetMyPaints.apiRequest.class).getMyPaints(mobile,isMatch);
         call.enqueue(new Callback<ResponseGetMyPaints>() {
             @Override
             public void onResponse(Call<ResponseGetMyPaints> call, Response<ResponseGetMyPaints> response) {
@@ -67,6 +68,8 @@ public class GetMyPaints implements iGetMyPaints {
 
             @Override
             public void onFailure(Call<ResponseGetMyPaints> call, Throwable t) {
+                Log.d("TAg", "onFailure onFailedGetMyPaints: ");
+                t.printStackTrace();
                 if (iResult != null && !call.isCanceled()) {
                     iResult.onFailedGetMyPaints(0, ErrorMessage.ERROR_NETWORK_UNAVALABLE.getErrorMessage());
                 }

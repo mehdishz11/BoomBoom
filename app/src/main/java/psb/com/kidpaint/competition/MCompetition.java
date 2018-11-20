@@ -58,7 +58,7 @@ public class MCompetition implements IMCompetition {
           public void onFailedGetMyPaints(int errorId, String ErrorMessage) {
                  ipCompetition.onFailedGetMyPaints(errorId, ErrorMessage);
           }
-      }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"));
+      }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"),true);
     }
 
     @Override

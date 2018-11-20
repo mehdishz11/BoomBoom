@@ -3,6 +3,7 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class SplashFragment extends Fragment implements IV_Splash {
@@ -183,14 +185,32 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void onSuccessGetProfile() {
-        mListener.splashSuccess();
 
+        pSplash.getMyPaints();
     }
 
     @Override
     public void onFailedGetProfile(int errorCode, String errorMessage) {
-        mListener.splashSuccess();
+        pSplash.getMyPaints();
 
+    }
+    Integer a=null;
+
+    @Override
+    public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
+        Log.d("TAG", "onSuccessGetMyPaints mlis: "+(mListener!=null));
+        if (mListener!=null) {
+            mListener.setResponseMyPaints(responseGetMyPaints);
+            mListener.splashSuccess();
+        }
+
+    }
+
+    @Override
+    public void onFailedGetGetMyPaints(int errorCode, String errorMessage) {
+        if (mListener!=null) {
+            mListener.splashSuccess();
+        }
     }
 
     public interface OnFragmentInteractionListener {
@@ -209,5 +229,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
         void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage);
 
         void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize);
+        void setResponseMyPaints(ResponseGetMyPaints responseMyPaints);
     }
 }
