@@ -17,8 +17,9 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.helper.PaymentHelper;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -253,7 +254,7 @@ public class Utils {
     }
 
     public  static  boolean isAgrigator(){
-        return false;
+        return PaymentHelper.isAgrigator();
     }
 
 

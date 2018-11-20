@@ -215,4 +215,8 @@ public class PaymentHelper {
         return true;
     }
 
+    public static boolean isAgrigator(){
+        return false;
+    }
+
 }

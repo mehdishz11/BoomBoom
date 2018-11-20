@@ -8,7 +8,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 9
-        versionName "0.0.9"
+        versionName "0.1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -56,6 +56,7 @@ dependencies {
     implementation project(':animatedfab')
     implementation project(':paintingview')
     implementation project(':persianmaterialdatetimepicker')
-    implementation project(':payment')
+//    implementation project(':payment') // Cafebazaar payment
+    implementation project(':payment2') // Agrigator payment
 }
 apply plugin: 'com.google.gms.google-services'

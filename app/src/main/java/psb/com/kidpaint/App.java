@@ -13,7 +13,6 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
-//        Fabric.with(this, new Crashlytics());
         super.onCreate();
         context = getApplicationContext();
         new PaymentHelper().init(getContext());
@@ -24,7 +23,6 @@ public class App extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        ACRA.init(this);
         MultiDex.install(this);
     }
 
