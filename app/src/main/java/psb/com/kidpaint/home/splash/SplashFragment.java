@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.home.HomeActivity_2;
+import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
@@ -138,12 +140,12 @@ public class SplashFragment extends Fragment implements IV_Splash {
             mListener.setResponseOfferPackage(responseGetOfferPackage);
         }
 
-        if (responseGetOfferPackage.getExtra().size()>0) {
+        if (responseGetOfferPackage.getExtra().size() > 0) {
             if (mListener != null) {
                 mListener.setResponseDailyPrize(null);
             }
             pSplash.getRank();
-        }else{
+        } else {
 
             pSplash.getDailyPrize();
         }
@@ -175,43 +177,86 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void onSuccessGetMessage() {
-        pSplash.getProfile();
+        if (pSplash.userIsRegistered()) {
+            pSplash.getProfile();
+        } else {
+            if (mListener != null) {
+                mListener.splashSuccess();
+
+            }
+        }
     }
 
     @Override
     public void onFailedGetMessage(int errorCode, String errorMessage) {
-        pSplash.getProfile();
+        if (pSplash.userIsRegistered()) {
+            pSplash.getProfile();
+        } else {
+            if (mListener != null) {
+                mListener.splashSuccess();
+
+            }
+        }
     }
 
     @Override
     public void onSuccessGetProfile() {
 
-        pSplash.getMyPaints();
+        if (Utils.gstoragePermissionIsGranted(getContext()) && pSplash.getLocalPaintsCount() > 0) {
+
+            pSplash.onSavePaintsInServer();
+        } else {
+            pSplash.getMyPaints();
+
+        }
+
     }
 
     @Override
     public void onFailedGetProfile(int errorCode, String errorMessage) {
+
+        if (Utils.gstoragePermissionIsGranted(getContext()) && pSplash.getLocalPaintsCount() > 0) {
+            pSplash.onSavePaintsInServer();
+        } else {
+            pSplash.getMyPaints();
+
+        }
+
+
+    }
+
+    @Override
+    public void onSuccessSavePaintsInServer() {
+        pSplash.getMyPaints();
+    }
+
+    @Override
+    public void onFailedSavePaintsInServer(int errorCode, String errorMessage) {
         pSplash.getMyPaints();
 
     }
-    Integer a=null;
 
     @Override
     public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
-        Log.d("TAG", "onSuccessGetMyPaints mlis: "+(mListener!=null));
-        if (mListener!=null) {
+        Log.d("TAG", "onSuccessGetMyPaints mlis: " + (mListener != null));
+        if (mListener != null) {
             mListener.setResponseMyPaints(responseGetMyPaints);
             mListener.splashSuccess();
+
         }
+
 
     }
 
     @Override
     public void onFailedGetGetMyPaints(int errorCode, String errorMessage) {
-        if (mListener!=null) {
+
+        if (mListener != null) {
             mListener.splashSuccess();
         }
+
     }
+
 
     public interface OnFragmentInteractionListener {
         void startGetStickers();
@@ -229,6 +274,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         void setResponseOfferPackage(ResponseGetOfferPackage responseOfferPackage);
 
         void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize);
+
         void setResponseMyPaints(ResponseGetMyPaints responseMyPaints);
     }
 }

@@ -20,6 +20,8 @@ public interface IM_Splash {
 
     void getMyPaints();
 
+    int getLocalPaintsCount();
+    void onSavePaintsInServer();
 
 
 

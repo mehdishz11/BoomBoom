@@ -172,6 +172,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     private BasketPrize basketPrize;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -704,6 +705,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     }
 
     @Override
+    public void onFailedDelete(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -858,9 +864,15 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
             }
         } else if (requestCode == CODE_PAINT_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
-                setupUserInfo();
-                pHome.getMyPaintHistory();
-                showIntro();
+
+                if (data.hasExtra("SendToServer")) {
+                    pHome.getMyPaints();
+                }else {
+
+                    setupUserInfo();
+                    pHome.getMyPaintHistory();
+                    showIntro();
+                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
@@ -933,6 +945,32 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
     @Override
     public void getRankFailed() {
+
+    }
+
+    @Override
+    public void onStartGetMyPaints() {
+        if (progressDialog!=null&& !progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public void getMyPaintsSuccess() {
+        setupUserInfo();
+       pHome.getMyPaintHistory();
+        showIntro();
+        progressDialog.cancel();
+    }
+
+    @Override
+    public void getMyPaintsFailed(int errorCode,String errorMessage) {
+        setupUserInfo();
+        pHome.getMyPaintHistory();
+        showIntro();
+        progressDialog.cancel();
+
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -1613,12 +1651,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
             public void onPosetiveClicked() {
                 dialog.cancel();
                 startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
-
+                pHome.getMyPaints();
             }
 
             @Override
             public void onNegativeClicked() {
                 dialog.cancel();
+                pHome.getMyPaints();
 
             }
         });

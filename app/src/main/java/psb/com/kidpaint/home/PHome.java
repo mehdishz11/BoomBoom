@@ -2,6 +2,7 @@ package psb.com.kidpaint.home;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
@@ -143,6 +144,13 @@ public class PHome implements IP_Home {
                         .resize(Value.getScreenHeight()/3,0)
                         .centerCrop()
                         .into(holder.imgOutline);
+
+                if (filePath.getPaintModel().getCode().isEmpty()){
+                    holder.relCompetition.setVisibility(View.VISIBLE);
+                }else{
+                    holder.relCompetition.setVisibility(View.GONE);
+
+                }
             }
 
 
@@ -163,6 +171,8 @@ public class PHome implements IP_Home {
             holder.competition.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    Log.d("TAG", "onClick: competition ");
                     if (mHome.userIsRegistered()) {
                         iv_home.onStartPostPaint();
                         mHome.postPaint(position);
@@ -244,6 +254,29 @@ public class PHome implements IP_Home {
     @Override
     public void setResponseMyPaints(ResponseGetMyPaints responseMyPaints) {
         mHome.setResponseMyPaints(responseMyPaints);
+    }
+
+    @Override
+    public void getMyPaints() {
+        iv_home.onStartGetMyPaints();
+        mHome.getMyPaints();
+    }
+
+    @Override
+    public void getMyPaintsSuccess() {
+          iv_home.getMyPaintsSuccess();
+    }
+
+    @Override
+    public void getMyPaintsFailed(int errorCode,String errorMessage) {
+
+        iv_home.getMyPaintsFailed(errorCode, errorMessage);
+
+    }
+
+    @Override
+    public void onFailedDelete(String errorMessage) {
+        iv_home.onFailedDelete(errorMessage);
     }
 
 }

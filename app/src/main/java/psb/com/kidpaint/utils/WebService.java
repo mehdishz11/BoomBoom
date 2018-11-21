@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class WebService {
-    public static final String BASE_URL = "http://178.216.248.90/naghashi/api/";
+    public static final String BASE_URL = "http://getboomboom.ir/api/";
     private static Retrofit retrofit;
     private static UserProfile userProfile;
 

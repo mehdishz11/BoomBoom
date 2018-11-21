@@ -16,10 +16,15 @@ import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.webApi.paint.Paint;
+import psb.com.kidpaint.webApi.paint.deletePaint.iDeletePaint;
+import psb.com.kidpaint.webApi.paint.deletePaint.model.ResponseDeletePaint;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.GetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
+import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
+import psb.com.kidpaint.webApi.paint.paintToMatch.iPaintToMatch;
+import psb.com.kidpaint.webApi.paint.paintToMatch.model.ResponsePaintToMatch;
 import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ParamsPostPaint;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
@@ -150,8 +155,9 @@ public class MHome implements IM_Home {
     }
 
     @Override
-    public void postPaint(int position) {
+    public void postPaint(final int position) {
 
+        Log.d("TAG", "postPaint: "+position);
         if (imageList.get(position).getFile()!=null) {
 
             ParamsPostPaint paramsPostPaint = new ParamsPostPaint();
@@ -163,6 +169,11 @@ public class MHome implements IM_Home {
             new Paint().postPaint(new iPostPaint.iResult() {
                 @Override
                 public void onSuccessPostPaint(ResponsePostPaint responsePostPaint) {
+
+                    File file=imageList.get(position).getFile();
+                    if (file!=null && file.exists()) {
+                        file.delete();
+                    }
                     ip_home.onSuccessPostPaint(responsePostPaint);
 
                 }
@@ -174,14 +185,37 @@ public class MHome implements IM_Home {
                 }
             }).doPostPaint(paramsPostPaint, bitmap);
         }else{
-            ip_home.onFailedPostPaint(0, "این نقاشی");
+
+            if (imageList.get(position).getPaintModel().getCode().isEmpty()) {
+                new Paint().paintToMatch(new iPaintToMatch.iResult() {
+                    @Override
+                    public void onSuccessPaintToMatch(ResponsePaintToMatch responsePaintToMatch) {
+
+                        ResponsePostPaint responsePostPaint =new ResponsePostPaint();
+                        responsePostPaint.setExtra(responsePaintToMatch.getExtra());
+
+                        ip_home.onSuccessPostPaint(responsePostPaint);
+
+                    }
+
+                    @Override
+                    public void onFailedPaintToMatch(int errorId, String ErrorMessage) {
+                        ip_home.onFailedPostPaint(errorId, ErrorMessage);
+
+                    }
+                }).doPaintToMatch(userProfile.get_KEY_PHONE_NUMBER("0"),imageList.get(position).getPaintModel().getId());
+
+            }else{
+
+                ip_home.onFailedPostPaint(0, "این نقاشی قبلا به مسابقه ارسال شده است");
+            }
 
         }
 
     }
 //
     @Override
-    public void deletePaint(int position) {
+    public void deletePaint(final int position) {
 
         if (imageList.get(position).getFile()!=null) {
 
@@ -190,11 +224,30 @@ public class MHome implements IM_Home {
             if (file.exists()) {
                 file.delete();
             }
+
+            ip_home.onSuccessDelete(position);
+
         }else{
             //TODO delete from server
+            new Paint().deletePaint(new iDeletePaint.iResult() {
+                @Override
+                public void onSuccessDelete(ResponseDeletePaint responseDeletePaint) {
+                    imageList.remove(position);
+                    ip_home.onSuccessDelete(position);
+
+                }
+
+                @Override
+                public void onFailedDelete(int errorId, String ErrorMessage) {
+
+                    ip_home.onFailedDelete(ErrorMessage);
+
+
+                }
+            }).doDelete(userProfile.get_KEY_PHONE_NUMBER(""),imageList.get(position).getPaintModel().getId());
+
         }
 
-        ip_home.onSuccessDelete(position);
 
 
     }
@@ -252,6 +305,25 @@ public class MHome implements IM_Home {
     @Override
     public void setResponseMyPaints(ResponseGetMyPaints responseMyPaints) {
         mResponseGetMyPaints=responseMyPaints;
+    }
+
+    @Override
+    public void getMyPaints() {
+        new Paint().getMyPaints(new iGetMyPaints.iResult() {
+            @Override
+            public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
+                mResponseGetMyPaints=responseGetMyPaints;
+                ip_home.getMyPaintsSuccess();
+
+            }
+
+            @Override
+            public void onFailedGetMyPaints(int errorId, String ErrorMessage) {
+
+                ip_home.getMyPaintsFailed(errorId, ErrorMessage);
+
+            }
+        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"),false);
     }
 
 }

@@ -41,11 +41,16 @@ public interface IV_Home {
     void onFailedAddScore(int errorCode,String errorMessage);
 
     void onSuccessDelete(int position);
+    void onFailedDelete(String errorMessage);
 
 
     void getRankStarted();
     void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip);
     void getRankFailed();
+
+    void onStartGetMyPaints();
+    void getMyPaintsSuccess();
+    void getMyPaintsFailed(int errorCode,String errorMessage);
 
 
 }

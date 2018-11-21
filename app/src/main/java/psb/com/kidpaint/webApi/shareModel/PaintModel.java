@@ -21,7 +21,7 @@ public class PaintModel implements Serializable
     private User user;
     @SerializedName("code")
     @Expose
-    private Integer code;
+    private String code;
     @SerializedName("title")
     @Expose
     private String title;
@@ -60,11 +60,11 @@ public class PaintModel implements Serializable
         this.user = user;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

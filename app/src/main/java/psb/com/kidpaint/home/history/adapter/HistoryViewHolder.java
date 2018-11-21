@@ -15,6 +15,7 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
     public ImageView imgOutline;
     public ImageView imgMask;
     public View parentView;
+    public RelativeLayout relCompetition;
     public Button delete,edit,competition;
     public RelativeLayout relBtns;
     public TextView textViewnew ;
@@ -29,8 +30,8 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
         delete=itemView.findViewById(R.id.btn_delete);
         edit=itemView.findViewById(R.id.btn_edit);
         competition=itemView.findViewById(R.id.btn_competition);
+        relCompetition=itemView.findViewById(R.id.rel_competition);
         relBtns=itemView.findViewById(R.id.rel_btns);
-
         textViewnew=itemView.findViewById(R.id.textNew);
 
     }

@@ -35,4 +35,8 @@ public interface IV_Splash {
 
     void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
     void onFailedGetGetMyPaints(int errorCode,String errorMessage);
+
+
+    void onSuccessSavePaintsInServer();
+    void onFailedSavePaintsInServer(int errorCode,String errorMessage);
 }

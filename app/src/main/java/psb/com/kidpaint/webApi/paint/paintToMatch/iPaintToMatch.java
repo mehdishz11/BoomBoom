@@ -5,6 +5,7 @@ import psb.com.kidpaint.webApi.paint.iPaint;
 import psb.com.kidpaint.webApi.paint.paintToMatch.model.ResponsePaintToMatch;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -22,7 +23,7 @@ public interface iPaintToMatch {
     }
 
     interface apiRequest {
-        @GET(iPaint.apiAddress+"PaintToMatch")
+        @POST(iPaint.apiAddress+"PaintToMatch")
         Call<ResponsePaintToMatch> paintToMatch(@Query("mobile") String mobile, @Query("paintId") int paintId);
     }
 }

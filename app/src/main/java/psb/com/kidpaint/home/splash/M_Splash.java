@@ -1,8 +1,15 @@
 package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import psb.com.kidpaint.utils.UserProfile;
@@ -28,6 +35,9 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.iGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
+import psb.com.kidpaint.webApi.paint.savePaints.iSavePaints;
+import psb.com.kidpaint.webApi.paint.savePaints.model.ParamsSavePaint;
+import psb.com.kidpaint.webApi.paint.savePaints.model.ResponseSavePaint;
 import psb.com.kidpaint.webApi.prize.Prize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.iGetDailyPrize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
@@ -35,6 +45,7 @@ import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.fcmToken.iFcmToken;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
+import psb.com.kidpaint.webApi.shareModel.HistoryModel;
 
 public class M_Splash implements IM_Splash {
 
@@ -49,13 +60,15 @@ public class M_Splash implements IM_Splash {
     private SavePrize savePrize;
     private UserProfile userProfile;
 
+    private List<File> localPaintFiles=new ArrayList<>();
+
     public M_Splash(IP_Splash ipSplash) {
         this.context = ipSplash.getContext();
         this.ipSplash = ipSplash;
         tblStickers = new TblStickers(getContext());
         tblCategory = new TblCategory(getContext());
         savePrize = new SavePrize(getContext());
-        this.userProfile=new UserProfile(getContext());
+        this.userProfile = new UserProfile(getContext());
     }
 
     @Override
@@ -68,7 +81,7 @@ public class M_Splash implements IM_Splash {
         stickerList.clear();
         categoryList.clear();
 
-        String fromDate=tblStickers.getStickerLastUpdateTime();
+        String fromDate = tblStickers.getStickerLastUpdateTime();
 
         new Category().getCategory(new iGetCategory.iResult() {
             @Override
@@ -91,13 +104,13 @@ public class M_Splash implements IM_Splash {
         }).doGetCategory(fromDate);
     }
 
-    private void addStickersToDataBase(List<Sticker> stickerList){
-            tblStickers.insert(stickerList);
+    private void addStickersToDataBase(List<Sticker> stickerList) {
+        tblStickers.insert(stickerList);
 
     }
 
-    private void addCategoryToDataBase(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList){
-            tblCategory.insert(categoryList);
+    private void addCategoryToDataBase(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList) {
+        tblCategory.insert(categoryList);
     }
 
     @Override
@@ -113,7 +126,7 @@ public class M_Splash implements IM_Splash {
             public void onFailedGetLeaderShip(int errorId, String ErrorMessage) {
                 ipSplash.getRankFailed(ErrorMessage);
             }
-        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""),1,3,0,userProfile.get_KEY_LEVEL(1));
+        }).doGetLeaderShip(userProfile.get_KEY_PHONE_NUMBER(""), 1, 3, 0, userProfile.get_KEY_LEVEL(1));
     }
 
     @Override
@@ -135,7 +148,7 @@ public class M_Splash implements IM_Splash {
 
                 @Override
                 public void onFailedSendFcmToken(int ErrorId, String ErrorMessage) {
-                      ipSplash.onFailedUpdateFcmToken(ErrorId, ErrorMessage);
+                    ipSplash.onFailedUpdateFcmToken(ErrorId, ErrorMessage);
                 }
             }).startSendFcmToken(userProfile.get_KEY_JWT(""), userProfile.get_KEY_FCM(""), userProfile.get_KEY_PHONE_NUMBER(""));
         }
@@ -151,7 +164,7 @@ public class M_Splash implements IM_Splash {
 
             @Override
             public void onFailedGetOfferPackage(int errorCode, String ErrorMessage) {
-             ipSplash.onFailedGetOfferPackage(errorCode, ErrorMessage);
+                ipSplash.onFailedGetOfferPackage(errorCode, ErrorMessage);
             }
         }).doGetOfferPackage(userProfile.get_KEY_PHONE_NUMBER(""));
     }
@@ -167,14 +180,14 @@ public class M_Splash implements IM_Splash {
 
             @Override
             public void onFailedGetDailyPrize(int errorCode, String ErrorMessage) {
-        ipSplash.onFailedGetDailyPrize(errorCode, ErrorMessage);
+                ipSplash.onFailedGetDailyPrize(errorCode, ErrorMessage);
             }
         }).doGetDailyPrize(userProfile.get_KEY_PHONE_NUMBER("0"));
     }
 
     @Override
     public void getMessage() {
-        final String time=new Database().tblMessage(getContext()).getMessageLastUpdateTime();
+        final String time = new Database().tblMessage(getContext()).getMessageLastUpdateTime();
         new Chat().getChat(new iGetChat.iResult() {
             @Override
             public void onSuccessGetChat(ResponseMyMessages responseMyMessages) {
@@ -191,7 +204,7 @@ public class M_Splash implements IM_Splash {
                 ipSplash.onFailedGetMessage(errorId, ErrorMessage);
 
             }
-        }).doGetChat(Utils.getDeviceId(getContext()),userProfile.get_KEY_PHONE_NUMBER(""),time );
+        }).doGetChat(Utils.getDeviceId(getContext()), userProfile.get_KEY_PHONE_NUMBER(""), time);
 
     }
 
@@ -200,8 +213,8 @@ public class M_Splash implements IM_Splash {
         new Register().profile(new iProfile.iResult() {
             @Override
             public void onSuccessGetUserInfo(UserInfo userInfo) {
-              userProfile.set_KEY_USER_INFO(userInfo);
-              ipSplash.onSuccessGetProfile();
+                userProfile.set_KEY_USER_INFO(userInfo);
+                ipSplash.onSuccessGetProfile();
             }
 
             @Override
@@ -219,7 +232,7 @@ public class M_Splash implements IM_Splash {
             public void onFailedSetUserInfo(int ErrorId, String ErrorMessage) {
 
             }
-        }).startGetUserInfo(userProfile.get_KEY_JWT("-1"),userProfile.get_KEY_PHONE_NUMBER("0"));
+        }).startGetUserInfo(userProfile.get_KEY_JWT("-1"), userProfile.get_KEY_PHONE_NUMBER("0"));
     }
 
     @Override
@@ -247,6 +260,76 @@ public class M_Splash implements IM_Splash {
             public void onFailedGetMyPaints(int errorId, String ErrorMessage) {
                 ipSplash.onFailedGetGetMyPaints(errorId, ErrorMessage);
             }
-        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"),false);
+        }).doGetMyPaints(userProfile.get_KEY_PHONE_NUMBER("0"), false);
+    }
+
+    @Override
+    public int getLocalPaintsCount() {
+
+        String path = Environment.getExternalStorageDirectory() + "/kidPaint";
+        File directory = new File(path);
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+       File[] files = directory.listFiles();
+        if (files != null && files.length > 0) {
+
+
+            for (int i = 0; files != null && i < files.length; i++) {
+                if (files[i].getAbsolutePath().toLowerCase().contains("jpg")) {
+                    localPaintFiles.add(files[i]);
+                }
+            }
+        }
+
+
+        return localPaintFiles.size();
+    }
+
+    @Override
+    public void onSavePaintsInServer() {
+        if (localPaintFiles.size()>0) {
+            String filePath = localPaintFiles.get(0).getAbsolutePath();
+            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
+            ParamsSavePaint paramsPostPaint = new ParamsSavePaint();
+            paramsPostPaint.setMobile(userProfile.get_KEY_PHONE_NUMBER("0"));
+            paramsPostPaint.setTitle("");
+
+            new Paint().savePaints(new iSavePaints.iResult() {
+                @Override
+                public void onSuccessSavePaint(ResponseSavePaint responseSavePaint) {
+                    File file=localPaintFiles.get(0);
+                    if (file.exists()) {
+                        file.delete();
+                    }
+
+                    localPaintFiles.remove(0);
+                    if (localPaintFiles.size()>0) {
+                        onSavePaintsInServer();
+                    }else{
+                        ipSplash.onSuccessSavePaintsInServer();
+                    }
+
+                }
+
+                @Override
+                public void onFailedSavePaint(int errorId, String ErrorMessage) {
+                   // ipSplash.onFailedSavePaintsInServer(errorId, ErrorMessage);
+
+                    localPaintFiles.remove(0);
+                    if (localPaintFiles.size()>0) {
+                        onSavePaintsInServer();
+                    }else{
+                        ipSplash.onSuccessSavePaintsInServer();
+                    }
+                }
+            }).doSavePaint(paramsPostPaint,bitmap);
+        }else {
+            ipSplash.onSuccessSavePaintsInServer();
+
+        }
+
     }
 }

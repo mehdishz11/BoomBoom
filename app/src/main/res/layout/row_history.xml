@@ -132,7 +132,9 @@
                 <RelativeLayout
                     android:id="@+id/rel_competition"
                     android:layout_width="wrap_content"
+                    android:clickable="true"
                     android:layout_height="wrap_content"
+
                     android:layout_marginLeft="@dimen/space_small"
                     android:layout_toRightOf="@+id/rel_edit">
 

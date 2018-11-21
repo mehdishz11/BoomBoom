@@ -35,5 +35,8 @@ public interface IM_Home {
 
     void setResponseMyPaints(ResponseGetMyPaints responseMyPaints);
 
+    void getMyPaints();
+
+
 
 }

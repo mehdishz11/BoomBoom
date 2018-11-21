@@ -14,7 +14,7 @@ public class P_Splash implements IP_Splash {
     private IV_Splash ivSplash;
     private M_Splash mSplash;
 
-    public P_Splash(IV_Splash ivSplash){
+    public P_Splash(IV_Splash ivSplash) {
         this.context = ivSplash.getContext();
         this.ivSplash = ivSplash;
         mSplash = new M_Splash(this);
@@ -63,17 +63,17 @@ public class P_Splash implements IP_Splash {
 
     @Override
     public void updateFcmToken() {
-         mSplash.updateFcmToken();
+        mSplash.updateFcmToken();
     }
 
     @Override
     public void onSuccessUpdateFcmToken() {
-     ivSplash.onSuccessUpdateFcmToken();
+        ivSplash.onSuccessUpdateFcmToken();
     }
 
     @Override
     public void onFailedUpdateFcmToken(int errorCode, String errorMessage) {
-      ivSplash.onFailedUpdateFcmToken(errorCode, errorMessage);
+        ivSplash.onFailedUpdateFcmToken(errorCode, errorMessage);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class P_Splash implements IP_Splash {
 
     @Override
     public void onFailedGetOfferPackage(int errorCode, String errorMessage) {
-       ivSplash.onFailedGetOfferPackage(errorCode, errorMessage);
+        ivSplash.onFailedGetOfferPackage(errorCode, errorMessage);
     }
 
     @Override
@@ -98,12 +98,12 @@ public class P_Splash implements IP_Splash {
 
     @Override
     public void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
-    ivSplash.onSuccessGetDailyPrize(responseGetDailyPrize);
+        ivSplash.onSuccessGetDailyPrize(responseGetDailyPrize);
     }
 
     @Override
     public void onFailedGetDailyPrize(int errorCode, String errorMessage) {
-          ivSplash.onFailedGetDailyPrize(errorCode, errorMessage);
+        ivSplash.onFailedGetDailyPrize(errorCode, errorMessage);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class P_Splash implements IP_Splash {
 
     @Override
     public void onFailedGetMessage(int errorCode, String errorMessage) {
-       ivSplash.onFailedGetMessage(errorCode, errorMessage);
+        ivSplash.onFailedGetMessage(errorCode, errorMessage);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class P_Splash implements IP_Splash {
 
     @Override
     public void onSuccessGetProfile() {
-         ivSplash.onSuccessGetProfile();
+        ivSplash.onSuccessGetProfile();
     }
 
     @Override
@@ -144,16 +144,37 @@ public class P_Splash implements IP_Splash {
 
     @Override
     public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
-        Log.d("TAG", "onSuccessGetMyPaints pSuc: "+responseGetMyPaints.getMyPaint().size());
+        Log.d("TAG", "onSuccessGetMyPaints pSuc: " + responseGetMyPaints.getMyPaint().size());
 
         ivSplash.onSuccessGetMyPaints(responseGetMyPaints);
     }
 
     @Override
     public void onFailedGetGetMyPaints(int errorCode, String errorMessage) {
-        Log.d("TAG", "onSuccessGetMyPaints pFail: "+errorMessage);
+        Log.d("TAG", "onSuccessGetMyPaints pFail: " + errorMessage);
 
         ivSplash.onFailedGetGetMyPaints(errorCode, errorMessage);
+
+    }
+
+    @Override
+    public int getLocalPaintsCount() {
+        return mSplash.getLocalPaintsCount();
+    }
+
+    @Override
+    public void onSavePaintsInServer() {
+        mSplash.onSavePaintsInServer();
+    }
+
+    @Override
+    public void onSuccessSavePaintsInServer() {
+        ivSplash.onSuccessSavePaintsInServer();
+    }
+
+    @Override
+    public void onFailedSavePaintsInServer(int errorCode, String errorMessage) {
+        ivSplash.onFailedSavePaintsInServer(errorCode, errorMessage);
 
     }
 }

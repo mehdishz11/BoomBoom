@@ -33,6 +33,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -313,13 +315,16 @@ public class PaintActivity extends BaseActivity implements
 
                 if ("Available".equals(NetworkUtil.getConnectivityStatusString(PaintActivity.this))) {
                     if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                        showUserRegisterDialog("برای ذخیره نقاشی باید ثبت نام کنید یا وارد شوید!",REQUEST_CODE_REGISTER_BTN_SAVE);
+                      //  showUserRegisterDialog("برای ذخیره نقاشی باید ثبت نام کنید یا وارد شوید!",REQUEST_CODE_REGISTER_BTN_SAVE);
+                        saveFinalPaint("SaveWithWaterMark");
 
                     }else {
                     validateUsedCoinWithTotalCoin();
                     }
                 } else {
-                    showDialogNoInternet();
+                  //  showDialogNoInternet();
+                    saveFinalPaint("SaveWithWaterMark");
+
                 }
 
 
@@ -448,9 +453,18 @@ public class PaintActivity extends BaseActivity implements
             }
         });
 
-        if (editPath != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(editPath);
-            imageHistory.setImageBitmap(bitmap);
+        if (editPath != null&& editPath.contains("http")) {
+            Log.d("TAG", "initView: "+editPath);
+            Picasso
+                    .get()
+                    .load(editPath)
+                    .into(imageHistory);
+        }else{
+
+            if (editPath != null) {
+                Bitmap bitmap = BitmapFactory.decodeFile(editPath);
+                imageHistory.setImageBitmap(bitmap);
+            }
         }
 
 
@@ -1053,6 +1067,7 @@ public class PaintActivity extends BaseActivity implements
             progressDialog.cancel();
         }
         Intent intent = new Intent();
+        intent.putExtra("SendToServer",true);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
@@ -1118,7 +1133,18 @@ public class PaintActivity extends BaseActivity implements
                     switch (dialogMode) {
                         case "SaveWithWaterMark":
                             Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
-                            saveFinalPaint("SaveWithWaterMark");
+                            if ("Available".equals(NetworkUtil.getConnectivityStatusString(PaintActivity.this))) {
+
+                                if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                                    pPaint.onSavePaint(getPaintCanvasBitmap(true));
+                                } else {
+                                    saveFinalPaint("SaveWithWaterMark");
+                                }
+
+                            }else {
+                                saveFinalPaint("SaveWithWaterMark");
+
+                            }
 
                             break;
                         case "Continue":

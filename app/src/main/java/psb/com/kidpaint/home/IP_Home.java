@@ -57,5 +57,12 @@ public interface IP_Home {
 
     void setResponseMyPaints(ResponseGetMyPaints responseMyPaints);
 
+    void getMyPaints();
+    void getMyPaintsSuccess();
+    void getMyPaintsFailed(int errorCode,String errorMessage);
+
+    void onFailedDelete(String errorMessage);
+
+
 
 }

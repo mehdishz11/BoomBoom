@@ -453,6 +453,10 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     }
 
+    @Override
+    public void onFailedDelete(String errorMessage) {
+
+    }
 
 
     @Override
@@ -698,6 +702,21 @@ public class HomeActivity extends BaseActivity implements IV_Home,
 
     @Override
     public void getRankFailed() {
+
+    }
+
+    @Override
+    public void onStartGetMyPaints() {
+
+    }
+
+    @Override
+    public void getMyPaintsSuccess() {
+
+    }
+
+    @Override
+    public void getMyPaintsFailed(int errorCode,String errorMessage) {
 
     }
 

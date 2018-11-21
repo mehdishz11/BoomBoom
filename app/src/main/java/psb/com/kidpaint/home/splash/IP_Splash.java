@@ -46,4 +46,10 @@ public interface IP_Splash {
     void getMyPaints();
     void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints);
     void onFailedGetGetMyPaints(int errorCode,String errorMessage);
+
+
+    int getLocalPaintsCount();
+    void onSavePaintsInServer();
+    void onSuccessSavePaintsInServer();
+    void onFailedSavePaintsInServer(int errorCode,String errorMessage);
 }

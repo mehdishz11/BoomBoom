@@ -25,7 +25,7 @@ public interface iDeletePaint {
     }
 
     interface apiRequest {
-        @DELETE(iPaint.apiAddress+"Delete")
+        @POST(iPaint.apiAddress+"Delete")
         Call<ResponseDeletePaint> delete(@Query("mobile") String mobile, @Query("paintId") int paintId);
     }
 }
