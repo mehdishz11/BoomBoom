@@ -106,5 +106,6 @@
     <string name="third_place_prize">جایزه نفر سوم</string>
     <string name="second_place_prize">جایزه نفر دوم</string>
     <string name="first_place_prize">جایزه نفر اول</string>
+    <string name="msg_your_coin_finished">تعداد سکه های شما به پایان رسید</string>
 
 </resources>

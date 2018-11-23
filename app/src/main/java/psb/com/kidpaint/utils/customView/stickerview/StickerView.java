@@ -20,7 +20,9 @@ import android.widget.ImageView;
 
 import java.util.Random;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
 
 
 public abstract class StickerView extends FrameLayout {
@@ -510,6 +512,7 @@ public abstract class StickerView extends FrameLayout {
             iv_check.setVisibility(View.VISIBLE);
             iv_scale.setVisibility(View.VISIBLE);
         }
+
 
         if (onVisibilityChange != null) {
             onVisibilityChange.onControllerVisibilityChange(getId(), isVisible);

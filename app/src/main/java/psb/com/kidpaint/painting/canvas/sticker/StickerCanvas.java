@@ -4,13 +4,16 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.utils.customView.stickerview.StickerView;
+import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
 
 public class StickerCanvas extends FrameLayout implements
         StickerView.onRemoved, StickerView.onVisibilityChange {
@@ -111,10 +114,15 @@ public class StickerCanvas extends FrameLayout implements
             sticker.setOnVisibilityChange(null);
             if (sticker.getId() != id) {
                 sticker.setControlsVisibility(false);
+            }else if(isShow){
+                    new SingleMusicPlayer().playSingleMedia(sticker.getStickerSound());
+
             }
 
             sticker.setOnVisibilityChange(this);
         }
+
+
     }
 
     @Override

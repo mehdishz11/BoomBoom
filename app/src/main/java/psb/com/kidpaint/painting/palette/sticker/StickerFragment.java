@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.palette.sticker.adapter.CategoryAdapter;
 import psb.com.kidpaint.painting.palette.sticker.adapter.StickersAdapter;
@@ -21,6 +22,8 @@ import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
 import psb.com.kidpaint.utils.customView.stickerview.StickerView;
+import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 
 public class StickerFragment extends Fragment implements IV_Stickers{
 
@@ -117,14 +120,12 @@ public class StickerFragment extends Fragment implements IV_Stickers{
     public void showStickers() {
         categoryAdapter.notifyDataSetChanged();
         stickersAdapter.notifyDataSetChanged();
-
-        Log.d("TAG", "showStickers: "+categoryAdapter.getItemCount());
         refreshStickers.setVisibility(categoryAdapter.getItemCount()>0?View.GONE:View.VISIBLE);
 
     }
 
     @Override
-    public void onStickerSelected(Bitmap stickerBitmap,int price,String stickerSound) {
+    public void onStickerSelected(Bitmap stickerBitmap,int price,final String stickerSound) {
         if (mListener != null) {
             StickerImageView stickerImageView=new StickerImageView(getContext());
             stickerImageView.setImageBitmap(stickerBitmap);

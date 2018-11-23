@@ -993,7 +993,7 @@ public class PaintActivity extends BaseActivity implements
     // on sticker selected
     ///////////////////////////////////////////////////////////////////////////
     @Override
-    public void onStickerSelected(StickerView sticker) {
+    public void onStickerSelected(final StickerView sticker) {
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             showUserRegisterDialog("برای استفاده از استیکر ها باید ثبت نام کنید یا وارد شوید!",REQUEST_CODE_REGISTER_STICKER);
@@ -1008,7 +1008,7 @@ public class PaintActivity extends BaseActivity implements
 
             if (localCoinCount < 0 && !userProfile.get_KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY(false)) {
                 userProfile.set_KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY(true);
-                String mess = "تعداد سکه های شما به پایان رسید";
+                String mess = getString(R.string.msg_your_coin_finished);
                 showDialogPackage(mess, "Continue");
             }
 
