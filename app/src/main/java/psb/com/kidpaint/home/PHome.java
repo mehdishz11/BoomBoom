@@ -1,13 +1,10 @@
 package psb.com.kidpaint.home;
 
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.Random;
 
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
@@ -27,8 +24,8 @@ public class PHome implements IP_Home {
 
     public PHome(IV_Home iv_home) {
         this.iv_home = iv_home;
-        this.context=iv_home.getContext();
-        this.mHome=new MHome(this);
+        this.context = iv_home.getContext();
+        this.mHome = new MHome(this);
     }
 
     @Override
@@ -98,16 +95,16 @@ public class PHome implements IP_Home {
 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, final int position) {
-        final HistoryModel filePath=mHome.getPositionAt(position);
+        final HistoryModel historyModel = mHome.getPositionAt(position);
 
-        if(position%2==0){
+        if (position % 2 == 0) {
             holder.parentView.setRotation(new Random().nextInt(8));
-        }else{
+        } else {
             holder.parentView.setRotation(-new Random().nextInt(8));
         }
 
-        if (filePath==null) {
-
+        if (historyModel == null) {
+            holder.imgRibbonCompetition.setVisibility(View.GONE);
             holder.relBtns.setVisibility(View.GONE);
             holder.textViewnew.setVisibility(View.VISIBLE);
             holder.relParent.setOnClickListener(new View.OnClickListener() {
@@ -123,56 +120,31 @@ public class PHome implements IP_Home {
                     .load("gfgfg")
                     .into(holder.imgOutline);
 
-        }else {
+        } else {
 
             holder.relBtns.setVisibility(View.VISIBLE);
             holder.textViewnew.setVisibility(View.GONE);
-
-            if (filePath.getFile()!=null) {
-                Picasso.get().invalidate(filePath.getFile());
-                Picasso
-                        .get()
-                        .load(filePath.getFile())
-                        .resize(Value.getScreenHeight()/3,0)
-                        .centerCrop()
-                        .into(holder.imgOutline);
-            }else{
-
-                Picasso
-                        .get()
-                        .load(filePath.getPaintModel().getUrl())
-                        .resize(Value.getScreenHeight()/3,0)
-                        .centerCrop()
-                        .into(holder.imgOutline);
-
-                if (filePath.getPaintModel().getCode().isEmpty()){
-                    holder.relCompetition.setVisibility(View.VISIBLE);
-                }else{
-                    holder.relCompetition.setVisibility(View.GONE);
-
-                }
-            }
+            holder.iconCompetition.setText("\uE907");
 
 
             holder.relParent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    iv_home.onSelecteditem(filePath.getFile()!=null?filePath.getFile().getAbsolutePath():filePath.getPaintModel().getUrl());
+                    iv_home.onSelecteditem(historyModel.getFile() != null ? historyModel.getFile().getAbsolutePath() : historyModel.getPaintModel().getUrl());
                 }
             });
             holder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iv_home.onSelecteditem((filePath.getFile()!=null?filePath.getFile().getAbsolutePath():filePath.getPaintModel().getUrl()));
+                    iv_home.onSelecteditem((historyModel.getFile() != null ? historyModel.getFile().getAbsolutePath() : historyModel.getPaintModel().getUrl()));
                 }
             });
-//
+
             holder.competition.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Log.d("TAG", "onClick: competition ");
                     if (mHome.userIsRegistered()) {
                         iv_home.onStartPostPaint();
                         mHome.postPaint(position);
@@ -188,6 +160,41 @@ public class PHome implements IP_Home {
                     iv_home.showDeleteDialog(position);
                 }
             });
+
+            if (historyModel.getFile() != null) {
+                Picasso.get().invalidate(historyModel.getFile());
+                Picasso
+                        .get()
+                        .load(historyModel.getFile())
+                        .resize(Value.getScreenHeight() / 3, 0)
+                        .centerCrop()
+                        .into(holder.imgOutline);
+            } else {
+
+                Picasso
+                        .get()
+                        .load(historyModel.getPaintModel().getUrl())
+                        .resize(Value.getScreenHeight() / 3, 0)
+                        .centerCrop()
+                        .into(holder.imgOutline);
+
+                if (historyModel.getPaintModel().getCode().isEmpty()) {
+                    holder.imgRibbonCompetition.setVisibility(View.GONE);
+                } else {
+                    //share competition image to others
+                    holder.imgRibbonCompetition.setVisibility(View.VISIBLE);
+                    holder.iconCompetition.setText("\uE918");
+                    holder.competition.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+                }
+            }
+
         }
 
     }
@@ -222,7 +229,7 @@ public class PHome implements IP_Home {
 
     @Override
     public void onSuccessAddScore(ResponseAddScore responseAddScore) {
-           iv_home.onSuccessAddScore(responseAddScore);
+        iv_home.onSuccessAddScore(responseAddScore);
     }
 
     @Override
@@ -264,11 +271,11 @@ public class PHome implements IP_Home {
 
     @Override
     public void getMyPaintsSuccess() {
-          iv_home.getMyPaintsSuccess();
+        iv_home.getMyPaintsSuccess();
     }
 
     @Override
-    public void getMyPaintsFailed(int errorCode,String errorMessage) {
+    public void getMyPaintsFailed(int errorCode, String errorMessage) {
 
         iv_home.getMyPaintsFailed(errorCode, errorMessage);
 

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import psb.com.cview.IconFont;
 import psb.com.kidpaint.R;
 
 public class HistoryViewHolder extends RecyclerView.ViewHolder {
@@ -19,6 +20,8 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
     public Button delete,edit,competition;
     public RelativeLayout relBtns;
     public TextView textViewnew ;
+    public IconFont iconCompetition;
+    public ImageView imgRibbonCompetition;
 
     public HistoryViewHolder(View itemView) {
         super(itemView);
@@ -33,6 +36,8 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
         relCompetition=itemView.findViewById(R.id.rel_competition);
         relBtns=itemView.findViewById(R.id.rel_btns);
         textViewnew=itemView.findViewById(R.id.textNew);
+        iconCompetition=itemView.findViewById(R.id.icon_competition);
+        imgRibbonCompetition=itemView.findViewById(R.id.ribbon_competition);
 
     }
 }

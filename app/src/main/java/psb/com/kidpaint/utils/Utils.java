@@ -12,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -31,16 +30,13 @@ import java.util.Calendar;
 import psb.com.kidpaint.App;
 
 public class Utils {
-    public  static  boolean activitymyMessageIsRunning=false;
+    public static boolean activitymyMessageIsRunning = false;
 
     public static final int RECORD_REQUEST_CODE = 101;
     public static String keyPer = "listPos";
     public static String KEY_SETTING = "KEY_SETTING";
     public static String KEY_REGISTER = "KEY_REGISTER";
     public static String KEY_AUTO_UPDATE = "KEY_AUTO_UPDATE";
-
-
-
 
 
     public static String KEY_DAY_COUNT = "KEY_DAY_COUNT";
@@ -124,7 +120,7 @@ public class Utils {
     }
 
 
-    public static void closeKeyboard(){
+    public static void closeKeyboard() {
 
     }
 
@@ -152,23 +148,23 @@ public class Utils {
         }
     }
 
-    public static boolean isNumberMci(String phoneNumber){
-        phoneNumber=phoneNumber.
-                replace("۰","0").
-                replace("۱","1").
-                replace("۲","2").
-                replace("۳","3").
-                replace("۴","4").
-                replace("۵","5").
-                replace("۶","6").
-                replace("۷","7").
-                replace("۸","8").
-                replace("۹","9");
+    public static boolean isNumberMci(String phoneNumber) {
+        phoneNumber = phoneNumber.
+                replace("۰", "0").
+                replace("۱", "1").
+                replace("۲", "2").
+                replace("۳", "3").
+                replace("۴", "4").
+                replace("۵", "5").
+                replace("۶", "6").
+                replace("۷", "7").
+                replace("۸", "8").
+                replace("۹", "9");
         if (phoneNumber.startsWith("091") ||
                 phoneNumber.startsWith("099")
-                ){
+                ) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -185,7 +181,7 @@ public class Utils {
         try {
             calendar.setTime(simpleDateFormat.parse(time));
             CalendarTool calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
-            result = calendarTool.getIranianDay()+ "/" + calendarTool.getIranianMonth() + "/"+calendarTool.getIranianYear();
+            result = calendarTool.getIranianDay() + "/" + calendarTool.getIranianMonth() + "/" + calendarTool.getIranianYear();
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -193,21 +189,19 @@ public class Utils {
         return result;
     }
 
-    public static String getCurrentTime(){
+    public static String getCurrentTime() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String last_change_time=sdf.format(c.getTime());
+        String last_change_time = sdf.format(c.getTime());
         return last_change_time;
     }
 
 
-
-
-    public static int getDeviceWidth(){
+    public static int getDeviceWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
-    public static int getDisplayHeight(){
+    public static int getDisplayHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
 
     }
@@ -222,43 +216,30 @@ public class Utils {
         return true;
     }
 
-    public static boolean writeNoMediaFile( File directoryPath ) {
-        Log.d("TAG", "writeNoMediaFile: "+directoryPath);
-        String storageState = Environment.getExternalStorageState();
+    public static boolean writeNoMediaFile(File directoryPath) {
 
-            try
-            {
-                File noMedia = new File ( directoryPath, ".nomedia" );
 
-                if ( noMedia.exists() )
-                {
+        try {
+            File noMedia = new File(directoryPath, ".nomedia");
 
-                    Log.i ( "TAG", ".no media appears to exist already, returning without writing a new file" );
-                    return true;
-                }
-                noMedia.createNewFile();
-               /* FileOutputStream noMediaOutStream = new FileOutputStream ( noMedia );
-                noMediaOutStream.write ( 0 );
-                noMediaOutStream.close ( );*/
+            if (noMedia.exists()) {
+                return true;
             }
-            catch ( Exception e )
-            {
-                Log.e( "TAG", "error writing file .no media" );
-                e.printStackTrace();
-                return false;
-            }
+            noMedia.createNewFile();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 
 
         return true;
 
     }
 
-    public  static  boolean isAgrigator(){
+    public static boolean isAgrigator() {
         return PaymentHelper.isAgrigator();
     }
-
-
-
 
 
 }

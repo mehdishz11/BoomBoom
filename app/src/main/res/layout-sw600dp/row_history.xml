@@ -46,6 +46,18 @@
                 app:riv_border_width="2dp"
                 app:riv_corner_radius="30dp" />
 
+            <ImageView
+                android:id="@+id/ribbon_competition"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ribbon_competition"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:visibility="gone"
+                />
+
             <psb.com.cview.CustomTextViewBold
                 android:id="@+id/textNew"
                 android:layout_width="match_parent"
@@ -155,6 +167,7 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <psb.com.cview.IconFont
+                        android:id="@+id/icon_competition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -171,7 +184,6 @@
 
 
     </android.support.v7.widget.CardView>
-
 
     <ImageView
         android:id="@+id/img_mask"

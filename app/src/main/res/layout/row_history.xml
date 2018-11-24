@@ -52,6 +52,18 @@
                 android:padding="@dimen/margin_10"
                 android:text="+ نقاشی جدید" />
 
+                <ImageView
+                    android:id="@+id/ribbon_competition"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ribbon_competition"
+                    android:layout_marginTop="5.5dp"
+                    android:layout_marginLeft="5.5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:visibility="gone"
+                    />
+
             <RelativeLayout
                 android:id="@+id/rel_btns_bg"
                 android:layout_width="match_parent"
@@ -147,6 +159,7 @@
                         android:textSize="@dimen/text_size_normal" />
 
                     <psb.com.cview.IconFont
+                        android:id="@+id/icon_competition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"

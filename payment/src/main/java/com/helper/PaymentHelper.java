@@ -11,8 +11,6 @@ import com.util.IabResult;
 import com.util.Inventory;
 import com.util.Purchase;
 
-import psb.com.payment.R;
-
 
 public class PaymentHelper {
 
@@ -156,14 +154,14 @@ public class PaymentHelper {
 
                     } else {
 //                        Log.d(TAG, "Error while consuming: " + result);
-                        showErrorPayment(context.getString(R.string.payment_msg_error_payment));
+                        showErrorPayment(getErrorMessage());
                     }
 
                 }
             });
         }else{
             pDialog.cancel();
-            showErrorPayment(context.getString(R.string.payment_msg_error_payment));
+            showErrorPayment(getErrorMessage());
         }
 
     }
@@ -196,14 +194,18 @@ public class PaymentHelper {
 
     private void showErrorSetup(String message){
         if (onSetupFinished != null) {
-            onSetupFinished.onFailed(context.getString(R.string.payment_msg_error_payment));
+            onSetupFinished.onFailed(getErrorMessage());
         }
     }
 
     private void showErrorPayment(String message){
         if (onPaymentFinished != null) {
-            onPaymentFinished.onFailedPayment(context.getString(R.string.payment_msg_error_payment));
+            onPaymentFinished.onFailedPayment(getErrorMessage());
         }
+    }
+    
+    private String getErrorMessage(){
+        return "اشکال در روند پرداخت، مجددا تلاش نمایید.";
     }
 
     private String getPayload(){
