@@ -38,10 +38,19 @@ public class Value {
     }
 
     public static File makeImageFileFromBitmap(Context context, Bitmap bitmap, String name) {
+        return makeImageFileFromBitmap(context,bitmap,name,true);
+    }
+
+    public static File makeImageFileFromBitmap(Context context, Bitmap bitmap, String name, boolean deleteOnExit) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss" + new Random().nextInt(1024), Locale.US).format(new Date());
-        File filesDir = context.getFilesDir();
+        File filesDir = getPaintsDir(context);
         File imageFile = new File(filesDir, timeStamp + "_" + name + ".jpg");
-        imageFile.deleteOnExit();
+
+        if(deleteOnExit){
+            filesDir = getTempDir(context);
+            imageFile = new File(filesDir, timeStamp + "_" + name + ".jpg");
+            imageFile.deleteOnExit();
+        }
 
         OutputStream os;
         try {
@@ -54,6 +63,42 @@ public class Value {
         return imageFile;
     }
 
+    public static File editImageFileFromBitmap(Bitmap bitmap, String editPath) {
+
+        File imageFile = new File(editPath);
+        if (editPath != null) {
+            imageFile = new File(editPath);
+        }
+
+        if (imageFile.exists()) imageFile.delete();
+
+        OutputStream os;
+        try {
+            os = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+        }
+        return imageFile;
+    }
+
+    public static File getPaintsDir(Context context){
+        File directory=new File(context.getFilesDir(),"kidDirectory");
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        return directory;
+    }
+    public static File getTempDir(Context context){
+        File directory=new File(context.getFilesDir(),"temp");
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        return directory;
+    }
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }

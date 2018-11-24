@@ -3,17 +3,16 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
@@ -45,7 +44,6 @@ import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.fcmToken.iFcmToken;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
-import psb.com.kidpaint.webApi.shareModel.HistoryModel;
 
 public class M_Splash implements IM_Splash {
 
@@ -266,12 +264,13 @@ public class M_Splash implements IM_Splash {
     @Override
     public int getLocalPaintsCount() {
 
-        String path = Environment.getExternalStorageDirectory() + "/kidPaint";
-        File directory = new File(path);
+
+        File directory = Value.getPaintsDir(context);
 
         if (!directory.exists()) {
             directory.mkdirs();
         }
+
        File[] files = directory.listFiles();
         if (files != null && files.length > 0) {
 
@@ -279,6 +278,8 @@ public class M_Splash implements IM_Splash {
             for (int i = 0; files != null && i < files.length; i++) {
                 if (files[i].getAbsolutePath().toLowerCase().contains("jpg")) {
                     localPaintFiles.add(files[i]);
+                    Log.d(App.TAG, "onSavePaintsInServer: Added-->"+files[i].getAbsolutePath());
+
                 }
             }
         }
@@ -287,10 +288,30 @@ public class M_Splash implements IM_Splash {
         return localPaintFiles.size();
     }
 
+
+    private void testAfterCleanFolder(){
+        File directory = Value.getPaintsDir(context);
+        Log.d(App.TAG, "onSavePaintsInServer: after removed folder path-->"+directory.getAbsolutePath());
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File[] files = directory.listFiles();
+        if (files != null && files.length > 0) {
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].getAbsolutePath().toLowerCase().contains("jpg")) {
+                    Log.d(App.TAG, "onSavePaintsInServer: after removed-->"+files[i].getAbsolutePath());
+
+                }
+            }
+        }
+    }
+
     @Override
     public void onSavePaintsInServer() {
         if (localPaintFiles.size()>0) {
-            String filePath = localPaintFiles.get(0).getAbsolutePath();
+
+            final String filePath = localPaintFiles.get(0).getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(filePath);
 
             ParamsSavePaint paramsPostPaint = new ParamsSavePaint();
@@ -301,11 +322,15 @@ public class M_Splash implements IM_Splash {
                 @Override
                 public void onSuccessSavePaint(ResponseSavePaint responseSavePaint) {
                     File file=localPaintFiles.get(0);
+                    String fileName=file.getAbsolutePath();
                     if (file.exists()) {
-                        file.delete();
+                        boolean resultDelete=file.delete();
+                        Log.d(App.TAG, "onSavePaintsInServer: "+fileName+"-Deleted->"+resultDelete);
                     }
-
+                    Log.d(App.TAG, "onSavePaintsInServer: size before -->"+localPaintFiles.size());
                     localPaintFiles.remove(0);
+                    Log.d(App.TAG, "onSavePaintsInServer: size after -->"+localPaintFiles.size());
+                    testAfterCleanFolder();
                     if (localPaintFiles.size()>0) {
                         onSavePaintsInServer();
                     }else{

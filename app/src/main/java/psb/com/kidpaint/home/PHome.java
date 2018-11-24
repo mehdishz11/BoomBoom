@@ -95,13 +95,15 @@ public class PHome implements IP_Home {
 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, final int position) {
-        final HistoryModel historyModel = mHome.getPositionAt(position);
+        final HistoryModel historyModel = mHome.getPositionAt(holder.getAdapterPosition());
 
         if (position % 2 == 0) {
             holder.parentView.setRotation(new Random().nextInt(8));
         } else {
             holder.parentView.setRotation(-new Random().nextInt(8));
         }
+
+        holder.imgRibbonCompetition.setVisibility(View.GONE);
 
         if (historyModel == null) {
             holder.imgRibbonCompetition.setVisibility(View.GONE);
@@ -170,7 +172,7 @@ public class PHome implements IP_Home {
                         .centerCrop()
                         .into(holder.imgOutline);
             } else {
-
+                Picasso.get().invalidate(historyModel.getPaintModel().getUrl());
                 Picasso
                         .get()
                         .load(historyModel.getPaintModel().getUrl())
@@ -179,7 +181,6 @@ public class PHome implements IP_Home {
                         .into(holder.imgOutline);
 
                 if (historyModel.getPaintModel().getCode().isEmpty()) {
-                    holder.imgRibbonCompetition.setVisibility(View.GONE);
                 } else {
                     //share competition image to others
                     holder.imgRibbonCompetition.setVisibility(View.VISIBLE);

@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.helper.PaymentHelper;
 
@@ -109,16 +108,6 @@ public class Utils {
         }
         return true;
     }
-
-    public static boolean gstoragePermissionIsGranted(Context context) {
-        int READ_EXTERNAL_STORAGE = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE);
-        int WRITE_EXTERNAL_STORAGE = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (READ_EXTERNAL_STORAGE != PackageManager.PERMISSION_GRANTED || WRITE_EXTERNAL_STORAGE != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-        return true;
-    }
-
 
     public static void closeKeyboard() {
 

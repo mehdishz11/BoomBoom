@@ -35,11 +35,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.App;
@@ -54,7 +50,6 @@ import psb.com.kidpaint.score.ActivityScorePackage;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.IntroEnum;
 import psb.com.kidpaint.utils.UserProfile;
-import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.checkInternet.NetworkUtil;
 import psb.com.kidpaint.utils.customView.BaseActivity;
@@ -475,15 +470,11 @@ public class PaintActivity extends BaseActivity implements
     private void saveFinalPaint(String mode) {
 
         stickerCanvas.hideShowController(false);
-
         SaveWithWaterMark = "SaveWithWaterMark".equals(mode);
         SoundHelper.playSound(R.raw.save);
-        if (Utils.gstoragePermissionIsGranted(PaintActivity.this)) {
-            saveTempBitmap(getPaintCanvasBitmap(SaveWithWaterMark));
 
-        } else {
-            requestForGrantStoragePermission();
-        }
+        saveTempBitmap(getPaintCanvasBitmap(SaveWithWaterMark));
+
     }
 
     private void validateUsedCoinWithTotalCoin() {
@@ -744,16 +735,27 @@ public class PaintActivity extends BaseActivity implements
         if (progressDialog != null && !progressDialog.isShowing()) {
             progressDialog.show();
         }
-        if (isExternalStorageWritable()) {
-            saveImage(bitmap);
-        } else {
-            //prompt the user or do something
-        }
+        saveImage(bitmap);
     }
 
     void saveImage(Bitmap finalBitmap) {
 
-        String folder_main = "kidPaint";
+        if(editPath!=null){
+            Value.editImageFileFromBitmap(finalBitmap,editPath);
+        }else{
+            Value.makeImageFileFromBitmap(this,finalBitmap,"painting",false);
+        }
+
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
+        }
+
+
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+
+        /*String folder_main = "kidPaint";
         File mydir = new File(Environment.getExternalStorageDirectory(), folder_main);
         if (!mydir.exists()) {
             mydir.mkdirs();
@@ -786,7 +788,7 @@ public class PaintActivity extends BaseActivity implements
         } catch (Exception e) {
 
             e.printStackTrace();
-        }
+        }*/
     }
 
     boolean isExternalStorageWritable() {

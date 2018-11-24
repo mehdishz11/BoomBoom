@@ -3,7 +3,6 @@ package psb.com.kidpaint.home;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -14,6 +13,7 @@ import java.util.List;
 
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.deletePaint.iDeletePaint;
@@ -101,10 +101,9 @@ public class MHome implements IM_Home {
     public void getMyPaintHistory() {
         imageList.clear();
         imageList=new ArrayList<>();
-        String path = Environment.getExternalStorageDirectory() + "/kidPaint";
-        Log.d("TAG", "getMyPaintHistory: "+path);
-        File directory = new File(path);
-        Log.d("TAG", "getMyPaintHistory: "+(directory.exists()));
+
+        File directory = Value.getPaintsDir(context);
+
 
         if (!directory.exists()) {
             directory.mkdirs();

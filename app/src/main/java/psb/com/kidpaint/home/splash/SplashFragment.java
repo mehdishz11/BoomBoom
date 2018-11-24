@@ -3,15 +3,12 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.home.HomeActivity_2;
-import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
@@ -202,8 +199,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void onSuccessGetProfile() {
 
-        if (Utils.gstoragePermissionIsGranted(getContext()) && pSplash.getLocalPaintsCount() > 0) {
-
+        if (pSplash.getLocalPaintsCount() > 0) {
             pSplash.onSavePaintsInServer();
         } else {
             pSplash.getMyPaints();
@@ -215,7 +211,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void onFailedGetProfile(int errorCode, String errorMessage) {
 
-        if (Utils.gstoragePermissionIsGranted(getContext()) && pSplash.getLocalPaintsCount() > 0) {
+        if (pSplash.getLocalPaintsCount() > 0) {
             pSplash.onSavePaintsInServer();
         } else {
             pSplash.getMyPaints();
@@ -233,12 +229,10 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void onFailedSavePaintsInServer(int errorCode, String errorMessage) {
         pSplash.getMyPaints();
-
     }
 
     @Override
     public void onSuccessGetMyPaints(ResponseGetMyPaints responseGetMyPaints) {
-        Log.d("TAG", "onSuccessGetMyPaints mlis: " + (mListener != null));
         if (mListener != null) {
             mListener.setResponseMyPaints(responseGetMyPaints);
             mListener.splashSuccess();

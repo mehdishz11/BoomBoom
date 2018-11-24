@@ -3,9 +3,7 @@ package psb.com.kidpaint.home.history;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
-
-import com.squareup.picasso.Picasso;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +11,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ParamsPostPaint;
@@ -40,14 +40,16 @@ public class MHistory implements IMHistory {
     public void getMyPaintHistory() {
         imageList.clear();
         imageList=new ArrayList<>();
-        String path = Environment.getExternalStorageDirectory() + "/kidPaint";
-        File directory = new File(path);
+
+        File directory = Value.getPaintsDir(context);
         if (!directory.exists()) {
             directory.mkdirs();
         }
         File[] files = directory.listFiles();
 
         if (files!=null&& files.length>0) {
+            Log.d(App.TAG, "getMyPaintHistory->: "+files.length);
+
             Arrays.sort( files, new Comparator()
             {
                 public int compare(Object o1, Object o2) {
