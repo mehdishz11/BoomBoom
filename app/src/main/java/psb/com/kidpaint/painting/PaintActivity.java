@@ -711,7 +711,7 @@ public class PaintActivity extends BaseActivity implements
     // save main bitmap
     ///////////////////////////////////////////////////////////////////////////
     private Bitmap getPaintCanvasBitmap(boolean SaveWithWaterMark) {
-        Log.d("TAG", "getPaintCanvasBitmap: " + SaveWithWaterMark);
+
         RelativeLayout relPaint = findViewById(R.id.rel_drawing);
         relPaint.setDrawingCacheEnabled(true);
         relPaint.buildDrawingCache();
@@ -721,10 +721,20 @@ public class PaintActivity extends BaseActivity implements
 
         if (SaveWithWaterMark) {
             Bitmap bitmapWaterMark = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.coin);
+                    R.drawable.img_water_mark);
+
+            int maxWidth=(int)((float)Value.getScreenWidth()/4.0f);
+
+            int width=(int)(((float)maxWidth/(float)bitmapWaterMark.getWidth())*(float)bitmapWaterMark.getWidth());
+            int height=(int)(((float)maxWidth/(float)bitmapWaterMark.getWidth())*(float)bitmapWaterMark.getHeight());
+
+            bitmapWaterMark=Bitmap.createScaledBitmap(bitmapWaterMark, width, height, false);
+
+            float left=((float)Value.getScreenWidth()/2.0f)-((float)bitmapWaterMark.getWidth()/2.0f);
+            float top=((float)Value.getScreenHeight()/2.0f)-((float)bitmapWaterMark.getHeight()/2.0f);
 
             Canvas c = new Canvas(bitmap);
-            c.drawBitmap(bitmapWaterMark, 0, 0, new Paint());
+            c.drawBitmap(bitmapWaterMark, left, top, new Paint());
         }
 
         return bitmap;
