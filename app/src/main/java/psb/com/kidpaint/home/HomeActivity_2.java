@@ -177,6 +177,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_2);
+
         NotificationCreator.clearNotifications(this);
 
         pHome = new PHome(this);

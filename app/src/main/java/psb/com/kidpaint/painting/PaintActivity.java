@@ -92,7 +92,7 @@ public class PaintActivity extends BaseActivity implements
     private static final int REQUEST_CODE_REGISTER_STICKER = 120;
     private static final int REQUEST_CODE_REGISTER_BTN_SAVE = 121;
     private static final int REQUEST_CODE_SCORE_PACKAGE = 122;
-    private int REQUEST_SHOP=26;
+    private int REQUEST_SHOP = 26;
 
 
     private static final String FRAGMENT_PALETTE = "FRAGMENT_PALETTE";
@@ -121,7 +121,7 @@ public class PaintActivity extends BaseActivity implements
     private int localCoinCount = 0;
     private int localUsedCoinCount = 0;
     private boolean SaveWithWaterMark = false;
-    private String sendShowMode="";
+    private String sendShowMode = "";
 
     private IconFont iconAddCoin;
     private RelativeLayout rel_user_coin;
@@ -138,7 +138,7 @@ public class PaintActivity extends BaseActivity implements
 
     private ProgressDialog progressDialog;
 
-    private boolean isFirstRun=true;
+    private boolean isFirstRun = true;
 
 
     @Override
@@ -254,9 +254,9 @@ public class PaintActivity extends BaseActivity implements
                 SoundHelper.playSound(R.raw.click_1);
 
                 if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
 
-                }else {
+                } else {
                     showDialogPackage("", "Continue");
                 }
 
@@ -270,9 +270,9 @@ public class PaintActivity extends BaseActivity implements
                 SoundHelper.playSound(R.raw.click_1);
 
                 if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin),REQUEST_SHOP);
+                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
 
-                }else {
+                } else {
                     showDialogPackage("", "Continue");
                 }
 
@@ -315,14 +315,14 @@ public class PaintActivity extends BaseActivity implements
 
                 if ("Available".equals(NetworkUtil.getConnectivityStatusString(PaintActivity.this))) {
                     if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                      //  showUserRegisterDialog("برای ذخیره نقاشی باید ثبت نام کنید یا وارد شوید!",REQUEST_CODE_REGISTER_BTN_SAVE);
+                        //  showUserRegisterDialog("برای ذخیره نقاشی باید ثبت نام کنید یا وارد شوید!",REQUEST_CODE_REGISTER_BTN_SAVE);
                         saveFinalPaint("SaveWithWaterMark");
 
-                    }else {
-                    validateUsedCoinWithTotalCoin();
+                    } else {
+                        validateUsedCoinWithTotalCoin();
                     }
                 } else {
-                  //  showDialogNoInternet();
+                    //  showDialogNoInternet();
                     saveFinalPaint("SaveWithWaterMark");
 
                 }
@@ -453,13 +453,13 @@ public class PaintActivity extends BaseActivity implements
             }
         });
 
-        if (editPath != null&& editPath.contains("http")) {
-            Log.d("TAG", "initView: "+editPath);
+        if (editPath != null && editPath.contains("http")) {
+            Log.d("TAG", "initView: " + editPath);
             Picasso
                     .get()
                     .load(editPath)
                     .into(imageHistory);
-        }else{
+        } else {
 
             if (editPath != null) {
                 Bitmap bitmap = BitmapFactory.decodeFile(editPath);
@@ -496,7 +496,7 @@ public class PaintActivity extends BaseActivity implements
                 pPaint.doBuySticker(localUsedCoinCount);
             } else {
                 //  save image
-              //  saveFinalPaint("SaveWithOutWaterMark");
+                //  saveFinalPaint("SaveWithOutWaterMark");
 
                 pPaint.onSavePaint(getPaintCanvasBitmap(false));
 
@@ -533,53 +533,12 @@ public class PaintActivity extends BaseActivity implements
     }
 
     void showDialogPackage(final String message, final String showMode) {
-        sendShowMode=showMode;
-        Intent intent=new Intent(PaintActivity.this, ActivityScorePackage.class);
-        intent.putExtra("dialogMessage",message);
-        intent.putExtra("dialogMode",showMode);
-        intent.putExtra("showBtnDiscardBuy",true);
-        startActivityForResult(intent,REQUEST_CODE_SCORE_PACKAGE);
-
-/*
-        DialogScorePackage cDialog = new DialogScorePackage(PaintActivity.this);
-        cDialog.setDialogMessage(message);
-        cDialog.setDialogMode(showMode);
-        cDialog.setShowBtnDiscardBuy(true);
-        cDialog.setScorePackageDiscardBtnListener(new DialogScorePackage.ScorePackageDiscardBtnListener() {
-            @Override
-            public void btnDiscardBuySelect(String mode) {
-                switch (mode) {
-                    case "SaveWithWaterMark":
-                        Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
-                        saveFinalPaint("SaveWithWaterMark");
-
-                        break;
-                    case "Continue":
-                        break;
-                }
-            }
-
-            @Override
-            public void onSuccessBuyScorePackage(int totalCoin) {
-                localCoinCount = totalCoin - localUsedCoinCount;
-                coinCount.setText(localCoinCount + "");
-                switch (showMode) {
-                    case "SaveWithWaterMark":
-                        Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
-                        saveFinalPaint("SaveWithOutWaterMark");
-
-                        break;
-                    case "Continue":
-                        break;
-                }
-            }
-
-            @Override
-            public void onFailedBuyScorePackage() {
-                //btnSave.performClick();
-            }
-        });
-        cDialog.show();*/
+        sendShowMode = showMode;
+        Intent intent = new Intent(PaintActivity.this, ActivityScorePackage.class);
+        intent.putExtra("dialogMessage", message);
+        intent.putExtra("dialogMode", showMode);
+        intent.putExtra("showBtnDiscardBuy", true);
+        startActivityForResult(intent, REQUEST_CODE_SCORE_PACKAGE);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -800,8 +759,8 @@ public class PaintActivity extends BaseActivity implements
             mydir.mkdirs();
         }
 
-        boolean no= Utils.writeNoMediaFile(mydir);
-        Log.d("TAG", "saveImage: "+no);
+        boolean no = Utils.writeNoMediaFile(mydir);
+        Log.d("TAG", "saveImage: " + no);
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String fname = "paint_" + timeStamp + ".jpg";
         File file = new File(mydir, fname);
@@ -857,8 +816,8 @@ public class PaintActivity extends BaseActivity implements
         }
 
         if (paintType == PaintType.ERASER) {
-            if(!isFirstRun)SoundHelper.playSound(R.raw.sf_eraser);
-            isFirstRun=false;
+            if (!isFirstRun) SoundHelper.playSound(R.raw.sf_eraser);
+            isFirstRun = false;
             //enable and set paint canvas
             paintCanvas.setMode(DrawView.Mode.ERASER);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
@@ -875,8 +834,8 @@ public class PaintActivity extends BaseActivity implements
 
 
         } else if (paintType == PaintType.BUCKET) {
-            if(!isFirstRun)SoundHelper.playSound(R.raw.paint_bucket);
-            isFirstRun=false;
+            if (!isFirstRun) SoundHelper.playSound(R.raw.paint_bucket);
+            isFirstRun = false;
             //ENABLE BUCKET
             bucketCanvas.initOntouchListener();
 
@@ -902,8 +861,8 @@ public class PaintActivity extends BaseActivity implements
             bucketCanvas.removeTouchListener();
 
         } else if (paintType == PaintType.PENCIL) {
-            if(!isFirstRun)SoundHelper.playSound(R.raw.pencil);
-            isFirstRun=false;
+            if (!isFirstRun) SoundHelper.playSound(R.raw.pencil);
+            isFirstRun = false;
             //enable and set paint canvas
             paintCanvas.setMode(DrawView.Mode.DRAW);
             paintCanvas.setDrawer(DrawView.Drawer.PEN);
@@ -996,9 +955,9 @@ public class PaintActivity extends BaseActivity implements
     public void onStickerSelected(final StickerView sticker) {
 
         if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-            showUserRegisterDialog("برای استفاده از استیکر ها باید ثبت نام کنید یا وارد شوید!",REQUEST_CODE_REGISTER_STICKER);
+            showUserRegisterDialog("برای استفاده از استیکر ها باید ثبت نام کنید یا وارد شوید!", REQUEST_CODE_REGISTER_STICKER);
 
-        }else  {
+        } else {
             stickerCanvas.hideShowController(false);
             stickerCanvas.addSticker(sticker);
 
@@ -1043,7 +1002,7 @@ public class PaintActivity extends BaseActivity implements
 
     @Override
     public void onSuccessBuySticker(ResponseBuySticker responseBuySticker) {
-       // saveFinalPaint("");
+        // saveFinalPaint("");
         pPaint.onSavePaint(getPaintCanvasBitmap(false));
 
     }
@@ -1067,7 +1026,7 @@ public class PaintActivity extends BaseActivity implements
             progressDialog.cancel();
         }
         Intent intent = new Intent();
-        intent.putExtra("SendToServer",true);
+        intent.putExtra("SendToServer", true);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
@@ -1112,27 +1071,26 @@ public class PaintActivity extends BaseActivity implements
             if (resultCode == Activity.RESULT_OK) {
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
-            }else{
+
+                refreshUserStickers();
+            } else {
 
             }
-        }else  if (requestCode == REQUEST_CODE_REGISTER_BTN_SAVE) {
-
+        } else if (requestCode == REQUEST_CODE_REGISTER_BTN_SAVE) {
             if (resultCode == Activity.RESULT_OK) {
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
-                 btnSave.performClick();
-            }else{
+                btnSave.performClick();
+            } else {
 
             }
-
-        }else  if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
+        } else if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
 
             if (resultCode == Activity.RESULT_OK) {
                 if (data.hasExtra("dialogMode")) {
-                    String dialogMode=data.getStringExtra("dialogMode");
+                    String dialogMode = data.getStringExtra("dialogMode");
                     switch (dialogMode) {
                         case "SaveWithWaterMark":
-                            Log.d("TAG", "btnDiscardBuySelect SaveWithWaterMark: ");
                             if ("Available".equals(NetworkUtil.getConnectivityStatusString(PaintActivity.this))) {
 
                                 if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
@@ -1141,7 +1099,7 @@ public class PaintActivity extends BaseActivity implements
                                     saveFinalPaint("SaveWithWaterMark");
                                 }
 
-                            }else {
+                            } else {
                                 saveFinalPaint("SaveWithWaterMark");
 
                             }
@@ -1153,12 +1111,12 @@ public class PaintActivity extends BaseActivity implements
                 }
 
                 if (data.hasExtra("SuccessBuy")) {
-                    int totalCoin=data.getIntExtra("SuccessBuy",0);
+                    int totalCoin = data.getIntExtra("SuccessBuy", 0);
                     localCoinCount = totalCoin - localUsedCoinCount;
                     coinCount.setText(localCoinCount + "");
                     switch (sendShowMode) {
                         case "SaveWithWaterMark":
-                           // saveFinalPaint("SaveWithOutWaterMark");
+                            // saveFinalPaint("SaveWithOutWaterMark");
                             pPaint.onSavePaint(getPaintCanvasBitmap(false));
 
                             break;
@@ -1166,27 +1124,33 @@ public class PaintActivity extends BaseActivity implements
                             break;
                     }
                 }
-            }else{
+            } else {
 
             }
 
-        }else if (requestCode == REQUEST_SHOP && resultCode==Activity.RESULT_OK) {
+        } else if (requestCode == REQUEST_SHOP && resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent();
             setResult(Activity.RESULT_OK, intent);
-            localCoinCount = userProfile.get_KEY_SCORE(0) - localUsedCoinCount;
-            coinCount.setText(localCoinCount + "");
+
+            refreshUserStickers();
+
             showDialogPackage("", "Continue");
         }
     }
 
-    private void showRegisterDialog(String message, final int requestCode){
-        MessageDialog dialog=new MessageDialog(this);
+    private void refreshUserStickers(){
+        localCoinCount = userProfile.get_KEY_SCORE(0) - localUsedCoinCount;
+        coinCount.setText(localCoinCount + "");
+    }
+
+    private void showRegisterDialog(String message, final int requestCode) {
+        MessageDialog dialog = new MessageDialog(this);
         dialog.setTitle(getString(R.string.register_login));
         dialog.setMessage(message);
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-                if(requestCode!=-1){
+                if (requestCode != -1) {
                     startActivityForResult(new Intent(PaintActivity.this, ActivityRegisterUser.class), requestCode);
                 }
             }

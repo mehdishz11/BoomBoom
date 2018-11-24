@@ -14,6 +14,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.user.register.register.FragmentUserInfo;
 import psb.com.kidpaint.user.register.sendPhoneNumber.FragmentSendPhoneNumber;
@@ -197,6 +198,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                    // getSupportFragmentManager().beginTransaction().remove(fragmentVerifyCode).commit();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragmentUserInfo, KEY_FRGUserInfo).addToBackStack(null).commit();
                 } else {
+
                     userProfile.set_KEY_USER_INFO(userInfo);
                     Intent intent = new Intent();
                     intent.putExtra("First",1);
