@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/payment" />
             <option value="$PROJECT_DIR$/payment2" />
             <option value="$PROJECT_DIR$/persianmaterialdatetimepicker" />
+            <option value="$PROJECT_DIR$/sharecontent" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

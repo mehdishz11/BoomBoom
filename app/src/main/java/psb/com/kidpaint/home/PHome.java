@@ -3,6 +3,7 @@ package psb.com.kidpaint.home;
 import android.content.Context;
 import android.view.View;
 
+import com.rasa.sharecontent.ShareContent;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -94,7 +95,7 @@ public class PHome implements IP_Home {
     }
 
     @Override
-    public void onBindViewHolder(HistoryViewHolder holder, final int position) {
+    public void onBindViewHolder(final HistoryViewHolder holder, final int position) {
         final HistoryModel historyModel = mHome.getPositionAt(holder.getAdapterPosition());
 
         if (position % 2 == 0) {
@@ -188,7 +189,9 @@ public class PHome implements IP_Home {
                     holder.competition.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            new ShareContent(getContext()).doShareContent(historyModel.getPaintModel().getUrl()
+                            ,"با انتخاب لینک زیر به نقاشی من امتیاز بدین تا برنده بشم و جایزه بگیرم(ممنون)\nhttp://www.getBoomBoom.ir"
+                            );
                         }
                     });
 

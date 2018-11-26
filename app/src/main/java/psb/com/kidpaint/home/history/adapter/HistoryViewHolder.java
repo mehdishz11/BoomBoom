@@ -7,13 +7,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
+
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.R;
 
 public class HistoryViewHolder extends RecyclerView.ViewHolder {
 
     public RelativeLayout relParent;
-    public ImageView imgOutline;
+    public RoundedImageView imgOutline;
     public ImageView imgMask;
     public View parentView;
     public RelativeLayout relCompetition;

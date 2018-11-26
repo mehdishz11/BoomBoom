@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ShareContent</string>
+    <string name="msg_error_share">اشکال در اشتراک گذاری، مجددا تلاش نمایید !!!</string>
+</resources>
