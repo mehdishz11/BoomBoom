@@ -70,9 +70,9 @@ import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseQueue;
 import psb.com.kidpaint.utils.customView.intro.showCase.FancyShowCaseView;
 import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
+import psb.com.kidpaint.utils.reward.RewardHelper;
+import psb.com.kidpaint.utils.reward.TaskEnum;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
-import psb.com.kidpaint.utils.task.TaskEnum;
-import psb.com.kidpaint.utils.task.TaskHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -82,9 +82,6 @@ import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
-
-import static psb.com.kidpaint.utils.task.TaskEnum.STEP_1;
-import static psb.com.kidpaint.utils.task.TaskEnum.STEP_2;
 
 public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_OfferPackage.OnFragmentInteractionListener,
         SplashFragment.OnFragmentInteractionListener, NewPaintFragment.OnFragmentInteractionListener {
@@ -170,7 +167,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     private int REQUEST_SHOP = 26;
 
     private BasketPrize basketPrize;
-
 
 
     @Override
@@ -265,7 +261,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
-        TaskHelper.increaseNumberOfSignUps(getContext());
+
         /*
         if (Utils.isAgrigator()) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
@@ -536,69 +532,40 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     }
 
     void checkTaskIsShow() {
-
-        TaskHelper.checkTaskExistsForShow(getContext(), new TaskHelper.iTask() {
-            @Override
-            public void allTaskIsShow() {
-                showIntro();
-
-            }
-
+        new RewardHelper(this).checkState(new RewardHelper.OnTaskCheckCompeleted() {
             @Override
             public void nothingForShow() {
                 showIntro();
-
             }
 
             @Override
-            public void newTaskForShow(int taskId, String message, int coin, Intent intent) {
-                if (!Utils.isAgrigator()) {
-                    showRewardDialog(taskId, message, intent, coin);
-                }
-
+            public void newTaskForShow(TaskEnum taskEnum, Intent intent) {
+                showRewardDialog(taskEnum, intent);
             }
         });
+
     }
 
-    public void showRewardDialog(final int taskId, String message, final Intent intent, final int coin) {
-        String btnTitle = "";
-        if (taskId == STEP_1.getId()) {
-            btnTitle = "اشتراک گذاری";
-        } else if (taskId == STEP_2.getId()) {
-            btnTitle = "امتیاز دادن";
+    public void showRewardDialog(final TaskEnum taskEnum, final Intent intent) {
 
-        }
         final MessageDialog dialog = new MessageDialog(getContext());
-        dialog.setMessage(message);
+        dialog.setMessage(taskEnum.getMessage());
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-                TaskHelper.setTaskToShowed(getContext(), taskId);
+
+                new RewardHelper(HomeActivity_2.this).executedTask(taskEnum.getId());
+
                 int oldTotalCoin = userProfile.get_KEY_SCORE(0);
+                userProfile.set_KEY_SCORE((oldTotalCoin + taskEnum.getCoin()));
+                setupUserInfo();
+                pHome.doAddScore(taskEnum.getId());
 
-                if (taskId == STEP_1.getId()) {
+                if (intent != null) {
+                    try {
+                        startActivityForResult(intent, taskEnum.getRequestCode());
+                    } catch (Exception ex) {
 
-                    if (intent != null) {
-                        try {
-                            startActivityForResult(Intent.createChooser(intent, "اشتراک گذاری با ..."), REQUEST_CODE_SHARE);
-                            userProfile.set_KEY_SCORE((oldTotalCoin + coin));
-                            setupUserInfo();
-                            pHome.doAddScore(taskId);
-                        } catch (Exception ex) {
-
-                        }
-                    }
-                } else if (taskId == STEP_2.getId()) {
-
-                    if (intent != null) {
-                        try {
-                            startActivityForResult(intent, REQUEST_CODE_RATE);
-                            userProfile.set_KEY_SCORE((oldTotalCoin + coin));
-                            setupUserInfo();
-                            pHome.doAddScore(taskId);
-                        } catch (Exception ex) {
-
-                        }
                     }
                 }
 
@@ -606,13 +573,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
             @Override
             public void onNegativeClicked() {
-                TaskHelper.setTaskToNextLevel(getContext(), taskId);
-
 
             }
         });
 
-        dialog.setAcceptButtonMessage(btnTitle);
+        dialog.setAcceptButtonMessage(taskEnum.getTitle());
         dialog.setTitle(getString(R.string.reward));
         dialog.show();
     }
@@ -635,7 +600,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         });
 
         dialog.setAcceptButtonMessage(getString(R.string.test_ok));
-        dialog.setTitle(getString(R.string.tanks));
+        dialog.setTitle(getString(R.string.reward));
         dialog.show();
     }
 
@@ -868,7 +833,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
                 if (data.hasExtra("SendToServer")) {
                     pHome.getMyPaints();
-                }else {
+                } else {
 
                     setupUserInfo();
                     pHome.getMyPaintHistory();
@@ -889,13 +854,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
             }
 
-        } else if (requestCode == REQUEST_CODE_RATE) {
-
-            showRewardDialogResult(2);
-
-        } else if (requestCode == REQUEST_CODE_SHARE) {
-
-            showRewardDialogResult(1);
+        } else if (requestCode == TaskEnum.STEP_1.getRequestCode()) {
+            showRewardDialogResult(TaskEnum.STEP_1.getId());
+        } else if (requestCode == TaskEnum.STEP_2.getRequestCode()) {
+            showRewardDialogResult(TaskEnum.STEP_2.getId());
 
         } else if (requestCode == REQUEST_COMPATITIPN && resultCode == Activity.RESULT_OK) {
             setupUserInfo();
@@ -951,7 +913,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
     @Override
     public void onStartGetMyPaints() {
-        if (progressDialog!=null&& !progressDialog.isShowing()) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
             progressDialog.show();
         }
     }
@@ -959,13 +921,13 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     @Override
     public void getMyPaintsSuccess() {
         setupUserInfo();
-       pHome.getMyPaintHistory();
+        pHome.getMyPaintHistory();
         showIntro();
         progressDialog.cancel();
     }
 
     @Override
-    public void getMyPaintsFailed(int errorCode,String errorMessage) {
+    public void getMyPaintsFailed(int errorCode, String errorMessage) {
         setupUserInfo();
         pHome.getMyPaintHistory();
         showIntro();
@@ -988,8 +950,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     @Override
     public void setResponseMyPaints(ResponseGetMyPaints responseMyPaints) {
 
-        Log.d("TAG", "setResponseMyPaints: "+responseMyPaints.getMyPaint().size());
-        mResponseGetMyPaints=responseMyPaints;
+        Log.d("TAG", "setResponseMyPaints: " + responseMyPaints.getMyPaint().size());
+        mResponseGetMyPaints = responseMyPaints;
 
 
     }
