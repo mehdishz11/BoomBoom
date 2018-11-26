@@ -29,7 +29,7 @@ public class PScore implements IPScore {
 
     @Override
     public void onSuccessSendScore(ResponseScore responseScore) {
-      ivScore.onSuccessSendScore(responseScore);
+      ivScore.onSuccessSendScore();
     }
 
     @Override

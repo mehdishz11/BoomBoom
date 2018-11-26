@@ -18,8 +18,11 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.customView.dialog.DialogRate;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
+import psb.com.kidpaint.webApi.paint.score.iScore;
 import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
 
 
@@ -130,13 +133,36 @@ public class FragmentScore extends Fragment  implements IVScore {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // mListener.onBackPressed();
                 SoundHelper.playSound(R.raw.click_1);
-                pScore.onSendScore(mPaintModel.getId());
+                showScoreDialog();
+
             }
         });
     }
 
+
+    private void showScoreDialog(){
+
+        if (!new UserProfile(getContext()).get_KEY_PHONE_NUMBER("").isEmpty()) {
+            final DialogRate dialogRate = new DialogRate(getContext());
+            dialogRate.setPaintId(mPaintModel.getId());
+            dialogRate.setPhoneNumber(new UserProfile(getContext()).get_KEY_PHONE_NUMBER(""));
+            dialogRate.setiResult(new iScore.iResult() {
+                @Override
+                public void onSuccessScore(ResponseScore responseScore) {
+                    dialogRate.cancel();
+                    onSuccessSendScore();
+                }
+
+                @Override
+                public void onFailedScore(int errorId, String ErrorMessage) {
+                    dialogRate.cancel();
+                    onFailedSendScore(errorId,ErrorMessage);
+                }
+            });
+            dialogRate.show();
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -162,7 +188,7 @@ public class FragmentScore extends Fragment  implements IVScore {
     }
 
     @Override
-    public void onSuccessSendScore(ResponseScore responseScore) {
+    public void onSuccessSendScore() {
         progressDialog.cancel();
         Toast.makeText(getContext(), "امتیاز شما با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
         mListener.onBackPressed();
