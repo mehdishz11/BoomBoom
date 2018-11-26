@@ -38,7 +38,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import psb.com.cview.IconFont;
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.bucket.BucketCanvas;
 import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
@@ -145,7 +144,6 @@ public class PaintActivity extends BaseActivity implements
         progressDialog.setMessage("لطفا کمی صبر کنید ...");
         progressDialog.setCancelable(false);
 
-        Log.d(App.TAG, "onCreate: onCreate");
         editPath = getIntent().getStringExtra("Path");
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
@@ -172,13 +170,11 @@ public class PaintActivity extends BaseActivity implements
     @Override
     protected void onPause() {
         MusicHelper.stopMusic();
-        Log.d(App.TAG, "onCreate: onPause");
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        Log.d(App.TAG, "onCreate: onResume");
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -325,6 +321,7 @@ public class PaintActivity extends BaseActivity implements
 
             }
         });
+
         btnUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -449,7 +446,6 @@ public class PaintActivity extends BaseActivity implements
         });
 
         if (editPath != null && editPath.contains("http")) {
-            Log.d("TAG", "initView: " + editPath);
             Picasso
                     .get()
                     .load(editPath)
@@ -480,15 +476,14 @@ public class PaintActivity extends BaseActivity implements
     private void validateUsedCoinWithTotalCoin() {
 
         if (localCoinCount >= 0) {
-
             if (localUsedCoinCount > 0) {
-                //  send Used Coin to server
 
+                //  send Used Coin to server
                 pPaint.doBuySticker(localUsedCoinCount);
             } else {
+
                 //  save image
                 //  saveFinalPaint("SaveWithOutWaterMark");
-
                 pPaint.onSavePaint(getPaintCanvasBitmap(false));
 
             }
@@ -723,15 +718,15 @@ public class PaintActivity extends BaseActivity implements
             Bitmap bitmapWaterMark = BitmapFactory.decodeResource(getResources(),
                     R.drawable.img_water_mark);
 
-            int maxWidth=(int)((float)Value.getScreenWidth()/4.0f);
+            int maxWidth = (int) ((float) Value.getScreenWidth() / 4.0f);
 
-            int width=(int)(((float)maxWidth/(float)bitmapWaterMark.getWidth())*(float)bitmapWaterMark.getWidth());
-            int height=(int)(((float)maxWidth/(float)bitmapWaterMark.getWidth())*(float)bitmapWaterMark.getHeight());
+            int width = (int) (((float) maxWidth / (float) bitmapWaterMark.getWidth()) * (float) bitmapWaterMark.getWidth());
+            int height = (int) (((float) maxWidth / (float) bitmapWaterMark.getWidth()) * (float) bitmapWaterMark.getHeight());
 
-            bitmapWaterMark=Bitmap.createScaledBitmap(bitmapWaterMark, width, height, false);
+            bitmapWaterMark = Bitmap.createScaledBitmap(bitmapWaterMark, width, height, false);
 
-            float left=((float)Value.getScreenWidth()/2.0f)-((float)bitmapWaterMark.getWidth()/2.0f);
-            float top=((float)Value.getScreenHeight()/2.0f)-((float)bitmapWaterMark.getHeight()/2.0f);
+            float left = ((float) Value.getScreenWidth() / 2.0f) - ((float) bitmapWaterMark.getWidth() / 2.0f);
+            float top = ((float) Value.getScreenHeight() / 2.0f) - ((float) bitmapWaterMark.getHeight() / 2.0f);
 
             Canvas c = new Canvas(bitmap);
             c.drawBitmap(bitmapWaterMark, left, top, new Paint());
@@ -750,10 +745,14 @@ public class PaintActivity extends BaseActivity implements
 
     void saveImage(Bitmap finalBitmap) {
 
-        if(editPath!=null){
-            Value.editImageFileFromBitmap(finalBitmap,editPath);
-        }else{
-            Value.makeImageFileFromBitmap(this,finalBitmap,"painting",false);
+        if (editPath != null) {
+            if (editPath.contains("http")) {
+
+            } else {
+                Value.editImageFileFromBitmap(finalBitmap, editPath);
+            }
+        } else {
+            Value.makeImageFileFromBitmap(this, finalBitmap, "painting", false);
         }
 
         if (progressDialog != null && progressDialog.isShowing()) {
@@ -1150,7 +1149,7 @@ public class PaintActivity extends BaseActivity implements
         }
     }
 
-    private void refreshUserStickers(){
+    private void refreshUserStickers() {
         localCoinCount = userProfile.get_KEY_SCORE(0) - localUsedCoinCount;
         coinCount.setText(localCoinCount + "");
     }
