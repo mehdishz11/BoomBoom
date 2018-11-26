@@ -15,6 +15,13 @@
         <attr name="mode" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="ScaleUpView">
+        <!--     <attr name="android:text"/>
+             <attr name="android:textColor"/>-->
+        <attr name="startDelay" format="integer"/>
+        <attr name="scaleOnclick" format="boolean"/>
+        <attr name="playSound" format="boolean"/>
+    </declare-styleable>
 
 
 </resources>

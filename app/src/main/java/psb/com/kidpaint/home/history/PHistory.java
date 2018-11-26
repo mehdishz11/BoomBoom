@@ -1,7 +1,6 @@
 package psb.com.kidpaint.home.history;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
@@ -9,7 +8,6 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.Random;
 
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
@@ -91,6 +89,7 @@ public class PHistory implements  IPHistory {
                 if (mHistory.userIsRegistered()) {
                     ivHistory.onStartPostPaint();
                     mHistory.postPaint(position);
+
                 }else {
                     ivHistory.showUserRegisterDialog(position);
                 }

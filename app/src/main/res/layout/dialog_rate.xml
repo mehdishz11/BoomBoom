@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rel_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layoutDirection="ltr">
+
+    <RelativeLayout
+        android:id="@+id/rel_content"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:layout_below="@+id/rel_title"
+        android:layout_marginTop="-35dp"
+        android:background="@drawable/img_dialog_bgr"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_small"
+        android:minWidth="350dp"
+        >
+
+        <psb.com.cview.CustomTextViewBold
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="به نقاشی چه امتیازی می دی ؟"
+            android:textColor="@color/brown_3"
+            android:textSize="@dimen/text_size_normal" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_small"
+            android:orientation="horizontal">
+
+            <psb.com.kidpaint.utils.customView.ScaleUpView
+                android:id="@+id/rel_sad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_small"
+                app:playSound="true"
+                app:scaleOnclick="true"
+                app:startDelay="300"
+                >
+
+                <ImageView
+                    android:id="@+id/img_sad"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/space_normal"
+                    android:src="@drawable/icon_sad" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_sad"
+                    android:layout_centerHorizontal="true"
+                    android:text="خوشم نیومد"
+                    android:textColor="@color/md_red_600"
+                    android:textSize="@dimen/text_size_small" />
+
+            </psb.com.kidpaint.utils.customView.ScaleUpView>
+
+            <psb.com.kidpaint.utils.customView.ScaleUpView
+                android:id="@+id/rel_weird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_small"
+                app:playSound="true"
+                app:scaleOnclick="true"
+                app:startDelay="400">
+
+                <ImageView
+                    android:id="@+id/img_weird"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="@dimen/space_normal"
+                    android:src="@drawable/icon_weird" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_weird"
+                    android:layout_centerHorizontal="true"
+                    android:text="بد نیست"
+                    android:textColor="@color/md_yellow_900"
+                    android:textSize="@dimen/text_size_small" />
+            </psb.com.kidpaint.utils.customView.ScaleUpView>
+
+            <psb.com.kidpaint.utils.customView.ScaleUpView
+                android:id="@+id/rel_smile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_small"
+                app:playSound="true"
+                app:scaleOnclick="true"
+                app:startDelay="200">
+
+                <ImageView
+                    android:id="@+id/img_smile"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="@dimen/space_normal"
+                    android:src="@drawable/icon_smile" />
+
+                <psb.com.cview.CustomTextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_smile"
+                    android:layout_centerHorizontal="true"
+                    android:text="عالیه"
+                    android:textColor="#1ed130"
+                    android:textSize="@dimen/text_size_small" />
+            </psb.com.kidpaint.utils.customView.ScaleUpView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_title"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/img_handle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/handle" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/text_title_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/space_small"
+                android:scaleX="1.0"
+                android:scaleY="1.1"
+                android:text="@string/rate_paiting"
+                android:textColor="#7ca331"
+                android:textSize="18sp" />
+
+            <psb.com.cview.CustomTextViewBold
+                android:id="@+id/text_title_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/space_small"
+                android:text="@string/rate_paiting"
+                android:textColor="@color/white_1"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/img_btn_close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignRight="@+id/rel_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:paddingLeft="@dimen/space_small"
+        android:paddingTop="@dimen/space_small"
+        android:paddingBottom="@dimen/space_small"
+        android:src="@drawable/btn_close" />
+
+</RelativeLayout>
