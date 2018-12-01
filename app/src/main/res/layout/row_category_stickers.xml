@@ -11,13 +11,13 @@
             android:layout_centerInParent="true"
             android:padding="@dimen/margin_10" />
 
-        <ImageView
+      <!--  <ImageView
             android:id="@+id/image_bgr_selected"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/space_small" />
+            android:layout_margin="@dimen/space_small" />-->
 
-        <ImageView
+        <psb.com.kidpaint.utils.selector.NetworkImageView
             android:id="@+id/img_cat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

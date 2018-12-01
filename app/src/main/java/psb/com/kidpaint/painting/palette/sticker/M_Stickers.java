@@ -1,10 +1,12 @@
 package psb.com.kidpaint.painting.palette.sticker;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
 import psb.com.kidpaint.webApi.Category.GetCategory.iGetCategory;
@@ -21,10 +23,12 @@ public class M_Stickers implements IM_Stickers {
     private List<Sticker> stickerList = new ArrayList<>();
     private List<Sticker> stickerListCategory = new ArrayList<>();
     private List<Category> categoryList = new ArrayList<>();
+    private UserProfile userProfile;
 
     public M_Stickers(IP_Stickers ipStickers) {
         this.context = ipStickers.getContext();
         this.ipStickers = ipStickers;
+        this.userProfile=new UserProfile(getContext());
 
         tblCategory = new TblCategory(getContext());
         tblStickers = new TblStickers(getContext());
@@ -55,29 +59,34 @@ public class M_Stickers implements IM_Stickers {
                 stickerListCategory.add(stickerList.get(i));
             }
         }
-        ipStickers.showStickers();
+        ipStickers.showStickers(0);
     }
 
     @Override
-    public void onCatSelected(int id) {
+    public void onCatSelected(int id,int catPosition) {
 
+        int lastSelectPos=-1;
         for (int i = 0; i < categoryList.size(); i++) {
-            categoryList.get(i).setSelected(false);
-        }
-
-        for (int i = 0; i < categoryList.size(); i++) {
-            if (categoryList.get(i).getId() == id) {
-                categoryList.get(i).setSelected(true);
+            if (categoryList.get(i).isSelected()) {
+                categoryList.get(i).setSelected(false);
+                lastSelectPos=i;
             }
         }
 
+        if (lastSelectPos!=-1) {
+            ipStickers.unSelectCat(lastSelectPos);
+        }
+
+
+
+        categoryList.get(catPosition).setSelected(true);
         stickerListCategory.clear();
         for (int i = 0; i < stickerList.size(); i++) {
             if (stickerList.get(i).getCategoryId() == id) {
                 stickerListCategory.add(stickerList.get(i));
             }
         }
-        ipStickers.showStickers();
+        ipStickers.showStickers(catPosition);
     }
 
     @Override
@@ -134,8 +143,19 @@ public class M_Stickers implements IM_Stickers {
     public Sticker getStickerAtPos(int pos) {
         return stickerListCategory.get(pos);
     }
+    public void setStickerDrawable(int position,Drawable result){
+        stickerListCategory.get(position).setDrawable(result);
+    }
 
     public Category getCategoryAtPos(int pos) {
         return categoryList.get(pos);
+    }
+
+    public void setCategoryDrawable(int position,Drawable result){
+        categoryList.get(position).setDrawable(result);
+    }
+    @Override
+    public boolean userIsRegistered() {
+        return userProfile.get_KEY_PHONE_NUMBER("").isEmpty() ? false : true;
     }
 }

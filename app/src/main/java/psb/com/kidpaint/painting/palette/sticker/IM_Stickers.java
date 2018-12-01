@@ -7,7 +7,10 @@ public interface IM_Stickers {
 
     void getStickers();
 
-    void onCatSelected(int id);
+    void onCatSelected(int id,int catPosition);
     void getStickersFromServer();
+
+    boolean userIsRegistered();
+
 
 }

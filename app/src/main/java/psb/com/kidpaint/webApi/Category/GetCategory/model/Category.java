@@ -1,6 +1,8 @@
 
 package psb.com.kidpaint.webApi.Category.GetCategory.model;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -30,6 +32,9 @@ public class Category implements Serializable
     @SerializedName("songUrl")
     @Expose
     private String songUrl;
+    @SerializedName("drawable")
+    @Expose
+    private Drawable drawable;
     @SerializedName("stickers")
     @Expose
     private List<Sticker> stickers = null;
@@ -107,5 +112,13 @@ public class Category implements Serializable
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public Drawable getDrawable() {
+        return drawable;
+    }
+
+    public void setDrawable(Drawable drawable) {
+        this.drawable = drawable;
     }
 }

@@ -9,7 +9,8 @@ public interface IV_Stickers {
     void getStickersSuccess();
     void getStickersFailed();
 
-    void showStickers();
+    void showStickers(int catPosition);
+    void unSelectCat(int position);
 
     void onStickerSelected(Bitmap stickerBitmap,int price,String stickerSound);
 

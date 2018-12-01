@@ -10,11 +10,20 @@
         android:layout_centerInParent="true"
          />
 
-    <ImageView
+    <psb.com.kidpaint.utils.selector.NetworkImageView
         android:id="@+id/img_stickers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/space_normal" />
+
+    <ImageView
+        android:id="@+id/locked"
+        android:layout_width="match_parent"
+        android:src="@drawable/icn_locked"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:layout_margin="3dp"
+        android:padding="@dimen/space_large" />
 
 
 </psb.com.cview.SquareRelativeLayout>

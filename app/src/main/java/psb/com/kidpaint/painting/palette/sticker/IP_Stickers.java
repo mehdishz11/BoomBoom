@@ -9,7 +9,8 @@ public interface IP_Stickers {
     void getStickersSuccess();
     void getStickersFailed();
 
-    void showStickers();
+    void showStickers(int catPosition);
+    void unSelectCat(int position);
 
     void getStickersFromServer();
     void getStickersSuccessFromServer();
