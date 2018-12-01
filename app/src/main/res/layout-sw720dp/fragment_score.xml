@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:paddingBottom="80dp"
+    android:clickable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".competition.score.FragmentScore">
+
+
+
+    <!--header-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/clouds" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/clouds"
+                android:scaleX="-1" />
+        </LinearLayout>
+    </RelativeLayout>
+    <!--login or register-->
+    <RelativeLayout
+        android:id="@+id/relUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/space_small">
+
+        <!--login | register-->
+        <RelativeLayout
+            android:id="@+id/rel_user_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+
+            <RelativeLayout
+                android:id="@+id/rel_user_image"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-20dp"
+                android:layout_toRightOf="@+id/rel_register_text">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_user_bgr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@color/brown_5"
+                    app:riv_corner_radius="36dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_register_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bgr_top_round">
+
+                <psb.com.cview.CustomTextViewBold
+                    android:id="@+id/text_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="25dp"
+                    android:clickable="true"
+                    android:ellipsize="end"
+                    android:gravity="right|center"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="ثبت نام | ورود"
+                    android:textColor="@color/brown_5"
+                    android:textSize="@dimen/font_size_14" />
+
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="7dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-55" />
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.3"
+                    android:background="@drawable/circle_white"
+                    android:rotation="-15" />
+
+            </RelativeLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_user_bgr1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:layout_centerVertical="true"
+                android:padding="1dp"
+                android:src="@color/brown_4"
+                app:riv_corner_radius="36dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_user_bgr2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:padding="3dp"
+                android:src="@drawable/bgr_color_picker"
+                android:tint="@color/light_level_0"
+                app:riv_corner_radius="50dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/userImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignBottom="@+id/rel_user_image"
+                android:layout_alignLeft="@+id/rel_user_image"
+                android:layout_alignRight="@+id/rel_user_image"
+                android:layout_alignTop="@+id/rel_user_image"
+                android:padding="4dp"
+                android:src="@drawable/user_empty_gray"
+                android:tint="@color/light_level_0"
+                app:riv_corner_radius="50dp" />
+
+        </RelativeLayout>
+
+        <!--back-->
+
+        <RelativeLayout
+            android:id="@+id/rel_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true">
+
+            <psb.com.cview.CButton
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_sqr_green" />
+
+            <ImageView
+                android:id="@+id/img_back_1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:paddingBottom="2dp"
+                android:elevation="5dp"
+                android:scaleX="-1"
+                android:src="@drawable/img_icon_right_arrow" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relUser"
+        app:cardBackgroundColor="@color/brown_1"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="@dimen/margin_10"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="40dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_outline_bgr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:riv_border_color="@color/brown_4"
+                app:riv_border_width="1dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/margin_15"
+                android:paddingBottom="2dp"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="60dp"
+                android:src="@color/white_1"
+                />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/img_outline_template"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:riv_border_color="@color/brown_4"
+                app:riv_border_width="2dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/margin_20"
+                android:paddingBottom="2dp"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="30dp"
+                />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+    <psb.com.cview.CButton
+        android:id="@+id/submit"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/coin_coin_1"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:layout_marginRight="@dimen/space_normal"
+        android:layout_marginTop="@dimen/space_small"
+        android:background="@drawable/btn_rect"
+        android:paddingBottom="@dimen/space_small"
+        android:text="ثبت امتیاز"
+        android:textColor="@color/white_1"
+        android:textSize="16sp" />
+</RelativeLayout>

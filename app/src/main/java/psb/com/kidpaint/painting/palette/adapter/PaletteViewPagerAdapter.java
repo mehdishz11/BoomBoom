@@ -36,6 +36,7 @@ public class PaletteViewPagerAdapter extends FragmentStatePagerAdapter {
         }
 
         return null;
+        //
     }
     @Override
     public int getItemPosition(@NonNull Object object) {
