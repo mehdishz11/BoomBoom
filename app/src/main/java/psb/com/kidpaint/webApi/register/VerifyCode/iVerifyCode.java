@@ -23,7 +23,7 @@ public interface iVerifyCode {
     }
 
     interface apiRequest {
-        @POST(iRegister.apiAddress + "VerifyCode")
+        @POST(iRegister.apiAddress + "VasVerifyCode")
         Call<ResponseVerifyCode> verifyCode(@Body ParamsVerifyCode paramsVerifyCode);
     }
 

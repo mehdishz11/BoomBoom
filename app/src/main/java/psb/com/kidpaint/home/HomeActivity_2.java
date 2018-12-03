@@ -790,9 +790,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                if (!Utils.isAgrigator()) {
-                    finish();
-                }
             }
         } else if (requestCode == CODE_REGISTER) {
             setUnreadMessageCount();
@@ -801,9 +798,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                if (!Utils.isAgrigator()) {
-                    finish();
-                }
             }
         } else if (requestCode == REQUEST_CODE_MESSAGE) {
             setUnreadMessageCount();

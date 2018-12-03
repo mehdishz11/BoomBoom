@@ -9,6 +9,8 @@ import psb.com.kidpaint.webApi.register.logout.Logout;
 import psb.com.kidpaint.webApi.register.logout.iLogout;
 import psb.com.kidpaint.webApi.register.registerUserInfo.Profile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
+import psb.com.kidpaint.webApi.register.vasVerify.VasVerifyCode;
+import psb.com.kidpaint.webApi.register.vasVerify.iVasVerifyCode;
 
 public class Register implements iRegister {
     @Override
@@ -19,6 +21,16 @@ public class Register implements iRegister {
     @Override
     public VerifyCode verifyCode(iVerifyCode.iResult iResult) {
         return new VerifyCode(iResult);
+    }
+
+    @Override
+    public VasVerifyCode vasVerifyCode() {
+        return new VasVerifyCode();
+    }
+
+    @Override
+    public VasVerifyCode vasVerifyCode(iVasVerifyCode.iResult iResult) {
+        return new VasVerifyCode(iResult);
     }
 
     @Override

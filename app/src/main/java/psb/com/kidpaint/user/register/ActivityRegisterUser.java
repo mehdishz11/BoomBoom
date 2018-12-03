@@ -2,6 +2,7 @@ package psb.com.kidpaint.user.register;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +10,15 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 
+import com.helper.PaymentHelper;
+
+import ir.dorsa.totalpayment.payment.Payment;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.user.register.register.FragmentUserInfo;
@@ -26,6 +31,7 @@ import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
+import psb.com.kidpaint.webApi.register.vasVerify.iVasVerifyCode;
 
 
 public class ActivityRegisterUser extends BaseActivity implements
@@ -33,6 +39,7 @@ public class ActivityRegisterUser extends BaseActivity implements
         FragmentVerifyCode.OnFragmentInteractionListener,
         FragmentUserInfo.OnFragmentInteractionListener {
 
+    private static final int REQUEST_CODE_REGISTER = 20;
     private int REQUEST_SMS_PERMMISION = 105;
     private ProgressView progressView;
     private String verifyCode;
@@ -46,6 +53,7 @@ public class ActivityRegisterUser extends BaseActivity implements
 
     private String KEY_FRGSendPhoneNumber = "KEY_FRGSendPhoneNumber";
     private String KEY_FRGVerifyCode = "KEY_FRGVerifyCode";
+
     private String KEY_FRGUserInfo = "KEY_FRGUserInfo";
 
     @Override
@@ -107,15 +115,29 @@ public class ActivityRegisterUser extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
-        Log.d("TAG", "onCreateRegister_user: "+(userProfile!=null));
-
         IntentFilter iff = new IntentFilter(BROADCAST_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(onGotKey, iff);
         userProfile = new UserProfile(this);
         setUpFrg();
         progressView = findViewById(R.id.progressView);
-        getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, fragmentSendPhoneNumber, KEY_FRGSendPhoneNumber).commit();
 
+        Log.d(App.TAG, "onCreate:Payment "+PaymentHelper.isAgrigator());
+
+        if(PaymentHelper.isAgrigator()){
+            Payment payment=new Payment(this);
+            Intent intentDorsaPayment = payment.getPaymentIntent(
+                    true,
+                    true,
+                    "متن ارسال شماره موبایل",
+                    App.appCode,
+                    App.productCode,
+                    App.irancellSku,
+                    new int[]{}
+            );
+            startActivityForResult(intentDorsaPayment, REQUEST_CODE_REGISTER);
+        }else{
+            getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, fragmentSendPhoneNumber, KEY_FRGSendPhoneNumber).commit();
+        }
 
         createHelperWnd();
     }
@@ -141,10 +163,50 @@ public class ActivityRegisterUser extends BaseActivity implements
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_CODE_REGISTER){
+            if(resultCode==Activity.RESULT_OK){
+
+                final ProgressDialog pDialog=new ProgressDialog(this);
+                pDialog.setMessage("درحال دریافت اطلاعات ...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                final Payment payment=new Payment(this);
+
+                new Register().vasVerifyCode(new iVasVerifyCode.iResult() {
+                    @Override
+                    public void onSuccessSendVerifyCode(String jwt) {
+                        userProfile.set_KEY_JWT(jwt);
+                        ActivityRegisterUser.this.phoneNumber=payment.getPhoneNumber();
+                        Utils.setStringPreference(ActivityRegisterUser.this, Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, payment.getPhoneNumber());
+                        getUserInfo();
+                        pDialog.cancel();
+                    }
+
+                    @Override
+                    public void onFailedSendVerifyCode(int ErrorId, String ErrorMessage) {
+                        pDialog.cancel();
+                        onBackPressed();
+                    }
+                }).startSendVerifyCode(
+                        userProfile.get_KEY_FCM(""),
+                        payment.getPhoneNumber(),
+                        payment.getReferenceCode(),
+                        payment.getIrancelToken()
+                );
+
+            }else{
+                setResult(Activity.RESULT_CANCELED);
+                finish();
+            }
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // fragment senPhoneNumber
     ///////////////////////////////////////////////////////////////////////////
-
     @Override
     public void onStartSendPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -175,7 +237,6 @@ public class ActivityRegisterUser extends BaseActivity implements
     ///////////////////////////////////////////////////////////////////////////
     // fragmentVerifyCode
     ///////////////////////////////////////////////////////////////////////////
-
     @Override
     public void onStartVerifyCode(String verifyCode) {
         this.verifyCode = verifyCode;
@@ -187,6 +248,14 @@ public class ActivityRegisterUser extends BaseActivity implements
     public void VerifyCodeSuccess() {
         Utils.setStringPreference(this, Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, phoneNumber);
         this.verifyCode = verifyCode;
+        getUserInfo();
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // fragmentUserInfo
+    ///////////////////////////////////////////////////////////////////////////
+    private void getUserInfo(){
         progressView.setVisibility(View.VISIBLE);
 
         new Register().profile(new iProfile.iResult() {
@@ -195,7 +264,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                 progressView.setVisibility(View.GONE);
                 if ((userInfo.getFirstName().isEmpty() && userInfo.getLastName().isEmpty()) ||
                         (userInfo.getFirstName() == null && userInfo.getLastName() == null)){
-                   // getSupportFragmentManager().beginTransaction().remove(fragmentVerifyCode).commit();
+                    // getSupportFragmentManager().beginTransaction().remove(fragmentVerifyCode).commit();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragmentUserInfo, KEY_FRGUserInfo).addToBackStack(null).commit();
                 } else {
 
@@ -223,12 +292,6 @@ public class ActivityRegisterUser extends BaseActivity implements
             }
         }).startGetUserInfo(userProfile.get_KEY_JWT("-1"),phoneNumber);
     }
-
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    // fragmentUserInfo
-    ///////////////////////////////////////////////////////////////////////////
 
     @Override
     public void onStartGetUserInfo() {

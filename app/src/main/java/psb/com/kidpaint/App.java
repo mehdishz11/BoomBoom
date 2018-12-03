@@ -6,16 +6,30 @@ import android.support.multidex.MultiDex;
 
 import com.helper.PaymentHelper;
 
+import net.jhoobin.jhub.CharkhoneSdkApp;
+
+import ir.dorsa.totalpayment.tools.Utils;
+
 public class App extends Application {
     protected static Context context = null;
 
     public static final String TAG="KidPainting";
+
+    public static final  String appCode = "1557";
+    public static final  String productCode = "boom970619";
+    public static final  String irancellSku = "boomboomdorsa";
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
         new PaymentHelper().init(getContext());
+        try {
+            CharkhoneSdkApp.initSdk(getApplicationContext(), Utils.getSecrets(this));
+        } catch (Exception ex) {
+
+        }
 
 
     }

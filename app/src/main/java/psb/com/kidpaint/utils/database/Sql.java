@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import psb.com.kidpaint.utils.Utils;
 
 
@@ -72,7 +75,7 @@ public class Sql extends SQLiteOpenHelper {
         cv.put("url", "");
         cv.put("isRead", 0);
         cv.put("sender", "admin");
-        cv.put("insertTime", Utils.getCurrentTime());
+        cv.put("insertTime", getOldDate());
         cv.put("status", "success");
 
             db.insert("tbl_Message", null, cv);
@@ -85,6 +88,14 @@ public class Sql extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS tbl_Category");
         db.execSQL("DROP TABLE IF EXISTS tbl_Message");
         onCreate(db);
+    }
+
+    private String getOldDate(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String last_change_time = sdf.format(c.getTime());
+        last_change_time="2017/01/01 "+last_change_time;
+        return last_change_time;
     }
 
 

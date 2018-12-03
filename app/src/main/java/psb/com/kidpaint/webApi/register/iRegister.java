@@ -9,12 +9,17 @@ import psb.com.kidpaint.webApi.register.logout.Logout;
 import psb.com.kidpaint.webApi.register.logout.iLogout;
 import psb.com.kidpaint.webApi.register.registerUserInfo.Profile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
+import psb.com.kidpaint.webApi.register.vasVerify.VasVerifyCode;
+import psb.com.kidpaint.webApi.register.vasVerify.iVasVerifyCode;
 
 public interface iRegister {
     String apiAddress = "register/";
 
     VerifyCode verifyCode();
     VerifyCode verifyCode(iVerifyCode.iResult iResult);
+
+    VasVerifyCode vasVerifyCode();
+    VasVerifyCode vasVerifyCode(iVasVerifyCode.iResult iResult);
 
     Profile profile();
     Profile profile(iProfile.iResult iResult);

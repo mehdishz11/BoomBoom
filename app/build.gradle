@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:multidex:1.0.3'
@@ -55,9 +55,13 @@ dependencies {
     implementation project(':animatedfab')
     implementation project(':paintingview')
     implementation project(':persianmaterialdatetimepicker')
-    implementation project(':payment')
-    // Cafebazaar payment
-    //    implementation project(':payment2') // Agrigator payment
+
+//    implementation project(':payment')// Cafebazaar payment
+    implementation project(':payment2') // Agrigator payment
+
     implementation project(':sharecontent')
+
+    // Dorsa payment library
+    implementation 'com.github.DorsaFamily:DorsaPayment:v3.2.1'
 }
 apply plugin: 'com.google.gms.google-services'
