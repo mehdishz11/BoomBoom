@@ -965,7 +965,7 @@ public class PaintActivity extends BaseActivity implements
     @Override
     public void onStickerSelected(final StickerView sticker) {
 
-        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()&& sticker.getStickerPrice()>0) {
             showUserRegisterDialog("برای استفاده از استیکر ها باید ثبت نام کنید یا وارد شوید!", REQUEST_CODE_REGISTER_STICKER);
 
         } else {
@@ -1145,11 +1145,13 @@ public class PaintActivity extends BaseActivity implements
 
             refreshUserStickers();
 
+
             showDialogPackage("", "Continue");
         }
     }
 
     private void refreshUserStickers() {
+        adapter.notifyDataSetChanged();
         localCoinCount = userProfile.get_KEY_SCORE(0) - localUsedCoinCount;
         coinCount.setText(localCoinCount + "");
     }

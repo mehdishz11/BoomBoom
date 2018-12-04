@@ -117,10 +117,16 @@ public class StickerFragment extends Fragment implements IV_Stickers{
     }
 
     @Override
-    public void showStickers() {
-        categoryAdapter.notifyDataSetChanged();
+    public void showStickers(int catPosition) {
+        categoryAdapter.notifyItemChanged(catPosition);
         stickersAdapter.notifyDataSetChanged();
         refreshStickers.setVisibility(categoryAdapter.getItemCount()>0?View.GONE:View.VISIBLE);
+
+    }
+
+    @Override
+    public void unSelectCat(int position) {
+        categoryAdapter.notifyItemChanged(position);
 
     }
 

@@ -1,5 +1,6 @@
 package psb.com.kidpaint.painting.palette.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -35,6 +36,11 @@ public class PaletteViewPagerAdapter extends FragmentStatePagerAdapter {
         }
 
         return null;
+        //
+    }
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
     }
 
     @Override
