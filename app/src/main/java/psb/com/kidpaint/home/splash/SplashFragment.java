@@ -3,12 +3,18 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.helper.PaymentHelper;
+
+import ir.dorsa.totalpayment.payment.Payment;
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
@@ -22,6 +28,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
     private View view;
 
     private ProgressBar progressBar;
+
 
     private P_Splash pSplash;
 
@@ -56,7 +63,40 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     private void setContent() {
         if (pSplash.userIsRegistered()) {
-            pSplash.updateFcmToken();
+            if (PaymentHelper.isAgrigator()) {
+                Payment payment = new Payment(getContext());
+                Log.d("TAG", "setContent: "+payment.getReferenceCode());
+                payment.checkStatus(
+                        App.appCode,
+                        App.productCode,
+                        App.irancellSku,
+                        new Payment.onCheckFinished() {
+                            @Override
+                            public void result(boolean status, int errorCode, String errorMessage) {
+                                Log.d("TAG", "result: "+status+" errCode: "+errorCode+" mess: "+errorMessage);
+                                if (status) {//check successfully and user is active
+                                    pSplash.updateFcmToken();
+                                } else if (!status && errorCode == Payment.ERROR_CODE_INTERNET_CONNECTION) {//internet connection problem
+                                    pSplash.getRank();
+                                }
+                                   /* else if(!status && errorCode==Payment.ERROR_CODE_USER_HAS_NO_CHARGE){//user has no charge
+
+                                    }*/
+                                else {//user not enable anymore
+                                    // TODO: 12/4/2018 clear user info
+                                    UserProfile userProfile=new UserProfile(getContext());
+                                    userProfile.REMOVE_KEY_USER_INFO();
+                                    pSplash.getRank();
+                                }
+                            }
+                        }
+                );
+
+
+            } else {
+                pSplash.updateFcmToken();
+            }
+
         } else {
             pSplash.getRank();
         }

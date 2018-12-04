@@ -785,7 +785,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
                 if (data.hasExtra("First")) {
                     isFirstRegister = data.getIntExtra("First", 1) == 0 ? true : false;
                 }
-
+                frameLayoutSplash.setVisibility(View.VISIBLE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
 
 
@@ -795,6 +795,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
             setUnreadMessageCount();
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
+                frameLayoutSplash.setVisibility(View.VISIBLE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -809,6 +810,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         } else if (requestCode == CODE_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
+                frameLayoutSplash.setVisibility(View.VISIBLE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -817,6 +819,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
             if (resultCode == Activity.RESULT_OK) {
                 setupUserInfo();
+                frameLayoutSplash.setVisibility(View.VISIBLE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
             } else if (resultCode == Activity.RESULT_CANCELED) {

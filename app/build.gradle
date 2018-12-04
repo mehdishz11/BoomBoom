@@ -7,8 +7,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 9
-        versionName "0.1.0"
+        versionCode 10
+        versionName "0.1.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -62,6 +62,6 @@ dependencies {
     implementation project(':sharecontent')
 
     // Dorsa payment library
-    implementation 'com.github.DorsaFamily:DorsaPayment:v3.2.1'
+    implementation 'com.github.DorsaFamily:DorsaPayment:v3.2.3'
 }
 apply plugin: 'com.google.gms.google-services'
