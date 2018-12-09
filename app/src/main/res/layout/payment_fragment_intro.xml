@@ -62,34 +62,31 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="-100dp"
-        android:layout_marginBottom="50dp"
-        android:src="@drawable/tree" />
+
 
     <RelativeLayout
-        android:layout_width="165dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="-40dp"
-        android:visibility="gone">
+        android:id="@+id/view_footer"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_alignParentBottom="true"
+        >
 
-        <View
+        <ImageView
+            android:id="@+id/img_grass_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rect_gradient_hor_white" />
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/grass_7" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rect_gradient_hor_white" />
 
-        <View
+        <ImageView
+            android:id="@+id/img_grass_2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rect_gradient_hor_white" />
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/grass_8" />
 
     </RelativeLayout>
 
@@ -98,16 +95,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="50dp"
         >
     </android.support.v4.view.ViewPager>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="-100dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/tree" />
 
     <!--footer-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -137,83 +140,57 @@
                 android:src="@drawable/tree_trunk" />
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/img_grass_5"
+            android:layout_width="110dp"
+            android:layout_height="72dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-20dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/grass_1" />
 
-        <RelativeLayout
-            android:id="@+id/view_footer"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_alignParentBottom="true">
+        <ImageView
+            android:id="@+id/img_grass_4"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-20dp"
+            android:layout_toRightOf="@+id/img_grass_3"
+            android:scaleType="fitEnd"
+            android:src="@drawable/grass_3" />
 
-            <ImageView
-                android:id="@+id/img_grass_1"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/grass_7" />
+        <ImageView
+            android:id="@+id/img_grass_3"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-20dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/grass_2" />
 
-
-            <ImageView
-                android:id="@+id/img_grass_2"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_alignParentBottom="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/grass_8" />
-
-            <ImageView
-                android:id="@+id/img_grass_5"
-                android:layout_width="110dp"
-                android:layout_height="72dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="-20dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/grass_1" />
-
-            <ImageView
-                android:id="@+id/img_grass_4"
-                android:layout_width="110dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="-20dp"
-                android:layout_toRightOf="@+id/img_grass_3"
-                android:scaleType="fitEnd"
-                android:src="@drawable/grass_3" />
-
-            <ImageView
-                android:id="@+id/img_grass_3"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="-20dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/grass_2" />
-
-            <ImageView
-                android:id="@+id/img_grass_8"
-                android:layout_width="170dp"
-                android:layout_height="110dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="-50dp"
-                android:layout_marginBottom="-10dp"
-                android:scaleType="fitEnd"
-                android:src="@drawable/grass_1" />
+        <ImageView
+            android:id="@+id/img_grass_8"
+            android:layout_width="170dp"
+            android:layout_height="110dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="-50dp"
+            android:layout_marginBottom="-10dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/grass_1" />
 
 
-            <ImageView
-                android:id="@+id/chicken"
-                android:layout_width="30dp"
-                android:layout_height="25dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="20dp"
-                android:scaleType="fitCenter"
-                android:scaleX="-1"
-                android:src="@drawable/chicken" />
-
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/chicken"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitCenter"
+            android:scaleX="-1"
+            android:src="@drawable/chicken" />
 
     </RelativeLayout>
 
@@ -223,12 +200,10 @@
         android:layout_height = "20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/space_normal"
         app:delimiterSize = "8dp"
         app:itemTint="@color/white"
         app:itemSelectedTint="@color/white"
         app:itemScale = "3"
-        android:visibility="gone"
         />
 
     <!--enter-->
@@ -239,7 +214,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/space_normal"
         android:layout_centerHorizontal="true"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <RelativeLayout
             android:layout_width="120dp"
@@ -292,14 +267,6 @@
         android:scaleType="fitEnd"
         android:src="@drawable/grass_4" />
 
-
-
-    <View
-        android:id="@+id/ViewCenter"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 

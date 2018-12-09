@@ -135,7 +135,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                     App.appCode,
                     App.productCode,
                     App.irancellSku,
-                    new int[]{R.layout.intro_0}
+                    new int[]{R.layout.intro_0,R.layout.intro_1}
             );
             startActivityForResult(intentDorsaPayment, REQUEST_CODE_REGISTER);
         }else{
@@ -174,8 +174,6 @@ public class ActivityRegisterUser extends BaseActivity implements
                 final Payment payment=new Payment(this);
 
                 new Statistics(this,App.MERKETER_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
-                final String time=Utils.getCurrentTime();
-                new Database().tblMessage(getContext()).insertMyMessage(0,getString(R.string.desc_cancel_subscription), "admin", "success", time,"لغو اشتراک",false);
 
 
                 final ProgressDialog pDialog=new ProgressDialog(this);
@@ -191,6 +189,11 @@ public class ActivityRegisterUser extends BaseActivity implements
                         Utils.setStringPreference(ActivityRegisterUser.this, Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, payment.getPhoneNumber());
                         getUserInfo();
                         pDialog.cancel();
+
+//                        add message how to unrigister
+                        final String time=Utils.getCurrentTime();
+                        new Database().tblMessage(getContext()).insertMyMessage(0,getString(R.string.desc_cancel_subscription), "admin", "success", time,"لغو اشتراک",false);
+
                     }
 
                     @Override
