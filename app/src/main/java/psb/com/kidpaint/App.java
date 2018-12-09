@@ -7,10 +7,6 @@ import android.support.multidex.MultiDex;
 import com.helper.PaymentHelper;
 import com.rasa.statistics.Statistics;
 
-import net.jhoobin.jhub.CharkhoneSdkApp;
-
-import ir.dorsa.totalpayment.tools.Utils;
-
 public class App extends Application {
     protected static Context context = null;
 
@@ -28,11 +24,7 @@ public class App extends Application {
         super.onCreate();
         context = getApplicationContext();
         new PaymentHelper().init(getContext());
-        try {
-            CharkhoneSdkApp.initSdk(getApplicationContext(), Utils.getSecrets(this));
-        } catch (Exception ex) {
 
-        }
 
         new Statistics(context,MERKETER_ID).install();
 

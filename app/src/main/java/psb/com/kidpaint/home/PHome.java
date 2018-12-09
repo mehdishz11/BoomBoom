@@ -190,7 +190,7 @@ public class PHome implements IP_Home {
                         @Override
                         public void onClick(View view) {
                             new ShareContent(getContext()).doShareContent(historyModel.getPaintModel().getUrl()
-                            ,"با انتخاب لینک زیر به نقاشی من امتیاز بدین تا برنده بشم و جایزه بگیرم(ممنون)\nhttp://www.getBoomBoom.ir"
+                            ,"با انتخاب لینک زیر به نقاشی من امتیاز بدین تا برنده بشم و جایزه بگیرم(ممنون)\nhttp://www.getBoomBoom.ir/ratePaint?paintId="+historyModel.getPaintModel().getId()+""
                             );
                         }
                     });

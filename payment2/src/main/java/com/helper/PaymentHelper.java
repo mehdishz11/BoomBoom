@@ -5,6 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import net.jhoobin.jhub.CharkhoneSdkApp;
+
+import ir.dorsa.totalpayment.tools.Utils;
+
 
 public class PaymentHelper {
 
@@ -22,6 +26,11 @@ public class PaymentHelper {
 
     public void init(Context context) {
 
+        try {
+            CharkhoneSdkApp.initSdk(context, Utils.getSecrets(context));
+        } catch (Exception ex) {
+
+        }
 
         this.context=context;
 
