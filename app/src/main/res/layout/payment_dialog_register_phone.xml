@@ -92,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/space_small"
+            android:gravity="center"
             android:text="@string/login_register_hint"
             android:textColor="@color/brown_3"
             android:textSize="@dimen/text_size_normal" />

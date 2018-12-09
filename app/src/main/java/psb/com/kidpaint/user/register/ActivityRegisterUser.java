@@ -135,7 +135,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                     App.appCode,
                     App.productCode,
                     App.irancellSku,
-                    new int[]{}
+                    new int[]{R.layout.intro_0}
             );
             startActivityForResult(intentDorsaPayment, REQUEST_CODE_REGISTER);
         }else{
@@ -175,7 +175,7 @@ public class ActivityRegisterUser extends BaseActivity implements
 
                 new Statistics(this,App.MERKETER_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
                 final String time=Utils.getCurrentTime();
-               long dbId = new Database().tblMessage(getContext()).insertMyMessage(0,"لغو اشتراک متن", "admin", "success", time,"لغو اشتراک",false);
+                new Database().tblMessage(getContext()).insertMyMessage(0,getString(R.string.desc_cancel_subscription), "admin", "success", time,"لغو اشتراک",false);
 
 
                 final ProgressDialog pDialog=new ProgressDialog(this);

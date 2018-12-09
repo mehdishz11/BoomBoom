@@ -143,14 +143,28 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:padding="@dimen/space_small"
-                    android:text="اگر سیمکارت شما برروی همین دستگاه باشد،شماره تلفن همراه به صورت خودکار تایید میشه. در غیر این صورت کد پیامک شده رو در کادر زیر وارد نمایید."
+                    android:text="کد پیامک شده را در کادر زیر وارد نمایید"
                     android:textColor="@color/brown_3"
                     android:textSize="@dimen/text_size_normal" />
+                <psb.com.cview.CustomTextView
+                    android:id="@+id/desc_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_register"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:padding="@dimen/space_small"
+                    android:text="@string/mes_activation"
+                    android:textColor="@color/brown_3"
+                    android:textSize="@dimen/text_size_small" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/title_register"
+                    android:layout_below="@+id/desc_register"
                     android:layout_centerHorizontal="true">
 
                     <psb.com.cview.CustomTextViewBold

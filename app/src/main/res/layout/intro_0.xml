@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+
+    <ImageView
+        android:id="@+id/img_irancell_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/irancell_logo" />
+
+    <ir.dorsa.totalpayment.customView.CTextViewBold
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_irancell_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_normal"
+        android:gravity="center"
+        android:text="کاربران ایرانسلی"
+        android:textColor="@color/md_blue_900"
+        android:textSize="@dimen/text_size_large" />
+
+    <ir.dorsa.totalpayment.customView.CTextView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_title"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="در صورت دریافت اشتراک، به مدت ۴۸ ساعت و طور کاملا رایگان و بدون کسر هزینه، می توانند از تمامی امکانات برنامه استفاده نمایند"
+        android:textColor="@color/md_blue_900"
+        android:textSize="@dimen/text_size_normal" />
+
+</RelativeLayout>
