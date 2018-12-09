@@ -3,7 +3,6 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (pSplash.userIsRegistered()) {
             if (PaymentHelper.isAgrigator()) {
                 Payment payment = new Payment(getContext());
-                Log.d("TAG", "setContent: "+payment.getReferenceCode());
                 payment.checkStatus(
                         App.appCode,
                         App.productCode,
@@ -73,7 +71,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
                         new Payment.onCheckFinished() {
                             @Override
                             public void result(boolean status, int errorCode, String errorMessage) {
-                                Log.d("TAG", "result: "+status+" errCode: "+errorCode+" mess: "+errorMessage);
                                 if (status) {//check successfully and user is active
                                     pSplash.updateFcmToken();
                                 } else if (!status && errorCode == Payment.ERROR_CODE_INTERNET_CONNECTION) {//internet connection problem
@@ -83,7 +80,6 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
                                     }*/
                                 else {//user not enable anymore
-                                    // TODO: 12/4/2018 clear user info
                                     UserProfile userProfile=new UserProfile(getContext());
                                     userProfile.REMOVE_KEY_USER_INFO();
                                     pSplash.getRank();

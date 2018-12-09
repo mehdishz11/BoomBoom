@@ -20,7 +20,7 @@ public class App extends Application {
     public static final  String productCode = "boom970619";
     public static final  String irancellSku = "boomboomdorsa";
 
-    public static final int MERKETER_ID=2;
+    public static final int MERKETER_ID=3;
 
 
     @Override

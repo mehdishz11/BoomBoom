@@ -1325,6 +1325,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         RelativeLayout relCompatition = findViewById(R.id.rel_compatition);
         scaleUpDown(relCompatition);
 
+
+
         cloud1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -1338,7 +1340,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         cloud2.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-
                 new AnimationHelper().rightToLeft(cloud2, 70000);
                 cloud2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
@@ -1347,13 +1348,44 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         cloud3.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-
                 new AnimationHelper().rightToLeft(cloud3, 60000);
                 cloud3.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
 
     }
+
+    private void animateCloud(){
+        cloud1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        cloud1.setTranslationX(-cloud1.getWidth());
+        cloud1.animate()
+                .translationX(Value.getScreenWidth()+cloud1.getWidth())
+                .setDuration(80000)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        animateCloud();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                })
+                .withLayer()
+                .start();
+    }
+
 
     private void animateOwl() {
 
