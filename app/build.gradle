@@ -62,6 +62,10 @@ dependencies {
     implementation project(':sharecontent')
 
     // Dorsa payment library
-    implementation 'com.github.DorsaFamily:DorsaPayment:v3.2.1'
+    implementation 'com.github.DorsaFamily:DorsaPayment:v3.2.7'
+
+    //Report user information
+    implementation 'com.github.mehdishz11:RasaStatistics:0.0.3'
+
 }
 apply plugin: 'com.google.gms.google-services'

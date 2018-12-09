@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.helper.PaymentHelper;
+import com.rasa.statistics.Statistics;
 
 import ir.dorsa.totalpayment.payment.Payment;
 import psb.com.kidpaint.App;
@@ -127,7 +128,6 @@ public class ActivityRegisterUser extends BaseActivity implements
             Payment payment=new Payment(this);
             Intent intentDorsaPayment = payment.getPaymentIntent(
                     true,
-                    true,
                     "متن ارسال شماره موبایل",
                     App.appCode,
                     App.productCode,
@@ -168,12 +168,14 @@ public class ActivityRegisterUser extends BaseActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REQUEST_CODE_REGISTER){
             if(resultCode==Activity.RESULT_OK){
+                final Payment payment=new Payment(this);
+
+                new Statistics(this,App.MERKETER_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
 
                 final ProgressDialog pDialog=new ProgressDialog(this);
                 pDialog.setMessage("درحال دریافت اطلاعات ...");
                 pDialog.setCancelable(false);
                 pDialog.show();
-                final Payment payment=new Payment(this);
 
                 new Register().vasVerifyCode(new iVasVerifyCode.iResult() {
                     @Override
@@ -248,6 +250,7 @@ public class ActivityRegisterUser extends BaseActivity implements
     public void VerifyCodeSuccess() {
         Utils.setStringPreference(this, Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, phoneNumber);
         this.verifyCode = verifyCode;
+        new Statistics(this,App.MERKETER_ID).active(phoneNumber);
         getUserInfo();
     }
 
@@ -274,6 +277,8 @@ public class ActivityRegisterUser extends BaseActivity implements
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
+
+
             }
 
             @Override
