@@ -55,18 +55,18 @@ public class TblMessage {
     }
 
 
-    public Long insertMyMessage(int chatId,String description, String userName, String status, String time) {
+    public Long insertMyMessage(int chatId,String description, String userName, String status, String time, String title, boolean isRead) {
         long id = -1;
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("messageId", -1);
         cv.put("chatId", chatId);
-        cv.put("title", "");
+        cv.put("title", title);
         cv.put("imageUrl", "");
         cv.put("body", description);
         cv.put("url", "");
-        cv.put("isRead", 1);
+        cv.put("isRead", isRead?1:0);
         cv.put("sender", userName);
         cv.put("insertTime", time);
         cv.put("status", status);

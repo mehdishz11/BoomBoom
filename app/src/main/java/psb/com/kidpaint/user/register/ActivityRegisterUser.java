@@ -29,10 +29,13 @@ import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
+import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
 import psb.com.kidpaint.webApi.register.vasVerify.iVasVerifyCode;
+
+import static psb.com.kidpaint.App.getContext;
 
 
 public class ActivityRegisterUser extends BaseActivity implements
@@ -171,6 +174,9 @@ public class ActivityRegisterUser extends BaseActivity implements
                 final Payment payment=new Payment(this);
 
                 new Statistics(this,App.MERKETER_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
+                final String time=Utils.getCurrentTime();
+               long dbId = new Database().tblMessage(getContext()).insertMyMessage(0,"لغو اشتراک متن", "admin", "success", time,"لغو اشتراک",false);
+
 
                 final ProgressDialog pDialog=new ProgressDialog(this);
                 pDialog.setMessage("درحال دریافت اطلاعات ...");

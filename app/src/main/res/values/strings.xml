@@ -25,6 +25,8 @@
     <string name="accept">قبول</string>
     <string name="yes">بله</string>
     <string name="exit">خروج</string>
+    <string name="inactive_title">لغو اشتراک</string>
+    <string name="inactive_desc">ایا میخواهید اشتراک خود را لغو کنید.</string>
     <string name="internet">اینترنت</string>
     <string name="enter">ورود</string>
     <string name="register_login">ثبت نام | ورود</string>

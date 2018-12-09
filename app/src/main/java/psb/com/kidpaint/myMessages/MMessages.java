@@ -73,7 +73,7 @@ public class MMessages implements IMMessages {
     @Override
     public void sendMessage(String text) {
         final String time=Utils.getCurrentTime();
-        final long dbId = new Database().tblMessage(getContext()).insertMyMessage(0,text, getMobileNumber(), "pending", time);
+        final long dbId = new Database().tblMessage(getContext()).insertMyMessage(0,text, getMobileNumber(), "pending", time,"",true);
         messageList.add(new Database().tblMessage(getContext()).getInsertedMessage((int) dbId));
 
         ipMessages.onSuccessSendMessage((messageList.size()-1),false);

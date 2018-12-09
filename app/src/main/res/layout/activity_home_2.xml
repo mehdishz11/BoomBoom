@@ -712,10 +712,22 @@
                 android:layout_width="30dp"
                 android:layout_height="25dp"
                 android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/btn_cancelIrancel"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitCenter"
                 android:scaleX="-1"
                 android:src="@drawable/chicken" />
+
+            <!--cancelIrancel-->
+            <ImageView
+                android:id="@+id/btn_cancelIrancel"
+                android:layout_width="@dimen/btn_size_sqr"
+                android:layout_height="@dimen/btn_size_sqr"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/space_small"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_settings" />
 
         </RelativeLayout>
 
