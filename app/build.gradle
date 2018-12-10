@@ -56,8 +56,8 @@ dependencies {
     implementation project(':paintingview')
     implementation project(':persianmaterialdatetimepicker')
 
-//    implementation project(':payment')// Cafebazaar payment
-    implementation project(':payment2') // Agrigator payment
+    implementation project(':payment')// Cafebazaar payment
+//    implementation project(':payment2') // Agrigator payment
 
     implementation project(':sharecontent')
 

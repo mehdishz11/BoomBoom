@@ -717,7 +717,8 @@
                 android:layout_marginRight="20dp"
                 android:scaleType="fitCenter"
                 android:scaleX="-1"
-                android:src="@drawable/chicken" />
+                android:src="@drawable/chicken"
+                />
 
             <!--cancelIrancel-->
             <psb.com.cview.IconButton
@@ -733,8 +734,10 @@
                 android:text=""
                 android:textColor="@color/white_1"
                 android:textSize="20dp"
+                android:visibility="gone"
                 />
 
+           <!--guide for cancelation-->
             <psb.com.cview.IconButton
                 android:id="@+id/btn_charging_guide"
                 android:layout_width="@dimen/btn_size_sqr"
@@ -748,6 +751,7 @@
                 android:text=""
                 android:textColor="@color/white_1"
                 android:textSize="20dp"
+                android:visibility="gone"
                 />
 
         </RelativeLayout>
