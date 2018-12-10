@@ -68,4 +68,20 @@ public class SharePrefrenceHelper {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(App.getContext());
         return settings.getBoolean("MusicSound", true);
     }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Intro slider
+    ///////////////////////////////////////////////////////////////////////////
+    public static void setIntroIsShowBefore(boolean show){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("IntroSlider", show);
+        editor.commit();
+    }
+
+    public static boolean getIntroIsShowBefore(){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        return settings.getBoolean("IntroSlider", false);
+    }
 }

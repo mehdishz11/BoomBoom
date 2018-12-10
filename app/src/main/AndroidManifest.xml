@@ -95,6 +95,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/TranslucentTheme"
             ></activity>
+
+        <activity android:name=".activityMessage.MessageActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/TranslucentTheme"
+            ></activity>
     </application>
 
 </manifest>

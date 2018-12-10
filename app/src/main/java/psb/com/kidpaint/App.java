@@ -16,7 +16,11 @@ public class App extends Application {
     public static final  String productCode = "boom970619";
     public static final  String irancellSku = "boomboomdorsa";
 
-    public static final int MERKETER_ID=3;
+    private static final int MERKET_ID_RASA_VAS=2;
+    private static final int MERKET_ID_COFEBAZAAR=3;
+
+    public static final int MERKETER_ID=MERKET_ID_RASA_VAS;
+
 
 
     @Override

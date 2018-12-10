@@ -25,7 +25,7 @@
                 android:layout_gravity="right"
                 android:textColor="@color/md_green_A700"
                 android:textSize="@dimen/text_size_large"
-                android:text="نقاشی با استیکر !"
+                android:text="جایزه بگیر !!!"
                 />
             <ir.dorsa.totalpayment.customView.CTextView
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/md_green_A700"
                 android:layout_gravity="right"
-                android:text="با استیکر های آماده نقاشی بکش و تخیلات خودت رو قوی کن. "
+                android:text="هر ماه به برنده های مسابقه جایزه میدیم، تو هم می تونی برنده باشی و جایزه بکیری"
                 />
 
         </LinearLayout>
@@ -44,7 +44,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/lnr_texts"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/img_intro_0"
+            android:src="@drawable/img_intro_3"
             />
 
     </RelativeLayout>

@@ -7,7 +7,7 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
+        versionCode 13
         versionName "1.0.3"
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"

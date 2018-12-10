@@ -1,5 +1,4 @@
-<resources  xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation" >
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="app_name">بوم بوم</string>
 
@@ -114,17 +113,19 @@
     <string name="msg_your_coin_finished">تعداد سکه های شما به پایان رسید</string>
     <string name="intro_step_7_title">با هر نقاشی می تونی کارهای زیر رو انجام بدی</string>
     <string name="rate_paiting">امتیاز به نقاشی</string>
-    <string name="desc_cancel_subscription">کاربران همراه اول برای لغو اشتراک، عبارت "off" را به 3003 ارسال نمایند.(هزینه اشتراک روزانه 400 تومان)
-کاربران ایرانسلی که فعالسازی‌شان را از درون اپلیکیشن انجام داده اند، از دکمه لغو اشتراک درون منو استفاده نمایند. (هزینه اشتراک روزانه 300 تومان)
-کاربران ایرانسلی نیز که از طریق پیامک، فعالسازی انجام داده اند "L84" را به 3003 ارسال نمایند.
-شماره پشتیبانی : 02433415482
+    <string name="desc_cancel_subscription">کاربران همراه اول برای لغو اشتراک، عبارت "off" را به 3003 ارسال نمایند.
+کاربران ایرانسلی که فعالسازی‌شان را از درون اپلیکیشن انجام داده اند، از دکمه لغو اشتراک (در صفحه اصلی گوشه پایین چپ) استفاده نمایند.
+کاربران ایرانسلی نیز که از طریق پیامک، فعالسازی انجام داده اند "L39" را به 3003 ارسال نمایند.
+\nشماره پشتیبانی : 02153878 داخلی 121
 </string>
 
-    <string name="mes_activation">هزینه روزانه ۵۰۰ تومان است.\nمعادل قیمت یک سوم چیپس ۱۵۰۰ تومانی !</string>
-    <string name="desc_send_code">"برای فعالسازی کد شش رقمی ارسال شده از طریق پیامک را وارد نمایید."</string>
+    <string name="mes_activation">)هزینه روزانه برای همراه اول  ۴۰۰ تومان و ایرانسل ۳۰۰ تومان.\n(معادل قیمت یک سوم چیپس ۱۵۰۰ تومانی !</string>
+    <string name="desc_send_code">"برای فعالسازی کد چهار رقمی ارسال شده از طریق پیامک را وارد نمایید."</string>
     <string name="desc_send_has_key">"برای فعالسازی کد شش رقمی ارسال شده از طریق پیامک را وارد نمایید."</string>
-    <string name="msg_irancell_activation">در صورت دریافت اشتراک، به مدت ۴۸ ساعت و طور کاملا رایگان و بدون کسر هزینه، می توانند از تمامی امکانات برنامه استفاده نمایند</string>
+    <string name="msg_irancell_activation">کاربران ایرانسل در صورت دریافت اشتراک، به مدت ۴۸ ساعت و طور کاملا رایگان و بدون کسر هزینه، می توانند از تمامی امکانات برنامه استفاده نمایند</string>
     <string name="msg_mci_activation">در صورت دریافت اشتراک، می توانید از تمامی امکانات برنامه استفاده نمایید</string>
+    <string name="title_guide_canecl_registeration">لغو اشتراک</string>
+    <string name="msg_enter_phone_number">شماره موبایل خود را وارد نمایید</string>
 
 
 </resources>

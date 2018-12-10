@@ -5,34 +5,48 @@
     android:layout_gravity="center">
 
 
-    <ImageView
-        android:id="@+id/img_irancell_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/img_logo_irancell" />
 
-    <ir.dorsa.totalpayment.customView.CTextViewBold
-        android:id="@+id/text_title"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img_irancell_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/space_normal"
-        android:gravity="center"
-        android:text="کاربران ایرانسلی"
-        android:textColor="@color/md_blue_900"
-        android:textSize="@dimen/text_size_large" />
+        android:layout_centerInParent="true"
+        >
+        <LinearLayout
+            android:id="@+id/lnr_texts"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            >
 
-    <ir.dorsa.totalpayment.customView.CTextView
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_title"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/msg_irancell_activation"
-        android:textColor="@color/md_blue_900"
-        android:textSize="@dimen/text_size_normal" />
+            <ir.dorsa.totalpayment.customView.CTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/md_green_A700"
+                android:textSize="@dimen/text_size_large"
+                android:text="پخش صدا با انتخاب استیکر !"
+                />
+            <ir.dorsa.totalpayment.customView.CTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/md_green_A700"
+                android:layout_gravity="right"
+                android:text="با انتخاب هر استیکر هم اسمشو و صداشو با صدا می شنوی و یاد می گیری."
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="230dp"
+            android:layout_height="250dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/lnr_texts"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/img_intro_1"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>

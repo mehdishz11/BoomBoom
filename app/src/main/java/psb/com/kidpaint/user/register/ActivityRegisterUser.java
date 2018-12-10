@@ -13,7 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.View;
 
 import com.helper.PaymentHelper;
@@ -29,13 +28,10 @@ import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.ProgressView;
-import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.webApi.register.Register;
 import psb.com.kidpaint.webApi.register.registerUserInfo.iProfile;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
 import psb.com.kidpaint.webApi.register.vasVerify.iVasVerifyCode;
-
-import static psb.com.kidpaint.App.getContext;
 
 
 public class ActivityRegisterUser extends BaseActivity implements
@@ -125,17 +121,15 @@ public class ActivityRegisterUser extends BaseActivity implements
         setUpFrg();
         progressView = findViewById(R.id.progressView);
 
-        Log.d(App.TAG, "onCreate:Payment "+PaymentHelper.isAgrigator());
-
         if(PaymentHelper.isAgrigator()){
             Payment payment=new Payment(this);
             Intent intentDorsaPayment = payment.getPaymentIntent(
                     true,
-                    "متن ارسال شماره موبایل",
+                    getString(R.string.msg_enter_phone_number),
                     App.appCode,
                     App.productCode,
                     App.irancellSku,
-                    new int[]{R.layout.intro_0,R.layout.intro_1}
+                    new int[]{R.layout.intro_3,R.layout.intro_4}
             );
             startActivityForResult(intentDorsaPayment, REQUEST_CODE_REGISTER);
         }else{
@@ -190,9 +184,11 @@ public class ActivityRegisterUser extends BaseActivity implements
                         getUserInfo();
                         pDialog.cancel();
 
+/*
 //                        add message how to unrigister
                         final String time=Utils.getCurrentTime();
                         new Database().tblMessage(getContext()).insertMyMessage(0,getString(R.string.desc_cancel_subscription), "admin", "success", time,"لغو اشتراک",false);
+*/
 
                     }
 

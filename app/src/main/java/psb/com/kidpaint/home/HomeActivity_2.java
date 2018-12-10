@@ -40,11 +40,14 @@ import com.helper.PaymentHelper;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import ir.dorsa.totalpayment.intro.FragmentIntro;
 import ir.dorsa.totalpayment.irancell.IrancellCancel;
 import ir.dorsa.totalpayment.payment.Payment;
+import psb.com.cview.IconButton;
 import psb.com.cview.IconFont;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.activityMessage.MessageActivity;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.dailyPrize.DialogDailyPrize;
 import psb.com.kidpaint.home.history.adapter.HistoryAdapter;
@@ -76,6 +79,7 @@ import psb.com.kidpaint.utils.customView.intro.showCase.OnCompleteListener;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.reward.RewardHelper;
 import psb.com.kidpaint.utils.reward.TaskEnum;
+import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
@@ -87,8 +91,13 @@ import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
-public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_OfferPackage.OnFragmentInteractionListener,
-        SplashFragment.OnFragmentInteractionListener, NewPaintFragment.OnFragmentInteractionListener {
+public class HomeActivity_2 extends BaseActivity implements
+        IV_Home,
+        Fragment_OfferPackage.OnFragmentInteractionListener,
+        SplashFragment.OnFragmentInteractionListener,
+        NewPaintFragment.OnFragmentInteractionListener,
+        FragmentIntro.interaction {
+
 
     private int REQUEST_STORAGE_PERMISSIONS = 100;
     public static int CODE_REGISTER_First = 106;
@@ -106,7 +115,9 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     private ResponseGetDailyPrize mResponseGetDailyPrize;
     private ResponseGetMyPaints mResponseGetMyPaints;
 
-    private ImageView btn_settings,btn_CancelIranCell;
+    private ImageView btn_settings;
+    private IconButton btn_CancelIranCell;
+    private IconButton btnGuideCancellCharging;
     private int sendPosition = -1;
 
     private HistoryAdapter historyAdapter;
@@ -114,6 +125,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     private final String TAG_FRAGMENT_SPLASH = "TAG_FRAGMENT_SPLASH";
     private final String TAG_FRAGMENT_OFFER = "TAG_FRAGMENT_OFFER";
     private final String TAG_FRAGMENT_NEW_PAINT = "TAG_FRAGMENT_NEW_PAINT";
+    private static final String TAG_FRAGMENT_INTRO = "TAG_FRAGMENT_INTRO";
 
 
     private TextView registerOrLogin, text_user_rate, text_user_Coin, unreadMessageCount;
@@ -202,6 +214,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         img_winner_3 = findViewById(R.id.img_winner_3);
         btn_settings = findViewById(R.id.btn_settings);
         btn_CancelIranCell = findViewById(R.id.btn_cancelIrancel);
+        btnGuideCancellCharging = findViewById(R.id.btn_charging_guide);
         btn_messages = findViewById(R.id.btn_messages);
         btn_shop = findViewById(R.id.btn_shop);
 
@@ -338,6 +351,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
 
         dialog.show();
     }
+
     void showIranCelInactiveDialog() {
         SoundHelper.playSound(R.raw.click_1);
 
@@ -348,7 +362,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
-              inactiveIrancell();
+                inactiveIrancell();
             }
 
             @Override
@@ -360,24 +374,25 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         dialog.show();
     }
 
-    void inactiveIrancell(){
-        Payment payment=new Payment(this);
-        if (progressDialog!=null&&!progressDialog.isShowing()) {
+    void inactiveIrancell() {
+        Payment payment = new Payment(this);
+        if (progressDialog != null && !progressDialog.isShowing()) {
             progressDialog.show();
         }
         payment.cancelIrancell(App.irancellSku, new IrancellCancel.onIrancellCanceled() {
             @Override
             public void resultSuccess() {
-                if (progressDialog!=null&&progressDialog.isShowing()) {
+                if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.cancel();
                 }
                 userProfile.REMOVE_KEY_USER_INFO();
+                SharePrefrenceHelper.setIntroIsShowBefore(true);
                 finish();
             }
 
             @Override
             public void resultFailed(String s) {
-                if (progressDialog!=null&&progressDialog.isShowing()) {
+                if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.cancel();
                 }
                 Toast.makeText(HomeActivity_2.this, s, Toast.LENGTH_SHORT).show();
@@ -475,24 +490,37 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         showDialogOfferPackage();
 
 
+        if (PaymentHelper.isAgrigator()) {
 
-        if(PaymentHelper.isAgrigator()) {
-           Payment payment = new Payment(getContext());
+            btnGuideCancellCharging.setVisibility(View.VISIBLE);
 
-            if (payment.showCancelSubscribtion()) {
+            Payment payment = new Payment(getContext());
 
-                btn_CancelIranCell.setVisibility(View.VISIBLE);
-            } else {
-                btn_CancelIranCell.setVisibility(View.GONE);
+            btnGuideCancellCharging.setVisibility(payment.isUserPremium()? View.VISIBLE : View.GONE);
+            btn_CancelIranCell.setVisibility(payment.showCancelSubscribtion() ? View.VISIBLE : View.GONE);
 
-            }
+
+            btn_CancelIranCell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showIranCelInactiveDialog();
+                }
+            });
+
+            btnGuideCancellCharging.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent=new Intent(HomeActivity_2.this,MessageActivity.class);
+                    intent.putExtra(MessageActivity.KEY_TITLE,getString(R.string.title_guide_canecl_registeration));
+                    intent.putExtra(MessageActivity.KEY_BTN_TEXT,getString(R.string.accept));
+                    intent.putExtra(MessageActivity.KEY_MESSAGE,getString(R.string.desc_cancel_subscription));
+
+                    startActivity(intent);
+                }
+            });
+
         }
-        btn_CancelIranCell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               showIranCelInactiveDialog();
-            }
-        });
 
     }
 
@@ -847,8 +875,8 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         }
 
         refreshUserRank();
+
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("TAG", "onActivityResult home: " + requestCode);
 
         if (requestCode == CODE_REGISTER_First) {
             if (resultCode == Activity.RESULT_OK) {
@@ -941,6 +969,29 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // intro fragment
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onEnterSelected() {
+        frameLayoutSplash.setVisibility(View.GONE);
+        Fragment frg = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO);
+        if (frg != null) {
+            getSupportFragmentManager().beginTransaction().remove(frg).commit();
+        }
+    }
+
+    private void showIntroSplash() {
+        if (!SharePrefrenceHelper.getIntroIsShowBefore()) {
+            SharePrefrenceHelper.setIntroIsShowBefore(true);
+            frameLayoutSplash.setVisibility(View.VISIBLE);
+
+            int[] splashLayoutResource = new int[]{R.layout.intro_0, R.layout.intro_1, R.layout.intro_2, R.layout.intro_3, R.layout.intro_4};
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayoutSplash, new FragmentIntro().newInstance(splashLayoutResource), TAG_FRAGMENT_INTRO).commit();
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // splashFragment
     ///////////////////////////////////////////////////////////////////////////
     @Override
@@ -952,9 +1003,11 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     public void splashSuccess() {
         frameLayoutSplash.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).commitNowAllowingStateLoss();
+
+        showIntroSplash();
+
         setInfo();
         initAnimation();
-
     }
 
     @Override
@@ -1399,7 +1452,6 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         scaleUpDown(relCompatition);
 
 
-
         cloud1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -1427,11 +1479,12 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
         });
 
     }
-    private void animateCloud(){
+
+    private void animateCloud() {
         cloud1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         cloud1.setTranslationX(-cloud1.getWidth());
         cloud1.animate()
-                .translationX(Value.getScreenWidth()+cloud1.getWidth())
+                .translationX(Value.getScreenWidth() + cloud1.getWidth())
                 .setDuration(80000)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -1620,6 +1673,10 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
             frameLayoutSplash.setVisibility(View.GONE);
             fragment_offerPackage = null;
 
+        } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO) != null) {
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO)).commit();
+            frameLayoutSplash.setVisibility(View.GONE);
+
         } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT)).commit();
             frameLayoutSplash.setVisibility(View.GONE);
@@ -1631,7 +1688,7 @@ public class HomeActivity_2 extends BaseActivity implements IV_Home, Fragment_Of
     }
 
     public void refreshUserRank() {
-        if (userProfile != null) {
+        if (userProfile != null && !userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
             text_user_rate.setText("بهترین رتبه شما " + userProfile.get_KEY_RANK(0));
             text_user_rate.setOnClickListener(null);
 
