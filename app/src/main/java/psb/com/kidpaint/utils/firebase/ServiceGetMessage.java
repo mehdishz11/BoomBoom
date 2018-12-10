@@ -44,7 +44,6 @@ public class ServiceGetMessage extends FirebaseMessagingService {
 
         try {
             result = new JSONObject(remoteMessage.getData().get("message"));
-            Log.d("TAG", "onMessageReceived: " + new Gson().toJson(result));
             if ("Push".equals(result.getString("Mode"))) {
                 Push push = gson.fromJson(String.valueOf(result), Push.class);
                 if (!push.getImageUrl().isEmpty() && !push.getBody().isEmpty()) {//showBigPictureStyleNotification

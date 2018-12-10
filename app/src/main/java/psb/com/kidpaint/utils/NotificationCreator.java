@@ -43,7 +43,9 @@ public class NotificationCreator {
                 .setColor(ContextCompat.getColor(context, R.color.colorAccent))
                 .setColorized(true)
                 .setSound(getSoundEffectUri(context))
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+        ;
 
 
         if (intent != null) {

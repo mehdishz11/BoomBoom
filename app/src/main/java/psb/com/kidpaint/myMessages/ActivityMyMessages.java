@@ -18,7 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.home.HomeActivity_2;
 import psb.com.kidpaint.myMessages.adapter.Adapter_Message;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.NotificationCreator;
@@ -45,6 +47,14 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
     private Button back;
 
     @Override
+    public void onBackPressed() {
+        if(!App.isHomeActivityStarted){
+            startActivity(new Intent(this,HomeActivity_2.class));
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
@@ -69,7 +79,7 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
 
