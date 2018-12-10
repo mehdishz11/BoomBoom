@@ -126,6 +126,7 @@
     <string name="msg_mci_activation">در صورت دریافت اشتراک، می توانید از تمامی امکانات برنامه استفاده نمایید</string>
     <string name="title_guide_canecl_registeration">لغو اشتراک</string>
     <string name="msg_enter_phone_number">شماره موبایل خود را وارد نمایید</string>
+    <string name="title_chat_notification">پیغام بوم بومی</string>
 
 
 </resources>

@@ -1480,36 +1480,7 @@ public class HomeActivity_2 extends BaseActivity implements
 
     }
 
-    private void animateCloud() {
-        cloud1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        cloud1.setTranslationX(-cloud1.getWidth());
-        cloud1.animate()
-                .translationX(Value.getScreenWidth() + cloud1.getWidth())
-                .setDuration(80000)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
 
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        animateCloud();
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                })
-                .withLayer()
-                .start();
-    }
 
 
     private void animateOwl() {

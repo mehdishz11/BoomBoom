@@ -78,7 +78,9 @@ public class NotificationCreator {
                 .setColor(ContextCompat.getColor(context, R.color.colorAccent))
                 .setColorized(true)
                 .setSound(getSoundEffectUri(context))
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+        ;
 
 
         if (intent != null) {
@@ -114,7 +116,9 @@ public class NotificationCreator {
                 .setSmallIcon(R.mipmap.icn_notification)
                 .setColor(ContextCompat.getColor(context, R.color.colorAccent))
                 .setColorized(true)
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+        ;
 
 
         if (intent != null) {
@@ -175,7 +179,9 @@ public class NotificationCreator {
 
                 .setCustomContentView(collapsedView)
                 .setCustomBigContentView(expandedView)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle());
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                ;
 
         if (intent != null) {
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

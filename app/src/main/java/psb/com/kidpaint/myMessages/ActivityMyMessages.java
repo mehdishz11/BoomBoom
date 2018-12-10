@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.HomeActivity_2;
@@ -58,7 +59,11 @@ public class ActivityMyMessages extends BaseActivity implements IVMessages {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
+
+//        clear notification and badges
         NotificationCreator.clearNotifications(this);
+        ShortcutBadger.removeCount(this);
+
 
         pMessages=new PMessages(this);
         initView();

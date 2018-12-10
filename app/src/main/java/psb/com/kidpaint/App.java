@@ -10,6 +10,7 @@ import android.util.Log;
 import com.helper.PaymentHelper;
 import com.rasa.statistics.Statistics;
 
+import psb.com.kidpaint.activityMessage.MessageActivity;
 import psb.com.kidpaint.home.HomeActivity_2;
 
 public class App extends Application {
@@ -28,8 +29,7 @@ public class App extends Application {
 
 
     public static boolean isHomeActivityStarted=false;
-
-    private ActivityLifecycleCallbacks activityLifecycleCallbacks;
+    public static boolean isMessagingActivityRunn=false;
 
     @Override
     public void onCreate() {
@@ -52,8 +52,10 @@ public class App extends Application {
             public void onActivityStarted(Activity activity) {
             if(activity instanceof HomeActivity_2){
                 isHomeActivityStarted=true;
-                Log.d(TAG, "onActivityStarted: true");
+            }else if(activity instanceof MessageActivity){
+                isMessagingActivityRunn=true;
             }
+
             }
 
             @Override
@@ -68,10 +70,7 @@ public class App extends Application {
 
             @Override
             public void onActivityStopped(Activity activity) {
-                if(activity instanceof HomeActivity_2){
-                    isHomeActivityStarted=false;
-                    Log.d(TAG, "onActivityStarted: false Stopped");
-                }
+
             }
 
             @Override
@@ -83,7 +82,8 @@ public class App extends Application {
             public void onActivityDestroyed(Activity activity) {
                 if(activity instanceof HomeActivity_2){
                     isHomeActivityStarted=false;
-                    Log.d(TAG, "onActivityStarted: false Destroy");
+                }else if(activity instanceof MessageActivity){
+                    isMessagingActivityRunn=false;
                 }
             }
         });

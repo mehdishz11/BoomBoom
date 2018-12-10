@@ -12,12 +12,14 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;
 import psb.com.kidpaint.home.HomeActivity;
 import psb.com.kidpaint.home.HomeActivity_2;
 import psb.com.kidpaint.myMessages.ActivityMyMessages;
+import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.NotificationCreator;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
@@ -25,6 +27,7 @@ import psb.com.kidpaint.utils.database.Database;
 import psb.com.kidpaint.utils.database.TblMessage.TblMessage;
 import psb.com.kidpaint.utils.firebase.model.Push;
 import psb.com.kidpaint.utils.firebase.model.PushCustom;
+import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.chat.Chat;
 import psb.com.kidpaint.webApi.chat.Get.iGetChat;
 import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
@@ -123,14 +126,25 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                     getMessageFromServer();
 
 
-                    Push push = gson.fromJson(String.valueOf(result), Push.class);
-                    if (push.getUrl().isEmpty()) {
-                        intent = new Intent(App.getContext(), ActivityMyMessages.class);
-                    } else {
-                        intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(push.getUrl()));
+                    if(!App.isMessagingActivityRunn) {
+                        Push push = gson.fromJson(String.valueOf(result), Push.class);
+                        if (push.getUrl().isEmpty()) {
+                            intent = new Intent(App.getContext(), ActivityMyMessages.class);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(push.getUrl()));
+                        }
+
+                        if(push.getImageUrl()!=null && !push.getImageUrl().isEmpty()){
+                            NotificationCreator.showBigPictureStyleNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, getString(R.string.title_chat_notification), push.getBody(), push.getImageUrl());
+                        }else{
+                            NotificationCreator.showTextNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getBody(), null);
+                        }
+
+                    }else{
+                        SoundHelper.playSound(R.raw.owl_small);
                     }
-                    NotificationCreator.showTextNotification(App.getContext(), intent, push.getId(), R.mipmap.ic_launcher, push.getBody(), null);
+
                 }
 
 
@@ -178,6 +192,13 @@ public class ServiceGetMessage extends FirebaseMessagingService {
                     public void onSuccessInsertChats(int size) {
                        // ipMessages.onSuccessGetMessageFromServer();
                         sendBroadCast();
+
+                        try{
+                            int unreadMessagesCount=new Database().tblMessage(App.getContext()).getUnreadChatMessageCount();
+                            ShortcutBadger.applyCount(App.getContext(), unreadMessagesCount);
+                        }catch (Exception ex){
+
+                        }
                     }
                 });
             }
