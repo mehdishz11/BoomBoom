@@ -27,6 +27,24 @@ public class ShareContent {
         this.context = context;
     }
 
+    public Intent getIntentShareImage(Bitmap imageBitmap,String message) {
+        Uri bmpUri = getBitmapFromDrawable(imageBitmap);
+        if (bmpUri != null) {
+            // Construct a ShareIntent with link to image
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+            shareIntent.setType("image/*");
+            // Launch sharing dialog for image
+
+            return Intent.createChooser(shareIntent, "ارسال توسط ؟");
+        } else {
+            Toast.makeText(context, context.getString(R.string.msg_error_share), Toast.LENGTH_SHORT).show();
+        }
+
+        return null;
+    }
 
     public void doShareContent(String url,final String message) {
         final ProgressDialog pDialog = new ProgressDialog(context);

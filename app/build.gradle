@@ -7,8 +7,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 13
-        versionName "1.0.3"
+        versionCode 15
+        versionName "1.0.5.0"// 0 is agrigator -- 1 is Cafebazaar
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

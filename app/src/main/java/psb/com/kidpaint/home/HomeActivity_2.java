@@ -91,6 +91,9 @@ import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
 
+import static psb.com.kidpaint.utils.reward.TaskEnum.STEP_1;
+import static psb.com.kidpaint.utils.reward.TaskEnum.STEP_2;
+
 public class HomeActivity_2 extends BaseActivity implements
         IV_Home,
         Fragment_OfferPackage.OnFragmentInteractionListener,
@@ -386,7 +389,7 @@ public class HomeActivity_2 extends BaseActivity implements
                     progressDialog.cancel();
                 }
                 userProfile.REMOVE_KEY_USER_INFO();
-                SharePrefrenceHelper.setIntroIsShowBefore(true);
+                SharePrefrenceHelper.setIntroIsShowBefore(false);
                 finish();
             }
 
@@ -1007,6 +1010,7 @@ public class HomeActivity_2 extends BaseActivity implements
 
         setInfo();
         initAnimation();
+
     }
 
     @Override
@@ -1478,9 +1482,6 @@ public class HomeActivity_2 extends BaseActivity implements
         });
 
     }
-
-
-
 
     private void animateOwl() {
 

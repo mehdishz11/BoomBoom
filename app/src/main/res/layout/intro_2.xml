@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/md_green_A700"
                 android:layout_gravity="right"
-                android:text="با عکس ها تو مسابقه شرکت کن، امتیاز جمع کن و برنده شو"
+                android:text="با نقاشی های خودت تو مسابقه شرکت کن، امتیاز جمع کن و برنده شو"
                 />
 
         </LinearLayout>
