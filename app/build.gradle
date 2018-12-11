@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:2.5.1'
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     /////////////
-    implementation 'com.google.firebase:firebase-core:16.0.5'
+    implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
     testImplementation 'junit:junit:4.12'
     /*  androidTestImplementation 'com.android.support.intro_step_1:runner:1.0.1'
@@ -57,13 +57,13 @@ dependencies {
     implementation project(':paintingview')
     implementation project(':persianmaterialdatetimepicker')
 
-    implementation project(':payment')// Cafebazaar payment
-//    implementation project(':payment2') // Agrigator payment
+//    implementation project(':payment')// Cafebazaar payment
+    implementation project(':payment2') // Agrigator payment
 
     implementation project(':sharecontent')
 
     // Dorsa payment library
-    implementation 'com.github.DorsaFamily:DorsaPayment:v3.2.7'
+    implementation 'com.github.DorsaFamily:DorsaPayment:3.2.8'
 
     //Report user information
     implementation 'com.github.mehdishz11:RasaStatistics:0.0.3'

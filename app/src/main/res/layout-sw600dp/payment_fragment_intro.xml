@@ -42,20 +42,6 @@
         >
     </android.support.v4.view.ViewPager>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="100">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="25" />
-
-
-
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -80,7 +66,19 @@
                 android:src="@drawable/sun_center" />
         </RelativeLayout>
 
-
+        <!--exit-->
+        <psb.com.cview.IconButton
+            android:id="@+id/back"
+            android:layout_width="@dimen/btn_size_sqr"
+            android:layout_height="@dimen/btn_size_sqr"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_sqr_green"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            android:text=""
+            android:layout_margin="@dimen/space_small"
+            android:textColor="@color/white_1"
+            android:textSize="18dp" />
 
     </RelativeLayout>
 

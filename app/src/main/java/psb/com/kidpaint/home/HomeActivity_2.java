@@ -973,6 +973,7 @@ public class HomeActivity_2 extends BaseActivity implements
     ///////////////////////////////////////////////////////////////////////////
     @Override
     public void onEnterSelected() {
+        SharePrefrenceHelper.setIntroIsShowBefore(true);
         frameLayoutSplash.setVisibility(View.GONE);
         Fragment frg = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO);
         if (frg != null) {
@@ -981,10 +982,8 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     private void showIntroSplash() {
-        if (!SharePrefrenceHelper.getIntroIsShowBefore()) {
-            SharePrefrenceHelper.setIntroIsShowBefore(true);
+        if (PaymentHelper.isAgrigator() && !SharePrefrenceHelper.getIntroIsShowBefore()) {
             frameLayoutSplash.setVisibility(View.VISIBLE);
-
             int[] splashLayoutResource = new int[]{R.layout.intro_0, R.layout.intro_1, R.layout.intro_2, R.layout.intro_3, R.layout.intro_4};
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frameLayoutSplash, new FragmentIntro().newInstance(splashLayoutResource), TAG_FRAGMENT_INTRO).commit();
@@ -1645,8 +1644,9 @@ public class HomeActivity_2 extends BaseActivity implements
             fragment_offerPackage = null;
 
         } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO) != null) {
-            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO)).commit();
-            frameLayoutSplash.setVisibility(View.GONE);
+           /* getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO)).commit();
+            frameLayoutSplash.setVisibility(View.GONE);*/
+           finish();
 
         } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT)).commit();
