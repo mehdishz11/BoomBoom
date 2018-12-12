@@ -12,14 +12,25 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+//        setProperty("archivesBaseName", "MyCompany-MyAppName-$versionName")
 
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = new File(
+                    "BoomBoom ("+android.defaultConfig.versionName+" "+project.releaseName+").apk")
+        }
+    }
+
 }
 
 dependencies {
