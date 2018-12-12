@@ -380,6 +380,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SELECT_IMAGE && resultCode == Activity.RESULT_OK) {
+
             byte[] byteArray = data.getByteArrayExtra("image");
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageViewUserImg.setImageBitmap(bmp);

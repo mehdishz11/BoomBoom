@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.helper.PaymentHelper;
 import com.rasa.statistics.Statistics;
@@ -25,7 +24,7 @@ public class App extends Application {
     private static final int MERKET_ID_RASA_VAS=2;
     private static final int MERKET_ID_COFEBAZAAR=3;
 
-    public static final int MERKETER_ID=MERKET_ID_RASA_VAS;
+    public static final int MERKETER_ID=MERKET_ID_COFEBAZAAR;
 
 
     public static boolean isHomeActivityStarted=false;

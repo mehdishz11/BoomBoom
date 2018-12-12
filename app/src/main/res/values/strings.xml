@@ -105,7 +105,7 @@
     <string name="msg_login_for_compatition">برای مشاهده مسابقات وارد شوید</string>
     <string name="msg_login_for_add_coin">برای افزودن سکه وارد شوید</string>
     <string name="msg_login_for_store">برای مشاهده فروشگاه وارد شوید</string>
-    <string name="msg_shop_title">از سکه ها برای خرید مثل استیکر برای نقاشی می تونی استفاده کنی</string>
+    <string name="msg_shop_title">از سکه ها برای خرید استیکر می تونی استفاده کنی</string>
     <string name="prizes">جوایز</string>
     <string name="third_place_prize">جایزه نفر سوم</string>
     <string name="second_place_prize">جایزه نفر دوم</string>
@@ -127,6 +127,12 @@
     <string name="title_guide_canecl_registeration">لغو اشتراک</string>
     <string name="msg_enter_phone_number">شماره موبایل خود را وارد نمایید</string>
     <string name="title_chat_notification">پیغام بوم بومی</string>
+
+    <string name="intro_0_msg">استیکر های آماده رو کنار هم بذار و نقاشی های زیبا خلق کن.</string>
+    <string name="intro_1_msg">با انتخاب هر استیکر صداشو می شنوی.</string>
+    <string name="intro_2_msg">با نقاشی های خودت، تو مسابقه شرکت کن، امتیاز جمع کن و برنده شو</string>
+    <string name="intro_3_msg">هر ماه به برنده ها جایزه میدیم، تو هم می تونی با نقاشی هات برنده باشی و جایزه بکیری</string>
+    <string name="intro_4_msg">کاربران ایرانسل در صورت دریافت اشتراک، به مدت ۴۸ ساعت و طور کاملا رایگان و بدون کسر هزینه، می توانند از تمامی امکانات برنامه استفاده نمایند</string>
 
 
 </resources>

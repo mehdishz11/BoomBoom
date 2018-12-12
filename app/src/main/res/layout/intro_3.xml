@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/md_green_A700"
                 android:layout_gravity="right"
-                android:text="هر ماه به برنده های مسابقه جایزه میدیم، تو هم می تونی برنده باشی و جایزه بکیری"
+                android:text="@string/intro_3_msg"
                 />
 
         </LinearLayout>

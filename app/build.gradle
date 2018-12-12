@@ -7,8 +7,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 15
-        versionName "1.0.5.0"// 0 is agrigator -- 1 is Cafebazaar
+        versionCode 16
+        versionName "1.0.6."+project.paymentMethodVersion// 0 is agrigator -- 1 is Cafebazaar
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -57,8 +57,8 @@ dependencies {
     implementation project(':paintingview')
     implementation project(':persianmaterialdatetimepicker')
 
-//    implementation project(':payment')// Cafebazaar payment
-    implementation project(':payment2') // Agrigator payment
+    implementation project(project.paymentMethod)// Cafebazaar payment
+//    implementation project(':payment2') // Agrigator payment
 
     implementation project(':sharecontent')
 
@@ -69,4 +69,6 @@ dependencies {
     implementation 'com.github.mehdishz11:RasaStatistics:0.0.3'
 
 }
+
+
 apply plugin: 'com.google.gms.google-services'

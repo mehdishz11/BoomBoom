@@ -25,7 +25,7 @@
                 android:layout_gravity="right"
                 android:textColor="@color/md_green_A700"
                 android:textSize="@dimen/text_size_large"
-                android:text="سپاسگذاریم !!!"
+                android:text="سپاسگزاریم !!!"
                 />
             <ir.dorsa.totalpayment.customView.CTextView
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/md_green_A700"
                 android:layout_gravity="right"
-                android:text="کاربران ایرانسل در صورت دریافت اشتراک، به مدت ۴۸ ساعت و طور کاملا رایگان و بدون کسر هزینه، می توانند از تمامی امکانات برنامه استفاده نمایند"
+                android:text="@string/intro_4_msg"
                 />
 
         </LinearLayout>

@@ -145,10 +145,7 @@ public class ActivityCropImage extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             Uri imageUri = getPickImageResultUri(data);
             mCropImageView.setImageUriAsync(imageUri);
-            Log.d("onActivityResult_crop", "" + imageUri);
-
         } else {
-            Log.d("Action", "user close selector:" + resultCode);
             finish();
         }
     }
