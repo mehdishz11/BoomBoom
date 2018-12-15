@@ -998,7 +998,7 @@ public class HomeActivity_2 extends BaseActivity implements
             frameLayoutSplash.setVisibility(View.VISIBLE);
             int[] splashLayoutResource = new int[]{R.layout.intro_0, R.layout.intro_1, R.layout.intro_2, R.layout.intro_3, R.layout.intro_4};
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayoutSplash, new FragmentIntro().newInstance(splashLayoutResource), TAG_FRAGMENT_INTRO).commit();
+                    .replace(R.id.frameLayoutSplash, new FragmentIntro().newInstance(splashLayoutResource), TAG_FRAGMENT_INTRO).commitAllowingStateLoss();
         }
     }
 
