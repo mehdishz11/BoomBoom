@@ -3,13 +3,8 @@ package psb.com.kidpaint.painting.palette.sticker;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.palette.sticker.adapter.CategoryViewHolder;
 import psb.com.kidpaint.painting.palette.sticker.adapter.StickersViewHolder;
@@ -86,39 +81,15 @@ public class P_Stickers implements IP_Stickers {
 
 
     public void onBindViewHolderStickers(final StickersViewHolder holder, final int position) {
+
         final Sticker sticker = mStickers.getStickerAtPos(position);
 
         if (sticker.getImageUrl() != null && !sticker.getImageUrl().isEmpty()) {
-    /*        Picasso.get().load(sticker.getImageUrl()).into(holder.imageViewStickers, new Callback() {
-                @Override
-                public void onSuccess() {
-                    holder.progressBar.setVisibility(View.GONE);
-                    holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ivStickers.onStickerSelected(
-                                    ((BitmapDrawable)holder.imageViewStickers.getDrawable()).getBitmap(),
-                                    sticker.getPrice(),
-                                    sticker.getSongUrl()
-                            );
-                        }
-                    });
-                }
-
-                @Override
-                public void onError(Exception e) {
-
-                    holder.progressBar.setVisibility(View.GONE);
-                }
-            });*/
-
-            Log.d("TAG", "onBindViewHolderStickers: "+sticker.getPrice()+" pos:"+position);
-
 
             if (sticker.getDrawable()!=null) {
-                holder.imageViewStickers.loadDrawable(sticker.getDrawable(), new NetworkImageView.Callback() {
+                holder.imageViewStickers.loadDrawable(sticker.getId(),sticker.getDrawable(), new NetworkImageView.Callback() {
                     @Override
-                    public void onSuccess(Drawable result) {
+                    public void onSuccess(int viewId,Drawable result) {
                         holder.progressBar.setVisibility(View.GONE);
                         holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -140,11 +111,11 @@ public class P_Stickers implements IP_Stickers {
                 });
             }else {
 
-                holder.imageViewStickers.load(sticker.getImageUrl(), new NetworkImageView.Callback() {
+                holder.imageViewStickers.load(sticker.getId(),sticker.getImageUrl(), new NetworkImageView.Callback() {
                     @Override
-                    public void onSuccess(Drawable result) {
+                    public void onSuccess(int viewId,Drawable result) {
                         holder.progressBar.setVisibility(View.GONE);
-                        mStickers.setStickerDrawable(position,result);
+                        mStickers.setStickerDrawable(viewId,result);
                         holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -178,19 +149,33 @@ public class P_Stickers implements IP_Stickers {
             }
 
         }else{
-            Log.d(App.TAG, "onBindViewHolderStickers: "+sticker.getImageUrl());
         }
 
     }
 
     public void onBindViewHolderCategory(final CategoryViewHolder holder, final int position) {
+
         final Category category = mStickers.getCategoryAtPos(position);
 
+        if(category.getId()==-1) {
 
-        if (category.getDrawable()!=null) {
+            holder.progressBar.setVisibility(View.GONE);
+            holder.imageViewCat.setImageResource(R.drawable.icon_type);
+
+            holder.imageViewCat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ivStickers != null) {
+                        ivStickers.onTextStickerClicked();
+                    }
+                }
+            });
+
+            return;
+        }else if (category.getDrawable()!=null) {
             holder.imageViewCat.loadDrawable(category.getDrawable(), new NetworkImageView.Callback() {
                 @Override
-                public void onSuccess(Drawable result) {
+                public void onSuccess(int viewId,Drawable result) {
                     holder.progressBar.setVisibility(View.GONE);
 
                 }
@@ -203,11 +188,11 @@ public class P_Stickers implements IP_Stickers {
             });
         }else {
 
-            holder.imageViewCat.load(category.getImageUrl(), new NetworkImageView.Callback() {
+            holder.imageViewCat.load(category.getId(),category.getImageUrl(), new NetworkImageView.Callback() {
                 @Override
-                public void onSuccess(Drawable result) {
+                public void onSuccess(int viewId,Drawable result) {
                     holder.progressBar.setVisibility(View.GONE);
-                    mStickers.setCategoryDrawable(position,result);
+                    mStickers.setCategoryDrawable(viewId,result);
                 }
 
                 @Override

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.home.history.PHistory;
 import psb.com.kidpaint.painting.palette.sticker.P_Stickers;
 
 
@@ -17,7 +16,7 @@ import psb.com.kidpaint.painting.palette.sticker.P_Stickers;
 public class StickersAdapter extends RecyclerView.Adapter<StickersViewHolder> {
 
 
-   private P_Stickers pStickers;
+    private P_Stickers pStickers;
 
     public StickersAdapter(P_Stickers pStickers) {
         this.pStickers = pStickers;
@@ -33,16 +32,16 @@ public class StickersAdapter extends RecyclerView.Adapter<StickersViewHolder> {
 
     @Override
     public void onBindViewHolder(StickersViewHolder holder, int position) {
-       // pCategory.onBindView(holder, position);
-        //setAnimation(holder.itemView, position);
+
+        holder.setIsRecyclable(false);
         pStickers.onBindViewHolderStickers(holder, position);
+
     }
 
     @Override
     public int getItemCount() {
         return pStickers.getStickersSize();
     }
-
 
 
 }

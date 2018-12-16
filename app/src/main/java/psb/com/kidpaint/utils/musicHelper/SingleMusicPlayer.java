@@ -20,7 +20,7 @@ public class SingleMusicPlayer {
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                mediaPlayer.setVolume(1.0f, 1.0f);
+                mediaPlayer.setVolume(10.0f, 10.0f);
                 mediaPlayer.setLooping(false);
 
                 mediaPlayer.setDataSource(params[0]);

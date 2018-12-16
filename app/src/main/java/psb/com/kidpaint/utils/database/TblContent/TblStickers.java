@@ -101,6 +101,32 @@ public class TblStickers {
         return stickerList;
     }
 
+    public List<Sticker> getStickersByCatId(int catId) {
+        List<Sticker> stickerList = new ArrayList<>();
+        Sql sql = new Sql(mContext);
+        SQLiteDatabase db = sql.getReadableDatabase();
+        String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId"};
+        Cursor c = db.query("tbl_Stickers", columns, "deleted=? AND categoryId=?", new String[]{"0",""+catId}, null, null, "price ASC");
+        if (c.getCount() > 0) {
+            if (c.moveToFirst()) {
+                for (int i = 0; i < c.getCount(); i++) {
+                    Sticker content = new Sticker();
+                    content.setId(c.getInt(0));
+                    content.setImageUrl(c.getString(1));
+                    content.setPrice(c.getInt(2));
+                    content.setSongUrl(c.getString(3));
+                    content.setCategoryId(c.getInt(4));
+                    stickerList.add(content);
+                    c.moveToNext();
+                }
+            }
+        }
+        db.close();
+        sql.close();
+
+        return stickerList;
+    }
+
     public void delete(int id) {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getWritableDatabase();

@@ -7,8 +7,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 17
-        versionName "1.0.7."+project.paymentMethodVersion// 0 is agrigator -- 1 is Cafebazaar
+        versionCode 18
+        versionName "1.0.8."+project.paymentMethodVersion// 0 is agrigator -- 1 is Cafebazaar
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:multidex:1.0.3'
@@ -74,7 +74,7 @@ dependencies {
     implementation project(':sharecontent')
 
     // Dorsa payment library
-    implementation 'com.github.DorsaFamily:DorsaPayment:3.2.8'
+    implementation 'com.github.DorsaFamily:DorsaPayment:3.3.0'
 
     //Report user information
     implementation 'com.github.mehdishz11:RasaStatistics:0.0.3'

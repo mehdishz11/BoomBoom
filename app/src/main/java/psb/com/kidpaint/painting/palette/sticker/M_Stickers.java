@@ -20,7 +20,7 @@ public class M_Stickers implements IM_Stickers {
     private IP_Stickers ipStickers;
     private TblCategory tblCategory;
     private TblStickers tblStickers;
-    private List<Sticker> stickerList = new ArrayList<>();
+//    private List<Sticker> stickerList = new ArrayList<>();
     private List<Sticker> stickerListCategory = new ArrayList<>();
     private List<Category> categoryList = new ArrayList<>();
     private UserProfile userProfile;
@@ -42,24 +42,30 @@ public class M_Stickers implements IM_Stickers {
     @Override
     public void getStickers() {
 
-        stickerList.clear();
-        stickerList = tblStickers.getAllStickers();
-
-
         categoryList.clear();
         categoryList = tblCategory.getAllCategory();
         if (categoryList.size() > 0) {
             categoryList.get(0).setSelected(true);
         }
 
-        stickerListCategory.clear();
+        addObjectTofirstCatList();
 
-        for (int i = 0; i < stickerList.size(); i++) {
-            if (categoryList.get(0).getId() == stickerList.get(i).getCategoryId()) {
-                stickerListCategory.add(stickerList.get(i));
-            }
-        }
-        ipStickers.showStickers(0);
+        stickerListCategory.clear();
+        stickerListCategory=new ArrayList<>(tblStickers.getStickersByCatId(categoryList.get(1).getId()));
+        ipStickers.showStickers(1);
+    }
+
+
+    private void addObjectTofirstCatList(){
+        Category category = new Category();
+        category.setId(-1);
+        category.setName("");
+        category.setOrder(0);
+        category.setParentId(-1);
+        category.setImageUrl("");
+        category.setPrice(0);
+        category.setSongUrl("");
+        categoryList.add(0,category);
     }
 
     @Override
@@ -81,17 +87,14 @@ public class M_Stickers implements IM_Stickers {
 
         categoryList.get(catPosition).setSelected(true);
         stickerListCategory.clear();
-        for (int i = 0; i < stickerList.size(); i++) {
-            if (stickerList.get(i).getCategoryId() == id) {
-                stickerListCategory.add(stickerList.get(i));
-            }
-        }
+        stickerListCategory=new ArrayList<>(tblStickers.getStickersByCatId(id));
+
         ipStickers.showStickers(catPosition);
     }
 
     @Override
     public void getStickersFromServer() {
-        stickerList.clear();
+
         categoryList.clear();
         String fromDate = tblStickers.getStickerLastUpdateTime();
         new psb.com.kidpaint.webApi.Category.Category().getCategory(new iGetCategory.iResult() {
@@ -99,6 +102,8 @@ public class M_Stickers implements IM_Stickers {
             public void onSuccessGetCategory(ResponseStickers responseStickers) {
                 categoryList = responseStickers.getExtra();
                 addCategoryToDataBase(categoryList);
+                addStickersToDataBase(categoryList);
+                ipStickers.getStickersSuccessFromServer();
 
             }
 
@@ -111,6 +116,8 @@ public class M_Stickers implements IM_Stickers {
 
     private void addStickersToDataBase(List<Category> responseStickers) {
 
+        ArrayList<Sticker> stickerList=new ArrayList<>();
+
         for (int i = 0; i < responseStickers.size(); i++) {
             for (int j = 0; j < responseStickers.get(i).getStickers().size(); j++) {
                 stickerList.add(responseStickers.get(i).getStickers().get(j));
@@ -119,15 +126,12 @@ public class M_Stickers implements IM_Stickers {
 
         tblStickers.insert(stickerList);
 
-
-        ipStickers.getStickersSuccessFromServer();
-
     }
 
     private void addCategoryToDataBase(List<psb.com.kidpaint.webApi.Category.GetCategory.model.Category> categoryList) {
 
         tblCategory.insert(categoryList);
-        addStickersToDataBase(categoryList);
+
 
     }
 
@@ -143,16 +147,27 @@ public class M_Stickers implements IM_Stickers {
     public Sticker getStickerAtPos(int pos) {
         return stickerListCategory.get(pos);
     }
-    public void setStickerDrawable(int position,Drawable result){
-        stickerListCategory.get(position).setDrawable(result);
+
+    public void setStickerDrawable(int id,Drawable result){
+        for (int i=0;i<stickerListCategory.size();i++) {
+            if(stickerListCategory.get(i).getId()==id){
+                stickerListCategory.get(i).setDrawable(result);
+                break;
+            }
+        }
     }
 
     public Category getCategoryAtPos(int pos) {
         return categoryList.get(pos);
     }
 
-    public void setCategoryDrawable(int position,Drawable result){
-        categoryList.get(position).setDrawable(result);
+    public void setCategoryDrawable(int catId,Drawable result){
+        for (int i = 0; i < categoryList.size(); i++) {
+            if(categoryList.get(i).getId()==catId){
+                categoryList.get(i).setDrawable(result);
+                break;
+            }
+        }
     }
     @Override
     public boolean userIsRegistered() {

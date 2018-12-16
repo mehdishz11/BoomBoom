@@ -6,9 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +22,7 @@ public class NetworkImageView extends ImageView {
     private String imageUrl;
     private boolean isLoaded=false;
     private Callback callback;
+    private int viewId =-1;
 
     public NetworkImageView(Context context) {
         super(context);
@@ -37,11 +36,21 @@ public class NetworkImageView extends ImageView {
         super(context, attrs, defStyleAttr);
     }
 
+    public void load(int stickerId,String url,Callback callback){
+        this.viewId =stickerId;
+        load(url,callback);
+
+    }
 
     public void load(String url,Callback callback){
         this.imageUrl=url;
         this.callback=callback;
         new AsyncGetImage().execute(imageUrl);
+    }
+
+    public void loadDrawable(int stickerId,Drawable result,Callback callback){
+       this.viewId =stickerId;
+       loadDrawable(result,callback);
     }
 
     public void loadDrawable(Drawable result,Callback callback){
@@ -50,13 +59,12 @@ public class NetworkImageView extends ImageView {
             setImageDrawable(makeIconSelector(result));
             isLoaded=true;
             if (callback!=null) {
-                callback.onSuccess(result);
+                callback.onSuccess(viewId,result);
             }
         }
     }
 
     public void retry(){
-        Log.d("TAG", "retry: "+(imageUrl!=null && !imageUrl.isEmpty()));
         if(imageUrl!=null && !imageUrl.isEmpty()){
             new AsyncGetImage().execute(imageUrl);
         }
@@ -93,7 +101,7 @@ public class NetworkImageView extends ImageView {
                 setImageDrawable(makeIconSelector(result));
                 isLoaded=true;
                 if (callback!=null) {
-                    callback.onSuccess(result);
+                    callback.onSuccess(viewId,result);
                 }
             }
         }
@@ -110,7 +118,7 @@ public class NetworkImageView extends ImageView {
 
 
     public interface Callback {
-        void onSuccess(Drawable result);
+        void onSuccess(int viewId,Drawable result);
 
         void onError(Exception e);
     }
