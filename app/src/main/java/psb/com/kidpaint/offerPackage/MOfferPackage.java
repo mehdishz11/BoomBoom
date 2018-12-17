@@ -2,14 +2,7 @@ package psb.com.kidpaint.offerPackage;
 
 import android.content.Context;
 
-import psb.com.kidpaint.score.IMScorePackage;
-import psb.com.kidpaint.score.IPScorePackage;
 import psb.com.kidpaint.utils.UserProfile;
-import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.iGetScorePackage;
-import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
-import psb.com.kidpaint.webApi.ScorePackage.ScorePackage;
-import psb.com.kidpaint.webApi.ScorePackage.buy.iBuy;
-import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 import psb.com.kidpaint.webApi.offerPackage.OfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.buy.iBuyOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.buy.model.ResponseBuyOfferPackage;

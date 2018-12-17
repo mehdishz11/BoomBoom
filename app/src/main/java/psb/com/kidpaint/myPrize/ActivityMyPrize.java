@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.myMessages.adapter.Adapter_Message;
 import psb.com.kidpaint.myPrize.adapter.Adapter_MyPrize;
 import psb.com.kidpaint.utils.customView.ProgressView;
 

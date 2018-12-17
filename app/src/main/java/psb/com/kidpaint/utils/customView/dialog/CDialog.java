@@ -10,8 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import psb.com.cview.CButton;
-import psb.com.cview.CustomTextViewBold;
+import psb.com.customView.CButton;
+import psb.com.customView.CustomTextViewBold;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 

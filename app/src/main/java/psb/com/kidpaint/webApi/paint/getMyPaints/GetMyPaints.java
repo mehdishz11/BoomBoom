@@ -1,24 +1,10 @@
 package psb.com.kidpaint.webApi.paint.getMyPaints;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.google.gson.Gson;
-
-import java.util.HashMap;
-
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.utils.ErrorMessage;
-import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.WebService;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
-import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.model.ParamsPostPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
-import psb.com.kidpaint.webApi.register.Login.LoginModel.ResponseLogin;
-import psb.com.kidpaint.webApi.register.Login.iLogin;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

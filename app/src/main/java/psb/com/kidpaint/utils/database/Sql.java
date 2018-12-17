@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import psb.com.kidpaint.utils.Utils;
-
 
 public class Sql extends SQLiteOpenHelper {
     //------------------------------------------

@@ -2,11 +2,7 @@ package psb.com.kidpaint.webApi.paint.deletePaint;
 
 import psb.com.kidpaint.webApi.paint.deletePaint.model.ResponseDeletePaint;
 import psb.com.kidpaint.webApi.paint.iPaint;
-import psb.com.kidpaint.webApi.paint.score.model.ParamsScore;
-import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 

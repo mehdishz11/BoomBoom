@@ -1,13 +1,10 @@
 package psb.com.kidpaint.webApi.chat.sendMessage;
 
-import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
 import psb.com.kidpaint.webApi.chat.sendMessage.model.ParamsSendMessage;
 import psb.com.kidpaint.webApi.chat.sendMessage.model.ResponseSendMessage;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * Created by morteza on 1/29/2018 AD.

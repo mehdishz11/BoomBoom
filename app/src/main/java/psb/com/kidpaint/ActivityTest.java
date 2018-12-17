@@ -1,6 +1,5 @@
 package psb.com.kidpaint;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import psb.com.kidpaint.utils.customView.BaseActivity;

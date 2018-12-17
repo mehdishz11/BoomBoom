@@ -36,7 +36,7 @@
         android:layout_centerInParent="true"
         />
 
-    <psb.com.cview.CButton
+    <psb.com.customView.CButton
         android:id="@+id/btn_accept"
         android:layout_width="110dp"
         android:layout_height="50dp"

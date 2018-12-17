@@ -1,6 +1,5 @@
 package psb.com.kidpaint.webApi.userScore.buySticker;
 
-import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 import psb.com.kidpaint.webApi.userScore.buySticker.model.ResponseBuySticker;
 import retrofit2.Call;
 import retrofit2.http.POST;

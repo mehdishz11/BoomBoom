@@ -4,8 +4,6 @@ import android.util.Log;
 
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
-import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.iGetScorePackage;
-import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
 import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 import retrofit2.Call;
 import retrofit2.Callback;

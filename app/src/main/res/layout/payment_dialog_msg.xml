@@ -18,7 +18,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/img_dialog_bgr_pich" />
 
-    <psb.com.cview.CustomTextView
+    <psb.com.customView.CustomTextView
         android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             >
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_title_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -65,7 +65,7 @@
                 android:paddingBottom="@dimen/space_small"
                 />
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_title_2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -87,7 +87,7 @@
         android:layout_above="@id/button3"
         android:layout_centerHorizontal="true"
         >
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/button4"
             android:layout_width="120dp"
             android:layout_height="40dp"
@@ -100,7 +100,7 @@
             android:visibility="gone"
             />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/button5"
             android:layout_width="120dp"
             android:layout_height="40dp"
@@ -116,7 +116,7 @@
             />
     </RelativeLayout>
 
-    <psb.com.cview.CButton
+    <psb.com.customView.CButton
         android:id="@+id/button3"
         android:layout_width="120dp"
         android:layout_height="50dp"

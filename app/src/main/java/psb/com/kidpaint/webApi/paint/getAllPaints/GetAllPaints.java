@@ -5,8 +5,6 @@ import android.util.Log;
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

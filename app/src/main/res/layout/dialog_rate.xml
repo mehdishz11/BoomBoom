@@ -19,7 +19,7 @@
         android:minWidth="350dp"
         >
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                     android:padding="@dimen/space_normal"
                     android:src="@drawable/icon_sad" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_sad"
@@ -82,7 +82,7 @@
                     android:padding="@dimen/space_normal"
                     android:src="@drawable/icon_weird" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_weird"
@@ -108,7 +108,7 @@
                     android:padding="@dimen/space_normal"
                     android:src="@drawable/icon_smile" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_smile"
@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_title_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -152,7 +152,7 @@
                 android:textColor="#7ca331"
                 android:textSize="18sp" />
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_title_2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

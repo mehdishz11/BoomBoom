@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                     android:textColor="#7ca331"
                     android:textSize="16sp" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

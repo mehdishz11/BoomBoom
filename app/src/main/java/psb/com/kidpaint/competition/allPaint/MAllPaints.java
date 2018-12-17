@@ -9,7 +9,6 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
 import psb.com.kidpaint.webApi.paint.score.iScore;
 import psb.com.kidpaint.webApi.paint.score.model.ParamsScore;
 import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 
 public class MAllPaints implements IMAllPaints {

@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/space_normal"
         android:padding="@dimen/space_15">
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -36,7 +36,7 @@
                 android:layout_marginLeft="@dimen/space_normal"
 
                 android:layout_height="wrap_content">
-                <psb.com.cview.CButton
+                <psb.com.customView.CButton
                     android:id="@+id/btn_delete1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -45,7 +45,7 @@
                     android:textSize="@dimen/text_size_normal"
                     />
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white_1"
@@ -57,7 +57,7 @@
             </RelativeLayout>
 
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/rel_delete1"
@@ -84,7 +84,7 @@
                 android:layout_marginLeft="@dimen/space_normal"
 
                 >
-                <psb.com.cview.CButton
+                <psb.com.customView.CButton
                     android:id="@+id/btn_edit1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -93,7 +93,7 @@
                     android:textSize="@dimen/text_size_normal"
                     />
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white_1"
@@ -103,7 +103,7 @@
                     android:elevation="5dp"
                     />
             </RelativeLayout>
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/rel_edit1"
@@ -127,7 +127,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/space_normal"
                 >
-                <psb.com.cview.CButton
+                <psb.com.customView.CButton
                     android:id="@+id/btn_competition1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -136,7 +136,7 @@
                     android:textSize="@dimen/text_size_normal"
                     />
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white_1"
@@ -149,7 +149,7 @@
 
 
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/rel_competition1"
@@ -175,7 +175,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/space_normal"
                 >
-                <psb.com.cview.CButton
+                <psb.com.customView.CButton
                     android:id="@+id/btn_share"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -184,7 +184,7 @@
                     android:textSize="@dimen/text_size_normal"
                     />
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white_1"
@@ -197,7 +197,7 @@
 
 
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/rel_share"

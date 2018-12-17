@@ -17,7 +17,7 @@
 
 
 
-    <psb.com.cview.CustomTextViewBold
+    <psb.com.customView.CustomTextViewBold
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:visibility="gone"

@@ -79,7 +79,7 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/bgr_top_round">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true">
 
-            <psb.com.cview.CButton
+            <psb.com.customView.CButton
                 android:id="@+id/btn_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -250,7 +250,7 @@
 
 
 
-    <psb.com.cview.CButton
+    <psb.com.customView.CButton
         android:id="@+id/submit"
         android:layout_width="150dp"
         android:layout_height="60dp"

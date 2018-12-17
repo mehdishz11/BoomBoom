@@ -94,7 +94,7 @@
                             android:background="@drawable/tab_bgr"
                             android:scaleY="-1" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_user_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -291,7 +291,7 @@
                         android:layout_height="50dp"
                         android:background="@drawable/tab_bgr" />
 
-                    <psb.com.cview.CButton
+                    <psb.com.customView.CButton
                         android:id="@+id/btn_history"
                         android:layout_width="110dp"
                         android:layout_height="45dp"
@@ -316,7 +316,7 @@
                             android:layout_height="match_parent"
                             android:background="@drawable/btn_circle_toolbar_half" />
 
-                        <psb.com.cview.IconFont
+                        <psb.com.customView.IconFont
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -329,7 +329,7 @@
                     </RelativeLayout>
 
 
-                    <psb.com.cview.CButton
+                    <psb.com.customView.CButton
                         android:id="@+id/btn_new_painting"
                         android:layout_width="110dp"
                         android:layout_height="45dp"
@@ -370,7 +370,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <psb.com.cview.SquareRelativeLayout
+                        <psb.com.customView.SquareRelativeLayout
                             android:id="@+id/intro_view_1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

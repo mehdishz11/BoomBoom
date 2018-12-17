@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -57,7 +57,7 @@
                     android:textColor="#7ca331"
                     android:textSize="16sp" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -90,7 +90,7 @@
                 android:layout_centerHorizontal="true">
 
                 <!--message-->
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:id="@+id/message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                                     android:layout_marginBottom="@dimen/space_small"
                                     >
 
-                                    <psb.com.cview.CustomTextViewBold
+                                    <psb.com.customView.CustomTextViewBold
                                         android:id="@+id/coin_title_1_1"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                                         android:textColor="#7c0025"
                                         android:textSize="12sp" />
 
-                                    <psb.com.cview.CustomTextViewBold
+                                    <psb.com.customView.CustomTextViewBold
                                         android:id="@+id/coin_title_1-2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
 
                         </RelativeLayout>
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/coin_coin_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                                 android:layout_height="match_parent"
                                 android:src="@drawable/bgr_discount"
                                 />
-                            <psb.com.cview.CustomTextView
+                            <psb.com.customView.CustomTextView
                                 android:id="@+id/coin_discount_1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -288,7 +288,7 @@
 
 
 
-                        <psb.com.cview.CButton
+                        <psb.com.customView.CButton
                             android:id="@+id/btn_buy_1"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
@@ -412,7 +412,7 @@
                                     android:layout_marginBottom="@dimen/space_small"
                                     >
 
-                                    <psb.com.cview.CustomTextViewBold
+                                    <psb.com.customView.CustomTextViewBold
                                         android:id="@+id/coin_title_2_1"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -424,7 +424,7 @@
                                         android:textColor="#7c0025"
                                         android:textSize="12sp" />
 
-                                    <psb.com.cview.CustomTextViewBold
+                                    <psb.com.customView.CustomTextViewBold
                                         android:id="@+id/coin_title_2-2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -439,7 +439,7 @@
 
                         </RelativeLayout>
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/coin_coin_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -465,7 +465,7 @@
                                 android:layout_height="match_parent"
                                 android:src="@drawable/bgr_discount"
                                 />
-                            <psb.com.cview.CustomTextView
+                            <psb.com.customView.CustomTextView
                                 android:id="@+id/coin_discount_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -478,7 +478,7 @@
 
 
 
-                        <psb.com.cview.CButton
+                        <psb.com.customView.CButton
                             android:id="@+id/btn_buy_2"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
@@ -602,7 +602,7 @@
                                     android:layout_marginBottom="@dimen/space_small"
                                     >
 
-                                    <psb.com.cview.CustomTextViewBold
+                                    <psb.com.customView.CustomTextViewBold
                                         android:id="@+id/coin_title_3_1"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -614,7 +614,7 @@
                                         android:textColor="#7c0025"
                                         android:textSize="12sp" />
 
-                                    <psb.com.cview.CustomTextViewBold
+                                    <psb.com.customView.CustomTextViewBold
                                         android:id="@+id/coin_title_3-2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -629,7 +629,7 @@
 
                         </RelativeLayout>
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/coin_coin_3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -655,7 +655,7 @@
                                 android:layout_height="match_parent"
                                 android:src="@drawable/bgr_discount"
                                 />
-                            <psb.com.cview.CustomTextView
+                            <psb.com.customView.CustomTextView
                                 android:id="@+id/coin_discount_3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -666,7 +666,7 @@
                                 android:textSize="@dimen/text_size_small" />
                         </RelativeLayout>
 
-                        <psb.com.cview.CButton
+                        <psb.com.customView.CButton
                             android:id="@+id/btn_buy_3"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
@@ -688,7 +688,7 @@
             </RelativeLayout>
 
             <!--discard-->
-            <psb.com.cview.CButton
+            <psb.com.customView.CButton
                 android:id="@+id/btn_discard_buy_holder"
                 android:layout_width="120dp"
                 android:layout_height="45dp"
@@ -703,7 +703,7 @@
                 android:visibility="invisible" />
 
             <!--discard-->
-            <psb.com.cview.CButton
+            <psb.com.customView.CButton
                 android:id="@+id/btn_discard_buy"
                 android:layout_width="120dp"
                 android:layout_height="45dp"
@@ -734,7 +734,7 @@
             android:layout_centerInParent="true"
             android:visibility="gone">
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/TextError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -746,7 +746,7 @@
                 android:textSize="@dimen/font_size_14"
                 android:visibility="visible" />
 
-            <psb.com.cview.CButton
+            <psb.com.customView.CButton
                 android:id="@+id/btn_retry"
                 android:layout_width="95dp"
                 android:layout_height="40dp"

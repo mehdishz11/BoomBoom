@@ -58,7 +58,7 @@
             android:orientation="vertical">
 
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/row_msg_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 android:src="@drawable/btn_check"
                 android:visibility="visible" />
 
-            <psb.com.cview.CustomTextView
+            <psb.com.customView.CustomTextView
                 android:id="@+id/row_msg_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 android:textColorLink="#15bbca"
                 android:textSize="15dp" />
 
-            <psb.com.cview.CustomTextView
+            <psb.com.customView.CustomTextView
                 android:id="@+id/row_msg_send_mode_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

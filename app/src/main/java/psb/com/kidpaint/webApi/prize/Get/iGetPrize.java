@@ -1,11 +1,9 @@
 package psb.com.kidpaint.webApi.prize.Get;
 
-import psb.com.kidpaint.webApi.paint.iPaint;
 import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.iPrize;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 /**
  * Created by morteza on 1/29/2018 AD.

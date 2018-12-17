@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-import psb.com.kidpaint.webApi.prize.getDailyPrize.model.Extra;
 import psb.com.kidpaint.webApi.shareModel.Message;
 
 public class ResponseBuyDailyPrize implements Serializable

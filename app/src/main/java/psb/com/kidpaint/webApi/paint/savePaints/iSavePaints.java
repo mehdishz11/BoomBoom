@@ -8,8 +8,6 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import psb.com.kidpaint.webApi.paint.iPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.model.ParamsPostPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.paint.savePaints.model.ParamsSavePaint;
 import psb.com.kidpaint.webApi.paint.savePaints.model.ResponseSavePaint;
 import retrofit2.Call;

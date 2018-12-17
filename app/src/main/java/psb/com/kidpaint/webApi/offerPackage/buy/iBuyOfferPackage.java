@@ -1,9 +1,7 @@
 package psb.com.kidpaint.webApi.offerPackage.buy;
 
-import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.offerPackage.buy.model.ResponseBuyOfferPackage;
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 

@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
-        android:name=".App"
+        android:name="psb.com.kidpaint.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,7 +23,7 @@
         android:hardwareAccelerated="true"
         >
         <activity
-            android:name=".home.HomeActivity_2"
+            android:name="psb.com.kidpaint.home.HomeActivity_2"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/FullscreenTheme">
@@ -35,57 +35,57 @@
         </activity>
 
         <activity
-            android:name=".painting.PaintActivity"
+            android:name="psb.com.kidpaint.painting.PaintActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" />
 
         <activity
-            android:name=".utils.ActivityCropImage"
+            android:name="psb.com.kidpaint.utils.ActivityCropImage"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".user.register.ActivityRegisterUser"
+            android:name="psb.com.kidpaint.user.register.ActivityRegisterUser"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/TranslucentTheme"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".user.edit.ActivityEditProfile"
+            android:name="psb.com.kidpaint.user.edit.ActivityEditProfile"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/TranslucentTheme"
             android:windowSoftInputMode="stateHidden" />
 
-        <receiver android:name=".utils.SmsListener">
+        <receiver android:name="psb.com.kidpaint.utils.SmsListener">
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".competition.ActivityCompetition"
+            android:name="psb.com.kidpaint.competition.ActivityCompetition"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
 
             android:theme="@style/ThemeFullSCreen"
             android:windowSoftInputMode="stateHidden" />
 
-        <service android:name=".utils.firebase.ServiceGetMessage">
+        <service android:name="psb.com.kidpaint.utils.firebase.ServiceGetMessage">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name=".myMessages.ActivityMyMessages"
+            android:name="psb.com.kidpaint.myMessages.ActivityMyMessages"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
 
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".myPrize.ActivityMyPrize" />
+        <activity android:name="psb.com.kidpaint.myPrize.ActivityMyPrize" />
 
         <receiver
-            android:name=".utils.checkInternet.ServiceCheckInternet"
+            android:name="psb.com.kidpaint.utils.checkInternet.ServiceCheckInternet"
             android:label="NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -94,12 +94,12 @@
         </receiver>
 
         <!--         <activity android:name=".ActivityTest"></activity> -->
-        <activity android:name=".score.ActivityScorePackage"
+        <activity android:name="psb.com.kidpaint.score.ActivityScorePackage"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/TranslucentTheme"
             ></activity>
 
-        <activity android:name=".activityMessage.MessageActivity"
+        <activity android:name="psb.com.kidpaint.activityMessage.MessageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/TranslucentTheme"
             ></activity>

@@ -1,6 +1,5 @@
 package psb.com.kidpaint.webApi.paint.getLeaderShip;
 
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.iPaint;
 import retrofit2.Call;

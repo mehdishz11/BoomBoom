@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -51,7 +51,7 @@
                     android:textColor="#7ca331"
                     android:textSize="15sp" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -91,7 +91,7 @@
             android:src="@drawable/btn_close" />
 
         <!--error-->
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <psb.com.cview.IconFont
+                    <psb.com.customView.IconFont
                         android:id="@+id/icon_user_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
 
 
 
-                    <psb.com.cview.CustomTextViewBold
+                    <psb.com.customView.CustomTextViewBold
                         android:id="@+id/text_phone_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spacer_3">
 
-                    <psb.com.cview.IconFont
+                    <psb.com.customView.IconFont
                         android:id="@+id/icon_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="35dp" />
 
-                    <psb.com.cview.CEditTextBold
+                    <psb.com.customView.CEditTextBold
                         android:id="@+id/edit_text_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                         android:textColorHint="@color/colorPrimary"
                         android:textSize="@dimen/font_size_14" />
 
-                    <psb.com.cview.CEditTextBold
+                    <psb.com.customView.CEditTextBold
                         android:id="@+id/edit_text_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                         android:layout_height="wrap_content">
 
 
-                        <psb.com.cview.IconFont
+                        <psb.com.customView.IconFont
                             android:id="@+id/icon_birth_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                             android:textSize="28dp" />
 
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_birth_day_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -261,7 +261,7 @@
                             android:textSize="@dimen/text_size_normal" />
 
 
-                        <psb.com.cview.CustomTextView
+                        <psb.com.customView.CustomTextView
                             android:id="@+id/selectBirthDay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                             android:textSize="@dimen/text_size_small"
                             android:visibility="visible" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_birthday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -302,7 +302,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="50">
 
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:id="@+id/text_title_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -367,7 +367,7 @@
                                 android:layout_below="@+id/image_girl_normal"
                                 android:layout_centerHorizontal="true">
 
-                                <psb.com.cview.CustomTextViewBold
+                                <psb.com.customView.CustomTextViewBold
                                     android:id="@+id/text_girl"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -403,7 +403,7 @@
                                 android:layout_below="@+id/image_boy_normal"
                                 android:layout_centerHorizontal="true">
 
-                                <psb.com.cview.CustomTextViewBold
+                                <psb.com.customView.CustomTextViewBold
                                     android:id="@+id/text_boy"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -423,7 +423,7 @@
         </LinearLayout>
 
 
-        <psb.com.cview.CButton
+        <psb.com.customView.CButton
             android:id="@+id/frg_registerUserInfo_sendBtn"
             android:layout_width="120dp"
             android:layout_height="50dp"

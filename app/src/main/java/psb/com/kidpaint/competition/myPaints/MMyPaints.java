@@ -7,7 +7,6 @@ import psb.com.kidpaint.webApi.paint.Paint;
 import psb.com.kidpaint.webApi.paint.deletePaint.iDeletePaint;
 import psb.com.kidpaint.webApi.paint.deletePaint.model.ResponseDeletePaint;
 import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.MyPaint;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.shareModel.PaintModel;
 import psb.com.kidpaint.webApi.shareModel.User;

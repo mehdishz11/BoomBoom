@@ -4,7 +4,6 @@ import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 public interface IVAllPaints {
 

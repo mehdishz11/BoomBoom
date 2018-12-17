@@ -2,8 +2,6 @@ package psb.com.kidpaint.webApi.paint.score;
 
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
-import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.paint.score.model.ParamsScore;
 import psb.com.kidpaint.webApi.paint.score.model.ResponseScore;
 import retrofit2.Call;

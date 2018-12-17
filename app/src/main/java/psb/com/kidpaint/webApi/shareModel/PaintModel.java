@@ -5,8 +5,6 @@ import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import psb.com.kidpaint.webApi.shareModel.User;
-
 public class PaintModel implements Serializable
 {
 

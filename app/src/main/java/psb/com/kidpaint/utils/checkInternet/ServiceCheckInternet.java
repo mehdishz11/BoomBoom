@@ -3,10 +3,8 @@ package psb.com.kidpaint.utils.checkInternet;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import psb.com.kidpaint.utils.UserProfile;

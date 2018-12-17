@@ -76,7 +76,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_weight="1">
 
-                    <psb.com.cview.SquareRelativeLayout
+                    <psb.com.customView.SquareRelativeLayout
                         android:id="@+id/intro_view_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -193,7 +193,7 @@
             android:layout_centerVertical="true"
             android:src="@drawable/btn_settings" />
 
-        <psb.com.cview.IconButton
+        <psb.com.customView.IconButton
             android:id="@+id/btn_messages"
             android:layout_width="@dimen/btn_size_sqr"
             android:layout_height="@dimen/btn_size_sqr"
@@ -206,7 +206,7 @@
             android:textColor="@color/white_1"
             android:textSize="30dp" />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/unreadMessageCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -271,7 +271,7 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/bgr_top_round">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/reg_or_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -386,7 +386,7 @@
                 android:background="@drawable/bgr_top_round"
                 android:paddingRight="20dp">
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:id="@+id/icon_add_coin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -396,7 +396,7 @@
                     android:textColor="@color/brown_5"
                     android:textSize="20dp" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_userCoin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -509,7 +509,7 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/bgr_top_round">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_userRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -592,7 +592,7 @@
     </RelativeLayout>
 
     <!--exit-->
-    <psb.com.cview.IconButton
+    <psb.com.customView.IconButton
         android:id="@+id/btn_exit"
         android:layout_width="@dimen/btn_size_sqr"
         android:layout_height="@dimen/btn_size_sqr"
@@ -719,7 +719,7 @@
                 android:src="@drawable/chicken" />
 
             <!--cancelIrancel-->
-            <psb.com.cview.IconButton
+            <psb.com.customView.IconButton
                 android:id="@+id/btn_cancelIrancel"
                 android:layout_width="@dimen/btn_size_sqr"
                 android:layout_height="@dimen/btn_size_sqr"
@@ -736,7 +736,7 @@
                 />
 
             <!--guide for cancelation-->
-            <psb.com.cview.IconButton
+            <psb.com.customView.IconButton
                 android:id="@+id/btn_charging_guide"
                 android:layout_width="@dimen/btn_size_sqr"
                 android:layout_height="@dimen/btn_size_sqr"
@@ -1053,7 +1053,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -1066,7 +1066,7 @@
                     android:textColor="@color/brown_3"
                     android:textSize="25sp" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_title_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

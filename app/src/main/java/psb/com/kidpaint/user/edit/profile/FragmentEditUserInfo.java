@@ -43,7 +43,6 @@ import psb.com.kidpaint.utils.ActivityCropImage;
 import psb.com.kidpaint.utils.CalendarTool;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
-import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.ParamsRegister;
 import psb.com.kidpaint.webApi.register.registerUserInfo.model.UserInfo;
 

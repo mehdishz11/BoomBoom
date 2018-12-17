@@ -2,8 +2,6 @@ package psb.com.kidpaint.home;
 
 import android.content.Context;
 
-import java.io.File;
-
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.shareModel.HistoryModel;

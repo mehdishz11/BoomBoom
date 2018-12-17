@@ -37,7 +37,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import psb.com.cview.IconFont;
+import psb.com.customView.IconFont;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.bucket.BucketCanvas;
 import psb.com.kidpaint.painting.canvas.sticker.StickerCanvas;
