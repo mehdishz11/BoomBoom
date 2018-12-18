@@ -3,6 +3,7 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (pSplash.userIsRegistered()) {
             if (PaymentHelper.isAgrigator()) {
                 Payment payment = new Payment(getContext());
+
                 payment.checkStatus(
                         App.appCode,
                         App.productCode,

@@ -222,7 +222,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
                 paramsRegister.setPhoneNumber(Utils.getStringPreference(getContext(),
                         Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, "-1"));
                 paramsRegister.setEmail("");
-                paramsRegister.setFirstName("نام کاربر");
+                paramsRegister.setFirstName("بدون اسم");
                 paramsRegister.setLastName("");
 
                 paramsRegister.setImageUrl(encodedImageData);
