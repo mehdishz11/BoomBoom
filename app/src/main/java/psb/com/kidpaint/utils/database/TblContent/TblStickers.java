@@ -106,7 +106,7 @@ public class TblStickers {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId"};
-        Cursor c = db.query("tbl_Stickers", columns, "deleted=? AND categoryId=?", new String[]{"0",""+catId}, null, null, "price ASC");
+        Cursor c = db.query("tbl_Stickers", columns, "deleted=? AND categoryId=?", new String[]{"0",""+catId}, null, null, "sort ASC");
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 for (int i = 0; i < c.getCount(); i++) {

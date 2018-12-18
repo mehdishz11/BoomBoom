@@ -79,7 +79,7 @@ public class TblCategory {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "name", "sort", "parentId", "imageUrl", "price", "songUrl"};
-        Cursor c = db.query("tbl_Category", columns, null, null, null, null, null);
+        Cursor c = db.query("tbl_Category", columns, null, null, null, null, "price ASC");
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 for (int i = 0; i < c.getCount(); i++) {
