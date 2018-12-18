@@ -37,6 +37,7 @@ public class TblCategory {
             cv.put("imageUrl", category.getImageUrl());
             cv.put("price", category.getPrice());
             cv.put("songUrl", category.getSongUrl());
+            cv.put("deleted", category.getDeleted() ? 1 : 0);
 
             int update = db.update("tbl_Category", cv, "id=?", new String[]{category.getId() + ""});
             if (update == 0) {
@@ -79,7 +80,7 @@ public class TblCategory {
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"id", "name", "sort", "parentId", "imageUrl", "price", "songUrl"};
-        Cursor c = db.query("tbl_Category", columns, null, null, null, null, "price ASC");
+        Cursor c = db.query("tbl_Category", columns, "deleted=?", new String[]{"0"}, null, null, "sort ASC");
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
                 for (int i = 0; i < c.getCount(); i++) {

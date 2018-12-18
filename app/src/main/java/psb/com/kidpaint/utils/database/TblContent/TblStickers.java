@@ -34,6 +34,7 @@ public class TblStickers {
             cv.put("imageUrl", sticker.getImageUrl());
             cv.put("price", sticker.getPrice());
             cv.put("songUrl", sticker.getSongUrl());
+            cv.put("sort", sticker.getOrder());
             cv.put("categoryId", sticker.getCategoryId());
             cv.put("deleted", sticker.getDeleted() ? 1 : 0);
             cv.put("updateTime", sticker.getCreateDate());
@@ -105,7 +106,7 @@ public class TblStickers {
         List<Sticker> stickerList = new ArrayList<>();
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
-        String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId"};
+        String[] columns = new String[]{"id", "imageUrl", "price", "songUrl", "categoryId","sort"};
         Cursor c = db.query("tbl_Stickers", columns, "deleted=? AND categoryId=?", new String[]{"0",""+catId}, null, null, "sort ASC");
         if (c.getCount() > 0) {
             if (c.moveToFirst()) {
@@ -116,6 +117,7 @@ public class TblStickers {
                     content.setPrice(c.getInt(2));
                     content.setSongUrl(c.getString(3));
                     content.setCategoryId(c.getInt(4));
+                    content.setOrder(c.getInt(5));
                     stickerList.add(content);
                     c.moveToNext();
                 }
@@ -136,7 +138,7 @@ public class TblStickers {
     }
 
     public String getStickerLastUpdateTime() {
-        String time = "2000-07-02 17:07:19";
+        String time = "";
         Sql sql = new Sql(mContext);
         SQLiteDatabase db = sql.getReadableDatabase();
         String[] columns = new String[]{"lastEditDate"};

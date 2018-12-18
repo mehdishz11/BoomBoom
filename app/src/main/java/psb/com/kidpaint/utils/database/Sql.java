@@ -15,7 +15,7 @@ public class Sql extends SQLiteOpenHelper {
     //------------------------------------------
 
     public Sql(Context context) {
-        super(context, dbName, null,9);
+        super(context, dbName, null,10);
     }
 
     @Override
@@ -28,6 +28,8 @@ public class Sql extends SQLiteOpenHelper {
                 "imageUrl TEXT ," +
                 "price INTEGER ," +
                 "songUrl TEXT ," +
+                "sort INTEGER ," +
+
                 "categoryId INTEGER,"  +
                 "deleted INTEGER,"  +
                 "updateTime CURRENT_TIMESTAMP," +

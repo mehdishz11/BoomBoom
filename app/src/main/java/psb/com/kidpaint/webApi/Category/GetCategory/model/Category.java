@@ -35,6 +35,9 @@ public class Category implements Serializable
     @SerializedName("drawable")
     @Expose
     private Drawable drawable;
+    @SerializedName("deleted")
+    @Expose
+    private Boolean deleted;
     @SerializedName("stickers")
     @Expose
     private List<Sticker> stickers = null;
@@ -120,5 +123,13 @@ public class Category implements Serializable
 
     public void setDrawable(Drawable drawable) {
         this.drawable = drawable;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

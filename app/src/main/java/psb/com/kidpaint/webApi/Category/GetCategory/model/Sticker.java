@@ -20,6 +20,9 @@ public class Sticker implements Serializable
     @SerializedName("price")
     @Expose
     private Integer price;
+    @SerializedName("order")
+    @Expose
+    private Integer order;
     @SerializedName("songUrl")
     @Expose
     private String songUrl;
@@ -112,5 +115,13 @@ public class Sticker implements Serializable
 
     public void setDrawable(Drawable drawable) {
         this.drawable = drawable;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 }
