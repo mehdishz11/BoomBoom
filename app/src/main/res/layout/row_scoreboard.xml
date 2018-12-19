@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
 
 
-        <psb.com.cview.CustomTextView
+        <psb.com.customView.CustomTextView
             android:id="@+id/text_rank"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:layout_toLeftOf="@+id/img_user"
             android:layout_toRightOf="@+id/img_">
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 android:textColor="@color/brown_3"
 
                 android:textSize="16sp" />
-            <psb.com.cview.CustomTextView
+            <psb.com.customView.CustomTextView
                 android:id="@+id/text_user_points"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

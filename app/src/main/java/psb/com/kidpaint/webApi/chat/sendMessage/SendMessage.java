@@ -4,8 +4,6 @@ import android.util.Log;
 
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
-import psb.com.kidpaint.webApi.chat.Get.iGetChat;
-import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
 import psb.com.kidpaint.webApi.chat.sendMessage.model.ParamsSendMessage;
 import psb.com.kidpaint.webApi.chat.sendMessage.model.ResponseSendMessage;
 import retrofit2.Call;

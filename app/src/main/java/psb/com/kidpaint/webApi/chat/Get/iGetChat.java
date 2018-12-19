@@ -1,8 +1,6 @@
 package psb.com.kidpaint.webApi.chat.Get;
 
 import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
-import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
-import psb.com.kidpaint.webApi.prize.iPrize;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

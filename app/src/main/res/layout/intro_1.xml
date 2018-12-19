@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/md_green_A700"
                 android:layout_gravity="right"
-                android:text="با انتخاب هر استیکر صداشو می شنوی."
+                android:text="@string/intro_1_msg"
                 />
 
         </LinearLayout>

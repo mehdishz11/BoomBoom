@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.home.PHome;
-import psb.com.kidpaint.home.history.PHistory;
 
 
 /**

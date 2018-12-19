@@ -2,9 +2,7 @@ package psb.com.kidpaint.competition.leaderBoard;
 
 import android.content.Context;
 
-import psb.com.kidpaint.competition.allPaint.adapter.ViewHolder_AllPaints;
 import psb.com.kidpaint.competition.leaderBoard.adapter.ViewHolder_LeaderShip;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 
 public interface IPLeaderShip {

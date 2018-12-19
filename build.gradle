@@ -14,8 +14,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
-        classpath 'com.google.gms:google-services:4.0.0'
-        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'io.fabric.tools:gradle:1.26.1'
 
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -37,3 +37,22 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext{
+    compileSdkVersion=28
+    minSdkVersion=19
+    targetSdkVersion=28
+    supportLibVersion = "28.0.0"
+
+////    CafeBazar
+//    paymentMethod=":payment"
+//    paymentMethodVersion=1
+//    releaseName="Cafebazarr"
+
+//    Agrigator
+    paymentMethod=":payment2"
+    paymentMethodVersion=0
+    releaseName="Agrigator"
+
+}
+

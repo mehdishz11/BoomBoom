@@ -1,9 +1,7 @@
 package psb.com.kidpaint.webApi.ScorePackage.buy;
 
-import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
 import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 

@@ -3,7 +3,6 @@ package psb.com.kidpaint.competition.allPaint;
 import android.content.Context;
 
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 
 public interface IMAllPaints {

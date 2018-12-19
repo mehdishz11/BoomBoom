@@ -2,8 +2,6 @@ package psb.com.kidpaint.webApi.Category.GetCategory;
 
 import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
 import psb.com.kidpaint.webApi.Category.iCategory;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
-import psb.com.kidpaint.webApi.paint.iPaint;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

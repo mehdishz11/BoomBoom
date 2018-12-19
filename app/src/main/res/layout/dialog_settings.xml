@@ -13,7 +13,7 @@
         android:background="@drawable/pallet_drop"
         android:padding="@dimen/space_normal">
 
-        <psb.com.cview.IconFont
+        <psb.com.customView.IconFont
             android:id="@+id/icon_speaker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:textColor="@color/brown_3"
             android:textSize="30dp" />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_title_speaker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         android:background="@drawable/pallet_drop"
         android:padding="@dimen/space_normal">
 
-        <psb.com.cview.IconFont
+        <psb.com.customView.IconFont
             android:id="@+id/icon_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:textColor="@color/brown_3"
             android:textSize="30dp" />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_title_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

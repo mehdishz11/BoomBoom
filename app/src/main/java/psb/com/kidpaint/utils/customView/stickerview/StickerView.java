@@ -20,9 +20,7 @@ import android.widget.ImageView;
 
 import java.util.Random;
 
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
 
 
 public abstract class StickerView extends FrameLayout {

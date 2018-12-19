@@ -2,8 +2,6 @@ package psb.com.kidpaint.webApi.paint.paintToMatch;
 
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
-import psb.com.kidpaint.webApi.paint.getMyPaints.iGetMyPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.paint.paintToMatch.model.ResponsePaintToMatch;
 import retrofit2.Call;
 import retrofit2.Callback;

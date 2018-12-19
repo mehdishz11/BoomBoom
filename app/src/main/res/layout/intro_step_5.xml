@@ -16,7 +16,7 @@
         android:rotation="120"
         />
 
-    <psb.com.cview.CustomTextViewBold
+    <psb.com.customView.CustomTextViewBold
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -57,7 +57,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/btn_settings" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/btn_settings"
@@ -89,7 +89,7 @@
                     />
 
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/btn_undo"
@@ -121,7 +121,7 @@
                     />
 
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/btn_cancel"
@@ -153,7 +153,7 @@
                     />
 
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/btn_save"

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
-import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ResponsePrizeRequest;
 import retrofit2.Call;

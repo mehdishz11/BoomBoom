@@ -1,7 +1,6 @@
 package psb.com.kidpaint.webApi.paint.getAllPaints;
 
 import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.paint.iPaint;
 import retrofit2.Call;
 import retrofit2.http.GET;

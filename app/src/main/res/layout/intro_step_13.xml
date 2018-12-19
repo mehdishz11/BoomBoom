@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
-                    <psb.com.cview.CustomTextViewBold
+                    <psb.com.customView.CustomTextViewBold
                         android:id="@+id/text_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                         android:textColor="@color/brown_3"
                         android:textSize="@dimen/text_size_small" />
 
-                    <psb.com.cview.CustomTextView
+                    <psb.com.customView.CustomTextView
                         android:id="@+id/text_image_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
 
             </RelativeLayout>
 
-            <psb.com.cview.SquareRelativeLayout
+            <psb.com.customView.SquareRelativeLayout
                 android:id="@+id/rel_images"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
@@ -93,7 +93,7 @@
                     app:riv_border_color="@color/md_grey_200"
                     app:riv_border_width="0.5dp"
                     app:riv_corner_radius="10dp" />
-            </psb.com.cview.SquareRelativeLayout>
+            </psb.com.customView.SquareRelativeLayout>
 
 
 
@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <psb.com.cview.CButton
+                    <psb.com.customView.CButton
                         android:id="@+id/btn_like"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -138,7 +138,7 @@
                         android:textColor="@color/white_1"
                         android:textSize="@dimen/text_size_normal" />
 
-                    <psb.com.cview.IconFont
+                    <psb.com.customView.IconFont
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -190,7 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <psb.com.cview.CButton
+                <psb.com.customView.CButton
                     android:id="@+id/btn_like2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -198,7 +198,7 @@
                     android:textColor="@color/white_1"
                     android:textSize="@dimen/text_size_normal" />
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -209,7 +209,7 @@
             </RelativeLayout>
 
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/rel_delete1"

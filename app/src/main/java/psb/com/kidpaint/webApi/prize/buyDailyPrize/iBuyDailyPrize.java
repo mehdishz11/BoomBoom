@@ -1,10 +1,8 @@
 package psb.com.kidpaint.webApi.prize.buyDailyPrize;
 
 import psb.com.kidpaint.webApi.prize.buyDailyPrize.model.ResponseBuyDailyPrize;
-import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.prize.iPrize;
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 

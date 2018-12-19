@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <psb.com.cview.CustomTextViewBold
+                    <psb.com.customView.CustomTextViewBold
                         android:id="@+id/text_title_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -60,7 +60,7 @@
                         android:textColor="#7ca331"
                         android:textSize="15sp" />
 
-                    <psb.com.cview.CustomTextViewBold
+                    <psb.com.customView.CustomTextViewBold
                         android:id="@+id/text_title_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -84,7 +84,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/space_normal">
 
-                <psb.com.cview.CButton
+                <psb.com.customView.CButton
                     android:id="@+id/dialog_register_btn_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -113,7 +113,7 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/space_small">
 
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:id="@+id/text_title_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_normal" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/dialog_register_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_large" />
 
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:id="@+id/title_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                     android:text="کد پیامک شده را در کادر زیر وارد نمایید"
                     android:textColor="@color/brown_3"
                     android:textSize="@dimen/text_size_normal" />
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:id="@+id/desc_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                     android:layout_below="@+id/desc_register"
                     android:layout_centerHorizontal="true">
 
-                    <psb.com.cview.CustomTextViewBold
+                    <psb.com.customView.CustomTextViewBold
                         android:id="@+id/dialog_register_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_marginLeft="@dimen/margin_50"
                         android:layout_marginRight="@dimen/margin_50">
 
-                        <psb.com.cview.CEditTextBold
+                        <psb.com.customView.CEditTextBold
                             android:id="@+id/dialog_register_code"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/margin_50"
@@ -203,7 +203,7 @@
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/text_size_normal" />
 
-                        <psb.com.cview.IconFont
+                        <psb.com.customView.IconFont
                             android:id="@+id/icon_phone_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
                         android:indeterminate="true"
                         android:visibility="gone" />
 
-                    <psb.com.cview.CustomTextView
+                    <psb.com.customView.CustomTextView
                         android:id="@+id/dialog_register_changeNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -259,7 +259,7 @@
 
             </RelativeLayout>
 
-            <psb.com.cview.CButton
+            <psb.com.customView.CButton
                 android:id="@+id/dialog_register_btn_send"
                 android:layout_width="120dp"
                 android:layout_height="50dp"

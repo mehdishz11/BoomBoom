@@ -2,13 +2,9 @@ package psb.com.kidpaint.painting;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.paint.Paint;
-import psb.com.kidpaint.webApi.paint.postPaint.iPostPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.model.ParamsPostPaint;
-import psb.com.kidpaint.webApi.paint.postPaint.model.ResponsePostPaint;
 import psb.com.kidpaint.webApi.paint.savePaints.iSavePaints;
 import psb.com.kidpaint.webApi.paint.savePaints.model.ParamsSavePaint;
 import psb.com.kidpaint.webApi.paint.savePaints.model.ResponseSavePaint;

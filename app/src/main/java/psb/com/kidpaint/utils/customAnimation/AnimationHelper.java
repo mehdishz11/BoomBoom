@@ -47,6 +47,9 @@ public class AnimationHelper {
             }
         });
 
+        if(duration1<0){
+            duration1*=-1;
+        }
 
         animMove.setDuration(duration1); // miliseconds
         animMove.setInterpolator(new LinearInterpolator());

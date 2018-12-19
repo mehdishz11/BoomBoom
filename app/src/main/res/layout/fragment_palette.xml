@@ -246,7 +246,7 @@
 
             />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_font_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -382,7 +382,7 @@
             android:src="@drawable/icon_type_pencil_selected"
             />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_paint_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

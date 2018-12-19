@@ -1,6 +1,5 @@
 package psb.com.kidpaint.webApi.prize.myPrizeRequest;
 
-import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.iPrize;
 import psb.com.kidpaint.webApi.prize.myPrizeRequest.model.ResponseMyPrizeRequest;
 import retrofit2.Call;

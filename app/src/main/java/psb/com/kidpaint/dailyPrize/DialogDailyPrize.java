@@ -9,23 +9,14 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.score.IVScorePackage;
-import psb.com.kidpaint.score.PScorePackage;
-import psb.com.kidpaint.utils.Utils;
-import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
-import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
-import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 import psb.com.kidpaint.webApi.prize.buyDailyPrize.model.ResponseBuyDailyPrize;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 

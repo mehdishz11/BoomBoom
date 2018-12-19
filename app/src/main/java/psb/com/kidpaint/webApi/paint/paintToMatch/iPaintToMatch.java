@@ -1,10 +1,8 @@
 package psb.com.kidpaint.webApi.paint.paintToMatch;
 
-import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
 import psb.com.kidpaint.webApi.paint.iPaint;
 import psb.com.kidpaint.webApi.paint.paintToMatch.model.ResponsePaintToMatch;
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 

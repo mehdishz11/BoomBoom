@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import psb.com.cview.SquareRelativeLayout;
+import psb.com.customView.SquareRelativeLayout;
 
 public class CircleColorPicker extends SquareRelativeLayout {
 

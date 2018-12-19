@@ -28,7 +28,7 @@
 
         </RelativeLayout>
 
-        <psb.com.cview.CImageView
+        <psb.com.customView.CImageView
             android:id="@+id/btn_left"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -40,7 +40,7 @@
             android:soundEffectsEnabled="false"
             android:src="@drawable/btn_left" />
 
-        <psb.com.cview.CImageView
+        <psb.com.customView.CImageView
             android:id="@+id/btn_right"
             android:layout_width="70dp"
             android:layout_height="70dp"

@@ -2,8 +2,6 @@ package psb.com.kidpaint.webApi.paint.getLeaderShip;
 
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
-import psb.com.kidpaint.webApi.paint.getAllPaints.iGetAllPaints;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import retrofit2.Call;
 import retrofit2.Callback;

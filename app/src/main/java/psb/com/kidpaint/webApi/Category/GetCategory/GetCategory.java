@@ -3,7 +3,6 @@ package psb.com.kidpaint.webApi.Category.GetCategory;
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
-import psb.com.kidpaint.webApi.paint.getAllPaints.model.ResponseGetAllPaints;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

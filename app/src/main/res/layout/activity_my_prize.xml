@@ -12,7 +12,7 @@
         android:layout_height="?actionBarSize"
         android:background="@color/colorPrimary">
 
-        <psb.com.cview.IconFont
+        <psb.com.customView.IconFont
             android:id="@+id/icon_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:textColor="@color/light_level_0"
             android:textSize="20dp" />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
 
     </psb.com.kidpaint.utils.customView.ProgressView>
 
-    <psb.com.cview.CustomTextViewBold
+    <psb.com.customView.CustomTextViewBold
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
         android:id="@+id/emptyView"

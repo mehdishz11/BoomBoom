@@ -21,10 +21,8 @@ import com.helper.PaymentHelper;
 import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.score.ActivityScorePackage;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
-import psb.com.kidpaint.utils.customView.dialog.CDialog;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;

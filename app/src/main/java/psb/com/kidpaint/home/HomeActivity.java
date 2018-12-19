@@ -32,7 +32,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import me.itangqi.waveloadingview.WaveLoadingView;
-import psb.com.cview.CButton;
+import psb.com.customView.CButton;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.ActivityCompetition;

@@ -7,7 +7,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.LeaderModel;
-import psb.com.kidpaint.webApi.shareModel.PaintModel;
 
 public class Extra implements Serializable
 {

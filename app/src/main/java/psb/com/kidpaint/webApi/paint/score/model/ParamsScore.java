@@ -5,9 +5,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
-
-import psb.com.kidpaint.webApi.shareModel.Message;
 
 public class ParamsScore implements Serializable
 {

@@ -31,7 +31,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:padding="@dimen/space_small">
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:id="@+id/imageButton4"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -45,7 +45,7 @@
                     android:textColor="@color/blue_3"
                     android:textSize="20dp" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:textColor="@color/md_grey_700"
                     android:textSize="@dimen/text_size_normal" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/unreadMessageCount"
                     android:layout_width="wrap_content"
                     android:background="@drawable/circle_red"
@@ -90,7 +90,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:padding="@dimen/space_small">
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:id="@+id/imageButton5"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -104,7 +104,7 @@
                     android:textColor="@color/green_2"
                     android:textSize="20dp" />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                 android:padding="@dimen/space_small"
                 android:foreground="?android:attr/selectableItemBackground">
 
-                <psb.com.cview.IconFont
+                <psb.com.customView.IconFont
                     android:id="@+id/imageButton6"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -147,7 +147,7 @@
                     android:textSize="20dp"
                     />
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
                         app:lottie_fileName="happy_gift.json"
                         app:lottie_loop="true" />
 
-                    <psb.com.cview.CustomTextViewBold
+                    <psb.com.customView.CustomTextViewBold
                         android:id="@+id/prizeHint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
 
                 </RelativeLayout>
 
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -252,7 +252,7 @@
                             app:wlv_waveAmplitude="70"
                             app:wlv_waveColor="@color/md_grey_400" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_prize_1_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                             android:textColor="@color/md_grey_400"
                             android:textSize="@dimen/text_size_normal" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_prize_1_point"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                             android:textColor="@color/md_grey_400"
                             android:textSize="@dimen/text_size_small" />
 
-                        <psb.com.cview.CButton
+                        <psb.com.customView.CButton
                             android:id="@+id/btn_prize_1"
                             android:layout_width="70dp"
                             android:layout_height="35dp"
@@ -318,7 +318,7 @@
                             app:wlv_waveAmplitude="70"
                             app:wlv_waveColor="@color/md_grey_400" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_prize_2_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -330,7 +330,7 @@
                             android:textColor="@color/md_grey_400"
                             android:textSize="@dimen/text_size_normal" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_prize_2_point"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -341,7 +341,7 @@
                             android:textColor="@color/md_grey_300"
                             android:textSize="@dimen/text_size_small" />
 
-                        <psb.com.cview.CButton
+                        <psb.com.customView.CButton
                             android:id="@+id/btn_prize_2"
                             android:layout_width="70dp"
                             android:layout_height="35dp"
@@ -384,7 +384,7 @@
                             app:wlv_waveAmplitude="70"
                             app:wlv_waveColor="@color/md_grey_400" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_prize_3_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -396,7 +396,7 @@
                             android:textColor="@color/md_grey_400"
                             android:textSize="@dimen/text_size_normal" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_prize_3_point"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -407,7 +407,7 @@
                             android:textColor="@color/md_grey_300"
                             android:textSize="@dimen/text_size_small" />
 
-                        <psb.com.cview.CButton
+                        <psb.com.customView.CButton
                             android:id="@+id/btn_prize_3"
                             android:layout_width="70dp"
                             android:layout_height="35dp"
@@ -446,7 +446,7 @@
         </RelativeLayout>
 
 
-        <psb.com.cview.IconFont
+        <psb.com.customView.IconFont
             android:id="@+id/act_sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -457,7 +457,7 @@
             android:textColor="@color/light_level_0"
             android:textSize="20dp" />
 
-        <psb.com.cview.CustomTextView
+        <psb.com.customView.CustomTextView
             android:id="@+id/text_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -467,7 +467,7 @@
             android:textColor="@color/blue_3"
             android:textSize="@dimen/font_size_14" />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/reg_or_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -515,7 +515,7 @@
             android:layout_centerVertical="true"
             android:background="@color/light_level_4" />
 
-        <psb.com.cview.IconFont
+        <psb.com.customView.IconFont
             android:id="@+id/icon_instagram"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -531,7 +531,7 @@
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/icon_instagram">
 
-            <psb.com.cview.IconFont
+            <psb.com.customView.IconFont
                 android:id="@+id/icon_telegram"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -548,7 +548,7 @@
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/icon_instagram">
 
-            <psb.com.cview.IconFont
+            <psb.com.customView.IconFont
                 android:id="@+id/icon_email"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_title_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -50,7 +50,7 @@
                 android:textColor="@color/green"
                 android:textSize="16sp" />
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_title_2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -99,7 +99,7 @@
                     android:layout_marginRight="15dp"
                     >
 
-                    <psb.com.cview.SquareImageView
+                    <psb.com.customView.SquareImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
@@ -136,7 +136,7 @@
                                 android:layout_centerInParent="true"
                                 android:src="@drawable/img_glow_circle" />
 
-                            <psb.com.cview.CustomTextViewBold
+                            <psb.com.customView.CustomTextViewBold
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -145,7 +145,7 @@
                                 android:textSize="@dimen/text_size_too_large" />
                         </RelativeLayout>
 
-                        <psb.com.cview.CustomTextView
+                        <psb.com.customView.CustomTextView
                             android:id="@+id/text_desc_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
                                 android:layout_centerInParent="true"
                                 android:src="@drawable/img_glow_circle" />
 
-                            <psb.com.cview.CustomTextViewBold
+                            <psb.com.customView.CustomTextViewBold
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -186,7 +186,7 @@
                                 android:textSize="@dimen/text_size_too_large" />
                         </RelativeLayout>
 
-                        <psb.com.cview.CustomTextView
+                        <psb.com.customView.CustomTextView
                             android:id="@+id/text_desc_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                                 android:layout_centerInParent="true"
                                 android:src="@drawable/img_glow_circle" />
 
-                            <psb.com.cview.CustomTextViewBold
+                            <psb.com.customView.CustomTextViewBold
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -225,7 +225,7 @@
                                 android:textSize="@dimen/text_size_too_large" />
                         </RelativeLayout>
 
-                        <psb.com.cview.CustomTextView
+                        <psb.com.customView.CustomTextView
                             android:id="@+id/text_desc_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <psb.com.cview.CustomTextViewBold
+                            <psb.com.customView.CustomTextViewBold
                                 android:id="@+id/text_prize_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -285,7 +285,7 @@
 
                     </android.support.v7.widget.CardView>
 
-                    <psb.com.cview.CustomTextView
+                    <psb.com.customView.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/card_prize_3"
@@ -315,7 +315,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <psb.com.cview.CustomTextViewBold
+                            <psb.com.customView.CustomTextViewBold
                                 android:id="@+id/text_prize_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -337,7 +337,7 @@
 
                     </android.support.v7.widget.CardView>
 
-                    <psb.com.cview.CustomTextView
+                    <psb.com.customView.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/card_prize_2"
@@ -367,7 +367,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <psb.com.cview.CustomTextViewBold
+                            <psb.com.customView.CustomTextViewBold
                                 android:id="@+id/text_prize_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -389,7 +389,7 @@
 
                     </android.support.v7.widget.CardView>
 
-                    <psb.com.cview.CustomTextView
+                    <psb.com.customView.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/card_prize_1"
@@ -402,7 +402,7 @@
 
             </LinearLayout>
 
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_expired_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

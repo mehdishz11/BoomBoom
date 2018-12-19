@@ -222,7 +222,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
                 paramsRegister.setPhoneNumber(Utils.getStringPreference(getContext(),
                         Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, "-1"));
                 paramsRegister.setEmail("");
-                paramsRegister.setFirstName("نام کاربر");
+                paramsRegister.setFirstName("بدون اسم");
                 paramsRegister.setLastName("");
 
                 paramsRegister.setImageUrl(encodedImageData);
@@ -380,6 +380,7 @@ public class FragmentUserInfo extends Fragment implements iVUserInfo {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SELECT_IMAGE && resultCode == Activity.RESULT_OK) {
+
             byte[] byteArray = data.getByteArrayExtra("image");
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageViewUserImg.setImageBitmap(bmp);

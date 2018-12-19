@@ -1,7 +1,6 @@
 package psb.com.kidpaint.webApi.match.Get;
 
 import psb.com.kidpaint.webApi.match.Get.model.ResponseGetMatch;
-import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

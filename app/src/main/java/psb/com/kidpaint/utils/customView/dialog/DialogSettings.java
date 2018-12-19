@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import com.nightonke.jellytogglebutton.JellyToggleButton;
 import com.nightonke.jellytogglebutton.State;
 
-import psb.com.cview.IconFont;
+import psb.com.customView.IconFont;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.musicHelper.MusicHelper;
 import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;

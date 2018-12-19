@@ -100,7 +100,7 @@
             </RelativeLayout>
 
             <!--user rank-->
-            <psb.com.cview.CustomTextViewBold
+            <psb.com.customView.CustomTextViewBold
                 android:id="@+id/text_rank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                 android:layout_toLeftOf="@id/rel_user_image"
                 android:layout_toRightOf="@+id/btn_like">
                 <!--user name-->
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                     android:textSize="@dimen/text_size_small" />
 
                 <!--points-->
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:id="@+id/text_user_points"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                     android:textSize="@dimen/text_size_small" />
 
                 <!--image code-->
-                <psb.com.cview.CustomTextView
+                <psb.com.customView.CustomTextView
                     android:id="@+id/text_image_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                 android:rotation="-30" />
 
             <!--like-->
-            <psb.com.cview.IconButton
+            <psb.com.customView.IconButton
                 android:id="@+id/btn_like"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -198,7 +198,7 @@
 
     </android.support.v7.widget.CardView>
 
-    <psb.com.cview.SquareRelativeLayout
+    <psb.com.customView.SquareRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/card_user">
@@ -236,6 +236,6 @@
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
-    </psb.com.cview.SquareRelativeLayout>
+    </psb.com.customView.SquareRelativeLayout>
 
 </RelativeLayout>

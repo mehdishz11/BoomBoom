@@ -7,23 +7,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.palette.sticker.adapter.CategoryAdapter;
 import psb.com.kidpaint.painting.palette.sticker.adapter.StickersAdapter;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
+import psb.com.kidpaint.utils.customView.dialog.DialogStickerText;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.stickerview.StickerImageView;
+import psb.com.kidpaint.utils.customView.stickerview.StickerTextView;
 import psb.com.kidpaint.utils.customView.stickerview.StickerView;
-import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
-import psb.com.kidpaint.utils.soundHelper.SoundHelper;
 
 public class StickerFragment extends Fragment implements IV_Stickers{
 
@@ -109,6 +107,10 @@ public class StickerFragment extends Fragment implements IV_Stickers{
         stickersAdapter.notifyDataSetChanged();
         categoryAdapter.notifyDataSetChanged();
 
+        if (stickersAdapter.getItemCount()>0){
+            recyclerViewStickers.scrollToPosition(0);
+        }
+
     }
 
     @Override
@@ -121,6 +123,11 @@ public class StickerFragment extends Fragment implements IV_Stickers{
         categoryAdapter.notifyItemChanged(catPosition);
         stickersAdapter.notifyDataSetChanged();
         refreshStickers.setVisibility(categoryAdapter.getItemCount()>0?View.GONE:View.VISIBLE);
+
+        if (stickersAdapter.getItemCount()>0){
+            recyclerViewStickers.scrollToPosition(0);
+        }
+
 
     }
 
@@ -139,6 +146,25 @@ public class StickerFragment extends Fragment implements IV_Stickers{
             stickerImageView.setStickerSound(stickerSound);
             mListener.onStickerSelected(stickerImageView);
         }
+    }
+
+    @Override
+    public void onTextStickerClicked() {
+        DialogStickerText dialogStickerText=new DialogStickerText(getContext());
+        dialogStickerText.setOnClick(new DialogStickerText.OnClick() {
+            @Override
+            public void onAccept(String text, int color) {
+                StickerTextView stickerTextView=new StickerTextView(getContext());
+                stickerTextView.setText(text);
+                stickerTextView.setTextColor(color);
+
+                if (mListener != null) {
+                    mListener.onStickerSelected(stickerTextView);
+                }
+            }
+        });
+
+        dialogStickerText.show();
     }
 
     @Override

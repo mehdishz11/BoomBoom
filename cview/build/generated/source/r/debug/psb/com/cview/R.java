@@ -4,7 +4,7 @@
  * gradle plugin from the resource data it found. It
  * should not be modified by hand.
  */
-package psb.com.cview;
+package psb.com.customView;
 
 public final class R {
     public static final class anim {

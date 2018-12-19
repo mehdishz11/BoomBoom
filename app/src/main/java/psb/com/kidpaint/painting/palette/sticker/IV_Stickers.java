@@ -13,6 +13,8 @@ public interface IV_Stickers {
     void unSelectCat(int position);
 
     void onStickerSelected(Bitmap stickerBitmap,int price,String stickerSound);
+    void onTextStickerClicked();
+
 
     void startGetStickersFromServer();
     void getStickersSuccessFromServer();

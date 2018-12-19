@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 
 import com.helper.PaymentHelper;
@@ -167,6 +168,9 @@ public class ActivityRegisterUser extends BaseActivity implements
             if(resultCode==Activity.RESULT_OK){
                 final Payment payment=new Payment(this);
 
+                Log.d("TAG", "setContent: payment "+payment.getReferenceCode());
+                Log.d("TAG", "setContent: payment "+payment.getIrancelToken());
+
                 new Statistics(this,App.MERKETER_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
 
 
@@ -270,8 +274,7 @@ public class ActivityRegisterUser extends BaseActivity implements
             @Override
             public void onSuccessGetUserInfo(UserInfo userInfo) {
                 progressView.setVisibility(View.GONE);
-                if ((userInfo.getFirstName().isEmpty() && userInfo.getLastName().isEmpty()) ||
-                        (userInfo.getFirstName() == null && userInfo.getLastName() == null)){
+                if ((userInfo.getFirstName() == null && userInfo.getLastName() == null)||(userInfo.getFirstName().isEmpty() && userInfo.getLastName().isEmpty())){
                     // getSupportFragmentManager().beginTransaction().remove(fragmentVerifyCode).commit();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragmentUserInfo, KEY_FRGUserInfo).addToBackStack(null).commit();
                 } else {

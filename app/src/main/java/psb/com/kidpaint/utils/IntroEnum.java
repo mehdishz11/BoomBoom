@@ -1,6 +1,5 @@
 package psb.com.kidpaint.utils;
 
-import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 
 public enum IntroEnum {

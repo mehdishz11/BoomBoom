@@ -42,7 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_title_1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -55,7 +55,7 @@
                             android:textColor="#7ca331"
                             android:textSize="15sp" />
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_title_2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true">
 
-                    <psb.com.cview.CButton
+                    <psb.com.customView.CButton
                         android:id="@+id/icon_back"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -110,7 +110,7 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/space_small">
 
-                    <psb.com.cview.CustomTextView
+                    <psb.com.customView.CustomTextView
                         android:id="@+id/text_title_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size_normal" />
 
-                    <psb.com.cview.CustomTextViewBold
+                    <psb.com.customView.CustomTextViewBold
                         android:id="@+id/text_phone_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size_large" />
 
-                    <psb.com.cview.CustomTextView
+                    <psb.com.customView.CustomTextView
                         android:id="@+id/text_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                         android:layout_below="@+id/text_hint"
                         android:layout_centerHorizontal="true">
 
-                        <psb.com.cview.CustomTextViewBold
+                        <psb.com.customView.CustomTextViewBold
                             android:id="@+id/text_error"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                             android:layout_marginLeft="@dimen/margin_50"
                             android:layout_marginRight="@dimen/margin_50">
 
-                            <psb.com.cview.CEditText
+                            <psb.com.customView.CEditText
                                 android:id="@+id/text_message_code"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_50"
@@ -182,7 +182,7 @@
                                 android:textColorHint="@color/colorPrimary"
                                 android:textSize="@dimen/text_size_normal" />
 
-                            <psb.com.cview.IconFont
+                            <psb.com.customView.IconFont
                                 android:id="@+id/icon_phone_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                             android:indeterminate="true"
                             android:visibility="gone" />
 
-                        <psb.com.cview.CustomTextView
+                        <psb.com.customView.CustomTextView
                             android:id="@+id/text_resend_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
 
                 </RelativeLayout>
 
-                <psb.com.cview.CButton
+                <psb.com.customView.CButton
                     android:id="@+id/frg_sendPhoneNumber_btn"
                     android:layout_width="120dp"
                     android:layout_height="50dp"

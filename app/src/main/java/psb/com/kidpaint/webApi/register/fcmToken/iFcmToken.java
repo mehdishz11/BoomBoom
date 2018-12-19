@@ -1,8 +1,6 @@
 package psb.com.kidpaint.webApi.register.fcmToken;
 
 
-import psb.com.kidpaint.webApi.register.VerifyCode.ModelVerifyCode.ParamsVerifyCode;
-import psb.com.kidpaint.webApi.register.VerifyCode.ModelVerifyCode.ResponseVerifyCode;
 import psb.com.kidpaint.webApi.register.fcmToken.model.ParamsFcmToken;
 import psb.com.kidpaint.webApi.register.fcmToken.model.ResponseFcmToken;
 import psb.com.kidpaint.webApi.register.iRegister;

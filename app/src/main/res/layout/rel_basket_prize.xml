@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_prize_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_prize_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <psb.com.cview.CustomTextViewBold
+                <psb.com.customView.CustomTextViewBold
                     android:id="@+id/text_prize_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
         android:elevation="12dp"
         >
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_title_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -159,7 +159,7 @@
             android:textColor="@color/brown_3"
             android:textSize="20sp" />
 
-        <psb.com.cview.CustomTextViewBold
+        <psb.com.customView.CustomTextViewBold
             android:id="@+id/text_title_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

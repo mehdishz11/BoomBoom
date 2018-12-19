@@ -2,7 +2,6 @@ package psb.com.kidpaint.painting.palette.sticker.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import psb.com.kidpaint.R;

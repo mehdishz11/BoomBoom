@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.competition.allPaint.PAllPaints;
-import psb.com.kidpaint.competition.allPaint.adapter.ViewHolder_AllPaints;
 import psb.com.kidpaint.myPrize.PMyPrize;
 
 

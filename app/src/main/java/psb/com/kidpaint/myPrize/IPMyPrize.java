@@ -2,7 +2,6 @@ package psb.com.kidpaint.myPrize;
 
 import android.content.Context;
 
-import psb.com.kidpaint.myMessages.adapter.ViewHolder_Message;
 import psb.com.kidpaint.myPrize.adapter.ViewHolder_MyPrize;
 
 public interface IPMyPrize {

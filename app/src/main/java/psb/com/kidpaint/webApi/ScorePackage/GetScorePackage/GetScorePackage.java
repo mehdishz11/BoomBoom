@@ -5,8 +5,6 @@ import android.util.Log;
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
 import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
-import psb.com.kidpaint.webApi.chat.Get.iGetChat;
-import psb.com.kidpaint.webApi.chat.Get.model.ResponseMyMessages;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

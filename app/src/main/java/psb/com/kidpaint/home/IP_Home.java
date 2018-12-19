@@ -2,8 +2,6 @@ package psb.com.kidpaint.home;
 
 import android.content.Context;
 
-import java.io.File;
-
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;

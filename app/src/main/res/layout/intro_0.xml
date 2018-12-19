@@ -33,7 +33,7 @@
                 android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/md_green_A700"
                 android:layout_gravity="right"
-                android:text="با استیکر های آماده نقاشی بکش و تخیلات خودت رو قوی کن. "
+                android:text="@string/intro_0_msg"
                 />
 
         </LinearLayout>

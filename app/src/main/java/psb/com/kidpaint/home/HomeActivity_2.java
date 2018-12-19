@@ -43,8 +43,8 @@ import com.squareup.picasso.Picasso;
 import ir.dorsa.totalpayment.intro.FragmentIntro;
 import ir.dorsa.totalpayment.irancell.IrancellCancel;
 import ir.dorsa.totalpayment.payment.Payment;
-import psb.com.cview.IconButton;
-import psb.com.cview.IconFont;
+import psb.com.customView.IconButton;
+import psb.com.customView.IconFont;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.activityMessage.MessageActivity;
@@ -90,9 +90,6 @@ import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.PrizeRequest.model.ParamsPrizeRequest;
 import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 import psb.com.kidpaint.webApi.userScore.addScore.model.ResponseAddScore;
-
-import static psb.com.kidpaint.utils.reward.TaskEnum.STEP_1;
-import static psb.com.kidpaint.utils.reward.TaskEnum.STEP_2;
 
 public class HomeActivity_2 extends BaseActivity implements
         IV_Home,
@@ -634,38 +631,48 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     void checkTaskIsShow() {
-        new RewardHelper(this).checkState(new RewardHelper.OnTaskCheckCompeleted() {
-            @Override
-            public void nothingForShow() {
-                showIntro();
-            }
+        if(!new UserProfile(this).get_KEY_PHONE_NUMBER("").isEmpty()) {
+            new RewardHelper(this).checkState(new RewardHelper.OnTaskCheckCompeleted() {
+                @Override
+                public void nothingForShow() {
+                    showIntro();
+                }
 
-            @Override
-            public void newTaskForShow(TaskEnum taskEnum, Intent intent) {
-                showRewardDialog(taskEnum, intent);
-            }
-        });
-
+                @Override
+                public void newTaskForShow(TaskEnum taskEnum, Intent intent) {
+                    showRewardDialog(taskEnum, intent);
+                }
+            });
+        }
     }
 
-    public void showRewardDialog(final TaskEnum taskEnum, final Intent intent) {
+    public void showRewardDialog(TaskEnum taskEnum, final Intent intent) {
+        final TaskEnum mainTaskEnum=taskEnum;
+
+        //remove agrigator rating
+        if(PaymentHelper.isAgrigator() && taskEnum.getId()==4){
+            taskEnum=TaskEnum.STEP_1;
+        }
 
         final MessageDialog dialog = new MessageDialog(getContext());
         dialog.setMessage(taskEnum.getMessage());
+
+        final TaskEnum finalTaskEnum = taskEnum;
+
         dialog.setOnCLickListener(new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
 
-                new RewardHelper(HomeActivity_2.this).executedTask(taskEnum.getId());
+                new RewardHelper(HomeActivity_2.this).executedTask(mainTaskEnum.getId());
 
                 int oldTotalCoin = userProfile.get_KEY_SCORE(0);
-                userProfile.set_KEY_SCORE((oldTotalCoin + taskEnum.getCoin()));
+                userProfile.set_KEY_SCORE((oldTotalCoin + finalTaskEnum.getCoin()));
                 setupUserInfo();
-                pHome.doAddScore(taskEnum.getId());
+                pHome.doAddScore(finalTaskEnum.getId());
 
                 if (intent != null) {
                     try {
-                        startActivityForResult(intent, taskEnum.getRequestCode());
+                        startActivityForResult(intent, finalTaskEnum.getRequestCode());
                     } catch (Exception ex) {
 
                     }
@@ -985,11 +992,13 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     private void showIntroSplash() {
+        Log.d(App.TAG, "showIntroSplash: "+PaymentHelper.isAgrigator());
+
         if (PaymentHelper.isAgrigator() && !SharePrefrenceHelper.getIntroIsShowBefore()) {
             frameLayoutSplash.setVisibility(View.VISIBLE);
             int[] splashLayoutResource = new int[]{R.layout.intro_0, R.layout.intro_1, R.layout.intro_2, R.layout.intro_3, R.layout.intro_4};
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayoutSplash, new FragmentIntro().newInstance(splashLayoutResource), TAG_FRAGMENT_INTRO).commit();
+                    .replace(R.id.frameLayoutSplash, new FragmentIntro().newInstance(splashLayoutResource), TAG_FRAGMENT_INTRO).commitAllowingStateLoss();
         }
     }
 
@@ -1009,6 +1018,7 @@ public class HomeActivity_2 extends BaseActivity implements
         showIntroSplash();
 
         setInfo();
+
         initAnimation();
 
     }
@@ -1431,6 +1441,7 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     public void initAnimation() {
+        if(!isFirstRun) return;
         if (imageLion == null) {
             imageLion = findViewById(R.id.lion);
             imageLion.setPivotX(imageLion.getWidth() / 2);
@@ -1450,6 +1461,7 @@ public class HomeActivity_2 extends BaseActivity implements
                 imageRooster.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+
 
         RelativeLayout relCompatition = findViewById(R.id.rel_compatition);
         scaleUpDown(relCompatition);

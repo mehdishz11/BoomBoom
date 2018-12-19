@@ -1,7 +1,5 @@
 package psb.com.kidpaint.utils.firebase;
 
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -10,13 +8,6 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.utils.UserProfile;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.http.Body;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
-
 
 
 /**

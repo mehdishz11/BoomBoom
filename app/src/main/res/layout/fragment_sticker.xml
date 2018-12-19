@@ -36,7 +36,7 @@
                 android:background="@drawable/pallet_drop"
                 ></android.support.v7.widget.RecyclerView>
 
-            <psb.com.cview.CButton
+            <psb.com.customView.CButton
                 android:id="@+id/refreshStickers"
                 android:layout_width="110dp"
                 android:layout_centerInParent="true"
