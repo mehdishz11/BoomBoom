@@ -148,27 +148,11 @@ public class M_Stickers implements IM_Stickers {
         return stickerListCategory.get(pos);
     }
 
-    public void setStickerDrawable(int id,Drawable result){
-        for (int i=0;i<stickerListCategory.size();i++) {
-            if(stickerListCategory.get(i).getId()==id){
-                stickerListCategory.get(i).setDrawable(result);
-                break;
-            }
-        }
-    }
 
     public Category getCategoryAtPos(int pos) {
         return categoryList.get(pos);
     }
 
-    public void setCategoryDrawable(int catId,Drawable result){
-        for (int i = 0; i < categoryList.size(); i++) {
-            if(categoryList.get(i).getId()==catId){
-                categoryList.get(i).setDrawable(result);
-                break;
-            }
-        }
-    }
     @Override
     public boolean userIsRegistered() {
         return userProfile.get_KEY_PHONE_NUMBER("").isEmpty() ? false : true;
