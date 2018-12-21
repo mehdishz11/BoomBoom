@@ -496,7 +496,7 @@ public class HomeActivity_2 extends BaseActivity implements
 
             Payment payment = new Payment(getContext());
 
-            btnGuideCancellCharging.setVisibility(payment.isUserPremium()? View.VISIBLE : View.GONE);
+            btnGuideCancellCharging.setVisibility(payment.isUserPremium() ? View.VISIBLE : View.GONE);
             btn_CancelIranCell.setVisibility(payment.showCancelSubscribtion() ? View.VISIBLE : View.GONE);
 
 
@@ -511,10 +511,10 @@ public class HomeActivity_2 extends BaseActivity implements
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent=new Intent(HomeActivity_2.this,MessageActivity.class);
-                    intent.putExtra(MessageActivity.KEY_TITLE,getString(R.string.title_guide_canecl_registeration));
-                    intent.putExtra(MessageActivity.KEY_BTN_TEXT,getString(R.string.accept));
-                    intent.putExtra(MessageActivity.KEY_MESSAGE,getString(R.string.desc_cancel_subscription));
+                    Intent intent = new Intent(HomeActivity_2.this, MessageActivity.class);
+                    intent.putExtra(MessageActivity.KEY_TITLE, getString(R.string.title_guide_canecl_registeration));
+                    intent.putExtra(MessageActivity.KEY_BTN_TEXT, getString(R.string.accept));
+                    intent.putExtra(MessageActivity.KEY_MESSAGE, getString(R.string.desc_cancel_subscription));
 
                     startActivity(intent);
                 }
@@ -631,7 +631,7 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     void checkTaskIsShow() {
-        if(!new UserProfile(this).get_KEY_PHONE_NUMBER("").isEmpty()) {
+        if (!new UserProfile(this).get_KEY_PHONE_NUMBER("").isEmpty()) {
             new RewardHelper(this).checkState(new RewardHelper.OnTaskCheckCompeleted() {
                 @Override
                 public void nothingForShow() {
@@ -647,11 +647,11 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     public void showRewardDialog(TaskEnum taskEnum, final Intent intent) {
-        final TaskEnum mainTaskEnum=taskEnum;
+        final TaskEnum mainTaskEnum = taskEnum;
 
         //remove agrigator rating
-        if(PaymentHelper.isAgrigator() && taskEnum.getId()==4){
-            taskEnum=TaskEnum.STEP_1;
+        if (PaymentHelper.isAgrigator() && taskEnum.getId() == 4) {
+            taskEnum = TaskEnum.STEP_1;
         }
 
         final MessageDialog dialog = new MessageDialog(getContext());
@@ -992,9 +992,10 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     private void showIntroSplash() {
-        Log.d(App.TAG, "showIntroSplash: "+PaymentHelper.isAgrigator());
-
-        if (PaymentHelper.isAgrigator() && !SharePrefrenceHelper.getIntroIsShowBefore()) {
+        if (PaymentHelper.isAgrigator() &&
+                !SharePrefrenceHelper.getIntroIsShowBefore() &&
+                App.isEnableIrancell
+                ) {
             frameLayoutSplash.setVisibility(View.VISIBLE);
             int[] splashLayoutResource = new int[]{R.layout.intro_0, R.layout.intro_1, R.layout.intro_2, R.layout.intro_3, R.layout.intro_4};
             getSupportFragmentManager().beginTransaction()
@@ -1441,7 +1442,7 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     public void initAnimation() {
-        if(!isFirstRun) return;
+        if (!isFirstRun) return;
         if (imageLion == null) {
             imageLion = findViewById(R.id.lion);
             imageLion.setPivotX(imageLion.getWidth() / 2);
@@ -1659,7 +1660,7 @@ public class HomeActivity_2 extends BaseActivity implements
         } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO) != null) {
            /* getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_INTRO)).commit();
             frameLayoutSplash.setVisibility(View.GONE);*/
-           finish();
+            finish();
 
         } else if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT) != null) {
             getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_NEW_PAINT)).commit();

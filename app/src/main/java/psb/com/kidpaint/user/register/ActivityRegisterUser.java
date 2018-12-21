@@ -124,13 +124,21 @@ public class ActivityRegisterUser extends BaseActivity implements
 
         if(PaymentHelper.isAgrigator()){
             Payment payment=new Payment(this);
+
+            payment.setEnableIrancell(App.isEnableIrancell);
+
+           int[] splashPages=new int[]{};
+           if(App.isEnableIrancell){
+               splashPages=new int[]{R.layout.intro_3,R.layout.intro_4};
+           }
+
             Intent intentDorsaPayment = payment.getPaymentIntent(
                     true,
                     getString(R.string.msg_enter_phone_number),
                     App.appCode,
                     App.productCode,
                     App.irancellSku,
-                    new int[]{R.layout.intro_3,R.layout.intro_4}
+                    splashPages
             );
             startActivityForResult(intentDorsaPayment, REQUEST_CODE_REGISTER);
         }else{

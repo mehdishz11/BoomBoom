@@ -31,6 +31,8 @@ public class App extends Application {
     public static boolean isHomeActivityStarted = false;
     public static boolean isMessagingActivityRunn = false;
 
+    public static final boolean isEnableIrancell=false;
+
     @Override
     public void onCreate() {
         super.onCreate();
