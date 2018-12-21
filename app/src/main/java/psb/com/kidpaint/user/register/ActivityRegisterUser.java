@@ -179,7 +179,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                 Log.d("TAG", "setContent: payment "+payment.getReferenceCode());
                 Log.d("TAG", "setContent: payment "+payment.getIrancelToken());
 
-                new Statistics(this,App.MERKETER_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
+                new Statistics(this,App.MARKET_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
 
 
                 final ProgressDialog pDialog=new ProgressDialog(this);
@@ -267,7 +267,7 @@ public class ActivityRegisterUser extends BaseActivity implements
     public void VerifyCodeSuccess() {
         Utils.setStringPreference(this, Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, phoneNumber);
         this.verifyCode = verifyCode;
-        new Statistics(this,App.MERKETER_ID).active(phoneNumber);
+        new Statistics(this,App.MARKET_ID).active(phoneNumber);
         getUserInfo();
     }
 

@@ -25,7 +25,7 @@ public class App extends Application {
     private static final int MERKET_ID_RASA_VAS = 2;
     private static final int MERKET_ID_COFEBAZAAR = 3;
 
-    public static final int MERKETER_ID = MERKET_ID_COFEBAZAAR;
+    public static final int MARKET_ID = MERKET_ID_RASA_VAS;
 
 
     public static boolean isHomeActivityStarted = false;
@@ -40,7 +40,7 @@ public class App extends Application {
         new PaymentHelper().init(getContext());
 
 
-        new Statistics(context, MERKETER_ID).install();
+        new Statistics(context, MARKET_ID).install();
 
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
