@@ -1,6 +1,5 @@
 package psb.com.kidpaint.utils;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -10,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -19,6 +17,7 @@ import android.system.ErrnoException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -60,11 +59,15 @@ public class ActivityCropImage extends AppCompatActivity {
 
     boolean hasAspect = true;
 
+    private RelativeLayout relParent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_image);
 
+
+        relParent=findViewById(R.id.rel_parent);
 
         aspectRatioX = getIntent().getIntExtra(KEY_ASPECT_RADIO_X, 1);
         aspectRatioY = getIntent().getIntExtra(KEY_ASPECT_RADIO_Y, 1);
@@ -98,12 +101,6 @@ public class ActivityCropImage extends AppCompatActivity {
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-            return;
-        }
         if (!isload) {
             onLoadImageClick();
         }
@@ -145,6 +142,7 @@ public class ActivityCropImage extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             Uri imageUri = getPickImageResultUri(data);
             mCropImageView.setImageUriAsync(imageUri);
+            relParent.setVisibility(View.VISIBLE);
         } else {
             finish();
         }

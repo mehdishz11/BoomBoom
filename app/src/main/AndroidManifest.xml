@@ -43,7 +43,8 @@
         <activity
             android:name="psb.com.kidpaint.utils.ActivityCropImage"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="landscape" />
+            android:theme="@style/TranslucentTheme"
+            />
         <activity
             android:name="psb.com.kidpaint.user.register.ActivityRegisterUser"
             android:configChanges="orientation|screenSize|keyboardHidden"
