@@ -2,14 +2,14 @@ package psb.com.kidpaint.painting.palette.sticker.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.utils.selector.NetworkImageView;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-    public NetworkImageView imageViewCat;
+    public ImageView imageViewCat;
    // public ImageView imageBgr;
     public ProgressBar progressBar;
 

@@ -40,9 +40,7 @@ public class Sticker implements Serializable
     @Expose
     private Integer categoryId;
 
-    @SerializedName("drawable")
-    @Expose
-    private Drawable drawable;
+
     private final static long serialVersionUID = 4384354529835827522L;
 
     public Integer getId() {
@@ -107,14 +105,6 @@ public class Sticker implements Serializable
 
     public void setLastEditDate(String lastEditDate) {
         this.lastEditDate = lastEditDate;
-    }
-
-    public Drawable getDrawable() {
-        return drawable;
-    }
-
-    public void setDrawable(Drawable drawable) {
-        this.drawable = drawable;
     }
 
     public Integer getOrder() {

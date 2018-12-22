@@ -7,8 +7,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "1.0.8."+rootProject.ext.paymentMethodVersion// 0 is agrigator -- 1 is Cafebazaar
+        versionCode 19
+        versionName "1.0.9."+rootProject.ext.paymentMethodVersion// 0 is agrigator -- 1 is Cafebazaar
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.nightonke:jellytogglebutton:1.0.2'
     implementation 'com.airbnb.android:lottie:2.5.1'
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
+    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     /////////////
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'

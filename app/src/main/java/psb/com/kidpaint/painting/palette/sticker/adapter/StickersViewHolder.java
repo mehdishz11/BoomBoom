@@ -6,12 +6,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import psb.com.kidpaint.R;
-import psb.com.kidpaint.utils.selector.NetworkImageView;
 
 public class StickersViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView locked;
-    public NetworkImageView imageViewStickers;
+    public ImageView imageViewStickers;
     public ProgressBar progressBar;
 
     public StickersViewHolder(View itemView) {

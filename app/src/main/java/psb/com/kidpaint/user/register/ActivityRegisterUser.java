@@ -124,13 +124,21 @@ public class ActivityRegisterUser extends BaseActivity implements
 
         if(PaymentHelper.isAgrigator()){
             Payment payment=new Payment(this);
+
+            payment.setEnableIrancell(App.isEnableIrancell);
+
+           int[] splashPages=new int[]{};
+           if(App.isEnableIrancell){
+               splashPages=new int[]{R.layout.intro_3,R.layout.intro_4};
+           }
+
             Intent intentDorsaPayment = payment.getPaymentIntent(
                     true,
                     getString(R.string.msg_enter_phone_number),
                     App.appCode,
                     App.productCode,
                     App.irancellSku,
-                    new int[]{R.layout.intro_3,R.layout.intro_4}
+                    splashPages
             );
             startActivityForResult(intentDorsaPayment, REQUEST_CODE_REGISTER);
         }else{
@@ -171,7 +179,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                 Log.d("TAG", "setContent: payment "+payment.getReferenceCode());
                 Log.d("TAG", "setContent: payment "+payment.getIrancelToken());
 
-                new Statistics(this,App.MERKETER_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
+                new Statistics(this,App.MARKET_ID).active(payment.getPhoneNumber(),payment.getReferenceCode(),payment.getIrancelToken());
 
 
                 final ProgressDialog pDialog=new ProgressDialog(this);
@@ -259,7 +267,7 @@ public class ActivityRegisterUser extends BaseActivity implements
     public void VerifyCodeSuccess() {
         Utils.setStringPreference(this, Utils.KEY_REGISTER, Utils.KEY_PHONENUMBER, phoneNumber);
         this.verifyCode = verifyCode;
-        new Statistics(this,App.MERKETER_ID).active(phoneNumber);
+        new Statistics(this,App.MARKET_ID).active(phoneNumber);
         getUserInfo();
     }
 

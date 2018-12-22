@@ -66,6 +66,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
             if (PaymentHelper.isAgrigator()) {
                 Payment payment = new Payment(getContext());
 
+
                 payment.checkStatus(
                         App.appCode,
                         App.productCode,

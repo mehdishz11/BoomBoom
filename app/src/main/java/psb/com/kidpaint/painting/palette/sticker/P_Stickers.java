@@ -5,11 +5,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+
+import jp.wasabeef.picasso.transformations.GrayscaleTransformation;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.painting.palette.sticker.adapter.CategoryViewHolder;
 import psb.com.kidpaint.painting.palette.sticker.adapter.StickersViewHolder;
 import psb.com.kidpaint.utils.musicHelper.SingleMusicPlayer;
-import psb.com.kidpaint.utils.selector.NetworkImageView;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Category;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.Sticker;
 
@@ -86,67 +90,42 @@ public class P_Stickers implements IP_Stickers {
 
         if (sticker.getImageUrl() != null && !sticker.getImageUrl().isEmpty()) {
 
-            if (sticker.getDrawable()!=null) {
-                holder.imageViewStickers.loadDrawable(sticker.getId(),sticker.getDrawable(), new NetworkImageView.Callback() {
-                    @Override
-                    public void onSuccess(int viewId,Drawable result) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                ivStickers.onStickerSelected(
-                                        ((BitmapDrawable)sticker.getDrawable()).getBitmap(),
-                                        sticker.getPrice(),
-                                        sticker.getSongUrl()
-                                );
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        holder.progressBar.setVisibility(View.GONE);
-
-                    }
-                });
-            }else {
-
-                holder.imageViewStickers.load(sticker.getId(),sticker.getImageUrl(), new NetworkImageView.Callback() {
-                    @Override
-                    public void onSuccess(int viewId,Drawable result) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        mStickers.setStickerDrawable(viewId,result);
-                        holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                                ivStickers.onStickerSelected(
-
-                                        ((BitmapDrawable)sticker.getDrawable()).getBitmap(),
-                                        sticker.getPrice(),
-                                        sticker.getSongUrl()
-                                );
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-
-                    }
-                });
-            }
+            RequestCreator requestCreator=Picasso.get().load(sticker.getImageUrl());
 
             if (sticker.getPrice()>0&& !mStickers.userIsRegistered()){
                 //   holder.imageBgr.setBackgroundResource(R.drawable.circle_border_white);
-                holder.imageViewStickers.setSelected(false);
+                requestCreator.transform(new GrayscaleTransformation());
                 holder.locked.setVisibility(View.VISIBLE);
             } else {
                 //   holder.imageBgr.setBackgroundResource(0);
-                holder.imageViewStickers.setSelected(true);
                 holder.locked.setVisibility(View.GONE);
 
             }
+
+            requestCreator.into(holder.imageViewStickers, new Callback() {
+                @Override
+                public void onSuccess() {
+                    holder.progressBar.setVisibility(View.GONE);
+                    holder.imageViewStickers.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            ivStickers.onStickerSelected(
+                                    ((BitmapDrawable)holder.imageViewStickers.getDrawable()).getBitmap(),
+                                    sticker.getPrice(),
+                                    sticker.getSongUrl()
+                            );
+                        }
+                    });
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            });
+
+
 
         }else{
         }
@@ -172,12 +151,21 @@ public class P_Stickers implements IP_Stickers {
             });
 
             return;
-        }else if (category.getDrawable()!=null) {
-            holder.imageViewCat.loadDrawable(category.getDrawable(), new NetworkImageView.Callback() {
-                @Override
-                public void onSuccess(int viewId,Drawable result) {
-                    holder.progressBar.setVisibility(View.GONE);
+        }else  {
 
+            RequestCreator requestCreator=Picasso.get().load(category.getImageUrl());
+            if (category.isSelected()){
+                holder.imageViewCat.setSelected(true);
+            } else {
+                requestCreator.transform(new GrayscaleTransformation());
+                holder.imageViewCat.setSelected(false);
+            }
+
+
+            requestCreator.into(holder.imageViewCat, new Callback() {
+                @Override
+                public void onSuccess() {
+                    holder.progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -186,32 +174,6 @@ public class P_Stickers implements IP_Stickers {
 
                 }
             });
-        }else {
-
-            holder.imageViewCat.load(category.getId(),category.getImageUrl(), new NetworkImageView.Callback() {
-                @Override
-                public void onSuccess(int viewId,Drawable result) {
-                    holder.progressBar.setVisibility(View.GONE);
-                    mStickers.setCategoryDrawable(viewId,result);
-                }
-
-                @Override
-                public void onError(Exception e) {
-
-                }
-            });
-        }
-
-
-        if (category.isSelected()){
-         //   holder.imageBgr.setBackgroundResource(R.drawable.circle_border_white);
-
-
-          holder.imageViewCat.setSelected(true);
-        } else {
-         //   holder.imageBgr.setBackgroundResource(0);
-            holder.imageViewCat.setSelected(false);
-
         }
 
         holder.imageViewCat.setOnClickListener(new View.OnClickListener() {
