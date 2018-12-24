@@ -109,7 +109,7 @@ public class RewardHelper {
 
             String sAux = "\nمن با برنامه بوم بوم با استیکر ها نقاشی می کنم، یه تجربه جدید، حتما از لینک زیر دانلود کنین\n\n";
             if (PaymentHelper.isAgrigator()) {
-                sAux = sAux + "http://www.getBoomBoom.ir \n\n";
+                sAux = sAux + App.sharedUrl+"\n\n";
             } else {
                 sAux = sAux + "https://cafebazaar.ir/app/" + appPackageName + "/?l=fa \n\n";
             }
@@ -126,14 +126,14 @@ public class RewardHelper {
                 intent.setData(Uri.parse("dorsabazar://details?AppId="));*/
                 // TODO: 12/11/18   change with rate in dorsa bazar
                 String sAux = "\nمن با برنامه بوم بوم با استیکر ها نقاشی می کنم، یه تجربه جدید، حتما از لینک زیر دانلود کنین\n\n";
-                sAux = sAux + "http://www.getBoomBoom.ir \n\n";
+                sAux = sAux + App.sharedUrl+"\n\n";
                 Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_app);
                 intent = new ShareContent(context).getIntentShareImage(bm, sAux);
 
             } else if (PaymentHelper.isAgrigator()) {
                 // TODO: 12/11/18   change with rate in dorsa bazar
                 String sAux = "\nمن با برنامه بوم بوم با استیکر ها نقاشی می کنم، یه تجربه جدید، حتما از لینک زیر دانلود کنین\n\n";
-                sAux = sAux + "http://www.getBoomBoom.ir \n\n";
+                sAux = sAux + App.sharedUrl+" \n\n";
                 Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_app);
                 intent = new ShareContent(context).getIntentShareImage(bm, sAux);
             }

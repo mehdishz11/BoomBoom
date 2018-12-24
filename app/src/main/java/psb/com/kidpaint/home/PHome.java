@@ -8,6 +8,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.home.history.adapter.HistoryViewHolder;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
@@ -189,9 +190,18 @@ public class PHome implements IP_Home {
                     holder.competition.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            new ShareContent(getContext()).doShareContent(historyModel.getPaintModel().getUrl()
-                            ,"با انتخاب لینک زیر به نقاشی من امتیاز بدین تا برنده بشم و جایزه بگیرم(ممنون)\nhttp://www.getBoomBoom.ir/ratePaint?paintId="+historyModel.getPaintModel().getId()+""
+                            String message = "با انتخاب لینک زیر به نقاشی من امتیاز بدین تا برنده بشم و جایزه بگیرم(ممنون🙏)\n" ;
+                            message = message + "\n" + (App.MARKET_ID == 2 ?
+                                    "http://2rsa.ir/BoomBoomScore.html?id=" + historyModel.getPaintModel().getId() + "\n" + "برای دانلود بوم بوم هم می تونی روی لینک زیر کلیک کنی\nhttp://2rsa.ir/BoomBoom.apk"
+                                    :
+                                    "http://www.getBoomBoom.ir/ratePaint?paintId=" + historyModel.getPaintModel().getId() + "\n" + "برای دانلود بوم بوم هم می تونی روی لینک زیر کلیک کنی\nhttp://www.getBoomBoom.ir/BoomBoom.apk"
+
                             );
+
+                            new ShareContent(getContext()).doShareContent(historyModel.getPaintModel().getUrl()
+                                    ,
+                                    message
+                                    );
                         }
                     });
 

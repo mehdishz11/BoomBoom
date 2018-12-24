@@ -22,21 +22,26 @@ public class App extends Application {
     public static final String productCode = "boom970619";
     public static final String irancellSku = "boomboomdorsa";
 
-    private static final int MERKET_ID_RASA_VAS = 2;
-    private static final int MERKET_ID_COFEBAZAAR = 3;
 
-    public static final int MARKET_ID = MERKET_ID_RASA_VAS;
+    public static final int MARKET_ID = BuildConfig.marketerId;
 
 
     public static boolean isHomeActivityStarted = false;
     public static boolean isMessagingActivityRunn = false;
 
-    public static final boolean isEnableIrancell=false;
+    public static final boolean isEnableIrancell=true;
+
+    public static String sharedUrl="http://www.getBoomBoom.ir/BoomBoom.apk";
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+
+        if(BuildConfig.marketerId==2){
+            sharedUrl="http://www.2rsa.ir/BoomBoom.apk";
+        }
+
         new PaymentHelper().init(getContext());
 
 

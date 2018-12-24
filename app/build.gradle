@@ -7,8 +7,8 @@ android {
         applicationId "psb.com.kidpaint"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 19
-        versionName "1.0.9."+rootProject.ext.paymentMethodVersion// 0 is agrigator -- 1 is Cafebazaar
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName+rootProject.ext.marketerId
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -16,11 +16,18 @@ android {
 
     }
     buildTypes {
+
+        debug {
+            
+            buildConfigField "int", "marketerId", "${rootProject.ext.marketerId}"
+        }
+
+
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-
+            buildConfigField "int", "marketerId", "${rootProject.ext.marketerId}"
         }
     }
 
