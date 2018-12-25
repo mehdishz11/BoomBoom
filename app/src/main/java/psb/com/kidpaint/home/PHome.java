@@ -192,7 +192,7 @@ public class PHome implements IP_Home {
                         public void onClick(View view) {
                             String message = "با انتخاب لینک زیر به نقاشی من امتیاز بدین تا برنده بشم و جایزه بگیرم(ممنون🙏)\n" ;
                             message = message + "\n" + (App.MARKET_ID == 2 ?
-                                    "http://2rsa.ir/BoomBoomScore.html?id=" + historyModel.getPaintModel().getId() + "\n" + "برای دانلود بوم بوم هم می تونی روی لینک زیر کلیک کنی\nhttp://2rsa.ir/BoomBoom.html"
+                                    "http://2rsa.ir/BoomBoomScore.html?id=" + historyModel.getPaintModel().getId() + "\n" + "برای دانلود بوم بوم هم می تونی روی لینک زیر کلیک کنی\nhttp://2rsa.ir/boomboom.html"
                                     :
                                     "http://www.getBoomBoom.ir/ratePaint?paintId=" + historyModel.getPaintModel().getId() + "\n" + "برای دانلود بوم بوم هم می تونی روی لینک زیر کلیک کنی\nhttp://www.getBoomBoom.ir/BoomBoom.apk"
 

@@ -39,7 +39,7 @@ public class App extends Application {
         context = getApplicationContext();
 
         if(BuildConfig.marketerId==2){
-            sharedUrl="http://www.2rsa.ir/BoomBoom.html";
+            sharedUrl="http://www.2rsa.ir/boomboom.html";
         }
 
         new PaymentHelper().init(getContext());
