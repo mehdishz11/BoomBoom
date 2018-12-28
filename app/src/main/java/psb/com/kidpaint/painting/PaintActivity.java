@@ -290,7 +290,19 @@ public class PaintActivity extends BaseActivity implements
             @Override
             public void onClick(View view) {
 
-                if ("Available".equals(NetworkUtil.getConnectivityStatusString(PaintActivity.this))) {
+                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+                    userProfile.set_KEY_SCORE(localCoinCount);
+                    saveFinalPaint("NoWaterMark");
+                }else{
+                    if(localUsedCoinCount==0){
+                        pPaint.onSavePaint(getPaintCanvasBitmap(false));
+                    }else{
+                        pPaint.doBuySticker(localUsedCoinCount);
+                    }
+
+                }
+
+               /* if ("Available".equals(NetworkUtil.getConnectivityStatusString(PaintActivity.this))) {
                     if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
                         //  showUserRegisterDialog("برای ذخیره نقاشی باید ثبت نام کنید یا وارد شوید!",REQUEST_CODE_REGISTER_BTN_SAVE);
                         saveFinalPaint("SaveWithWaterMark");
@@ -302,7 +314,7 @@ public class PaintActivity extends BaseActivity implements
                     //  showDialogNoInternet();
                     saveFinalPaint("SaveWithWaterMark");
 
-                }
+                }*/
 
 
             }
@@ -459,29 +471,6 @@ public class PaintActivity extends BaseActivity implements
 
     }
 
-    private void validateUsedCoinWithTotalCoin() {
-
-        if (localCoinCount >= 0) {
-            if (localUsedCoinCount > 0) {
-
-                //  send Used Coin to server
-                pPaint.doBuySticker(localUsedCoinCount);
-            } else {
-
-                //  save image
-                //  saveFinalPaint("SaveWithOutWaterMark");
-                pPaint.onSavePaint(getPaintCanvasBitmap(false));
-
-            }
-        } else {
-
-            //   show dialog score
-            String mess = "شما به تعداد " + Math.abs(localCoinCount) + " کم دارید ";
-            showDialogPackage(mess, "SaveWithWaterMark");
-
-        }
-
-    }
 
     private void showDialogNoInternet() {
         MessageDialog dialog = new MessageDialog(PaintActivity.this);
@@ -1005,7 +994,7 @@ public class PaintActivity extends BaseActivity implements
     @Override
     public void onFailedBuySticker(int errorCode, String errorMessage) {
         progressDialog.cancel();
-        Toast.makeText(this, errorCode, Toast.LENGTH_SHORT).show();
+        pPaint.onSavePaint(getPaintCanvasBitmap(true));
     }
 
     @Override
@@ -1028,10 +1017,13 @@ public class PaintActivity extends BaseActivity implements
 
     @Override
     public void onFailedSavePaint(int errorCode, String errorMessage) {
-
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         saveFinalPaint("");
 
+        Intent intent = new Intent();
+        intent.putExtra("SendToServer", false);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
 

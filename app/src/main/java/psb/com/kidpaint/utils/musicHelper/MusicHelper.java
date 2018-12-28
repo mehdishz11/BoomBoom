@@ -21,7 +21,7 @@ public class MusicHelper {
 
             if (mediaPlayer == null) {
                 mediaPlayer = MediaPlayer.create(App.getContext(), rsId);
-                mediaPlayer.setVolume(0.05f, 0.05f);
+                mediaPlayer.setVolume(0.01f, 0.01f);
                 mediaPlayer.setLooping(true);
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override

@@ -28,8 +28,6 @@ import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 
 
 public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_RESPONSE = "ARG_RESPONSE";
     private ResponseGetLeaderShip mResponseGetLeaderShip;
     private static final String ARG_LEVEL = "ARG_LEVEL";

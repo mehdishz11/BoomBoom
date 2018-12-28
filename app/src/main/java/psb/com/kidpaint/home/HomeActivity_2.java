@@ -184,6 +184,9 @@ public class HomeActivity_2 extends BaseActivity implements
 
     private BasketPrize basketPrize;
 
+    private RelativeLayout relProfile;
+    private RelativeLayout relUserCoin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,6 +224,8 @@ public class HomeActivity_2 extends BaseActivity implements
         unreadMessageCount = findViewById(R.id.unreadMessageCount);
 
         rel_user_coin = findViewById(R.id.rel_user_coin);
+        relProfile=findViewById(R.id.rel_user_register);
+
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -280,23 +285,6 @@ public class HomeActivity_2 extends BaseActivity implements
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
-        /*
-        if (Utils.isAgrigator()) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
-            TaskHelper.increaseNumberOfSignUps(getContext());
-        } else {
-
-            if (!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
-                TaskHelper.increaseNumberOfSignUps(getContext());
-
-            } else {
-                Intent intent = new Intent(HomeActivity_2.this, ActivityRegisterUser.class);
-                startActivityForResult(intent, CODE_REGISTER_First);
-            }
-        }
-*/
         setupUserInfo();
 
         createHelperWnd();
@@ -304,30 +292,9 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     void showDialogPackage() {
-
         Intent intent = new Intent(HomeActivity_2.this, ActivityScorePackage.class);
         intent.putExtra("showBtnDiscardBuy", false);
         startActivityForResult(intent, REQUEST_CODE_SCORE_PACKAGE);
-     /*   DialogScorePackage cDialog = new DialogScorePackage(HomeActivity_2.this);
-        cDialog.setShowBtnDiscardBuy(false);
-        cDialog.setScorePackageDiscardBtnListener(new DialogScorePackage.ScorePackageDiscardBtnListener() {
-            @Override
-            public void btnDiscardBuySelect(String mode) {
-
-            }
-
-            @Override
-            public void onSuccessBuyScorePackage(int totalCoin) {
-                setupUserInfo();
-
-            }
-
-            @Override
-            public void onFailedBuyScorePackage() {
-
-            }
-        });
-        cDialog.show();*/
     }
 
     void showExitDialog() {
@@ -450,11 +417,8 @@ public class HomeActivity_2 extends BaseActivity implements
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
 
-                if (isRegistered()) {
                     showDialogPackage();
-                } else {
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
-                }
+
             }
         });
 
@@ -462,26 +426,16 @@ public class HomeActivity_2 extends BaseActivity implements
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
-
-                if (isRegistered()) {
                     showDialogPackage();
-                } else {
-                    showRegisterDialog(getString(R.string.msg_login_for_store), REQUEST_SHOP);
-                }
-
 
             }
         });
+
         rel_user_coin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
-
-                if (isRegistered()) {
-                    showDialogPackage();
-                } else {
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
-                }
+                showDialogPackage();
 
             }
         });
@@ -877,8 +831,6 @@ public class HomeActivity_2 extends BaseActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
         if (fragment_offerPackage != null && requestCode == 321) {
             fragment_offerPackage.onActivityResult(requestCode, resultCode, data);
             return;
@@ -941,17 +893,13 @@ public class HomeActivity_2 extends BaseActivity implements
                 if (data.hasExtra("SendToServer")) {
                     pHome.getMyPaints();
                 } else {
-                    setupUserInfo();
                     pHome.getMyPaintHistory();
                     showIntro();
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == REQUEST_CODE_SCORE_PACKAGE) {
-
             if (resultCode == Activity.RESULT_OK) {
-
-
                 if (data.hasExtra("SuccessBuy")) {
                     int totalCoin = data.getIntExtra("SuccessBuy", 0);
                     setupUserInfo();
@@ -1118,12 +1066,15 @@ public class HomeActivity_2 extends BaseActivity implements
         relMosabeghat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isRegistered()) {
+               /* if (!isRegistered()) {
                     showRegisterDialog(getString(R.string.msg_login_for_compatition), REQUEST_COMPATITIPN);
                 } else {
                     SoundHelper.playSound(R.raw.click_1);
                     startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
-                }
+                }*/
+
+                SoundHelper.playSound(R.raw.click_1);
+                startActivityForResult(new Intent(HomeActivity_2.this, ActivityCompetition.class), CODE_Competition);
             }
         });
 
@@ -1197,7 +1148,7 @@ public class HomeActivity_2 extends BaseActivity implements
         });*/
 
 
-        registerOrLogin.setOnClickListener(new View.OnClickListener() {
+        relProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
@@ -1543,7 +1494,7 @@ public class HomeActivity_2 extends BaseActivity implements
 
     private void showLion(final boolean hideRooster) {
         imageLion.setOnClickListener(null);
-        SoundHelper.playSound(R.raw.lion);
+        SoundHelper.playSound(R.raw.rooster);
         ObjectAnimator animMove = ObjectAnimator.ofFloat(imageLion, "translationX", -(imageLion.getWidth() - imageLion.getLeft()), 0.0f);
         animMove.setDuration(500); // miliseconds
 
@@ -1598,9 +1549,9 @@ public class HomeActivity_2 extends BaseActivity implements
 
         if (isFirstRun) {
             isFirstRun = false;
-            SoundHelper.playSound(R.raw.owl);
+//            SoundHelper.playSound(R.raw.owl);
         } else {
-            SoundHelper.playSound(R.raw.rooster);
+            SoundHelper.playSound(R.raw.lion);
 
         }
 

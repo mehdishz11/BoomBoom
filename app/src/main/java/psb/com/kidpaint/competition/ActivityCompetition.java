@@ -592,12 +592,12 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("TAG", "onActivityResult competition: " + requestCode);
+        setUserInfo();
         if (requestCode == CODE_REGISTER) {
             if (resultCode == Activity.RESULT_OK) {
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
-                setUserInfo();
+
 
                 /*if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS) != null) {
                     ((FragmentMyPaints) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_PAINTS)).getMyPaints();
