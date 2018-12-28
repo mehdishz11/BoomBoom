@@ -59,4 +59,8 @@ public class MScorePackage implements IMScorePackage {
         }).doBuy(userProfile.get_KEY_PHONE_NUMBER(""),mResponseGetScorePackage.getExtra().get(position).getId());
 
     }
+
+    public psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.Extra getScorePackageAt(int position){
+        return mResponseGetScorePackage.getExtra().get(position);
+    }
 }

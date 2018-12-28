@@ -20,6 +20,8 @@ import com.helper.PaymentHelper;
 import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
+import psb.com.kidpaint.user.register.ActivityRegisterUser;
+import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.utils.Utils;
 import psb.com.kidpaint.utils.Value;
 import psb.com.kidpaint.utils.customView.BaseActivity;
@@ -38,25 +40,28 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
     private ImageView coin_image_1, coin_image_2, coin_image_3;
     private Button coin_btn_1, coin_btn_2, coin_btn_3, btnReTry, btn_discard_buy;
     private ProgressBar progressBar;
-    private RelativeLayout relContent,rel_error;
+    private RelativeLayout relContent, rel_error;
     private PScorePackage pScorePackage;
 
     private RelativeLayout relDiscount1, relDiscount2, relDiscount3;
 
-    private int buyPackagePosition=-1;
+    private int buyPackagePosition = -1;
 
 
     private String dialogMessage = "";
     private String dialogMode = "";
     private boolean showBtnDiscardBuy = false;
     private PaymentHelper paymentHelper;
+    private final int REQUEST_USER_REGISTER = 54;
+
+    private RelativeLayout relParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_package);
 
-        final ProgressDialog pDialog=new ProgressDialog(ActivityScorePackage.this);
+        final ProgressDialog pDialog = new ProgressDialog(ActivityScorePackage.this);
         pDialog.setMessage("در حال بررسی اطلاعات ...");
 
         paymentHelper = new PaymentHelper();
@@ -93,11 +98,14 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
         paymentHelper.init(this);
 
 
-        dialogMessage = getIntent().getStringExtra("dialogMessage");
         dialogMode = getIntent().getStringExtra("dialogMode");
         showBtnDiscardBuy = getIntent().getBooleanExtra("showBtnDiscardBuy", false);
 
-        dialogMessage=getString(R.string.msg_shop_title);
+        if (getIntent().hasExtra("dialogMessage")) {
+            dialogMessage = getIntent().getStringExtra("dialogMessage");
+        } else {
+            dialogMessage = getString(R.string.msg_shop_title);
+        }
 
         init();
 
@@ -123,6 +131,8 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
                 finish();
             }
         });
+
+        relParent=findViewById(R.id.rel_parent);
 
         btn_discard_buy = findViewById(R.id.btn_discard_buy);
         btn_discard_buy.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +221,7 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
                 coin_btn_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + " " + getContext().getString(R.string.price_unit));
                 coin_btn_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + " " + getContext().getString(R.string.price_unit));
                 coin_btn_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + " " + getContext().getString(R.string.price_unit));
-            }else{
+            } else {
                 coin_btn_1.setText(getContext().getString(R.string.reward_btn));
                 coin_btn_2.setText(getContext().getString(R.string.reward_btn));
                 coin_btn_3.setText(getContext().getString(R.string.reward_btn));
@@ -250,7 +260,6 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
                 int dis = (int) ((responseGetScorePackage.getExtra().get(2).getPrice() / 100.0f) * responseGetScorePackage.getExtra().get(2).getDiscountPercent());
                 int lastPrice = responseGetScorePackage.getExtra().get(2).getPrice() - dis;
                 if (!Utils.isAgrigator()) {
-
                     coin_discount_3.setText("تخفیف\n" + (Utils.LongToCurrency(dis)) + " " + getContext().getString(R.string.price_unit));
                     coin_btn_3.setText(Utils.LongToCurrency(lastPrice) + " " + getContext().getString(R.string.price_unit));
                     relDiscount3.setVisibility(View.VISIBLE);
@@ -291,10 +300,14 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             coin_btn_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    buyPackagePosition=0;
-                    Log.d("TAG", "onClick: "+paymentHelper.isSetupFinished());
+                    buyPackagePosition = 0;
+
+                    if (!checkUserIslogedIn()) {
+                        makeUserRegister();
+                        return;
+                    }
                     if (paymentHelper.isSetupFinished()) {
-                        paymentHelper.buyProduct(ActivityScorePackage.this,321,responseGetScorePackage.getExtra().get(0).getSku());
+                        paymentHelper.buyProduct(ActivityScorePackage.this, 321, responseGetScorePackage.getExtra().get(0).getSku());
                     }
 
                 }
@@ -302,11 +315,15 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             coin_btn_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //pScorePackage.doBuyScorePackage(1);
-                    buyPackagePosition=1;
+                    buyPackagePosition = 1;
+
+                    if (!checkUserIslogedIn()) {
+                        makeUserRegister();
+                        return;
+                    }
 
                     if (paymentHelper.isSetupFinished()) {
-                        paymentHelper.buyProduct(ActivityScorePackage.this,321,responseGetScorePackage.getExtra().get(1).getSku());
+                        paymentHelper.buyProduct(ActivityScorePackage.this, 321, responseGetScorePackage.getExtra().get(1).getSku());
                     }
                 }
             });
@@ -314,10 +331,14 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             coin_btn_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   // pScorePackage.doBuyScorePackage(2);
-                    buyPackagePosition=2;
+                    buyPackagePosition = 2;
+
+                    if (!checkUserIslogedIn()) {
+                        makeUserRegister();
+                        return;
+                    }
                     if (paymentHelper.isSetupFinished()) {
-                        paymentHelper.buyProduct(ActivityScorePackage.this,321,responseGetScorePackage.getExtra().get(2).getSku());
+                        paymentHelper.buyProduct(ActivityScorePackage.this, 321, responseGetScorePackage.getExtra().get(2).getSku());
                     }
                 }
             });
@@ -331,6 +352,34 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
         progressBar.setVisibility(View.GONE);
     }
 
+    private boolean checkUserIslogedIn() {
+        return !new UserProfile(this).get_KEY_PHONE_NUMBER("").isEmpty();
+    }
+
+    private void makeUserRegister() {
+        relParent.setVisibility(View.GONE);
+        final MessageDialog dialog = new MessageDialog(getContext());
+        dialog.setMessage("برای ادامه خرید وارد شوید.");
+        dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+            @Override
+            public void onPosetiveClicked() {
+                startActivityForResult(new Intent(getContext(), ActivityRegisterUser.class), REQUEST_USER_REGISTER);
+                dialog.cancel();
+            }
+
+            @Override
+            public void onNegativeClicked() {
+                relParent.setVisibility(View.VISIBLE);
+                dialog.cancel();
+
+            }
+        });
+
+        dialog.setAcceptButtonMessage(getContext().getString(R.string.continues));
+        dialog.setTitle(getString(R.string.register_login));
+        dialog.show();
+    }
+
     @Override
     public Context getContext() {
         return this;
@@ -339,10 +388,19 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (paymentHelper != null && paymentHelper.checkActivityResult(requestCode, resultCode, data)) {
+        if (requestCode == REQUEST_USER_REGISTER) {
+
+            relParent.setVisibility(View.VISIBLE);
+
+            if (resultCode == Activity.RESULT_OK) {
+                if (paymentHelper.isSetupFinished()) {
+                    paymentHelper.buyProduct(ActivityScorePackage.this, 321,
+                            pScorePackage.getScorePackageAt(buyPackagePosition).getSku());
+                }
+            }
+        } else if (paymentHelper != null && paymentHelper.checkActivityResult(requestCode, resultCode, data)) {
             return;
         }
-
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -405,19 +463,19 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
     @Override
     public void onFailedBuyScorePackage(int errorCode, String errorMessage) {
         progressBar.setVisibility(View.GONE);
-        showMessageDialog(getString(R.string.problem),errorMessage,null).show();
+        showMessageDialog(getString(R.string.problem), errorMessage, null).show();
 
     }
 
     @Override
     public void onSuccessPayment(String sku) {
-        Log.d("TAG", "onSuccessPayment: "+sku);
+        Log.d("TAG", "onSuccessPayment: " + sku);
         pScorePackage.doBuyScorePackage(buyPackagePosition);
     }
 
     @Override
     public void onFailedPayment(String message) {
-        showMessageDialog(getString(R.string.problem),message,null).show();
+        showMessageDialog(getString(R.string.problem), message, null).show();
     }
 
 
@@ -427,14 +485,14 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
     private MessageDialog showMessageDialog(
             String title,
             String message,
-    @Nullable CDialog.OnCLickListener listener
-    ){
+            @Nullable CDialog.OnCLickListener listener
+    ) {
 
-        MessageDialog dialog=new MessageDialog(this);
+        MessageDialog dialog = new MessageDialog(this);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setAcceptButtonMessage(getString(R.string.test_ok));
-        if(listener!=null)dialog.setOnCLickListener(listener);
+        if (listener != null) dialog.setOnCLickListener(listener);
 
         return dialog;
 

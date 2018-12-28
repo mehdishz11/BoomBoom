@@ -2,6 +2,7 @@ package psb.com.kidpaint.score;
 
 import android.content.Context;
 
+import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.Extra;
 import psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.ResponseGetScorePackage;
 import psb.com.kidpaint.webApi.ScorePackage.buy.model.ResponseBuyScorePackage;
 
@@ -51,5 +52,10 @@ public class PScorePackage implements IPScorePackage {
     @Override
     public void onFailedBuyScorePackage(int errorCode, String errorMessage) {
         ivScorePackage.onFailedBuyScorePackage(errorCode, errorMessage);
+    }
+
+    @Override
+    public Extra getScorePackageAt(int position) {
+        return mScorePackage.getScorePackageAt(position);
     }
 }

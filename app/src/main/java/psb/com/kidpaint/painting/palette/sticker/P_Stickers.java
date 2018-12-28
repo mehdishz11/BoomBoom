@@ -92,6 +92,7 @@ public class P_Stickers implements IP_Stickers {
 
             RequestCreator requestCreator=Picasso.get().load(sticker.getImageUrl());
 
+           /* //Show unlock for register from these packages
             if (sticker.getPrice()>0&& !mStickers.userIsRegistered()){
                 //   holder.imageBgr.setBackgroundResource(R.drawable.circle_border_white);
                 requestCreator.transform(new GrayscaleTransformation());
@@ -99,9 +100,9 @@ public class P_Stickers implements IP_Stickers {
             } else {
                 //   holder.imageBgr.setBackgroundResource(0);
                 holder.locked.setVisibility(View.GONE);
+            }*/
 
-            }
-
+            holder.locked.setVisibility(View.GONE);
             requestCreator.into(holder.imageViewStickers, new Callback() {
                 @Override
                 public void onSuccess() {

@@ -9,6 +9,7 @@
     tools:context=".score.ActivityScorePackage">
 
     <RelativeLayout
+        android:id="@+id/rel_parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">

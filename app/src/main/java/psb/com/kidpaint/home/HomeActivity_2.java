@@ -927,9 +927,8 @@ public class HomeActivity_2 extends BaseActivity implements
             } else if (resultCode == Activity.RESULT_CANCELED) {
             }
         } else if (requestCode == CODE_Competition) {
-
+            setupUserInfo();
             if (resultCode == Activity.RESULT_OK) {
-                setupUserInfo();
                 frameLayoutSplash.setVisibility(View.VISIBLE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
@@ -937,12 +936,11 @@ public class HomeActivity_2 extends BaseActivity implements
                 pHome.getRank();
             }
         } else if (requestCode == CODE_PAINT_ACTIVITY) {
+            setupUserInfo();
             if (resultCode == Activity.RESULT_OK) {
-
                 if (data.hasExtra("SendToServer")) {
                     pHome.getMyPaints();
                 } else {
-
                     setupUserInfo();
                     pHome.getMyPaintHistory();
                     showIntro();
@@ -1143,6 +1141,7 @@ public class HomeActivity_2 extends BaseActivity implements
             registerOrLogin.setText(userProfile.get_KEY_FIRST_NAME("") + " " + userProfile.get_KEY_LAST_NAME(""));
 
         }
+
         if (!userProfile.get_KEY_IMG_URL("").isEmpty()) {
             Picasso.get().load(userProfile.get_KEY_IMG_URL("avatar")).placeholder(R.drawable.user_empty_gray).into(userImage, new Callback() {
                 @Override

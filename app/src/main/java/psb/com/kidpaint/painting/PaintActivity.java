@@ -243,14 +243,7 @@ public class PaintActivity extends BaseActivity implements
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
-
-                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
-
-                } else {
-                    showDialogPackage("", "Continue");
-                }
-
+                showDialogPackage("", "Continue");
             }
         });
 
@@ -259,14 +252,7 @@ public class PaintActivity extends BaseActivity implements
             @Override
             public void onClick(View view) {
                 SoundHelper.playSound(R.raw.click_1);
-
-                if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
-                    showRegisterDialog(getString(R.string.msg_login_for_add_coin), REQUEST_SHOP);
-
-                } else {
-                    showDialogPackage("", "Continue");
-                }
-
+                showDialogPackage("", "Continue");
             }
         });
 
@@ -965,31 +951,31 @@ public class PaintActivity extends BaseActivity implements
     @Override
     public void onStickerSelected(final StickerView sticker) {
 
-        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()&& sticker.getStickerPrice()>0) {
-            showUserRegisterDialog("برای استفاده از استیکر ها باید ثبت نام کنید یا وارد شوید!", REQUEST_CODE_REGISTER_STICKER);
+        if (bottomSheetBehavior != null) {
+            if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        }
 
-        } else {
+        int holderCoinCount=localCoinCount-sticker.getStickerPrice();
+
+        if(holderCoinCount<=0 && localCoinCount<=0){
+            String mess = getString(R.string.msg_your_coin_finished);
+            showDialogPackage(mess, "Continue");
+            return;
+        }
             stickerCanvas.hideShowController(false);
             stickerCanvas.addSticker(sticker);
 
-            localCoinCount -= sticker.getStickerPrice();
+            localCoinCount=(holderCoinCount<=0 && localCoinCount>0?0:localCoinCount-sticker.getStickerPrice());
             localUsedCoinCount += sticker.getStickerPrice();
             coinCount.setText(localCoinCount + "");
 
-            if (localCoinCount < 0 && !userProfile.get_KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY(false)) {
-                userProfile.set_KEY_SHOW_FIRST_SCORE_PACKAGE_IN_PAINT_ACTIVITY(true);
-                String mess = getString(R.string.msg_your_coin_finished);
-                showDialogPackage(mess, "Continue");
-            }
 
             new SingleMusicPlayer().playSingleMedia(sticker.getStickerSound());
 
-            if (bottomSheetBehavior != null) {
-                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-            }
-        }
+
+
     }
 
     @Override
@@ -997,8 +983,6 @@ public class PaintActivity extends BaseActivity implements
         localCoinCount += stickerView.getStickerPrice();
         localUsedCoinCount -= stickerView.getStickerPrice();
         coinCount.setText(localCoinCount + "");
-        Log.d("TAG", "onStickerRemoved: " + stickerView.getStickerPrice());
-
     }
 
     @Override
@@ -1080,6 +1064,13 @@ public class PaintActivity extends BaseActivity implements
 
         if (requestCode == REQUEST_CODE_REGISTER_STICKER) {
             if (resultCode == Activity.RESULT_OK) {
+
+                if(userProfile.get_KEY_SCORE(0)>localCoinCount){//return user coins from server if is larger than local
+                    localCoinCount=userProfile.get_KEY_SCORE(0);
+                }
+
+                localCoinCount = userProfile.get_KEY_SCORE(0);
+
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
 

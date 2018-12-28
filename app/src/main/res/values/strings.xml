@@ -30,6 +30,7 @@
     <string name="inactive_desc">ایا میخواهید اشتراک خود را لغو کنید.</string>
     <string name="internet">اینترنت</string>
     <string name="enter">ورود</string>
+    <string name="continues">ادامه</string>
     <string name="register_login">ثبت نام | ورود</string>
     <string name="login_register_hint">برای ورود شماره موبایل خود را وارد نمایید</string>
     <string name="phone_number">شماره موبایل</string>
@@ -110,7 +111,7 @@
     <string name="third_place_prize">جایزه نفر سوم</string>
     <string name="second_place_prize">جایزه نفر دوم</string>
     <string name="first_place_prize">جایزه نفر اول</string>
-    <string name="msg_your_coin_finished">تعداد سکه های شما به پایان رسید</string>
+    <string name="msg_your_coin_finished">سکه هات کمه، از بسته های زیر برای افزایش سکه استفاده کن</string>
     <string name="intro_step_7_title">با هر نقاشی می تونی کارهای زیر رو انجام بدی</string>
     <string name="rate_paiting">امتیاز به نقاشی</string>
     <string name="desc_cancel_subscription">کاربران همراه اول برای لغو اشتراک، عبارت "off" را به 3003 ارسال نمایند.

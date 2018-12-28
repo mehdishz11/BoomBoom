@@ -11,4 +11,5 @@ public interface IMScorePackage {
     void doBuyScorePackage(int position);
 
 
+
 }

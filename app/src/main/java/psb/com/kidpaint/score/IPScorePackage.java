@@ -17,4 +17,7 @@ public interface IPScorePackage {
     void doBuyScorePackage(int position);
     void onSuccessBuyScorePackage(ResponseBuyScorePackage responseBuyScorePackage);
     void onFailedBuyScorePackage(int errorCode, String errorMessage);
+
+    psb.com.kidpaint.webApi.ScorePackage.GetScorePackage.model.Extra getScorePackageAt(int position);
+
 }

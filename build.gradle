@@ -45,15 +45,15 @@ ext{
     versionCode=22
     versionName="1.1.2."
 
-////    CafeBazar
-//    paymentMethod=":payment"
-//    marketerId=3
-//    releaseName="Cafebazarr"
+//    CafeBazar
+    paymentMethod=":payment"
+    marketerId=3
+    releaseName="Cafebazarr"
 
-//    Agrigator
-    paymentMethod=":payment2"
-    releaseName="Agrigator"
-    marketerId=2 //2:rasa
+////    Agrigator
+//    paymentMethod=":payment2"
+//    releaseName="Agrigator"
+//    marketerId=2 //2:rasa
 
 }
 

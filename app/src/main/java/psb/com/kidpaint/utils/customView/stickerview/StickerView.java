@@ -202,7 +202,8 @@ public abstract class StickerView extends FrameLayout {
     }
 
     public int getStickerPrice() {
-        return stickerPrice;
+        // TODO: 12/28/2018 AD remove 100
+        return stickerPrice*100;
     }
 
     public void setStickerPrice(int stickerPrice) {
