@@ -22,7 +22,6 @@ import psb.com.kidpaint.webApi.prize.getDailyPrize.model.ResponseGetDailyPrize;
 
 public class SplashFragment extends Fragment implements IV_Splash {
 
-
     private OnFragmentInteractionListener mListener;
 
     private View view;
@@ -57,6 +56,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_splash, container, false);
         pSplash = new P_Splash(this);
+        pSplash.setFirstUserScore(2500);// give user 2500 score
         setContent();
         return view;
     }

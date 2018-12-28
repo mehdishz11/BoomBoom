@@ -18,6 +18,7 @@ import psb.com.kidpaint.utils.database.TblContent.TblCategory;
 import psb.com.kidpaint.utils.database.TblContent.TblStickers;
 import psb.com.kidpaint.utils.database.TblMessage.TblMessage;
 import psb.com.kidpaint.utils.prizePrefrence.SavePrize;
+import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.webApi.Category.Category;
 import psb.com.kidpaint.webApi.Category.GetCategory.iGetCategory;
 import psb.com.kidpaint.webApi.Category.GetCategory.model.ResponseStickers;
@@ -67,6 +68,17 @@ public class M_Splash implements IM_Splash {
         tblCategory = new TblCategory(getContext());
         savePrize = new SavePrize(getContext());
         this.userProfile = new UserProfile(getContext());
+    }
+
+    public void setFirstUserScore(int firstScore){
+        UserProfile userProfile=new UserProfile(getContext());
+        if(
+                userProfile.get_KEY_PHONE_NUMBER("").isEmpty() //user not register
+                && SharePrefrenceHelper.getFirstRun())//use for just first time
+        {
+            SharePrefrenceHelper.setFirstRun(false);
+            userProfile.set_KEY_SCORE(firstScore);
+        }
     }
 
     @Override

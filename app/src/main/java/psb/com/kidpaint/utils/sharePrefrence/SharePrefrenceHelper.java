@@ -84,4 +84,19 @@ public class SharePrefrenceHelper {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(App.getContext());
         return settings.getBoolean("IntroSlider", false);
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // FirstRun
+    ///////////////////////////////////////////////////////////////////////////
+    public static void setFirstRun(boolean isFirstRun){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("FirstRun", isFirstRun);
+        editor.commit();
+    }
+
+    public static boolean getFirstRun(){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        return settings.getBoolean("FirstRun", true);
+    }
 }

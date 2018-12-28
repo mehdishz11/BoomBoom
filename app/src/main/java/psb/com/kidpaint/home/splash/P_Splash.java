@@ -24,6 +24,10 @@ public class P_Splash implements IP_Splash {
         return context;
     }
 
+    public void setFirstUserScore(int firstScore){
+        mSplash.setFirstUserScore(firstScore);
+    }
+
     @Override
     public void getStickers() {
         mSplash.getStickers();

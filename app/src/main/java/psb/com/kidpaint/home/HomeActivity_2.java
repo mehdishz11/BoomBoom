@@ -897,7 +897,7 @@ public class HomeActivity_2 extends BaseActivity implements
 
 
                 frameLayoutSplash.setVisibility(View.VISIBLE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, splashFragment, TAG_FRAGMENT_SPLASH).commitNowAllowingStateLoss();
 
 
             } else if (resultCode == Activity.RESULT_CANCELED) {
