@@ -4,6 +4,7 @@ import psb.com.kidpaint.webApi.prize.Get.model.ResponsePrize;
 import psb.com.kidpaint.webApi.prize.iPrize;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by morteza on 1/29/2018 AD.
@@ -11,7 +12,10 @@ import retrofit2.http.GET;
 
 public interface iGetPrize {
 
-    void doGetPrize();
+    int TYPE_NORMAL=0;
+    int TYPE_JUDGE=1;
+
+    void doGetPrize(int type);
 
     interface iResult {
         void onSuccessGetPrize(ResponsePrize responsePrize);
@@ -21,6 +25,6 @@ public interface iGetPrize {
 
     interface apiRequest {
         @GET(iPrize.apiAddress+"Get")
-        Call<ResponsePrize> getPrize();
+        Call<ResponsePrize> getPrize(@Query("type") int type);
     }
 }

@@ -2,7 +2,6 @@
 
     <string name="app_name">بوم بوم</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="notebook">دفترچه</string>
 
@@ -137,5 +136,8 @@
 
     <string name="add_title">افزودن</string>
     <string name="title_add_text">انتخاب متن</string>
+    <string name="season_prize_title">جوایز فصلی</string>
+    <string name="jury_prize_title">جوایز داوران</string>
+    <string name="how_to_win_title">نحوه برنده شدن</string>
 
 </resources>

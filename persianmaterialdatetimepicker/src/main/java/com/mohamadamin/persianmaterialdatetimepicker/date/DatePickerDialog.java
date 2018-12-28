@@ -318,11 +318,9 @@ public class DatePickerDialog extends DialogFragment implements
         mAnimator.addView(mDayPickerView);
         mAnimator.addView(mYearPickerView);
         mAnimator.setDateMillis(mPersianCalendar.getTimeInMillis());
-        // TODO: Replace with animation decided upon by the design team.
         Animation animation = new AlphaAnimation(0.0f, 1.0f);
         animation.setDuration(ANIMATION_DURATION);
         mAnimator.setInAnimation(animation);
-        // TODO: Replace with animation decided upon by the design team.
         Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
         animation2.setDuration(ANIMATION_DURATION);
         mAnimator.setOutAnimation(animation2);
@@ -619,7 +617,7 @@ public class DatePickerDialog extends DialogFragment implements
 //        int daysInMonth = Utils.getDaysInMonth(month, year);
 //        if (day > daysInMonth) {
 //            mPersianCalendar.setPersianDate(Persian);
-//        } TODO
+//        }
     }
 
     @Override

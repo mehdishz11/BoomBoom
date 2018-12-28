@@ -465,7 +465,7 @@ public abstract class MonthView extends View {
             int calendarDay = (i + mWeekStart) % mNumDays;
             int x = (2 * i + 1) * dayWidthHalf + mEdgePadding;
             mDayLabelCalendar.set(Calendar.DAY_OF_WEEK, calendarDay);
-            String localWeekDisplayName = mDayLabelCalendar.getPersianWeekDayName(); // TODO: RTLize
+            String localWeekDisplayName = mDayLabelCalendar.getPersianWeekDayName();
             String weekString = localWeekDisplayName.substring(0, 1);
             canvas.drawText(weekString, x, y, mMonthDayLabelPaint);
         }

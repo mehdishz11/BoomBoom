@@ -124,14 +124,12 @@ public class RewardHelper {
             } else if (PaymentHelper.isAgrigator() && Utils.isPackageExisted("com.farsitel.bazaar")) {
                 /*intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("dorsabazar://details?AppId="));*/
-                // TODO: 12/11/18   change with rate in dorsa bazar
                 String sAux = "\nمن با برنامه بوم بوم با استیکر ها نقاشی می کنم، یه تجربه جدید، حتما از لینک زیر دانلود کنین\n\n";
                 sAux = sAux + App.sharedUrl+"\n\n";
                 Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_app);
                 intent = new ShareContent(context).getIntentShareImage(bm, sAux);
 
             } else if (PaymentHelper.isAgrigator()) {
-                // TODO: 12/11/18   change with rate in dorsa bazar
                 String sAux = "\nمن با برنامه بوم بوم با استیکر ها نقاشی می کنم، یه تجربه جدید، حتما از لینک زیر دانلود کنین\n\n";
                 sAux = sAux + App.sharedUrl+" \n\n";
                 Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_app);

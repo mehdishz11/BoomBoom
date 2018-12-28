@@ -189,7 +189,7 @@ public class PersianCalendar extends GregorianCalendar {
 	 * @param persianDay
 	 */
 	public void setPersianDate(int persianYear, int persianMonth, int persianDay) {
-		persianMonth += 1; // TODO
+		persianMonth += 1;
 		this.persianYear = persianYear;
 		this.persianMonth = persianMonth;
 		this.persianDay = persianDay;

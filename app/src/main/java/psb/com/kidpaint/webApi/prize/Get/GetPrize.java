@@ -25,9 +25,9 @@ public class GetPrize implements iGetPrize {
     }
 
     @Override
-    public void doGetPrize() {
+    public void doGetPrize(final int type) {
 
-        Call<ResponsePrize> call = new WebService().getClient().create(apiRequest.class).getPrize();
+        Call<ResponsePrize> call = new WebService().getClient().create(apiRequest.class).getPrize(type);
         call.enqueue(new Callback<ResponsePrize>() {
             @Override
             public void onResponse(Call<ResponsePrize> call, Response<ResponsePrize> response) {

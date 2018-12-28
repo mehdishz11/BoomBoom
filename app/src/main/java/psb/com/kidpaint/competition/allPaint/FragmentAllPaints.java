@@ -460,7 +460,6 @@ public class FragmentAllPaints extends Fragment implements IVAllPaints {
 
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onSetResponseAllPaints(ResponseGetAllPaints responseGetAllPaints);
 
         void onSelectPaint(LeaderModel paintModel);

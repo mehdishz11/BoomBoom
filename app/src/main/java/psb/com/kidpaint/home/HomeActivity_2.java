@@ -68,7 +68,7 @@ import psb.com.kidpaint.utils.customAnimation.AnimationHelper;
 import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.BasketPrize;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
-import psb.com.kidpaint.utils.customView.dialog.DialogPrizeDescription;
+import psb.com.kidpaint.utils.customView.dialog.prize.DialogPrizeDescription;
 import psb.com.kidpaint.utils.customView.dialog.DialogSettings;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.intro.Intro;
@@ -262,8 +262,8 @@ public class HomeActivity_2 extends BaseActivity implements
         basketPrize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogPrizeDescription dialogPrizeDescription = new DialogPrizeDescription(HomeActivity_2.this);
-                dialogPrizeDescription.show();
+                DialogPrizeDescription dialogPrizeDescription = new DialogPrizeDescription();
+                dialogPrizeDescription.show(getSupportFragmentManager(),"");
 
             }
         });

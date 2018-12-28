@@ -356,7 +356,7 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
         TextView timePickerHeader = (TextView) view.findViewById(R.id.time_picker_header);
         if (!mTitle.isEmpty()) {
             timePickerHeader.setVisibility(TextView.VISIBLE);
-            timePickerHeader.setText(mTitle); // TODO
+            timePickerHeader.setText(mTitle);
         }
 
         // Set the theme at the end so that the initialize()s above don't counteract the theme.
@@ -584,7 +584,7 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
                     } else if (deleted == getAmOrPmKeyCode(PM)) {
                         deletedKeyStr = mPmText;
                     } else {
-                        deletedKeyStr = String.format("%d", getValFromKeyCode(deleted)); //TODO
+                        deletedKeyStr = String.format("%d", getValFromKeyCode(deleted));
                     }
                     Utils.tryAccessibilityAnnounce(mTimePicker,
                             String.format(mDeletedKeyFormat, deletedKeyStr));
@@ -641,7 +641,7 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
             return false;
         }
 
-        mTypedTimes.add(keyCode); //TODO
+        mTypedTimes.add(keyCode);
         if (!isTypedTimeLegalSoFar()) {
             deleteLastTypedKey();
             return false;

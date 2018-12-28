@@ -798,7 +798,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
                 flags |= DateUtils.FORMAT_24HOUR;
             }
             String timeString = LanguageUtils.getPersianNumbers(
-                    DateUtils.formatDateTime(getContext(), millis, flags)); //TODO: Changed Here.
+                    DateUtils.formatDateTime(getContext(), millis, flags));
             event.getText().add(timeString);
             return true;
         }

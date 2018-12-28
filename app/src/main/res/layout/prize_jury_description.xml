@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="20dp"
+    android:layout_gravity="top|center_horizontal">
+
+    <ir.dorsa.totalpayment.customView.CTextViewBold
+        android:id="@+id/text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/brown_3"
+        android:textSize="@dimen/text_size_normal"
+        android:text="هر فصل به انتخاب داوران، به بهترین نقاشی ها جایزه داده می شود"
+        />
+    <ir.dorsa.totalpayment.customView.CTextView
+        android:id="@+id/text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_1"
+        android:layout_marginTop="@dimen/space_small"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/brown_3"
+        android:textSize="@dimen/text_size_normal"
+        android:text="برای برنده شدن، حداقل یک نقاشی کشیده و در مسابقه شرکت نمایید"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rel_prize_winner_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_2"
+        android:layout_marginTop="@dimen/space_normal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
+        <HorizontalScrollView
+            android:id="@+id/horizontal_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rel_prize_30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_prize_30"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <psb.com.customView.CustomTextViewBold
+                                android:id="@+id/text_prize_30"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/brown_3"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <ImageView
+                                android:id="@+id/image_prize_30"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_below="@+id/text_prize_30"
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerCrop" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <psb.com.customView.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_prize_30"
+                        android:layout_centerHorizontal="true"
+                        android:text="صد نفر اول"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_prize_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_too_large">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_prize_20"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <psb.com.customView.CustomTextViewBold
+                                android:id="@+id/text_prize_20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/brown_3"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <ImageView
+                                android:id="@+id/image_prize_20"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_below="@+id/text_prize_20"
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerCrop" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <psb.com.customView.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_prize_20"
+                        android:layout_centerHorizontal="true"
+                        android:text="پنجاه نفر اول"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_prize_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_too_large">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_prize_10"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <psb.com.customView.CustomTextViewBold
+                                android:id="@+id/text_prize_10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/brown_3"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <ImageView
+                                android:id="@+id/image_prize_10"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_below="@+id/text_prize_10"
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerCrop" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <psb.com.customView.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_prize_10"
+                        android:layout_centerHorizontal="true"
+                        android:text="ده نفر اول"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_prize_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_too_large">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_prize_3"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <psb.com.customView.CustomTextViewBold
+                                android:id="@+id/text_prize_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/brown_3"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <ImageView
+                                android:id="@+id/image_prize_3"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_below="@+id/text_prize_3"
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerCrop" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <psb.com.customView.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_prize_3"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/third_place_prize"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_prize_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_too_large">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_prize_2"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <psb.com.customView.CustomTextViewBold
+                                android:id="@+id/text_prize_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/brown_3"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <ImageView
+                                android:id="@+id/image_prize_2"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_below="@+id/text_prize_2"
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerCrop" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <psb.com.customView.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_prize_2"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/second_place_prize"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_prize_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_too_large">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_prize_1"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <psb.com.customView.CustomTextViewBold
+                                android:id="@+id/text_prize_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/brown_3"
+                                android:textSize="@dimen/text_size_normal" />
+
+                            <ImageView
+                                android:id="@+id/image_prize_1"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_below="@+id/text_prize_1"
+                                android:layout_centerHorizontal="true"
+                                android:scaleType="centerCrop" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <psb.com.customView.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card_prize_1"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/first_place_prize"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="top|center_horizontal"
+    android:layout_marginTop="@dimen/space_normal"
+    >
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/lnr_steps"
+                android:layout_alignTop="@+id/lnr_steps"
+                android:layout_alignRight="@+id/lnr_steps"
+                android:layout_alignBottom="@+id/lnr_steps"
+                android:layout_marginTop="@dimen/space_small"
+                android:layout_marginBottom="@dimen/space_small"
+                android:layout_marginRight="15dp"
+                >
+
+                <psb.com.customView.SquareImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="-80dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/circle_arc"
+                    app:type="keepSmall" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lnr_steps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+
+                    <RelativeLayout
+                        android:id="@+id/rel_number_1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_toRightOf="@+id/text_desc_1">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/img_glow_circle" />
+
+                        <psb.com.customView.CustomTextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="1"
+                            android:textColor="@color/White"
+                            android:textSize="@dimen/text_size_too_large" />
+                    </RelativeLayout>
+
+                    <psb.com.customView.CustomTextView
+                        android:id="@+id/text_desc_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="هر چی تو ذهنت هست رو بکش"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:layout_marginRight="40dp">
+
+                    <RelativeLayout
+
+                        android:id="@+id/rel_number_2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_toRightOf="@+id/text_desc_2">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/img_glow_circle" />
+
+                        <psb.com.customView.CustomTextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="2"
+                            android:textColor="@color/White"
+                            android:textSize="@dimen/text_size_too_large" />
+                    </RelativeLayout>
+
+                    <psb.com.customView.CustomTextView
+                        android:id="@+id/text_desc_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="به دوستات بگو برنامه رو نصب کنن و به نقاشیت امتیاز بِدن"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/space_small">
+
+                    <RelativeLayout
+                        android:id="@+id/rel_number_3"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_toRightOf="@+id/text_desc_3">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/img_glow_circle" />
+
+                        <psb.com.customView.CustomTextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="3"
+                            android:textColor="@color/White"
+                            android:textSize="@dimen/text_size_too_large" />
+                    </RelativeLayout>
+
+                    <psb.com.customView.CustomTextViewBold
+                        android:id="@+id/text_desc_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="هر فصل نفرات اول تا سوم جایزه های زیر رو برنده می شن"
+                        android:textColor="@color/brown_3"
+                        android:textSize="@dimen/text_size_normal" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rel_prize_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_prize_3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <psb.com.customView.CustomTextViewBold
+                            android:id="@+id/text_prize_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:textColor="@color/brown_3"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <ImageView
+                            android:id="@+id/image_prize_3"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@+id/text_prize_3"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerCrop" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <psb.com.customView.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card_prize_3"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/third_place_prize"
+                    android:textColor="@color/brown_3"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_prize_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_too_large">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_prize_2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <psb.com.customView.CustomTextViewBold
+                            android:id="@+id/text_prize_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:textColor="@color/brown_3"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <ImageView
+                            android:id="@+id/image_prize_2"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@+id/text_prize_2"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerCrop" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <psb.com.customView.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card_prize_2"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/second_place_prize"
+                    android:textColor="@color/brown_3"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_prize_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_too_large">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_prize_1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <psb.com.customView.CustomTextViewBold
+                            android:id="@+id/text_prize_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:textColor="@color/brown_3"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <ImageView
+                            android:id="@+id/image_prize_1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@+id/text_prize_1"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerCrop" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <psb.com.customView.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card_prize_1"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/first_place_prize"
+                    android:textColor="@color/brown_3"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <psb.com.customView.CustomTextViewBold
+            android:id="@+id/text_expired_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/md_red_500"
+            android:layout_marginTop="@dimen/space_small"
+            android:textSize="@dimen/text_size_normal"
+            android:text="فقط ۴ روز مانده به پایان مسابقه "
+            android:visibility="gone"
+            />
+
+    </LinearLayout>

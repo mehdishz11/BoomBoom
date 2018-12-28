@@ -45,7 +45,7 @@ import psb.com.kidpaint.utils.customView.BaseActivity;
 import psb.com.kidpaint.utils.customView.BasketPrize;
 import psb.com.kidpaint.utils.customView.ProgressView;
 import psb.com.kidpaint.utils.customView.dialog.CDialog;
-import psb.com.kidpaint.utils.customView.dialog.DialogPrizeDescription;
+import psb.com.kidpaint.utils.customView.dialog.prize.DialogPrizeDescription;
 import psb.com.kidpaint.utils.customView.dialog.MessageDialog;
 import psb.com.kidpaint.utils.customView.intro.Intro;
 import psb.com.kidpaint.utils.customView.intro.IntroPosition;
@@ -258,7 +258,7 @@ public class ActivityCompetition extends BaseActivity implements IVCompetition,
         basketPrize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DialogPrizeDescription(ActivityCompetition.this).show();
+                new DialogPrizeDescription().show(getSupportFragmentManager(),"");
             }
         });
 

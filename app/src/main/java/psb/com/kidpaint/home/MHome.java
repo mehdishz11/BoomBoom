@@ -227,7 +227,6 @@ public class MHome implements IM_Home {
             ip_home.onSuccessDelete(position);
 
         }else{
-            //TODO delete from server
             new Paint().deletePaint(new iDeletePaint.iResult() {
                 @Override
                 public void onSuccessDelete(ResponseDeletePaint responseDeletePaint) {
