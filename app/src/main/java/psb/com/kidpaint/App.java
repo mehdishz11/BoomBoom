@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.multidex.MultiDex;
 
 import com.helper.PaymentHelper;
+import com.helper.tapsel.TapselHelper;
 import com.rasa.statistics.Statistics;
 
 import psb.com.kidpaint.activityMessage.MessageActivity;
@@ -21,6 +22,8 @@ public class App extends Application {
     public static final String appCode = "1557";
     public static final String productCode = "boom970619";
     public static final String irancellSku = "boomboomdorsa";
+
+    public static Application app;
 
 
     public static final int MARKET_ID = BuildConfig.marketerId;
@@ -37,6 +40,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        app=this;
+        
+        new TapselHelper().initTapsel(App.getApp());
+
 
         if(BuildConfig.marketerId==2){
             sharedUrl="http://www.2rsa.ir/boomboom.html";
@@ -103,7 +110,6 @@ public class App extends Application {
 
     }
 
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -112,5 +118,9 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static Application getApp(){
+        return app;
     }
 }

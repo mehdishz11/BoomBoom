@@ -9,6 +9,9 @@ buildscript {
         maven {
             url 'https://maven.fabric.io/public'
         }
+        maven {
+            url 'https://dl.bintray.com/tapsellorg/maven'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -28,6 +31,9 @@ allprojects {
         maven { url 'https://jitpack.io' }
         maven {
             url 'https://maven.google.com/'
+        }
+        maven {
+            url 'https://dl.bintray.com/tapsellorg/maven'
         }
     }
 }

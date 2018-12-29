@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.helper.OnPaymentResult;
 import com.helper.PaymentHelper;
+import com.helper.tapsel.TapselHelper;
 import com.squareup.picasso.Picasso;
 
 import psb.com.kidpaint.R;
@@ -331,6 +332,12 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             coin_btn_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    TapselHelper tapselHelper=new TapselHelper();
+                    tapselHelper.startWatchAd(ActivityScorePackage.this);
+
+                    if(true)return;
+
                     buyPackagePosition = 2;
 
                     if (!checkUserIslogedIn()) {
