@@ -20,6 +20,7 @@ import com.helper.PaymentHelper;
 import com.helper.tapsel.TapselHelper;
 import com.squareup.picasso.Picasso;
 
+import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.user.register.ActivityRegisterUser;
 import psb.com.kidpaint.utils.UserProfile;
@@ -219,7 +220,7 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             coin_coin_3.setText(Utils.LongToCurrency(responseGetScorePackage.getExtra().get(2).getScore()) + " " + getContext().getString(R.string.coin));
 
             if (!Utils.isAgrigator()) {
-                coin_btn_1.setText(responseGetScorePackage.getExtra().get(0).getPrice() + " " + getContext().getString(R.string.price_unit));
+                coin_btn_1.setText("دریافت رایگان");
                 coin_btn_2.setText(responseGetScorePackage.getExtra().get(1).getPrice() + " " + getContext().getString(R.string.price_unit));
                 coin_btn_3.setText(responseGetScorePackage.getExtra().get(2).getPrice() + " " + getContext().getString(R.string.price_unit));
             } else {
@@ -303,6 +304,11 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
                 public void onClick(View view) {
                     buyPackagePosition = 0;
 
+                    if(!PaymentHelper.isAgrigator()){
+                        showAd();
+                        return;
+                    }
+
                     if (!checkUserIslogedIn()) {
                         makeUserRegister();
                         return;
@@ -332,12 +338,6 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
             coin_btn_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    TapselHelper tapselHelper=new TapselHelper();
-                    tapselHelper.startWatchAd(ActivityScorePackage.this);
-
-                    if(true)return;
-
                     buyPackagePosition = 2;
 
                     if (!checkUserIslogedIn()) {
@@ -385,6 +385,55 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
         dialog.setAcceptButtonMessage(getContext().getString(R.string.continues));
         dialog.setTitle(getString(R.string.register_login));
         dialog.show();
+    }
+
+
+    private void showAd(){
+        relParent.setVisibility(View.GONE);
+        TapselHelper tapselHelper=new TapselHelper();
+        tapselHelper.setOnTapselResult(new TapselHelper.OnTapselResult() {
+            @Override
+            public void onSuccess() {
+                relParent.setVisibility(View.VISIBLE);
+                pScorePackage.doBuyScorePackage(buyPackagePosition);
+                Log.d(App.TAG, "Tapsel -> onSuccess");
+            }
+
+            @Override
+            public void onFailed(String message) {
+                relParent.setVisibility(View.VISIBLE);
+
+                final MessageDialog dialog = new MessageDialog(getContext());
+                dialog.setMessage(message);
+                dialog.setOnCLickListener(new CDialog.OnCLickListener() {
+                    @Override
+                    public void onPosetiveClicked() {
+                        dialog.cancel();
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+                        relParent.setVisibility(View.VISIBLE);
+                        dialog.cancel();
+
+                    }
+                });
+
+                dialog.setAcceptButtonMessage(getContext().getString(R.string.confirm));
+                dialog.setTitle(getString(R.string.danger));
+                try {
+                    dialog.show();
+                }catch (Exception ex) {
+                }
+
+            }
+
+            @Override
+            public void progressClosed() {
+                relParent.setVisibility(View.VISIBLE);
+            }
+        });
+        tapselHelper.startWatchAd(ActivityScorePackage.this);
     }
 
     @Override
@@ -476,7 +525,6 @@ public class ActivityScorePackage extends BaseActivity implements IVScorePackage
 
     @Override
     public void onSuccessPayment(String sku) {
-        Log.d("TAG", "onSuccessPayment: " + sku);
         pScorePackage.doBuyScorePackage(buyPackagePosition);
     }
 

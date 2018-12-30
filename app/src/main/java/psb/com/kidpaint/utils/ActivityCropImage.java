@@ -123,7 +123,7 @@ public class ActivityCropImage extends AppCompatActivity {
         Uri uri = mCropImageView.getImageUri();
         if (cropped != null) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            cropped.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            cropped.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] byteArray = stream.toByteArray();
             Log.d("onCropImageClick", uri + "");
             isload = false;
@@ -213,7 +213,7 @@ public class ActivityCropImage extends AppCompatActivity {
         Uri outputFileUri = null;
         File getImage = getExternalCacheDir();
         if (getImage != null) {
-            outputFileUri = Uri.fromFile(new File(getImage.getPath(), "pickImageResult.jpeg"));
+            outputFileUri = Uri.fromFile(new File(getImage.getPath(), "pickImageResult.png"));
         }
         return outputFileUri;
     }

@@ -203,8 +203,14 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
         coin_btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (paymentHelper.isSetupFinished()) {
-                    paymentHelper.buyProduct(getActivity(),321,responseGetScorePackage.getExtra().get(0).getSku());
+                if(PaymentHelper.isAgrigator()){
+                    pOfferPackage.doBuyOfferPackage(mResponseGetOfferPackagel.getExtra().get(0).getId());
+                }else {
+                    if (responseGetScorePackage.getExtra().get(0).getPrice() > 0 && paymentHelper.isSetupFinished()) {
+                        paymentHelper.buyProduct(getActivity(), 321, responseGetScorePackage.getExtra().get(0).getSku());
+                    } else if (responseGetScorePackage.getExtra().get(0).getPrice() == 0) {
+                        pOfferPackage.doBuyOfferPackage(mResponseGetOfferPackagel.getExtra().get(0).getId());
+                    }
                 }
             }
         });
@@ -213,6 +219,7 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
         relContent.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
+
     public void setDialogMessage(String dialogMessage) {
 
 
@@ -224,7 +231,6 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
         }
     }
 
-
     @Override
     public void startBuyOfferPackage() {
       //  progressBar.setVisibility(View.VISIBLE);
@@ -235,7 +241,7 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
     public void onSuccessBuyOfferPackage(final ResponseBuyOfferPackage responseBuyOfferPackage) {
         pDialog.cancel();
 
-        showMessageDialog("موفق", "با سپاس از شما\n بسته مورد نظر با موفق خریداری شد و مجموع سکه های شما به  " + responseBuyOfferPackage.getExtra() + "  سکه ارتقا یافت.", new CDialog.OnCLickListener() {
+        showMessageDialog("موفق", "با سپاس از شما\n بسته مورد نظر دریافت و مجموع سکه های شما به  " + responseBuyOfferPackage.getExtra() + "  سکه ارتقا یافت.", new CDialog.OnCLickListener() {
             @Override
             public void onPosetiveClicked() {
                 if (mListener != null) {
@@ -266,7 +272,7 @@ public class Fragment_OfferPackage extends Fragment implements IVOfferPackage,On
     }
   @Override
     public void onSuccessPayment(String sku) {
-      Log.d("TAG", "onSuccessPayment frag: ");
+
         if (pOfferPackage!=null) {
             if (mResponseGetOfferPackagel!=null&& mResponseGetOfferPackagel.getExtra().size()>0) {
                 for (int i = 0; i <mResponseGetOfferPackagel.getExtra().size() ; i++) {

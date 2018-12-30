@@ -45,6 +45,14 @@ public class MScorePackage implements IMScorePackage {
     @Override
     public void doBuyScorePackage(int position) {
 
+        if(userProfile.get_KEY_PHONE_NUMBER("").isEmpty()){
+            userProfile.set_KEY_SCORE(userProfile.get_KEY_SCORE(0)+mResponseGetScorePackage.getExtra().get(position).getScore());
+            ResponseBuyScorePackage responseBuyScorePackage=new ResponseBuyScorePackage();
+            responseBuyScorePackage.setExtra(userProfile.get_KEY_SCORE(0));
+            ipScorePackage.onSuccessBuyScorePackage(responseBuyScorePackage);
+            return;
+        }
+
         new ScorePackage().buy(new iBuy.iResult() {
             @Override
             public void onSuccessBuy(ResponseBuyScorePackage responseBuyScorePackage) {

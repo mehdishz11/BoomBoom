@@ -479,44 +479,16 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     public void showDialogOfferPackage() {
-        if (mResponseOfferPackage != null && mResponseOfferPackage.getExtra().size() > 0) {
-            frameLayoutSplash.setVisibility(View.VISIBLE);
-            fragment_offerPackage = new Fragment_OfferPackage().newInstance(mResponseOfferPackage);
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, fragment_offerPackage, TAG_FRAGMENT_OFFER).commitNowAllowingStateLoss();
-
-/*
-
-            dialogOfferPackage = new DialogOfferPackage(HomeActivity_2.this);
-            dialogOfferPackage.setShowBtnDiscardBuy(false);
-            dialogOfferPackage.setDialogMessage("");
-            dialogOfferPackage.setScorePackageDiscardBtnListener(new DialogOfferPackage.offerPackageDiscardBtnListener() {
-                @Override
-                public void btnDiscardBuySelect() {
-
-                }
-
-                @Override
-                public void onSuccessBuyOfferPackage(int totalCoin) {
-                    setupUserInfo();
-                }
-
-                @Override
-                public void onFailedBuyScorePackage() {
-
-                }
-
-                @Override
-                public void startBuyOfferPackage(String sku) {
-                    if (paymentHelper.isSetupFinished()) {
-                        paymentHelper.buyProduct(HomeActivity_2.this, 321, sku);
-                    }
-                }
-            });
-            dialogOfferPackage.setOfferResponse(mResponseOfferPackage);
-
-            dialogOfferPackage.show();*/
-        } else {
+        if(PaymentHelper.isAgrigator()){
             showDialogDailyPrize();
+        }else{
+            if (mResponseOfferPackage != null && mResponseOfferPackage.getExtra().size() > 0) {
+                frameLayoutSplash.setVisibility(View.VISIBLE);
+                fragment_offerPackage = new Fragment_OfferPackage().newInstance(mResponseOfferPackage);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutSplash, fragment_offerPackage, TAG_FRAGMENT_OFFER).commitNowAllowingStateLoss();
+            } else {
+                showDialogDailyPrize();
+            }
         }
     }
 
