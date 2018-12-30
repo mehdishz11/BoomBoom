@@ -269,6 +269,7 @@ public class MHome implements IM_Home {
 
     @Override
     public void doAddScore(int addScoreMode) {
+
         new UserScore().addScore(new iAddScore.iResult() {
             @Override
             public void onSuccessAddScore(ResponseAddScore responseAddScore) {

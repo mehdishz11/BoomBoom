@@ -557,7 +557,6 @@ public class HomeActivity_2 extends BaseActivity implements
     }
 
     void checkTaskIsShow() {
-        if (!new UserProfile(this).get_KEY_PHONE_NUMBER("").isEmpty()) {
             new RewardHelper(this).checkState(new RewardHelper.OnTaskCheckCompeleted() {
                 @Override
                 public void nothingForShow() {
@@ -569,7 +568,6 @@ public class HomeActivity_2 extends BaseActivity implements
                     showRewardDialog(taskEnum, intent);
                 }
             });
-        }
     }
 
     public void showRewardDialog(TaskEnum taskEnum, final Intent intent) {
@@ -594,7 +592,9 @@ public class HomeActivity_2 extends BaseActivity implements
                 int oldTotalCoin = userProfile.get_KEY_SCORE(0);
                 userProfile.set_KEY_SCORE((oldTotalCoin + finalTaskEnum.getCoin()));
                 setupUserInfo();
-                pHome.doAddScore(finalTaskEnum.getId());
+
+
+                 if(!userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) pHome.doAddScore(finalTaskEnum.getId());
 
                 if (intent != null) {
                     try {
