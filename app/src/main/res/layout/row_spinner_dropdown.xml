@@ -6,6 +6,9 @@
     android:padding="10dp"
     android:textAlignment="center"
     android:textColor="@color/brown_5"
-    android:background="@color/brown_4"    android:text="نام شهر">
+    android:background="@color/brown_4"
+    android:text="نام شهر"
+    android:layoutDirection="ltr"
+    >
 
 </psb.com.customView.CheckedTextViewC>

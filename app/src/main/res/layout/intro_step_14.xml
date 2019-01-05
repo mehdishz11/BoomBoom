@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:background="@color/brown_4"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     >
 
     <psb.com.customView.CustomTextViewBold

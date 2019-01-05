@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="30dp"
+    android:layoutDirection="ltr"
     >
 
     <psb.com.kidpaint.utils.customView.RelativeLayout169

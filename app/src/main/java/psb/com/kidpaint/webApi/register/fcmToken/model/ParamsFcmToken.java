@@ -30,6 +30,10 @@ public class ParamsFcmToken implements Serializable
     @SerializedName("jwtToken")
     @Expose
     private String jwtToken;
+    @SerializedName("isVas")
+    @Expose
+    private boolean isVas;
+
     private final static long serialVersionUID = -2029644076027878680L;
 
     public String getPhoneNumber() {
@@ -117,5 +121,13 @@ public class ParamsFcmToken implements Serializable
 
     public void setJwtToken(String jwtToken) {
         this.jwtToken = jwtToken;
+    }
+
+    public boolean isVas() {
+        return isVas;
+    }
+
+    public void setVas(boolean vas) {
+        isVas = vas;
     }
 }

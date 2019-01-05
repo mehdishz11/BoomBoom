@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/White"
     android:clickable="true"
+    android:layoutDirection="ltr"
     tools:context=".competition.score.FragmentScore">
 
 

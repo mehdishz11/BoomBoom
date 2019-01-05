@@ -2,7 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:layoutDirection="ltr"
+    android:background="@color/white"
+
+    >
 
     <RelativeLayout
         android:id="@+id/icon_container"
@@ -16,8 +20,7 @@
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_boy_normal" />
+            android:scaleType="fitCenter" />
         <ImageView
             android:id="@+id/big_icon_overlay"
             android:layout_width="50dp"
@@ -71,7 +74,6 @@
             android:layout_marginRight="4dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_boy_selected"
             />
         <ImageView
             android:id="@+id/notification_img_over"

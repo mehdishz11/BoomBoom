@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="20dp"
+    android:layoutDirection="ltr"
     android:layout_gravity="top|center_horizontal">
 
     <ir.dorsa.totalpayment.customView.CTextViewBold

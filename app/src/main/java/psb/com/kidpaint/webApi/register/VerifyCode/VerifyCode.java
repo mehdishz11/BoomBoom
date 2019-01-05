@@ -4,6 +4,8 @@ import android.os.Build;
 import android.util.Log;
 
 
+import com.helper.PaymentHelper;
+
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.BuildConfig;
 import psb.com.kidpaint.utils.ErrorMessage;
@@ -33,17 +35,17 @@ public class VerifyCode implements iVerifyCode {
 
     @Override
     public void startSendVerifyCode(final String token,final String phoneNumber, final String smsCode) {
-        Log.d("ffff", "onResponse: " + phoneNumber);
-        Log.d("ffff", "onResponse: " + smsCode);
+
         ParamsVerifyCode paramsVerifyCode=new ParamsVerifyCode();
         paramsVerifyCode.setPhoneNumber(phoneNumber);
         paramsVerifyCode.setCode(smsCode);
         paramsVerifyCode.setAppVersion(""+ BuildConfig.VERSION_CODE);
         paramsVerifyCode.setDeviceId(Utils.getDeviceId(App.getContext()));
-//        paramsVerifyCode.setDeviceModel(Value.getDeviceModel());
         paramsVerifyCode.setOsType(Long.valueOf(0));
         paramsVerifyCode.setOsVersion(""+ Build.VERSION.SDK_INT);
         paramsVerifyCode.setFcmToken(token);
+
+        paramsVerifyCode.setIsVas(PaymentHelper.isAgrigator());
 
         Call<ResponseVerifyCode> call = new WebService().getClient().create(apiRequest.class).verifyCode(paramsVerifyCode);
 

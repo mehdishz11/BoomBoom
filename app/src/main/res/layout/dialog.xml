@@ -4,6 +4,7 @@
     android:id="@+id/rel_parent"
     android:layout_width="wrap_content"
     android:layout_height="250dp"
+    android:layoutDirection="ltr"
     android:maxWidth="400dp"
     >
 

@@ -7,6 +7,7 @@
     android:padding="10dp"
     android:textColor="@color/brown_5"
     android:background="@color/brown_4"
+    android:layoutDirection="ltr"
     android:text="نام شهر">
 
 </psb.com.customView.CustomTextView>

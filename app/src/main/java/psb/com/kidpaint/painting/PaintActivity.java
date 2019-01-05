@@ -508,7 +508,7 @@ public class PaintActivity extends BaseActivity implements
     private void showIntro() {
         final View view = findViewById(R.id.introViewCenter);
         final View view2 = findViewById(R.id.introViewRight);
-        final View view3 = findViewById(R.id.introViewMore);
+        final View view3 = findViewById(R.id.btn_more);
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {

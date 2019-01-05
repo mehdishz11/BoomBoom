@@ -8,6 +8,8 @@
     android:layout_marginRight="@dimen/space_small"
     android:layout_marginLeft="@dimen/space_small"
     android:layout_marginTop="@dimen/space_small"
+
+    android:layoutDirection="ltr"
     android:alpha="0.95">
 
 

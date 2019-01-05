@@ -3,6 +3,8 @@ package psb.com.kidpaint.webApi.register.vasVerify;
 import android.os.Build;
 import android.util.Log;
 
+import com.helper.PaymentHelper;
+
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.BuildConfig;
 import psb.com.kidpaint.utils.ErrorMessage;
@@ -44,6 +46,8 @@ public class VasVerifyCode implements iVasVerifyCode {
         paramsVasVerifyCode.setOsType("0");
         paramsVasVerifyCode.setOsVersion(""+ Build.VERSION.SDK_INT);
         paramsVasVerifyCode.setFcmToken(token);
+
+        paramsVasVerifyCode.setVas(PaymentHelper.isAgrigator());
 
         Call<ResponseVasVerifyCode> call = new WebService().getClient().create(apiRequest.class).verifyCode(paramsVasVerifyCode);
 

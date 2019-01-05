@@ -16,14 +16,10 @@ android {
 
     }
     buildTypes {
-
         debug {
             
             buildConfigField "int", "marketerId", "${rootProject.ext.marketerId}"
         }
-
-
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

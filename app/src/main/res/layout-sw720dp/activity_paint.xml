@@ -115,7 +115,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="top|left"
-                    android:src="@drawable/btn_more" />
+                    android:src="@drawable/btn_more"
+                    />
             </FrameLayout>
 
         </RelativeLayout>

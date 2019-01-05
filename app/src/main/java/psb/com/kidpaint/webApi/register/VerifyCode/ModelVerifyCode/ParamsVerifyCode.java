@@ -30,6 +30,9 @@ public class ParamsVerifyCode implements Serializable
     @SerializedName("appVersion")
     @Expose
     private String appVersion;
+    @SerializedName("isVas")
+    @Expose
+    private boolean isVas;
     private final static long serialVersionUID = -2029644076027878680L;
 
     public String getPhoneNumber() {
@@ -121,5 +124,13 @@ public class ParamsVerifyCode implements Serializable
     public ParamsVerifyCode withAppVersion(String appVersion) {
         this.appVersion = appVersion;
         return this;
+    }
+
+    public boolean getIsVas() {
+        return isVas;
+    }
+
+    public void setIsVas(boolean isVas) {
+        this.isVas = isVas;
     }
 }

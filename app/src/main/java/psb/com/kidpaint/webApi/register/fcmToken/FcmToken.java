@@ -3,6 +3,8 @@ package psb.com.kidpaint.webApi.register.fcmToken;
 import android.os.Build;
 import android.util.Log;
 
+import com.helper.PaymentHelper;
+
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.BuildConfig;
 import psb.com.kidpaint.utils.ErrorMessage;
@@ -44,6 +46,7 @@ public class FcmToken implements iFcmToken {
         paramsVerifyCode.setOsVersion(""+ Build.VERSION.SDK_INT);
         paramsVerifyCode.setFcmToken(token);
         paramsVerifyCode.setJwtToken(jwt);
+        paramsVerifyCode.setVas(PaymentHelper.isAgrigator());
 
         Call<ResponseFcmToken> call = new WebService().getClient().create(apiRequest.class).fcmToken(paramsVerifyCode);
 
