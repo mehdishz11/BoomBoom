@@ -1,7 +1,6 @@
 package psb.com.kidpaint.painting.palette.sticker;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class M_Stickers implements IM_Stickers {
     private IP_Stickers ipStickers;
     private TblCategory tblCategory;
     private TblStickers tblStickers;
-//    private List<Sticker> stickerList = new ArrayList<>();
+    //    private List<Sticker> stickerList = new ArrayList<>();
     private List<Sticker> stickerListCategory = new ArrayList<>();
     private List<Category> categoryList = new ArrayList<>();
     private UserProfile userProfile;
@@ -28,7 +27,7 @@ public class M_Stickers implements IM_Stickers {
     public M_Stickers(IP_Stickers ipStickers) {
         this.context = ipStickers.getContext();
         this.ipStickers = ipStickers;
-        this.userProfile=new UserProfile(getContext());
+        this.userProfile = new UserProfile(getContext());
 
         tblCategory = new TblCategory(getContext());
         tblStickers = new TblStickers(getContext());
@@ -50,13 +49,15 @@ public class M_Stickers implements IM_Stickers {
 
         addObjectTofirstCatList();
 
-        stickerListCategory.clear();
-        stickerListCategory=new ArrayList<>(tblStickers.getStickersByCatId(categoryList.get(1).getId()));
-        ipStickers.showStickers(1);
+        if (categoryList.size() > 2) {
+            stickerListCategory.clear();
+            stickerListCategory = new ArrayList<>(tblStickers.getStickersByCatId(categoryList.get(1).getId()));
+            ipStickers.showStickers(1);
+        }
     }
 
 
-    private void addObjectTofirstCatList(){
+    private void addObjectTofirstCatList() {
         Category category = new Category();
         category.setId(-1);
         category.setName("");
@@ -65,29 +66,28 @@ public class M_Stickers implements IM_Stickers {
         category.setImageUrl("");
         category.setPrice(0);
         category.setSongUrl("");
-        categoryList.add(0,category);
+        categoryList.add(0, category);
     }
 
     @Override
-    public void onCatSelected(int id,int catPosition) {
+    public void onCatSelected(int id, int catPosition) {
 
-        int lastSelectPos=-1;
+        int lastSelectPos = -1;
         for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).isSelected()) {
                 categoryList.get(i).setSelected(false);
-                lastSelectPos=i;
+                lastSelectPos = i;
             }
         }
 
-        if (lastSelectPos!=-1) {
+        if (lastSelectPos != -1) {
             ipStickers.unSelectCat(lastSelectPos);
         }
 
 
-
         categoryList.get(catPosition).setSelected(true);
         stickerListCategory.clear();
-        stickerListCategory=new ArrayList<>(tblStickers.getStickersByCatId(id));
+        stickerListCategory = new ArrayList<>(tblStickers.getStickersByCatId(id));
 
         ipStickers.showStickers(catPosition);
     }
@@ -116,7 +116,7 @@ public class M_Stickers implements IM_Stickers {
 
     private void addStickersToDataBase(List<Category> responseStickers) {
 
-        ArrayList<Sticker> stickerList=new ArrayList<>();
+        ArrayList<Sticker> stickerList = new ArrayList<>();
 
         for (int i = 0; i < responseStickers.size(); i++) {
             for (int j = 0; j < responseStickers.get(i).getStickers().size(); j++) {

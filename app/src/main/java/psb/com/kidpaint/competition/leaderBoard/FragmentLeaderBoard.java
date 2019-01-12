@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.competition.leaderBoard.adapter.Adapter_LeaderShip;
@@ -174,7 +173,6 @@ public class FragmentLeaderBoard extends Fragment implements IVLeaderShip {
 
     @Override
     public void onFailedGetLeaderShip(int errorCode, String errorMessage) {
-        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         progressBarLoading.setVisibility(View.GONE);
     }
 

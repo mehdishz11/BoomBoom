@@ -96,7 +96,9 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mListener != null) {
                 mListener.onBackPressed();
+                }
             }
         });
 
@@ -194,7 +196,9 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
         textError.setVisibility(View.GONE);
         textMessageCode.setEnabled(false);
         send.setEnabled(false);
+        if (mListener != null) {
         mListener.onStartVerifyCode(textMessageCode.getText().toString());
+        }
     }
 
     @Override
@@ -204,7 +208,9 @@ public class FragmentVerifyCode extends Fragment implements iVVerifyCode {
         progress.setVisibility(View.GONE);
         textMessageCode.setEnabled(true);
         send.setEnabled(true);
+        if (mListener != null) {
         mListener.VerifyCodeSuccess();
+        }
     }
 
     @Override

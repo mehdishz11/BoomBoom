@@ -197,7 +197,6 @@ public class FragmentScore extends Fragment  implements IVScore {
     @Override
     public void onFailedSendScore(int errorCode, String errorMessage) {
         progressDialog.cancel();
-        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
 

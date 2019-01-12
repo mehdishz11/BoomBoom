@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     private P_Splash pSplash;
 
-    private  CheckVersion checkVersion;
+    private CheckVersion checkVersion;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -66,19 +65,19 @@ public class SplashFragment extends Fragment implements IV_Splash {
         return view;
     }
 
-    private void checkVersion(){
+    private void checkVersion() {
         String BASE_URL = "http://getboomboom.ir/api/Version/Get";
-        checkVersion=new CheckVersion(getActivity(),BASE_URL,"BoomBoom",BuildConfig.VERSION_CODE);
+        checkVersion = new CheckVersion(getActivity(), BASE_URL, "BoomBoom", BuildConfig.VERSION_CODE);
         checkVersion.setDebug(true);
         checkVersion.setVas(PaymentHelper.isAgrigator());
         checkVersion.getVersion(new CheckVersion.onTaskFinished() {
             @Override
             public void onFinished(boolean exit) {
-                if(exit){
+                if (exit) {
                     if (mListener != null) {
                         mListener.exit();
                     }
-                }else{
+                } else {
                     setContent();
                 }
             }
@@ -106,7 +105,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
                                     }*/
                                 else {//user not enable anymore
-                                    UserProfile userProfile=new UserProfile(getContext());
+                                    UserProfile userProfile = new UserProfile(getContext());
                                     userProfile.REMOVE_KEY_USER_INFO();
                                     pSplash.getRank();
                                 }
@@ -149,53 +148,72 @@ public class SplashFragment extends Fragment implements IV_Splash {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        checkVersion.checkActivityResult(requestCode,resultCode);
+        checkVersion.checkActivityResult(requestCode, resultCode);
     }
 
     @Override
     public void startGetStickers() {
-        mListener.startGetStickers();
+        if (mListener != null) {
+            mListener.startGetStickers();
+        }
     }
 
     @Override
     public void getStickersSuccess() {
+        if (pSplash != null) {
         pSplash.getMessage();
+        }
     }
 
     @Override
     public void getStickersFailed(String msg) {
+        if (pSplash != null) {
         pSplash.getMessage();
+        }
     }
 
     @Override
     public void startGetRank() {
-        mListener.getRankStarted();
+        if (mListener != null) {
+            mListener.getRankStarted();
+        }
     }
 
     @Override
     public void getRankSuccess(ResponseGetLeaderShip responseGetLeaderShip) {
-        mListener.getRankSuccess(responseGetLeaderShip);
-        pSplash.getStickers();
+        if (mListener != null) {
+            mListener.getRankSuccess(responseGetLeaderShip);
+        }
+        if (pSplash != null) {
+            pSplash.getStickers();
+        }
 
     }
 
     @Override
     public void getRankFailed(String msg) {
-        mListener.getRankFailed();
-        pSplash.getStickers();
+        if (mListener != null) {
+            mListener.getRankFailed();
+        }
+        if (pSplash != null) {
+            pSplash.getStickers();
+        }
 
     }
 
     @Override
     public void onSuccessUpdateFcmToken() {
-
-        pSplash.getOfferPackage();
+        if (pSplash != null) {
+            pSplash.getOfferPackage();
+        }
 
     }
 
     @Override
     public void onFailedUpdateFcmToken(int errorCode, String errorMessage) {
-        pSplash.getOfferPackage();
+        if (pSplash != null) {
+            pSplash.getOfferPackage();
+        }
 
     }
 
@@ -209,10 +227,13 @@ public class SplashFragment extends Fragment implements IV_Splash {
             if (mListener != null) {
                 mListener.setResponseDailyPrize(null);
             }
-            pSplash.getRank();
+            if (pSplash != null) {
+                pSplash.getRank();
+            }
         } else {
-
-            pSplash.getDailyPrize();
+            if (pSplash != null) {
+                pSplash.getDailyPrize();
+            }
         }
     }
 
@@ -221,7 +242,9 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (mListener != null) {
             mListener.setResponseOfferPackage(null);
         }
-        pSplash.getDailyPrize();
+        if (pSplash != null) {
+            pSplash.getDailyPrize();
+        }
     }
 
     @Override
@@ -229,7 +252,9 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (mListener != null) {
             mListener.setResponseDailyPrize(responseGetDailyPrize);
         }
-        pSplash.getRank();
+        if (pSplash != null) {
+            pSplash.getRank();
+        }
     }
 
     @Override
@@ -237,12 +262,14 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (mListener != null) {
             mListener.setResponseDailyPrize(null);
         }
-        pSplash.getRank();
+        if (pSplash != null) {
+            pSplash.getRank();
+        }
     }
 
     @Override
     public void onSuccessGetMessage() {
-        if (pSplash.userIsRegistered()) {
+        if (pSplash != null && pSplash.userIsRegistered()) {
             pSplash.getProfile();
         } else {
             if (mListener != null) {
@@ -254,7 +281,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void onFailedGetMessage(int errorCode, String errorMessage) {
-        if (pSplash.userIsRegistered()) {
+        if (pSplash != null && pSplash.userIsRegistered()) {
             pSplash.getProfile();
         } else {
             if (mListener != null) {
@@ -266,37 +293,41 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
     @Override
     public void onSuccessGetProfile() {
+        if (pSplash != null) {
+            if (pSplash.getLocalPaintsCount() > 0) {
+                pSplash.onSavePaintsInServer();
+            } else {
+                pSplash.getMyPaints();
 
-        if (pSplash.getLocalPaintsCount() > 0) {
-            pSplash.onSavePaintsInServer();
-        } else {
-            pSplash.getMyPaints();
-
+            }
         }
 
     }
 
     @Override
     public void onFailedGetProfile(int errorCode, String errorMessage) {
+        if (pSplash != null) {
+            if (pSplash.getLocalPaintsCount() > 0) {
+                pSplash.onSavePaintsInServer();
+            } else {
+                pSplash.getMyPaints();
 
-        if (pSplash.getLocalPaintsCount() > 0) {
-            pSplash.onSavePaintsInServer();
-        } else {
-            pSplash.getMyPaints();
-
+            }
         }
-
-
     }
 
     @Override
     public void onSuccessSavePaintsInServer() {
+        if (pSplash != null) {
         pSplash.getMyPaints();
+        }
     }
 
     @Override
     public void onFailedSavePaintsInServer(int errorCode, String errorMessage) {
+        if (pSplash != null) {
         pSplash.getMyPaints();
+        }
     }
 
     @Override

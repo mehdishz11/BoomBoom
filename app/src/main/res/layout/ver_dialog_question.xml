@@ -2,17 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rel_parent"
-    android:layout_width="wrap_content"
+    android:layout_width="350dp"
     android:layout_height="250dp"
     android:layoutDirection="ltr"
-    android:maxWidth="400dp"
     android:layout_gravity="center"
     >
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_save"
+        android:layout_above="@+id/buttonTaiid"
         android:layout_below="@+id/rel_title"
         android:layout_marginBottom="-25dp"
         android:layout_marginRight="@dimen/space_normal"
@@ -24,14 +23,24 @@
         android:id="@+id/rel_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_save"
+        android:layout_above="@+id/buttonTaiid"
         android:layout_below="@+id/rel_title"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="-20dp"
+        android:layout_marginRight="20dp"
         android:layout_toLeftOf="@+id/img_btn_close"
         android:padding="@dimen/space_small"
         android:orientation="horizontal"
         >
+        <psb.com.customView.CustomTextView
+            android:id="@+id/textView24w"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/brown_3"
+            android:textSize="16sp"
+
+            />
     </LinearLayout>
 
 
@@ -53,36 +62,23 @@
             android:layout_height="wrap_content"
             >
 
-            <psb.com.customView.CustomTextViewBold
-                android:id="@+id/text_title_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/settings"
-                android:textColor="#7ca331"
-                android:scaleY="1.1"
-                android:scaleX="1.0"
-                android:textSize="20sp"
-                android:paddingBottom="@dimen/space_small"
-                />
 
             <psb.com.customView.CustomTextViewBold
-                android:id="@+id/text_title_2"
+                android:id="@+id/titleerg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:text="@string/settings"
                 android:textColor="@color/white_1"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:paddingBottom="@dimen/space_small"/>
         </RelativeLayout>
 
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/img_btn_close"
+        android:id="@+id/buttonCancel"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
@@ -93,7 +89,7 @@
         android:src="@drawable/btn_close" />
 
     <psb.com.customView.CButton
-        android:id="@+id/btn_save"
+        android:id="@+id/buttonTaiid"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"

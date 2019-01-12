@@ -273,7 +273,7 @@ public class DrawView extends View {
                 resultDrawHelper = this.pathLists.get(i);
             }
         }
-        return this.pathLists.get(this.pathLists.size() - 1);
+        return this.pathLists.get((this.pathLists.size() - 1));
 //        return resultDrawHelper;
     }
 

@@ -284,7 +284,7 @@ public class ActivityRegisterUser extends BaseActivity implements
                 progressView.setVisibility(View.GONE);
                 if ((userInfo.getFirstName() == null && userInfo.getLastName() == null)||(userInfo.getFirstName().isEmpty() && userInfo.getLastName().isEmpty())){
                     // getSupportFragmentManager().beginTransaction().remove(fragmentVerifyCode).commit();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragmentUserInfo, KEY_FRGUserInfo).addToBackStack(null).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragmentUserInfo, KEY_FRGUserInfo).addToBackStack(null).commitAllowingStateLoss();
                 } else {
 
                     userProfile.set_KEY_USER_INFO(userInfo);
