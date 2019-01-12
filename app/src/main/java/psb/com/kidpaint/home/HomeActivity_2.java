@@ -803,6 +803,10 @@ public class HomeActivity_2 extends BaseActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==10 && getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)!=null){
+            ((SplashFragment)getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_SPLASH)).onActivityResult(requestCode,resultCode,data);
+            return;
+        }
         if (fragment_offerPackage != null && requestCode == 321) {
             fragment_offerPackage.onActivityResult(requestCode, resultCode, data);
             return;
@@ -1004,13 +1008,14 @@ public class HomeActivity_2 extends BaseActivity implements
 
     @Override
     public void setResponseMyPaints(ResponseGetMyPaints responseMyPaints) {
-
-        Log.d("TAG", "setResponseMyPaints: " + responseMyPaints.getMyPaint().size());
         mResponseGetMyPaints = responseMyPaints;
-
-
     }
 
+
+    @Override
+    public void exit(){
+        finish();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Activity methods

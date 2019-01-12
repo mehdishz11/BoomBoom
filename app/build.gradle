@@ -85,6 +85,9 @@ dependencies {
     //Report user information
     implementation 'com.github.mehdishz11:RasaStatistics:0.0.3'
 
+    //check for version
+    implementation 'com.github.DorsaFamily:DorsaVersion:1.7'
+
 }
 
 

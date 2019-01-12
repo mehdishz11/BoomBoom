@@ -1,6 +1,7 @@
 package psb.com.kidpaint.home.splash;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.helper.PaymentHelper;
+import com.psb.versioncontrol.CheckVersion;
 
 import ir.dorsa.totalpayment.payment.Payment;
 import psb.com.kidpaint.App;
+import psb.com.kidpaint.BuildConfig;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.UserProfile;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
@@ -30,6 +33,8 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
 
     private P_Splash pSplash;
+
+    private  CheckVersion checkVersion;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -57,15 +62,33 @@ public class SplashFragment extends Fragment implements IV_Splash {
         view = inflater.inflate(R.layout.fragment_splash, container, false);
         pSplash = new P_Splash(this);
         pSplash.setFirstUserScore(2500);// give user 2500 score
-        setContent();
+        checkVersion();
         return view;
+    }
+
+    private void checkVersion(){
+        String BASE_URL = "http://getboomboom.ir/api/Version/Get";
+        checkVersion=new CheckVersion(getActivity(),BASE_URL,"BoomBoom",BuildConfig.VERSION_CODE);
+        checkVersion.setDebug(true);
+        checkVersion.setVas(PaymentHelper.isAgrigator());
+        checkVersion.getVersion(new CheckVersion.onTaskFinished() {
+            @Override
+            public void onFinished(boolean exit) {
+                if(exit){
+                    if (mListener != null) {
+                        mListener.exit();
+                    }
+                }else{
+                    setContent();
+                }
+            }
+        });
     }
 
     private void setContent() {
         if (pSplash.userIsRegistered()) {
             if (PaymentHelper.isAgrigator()) {
                 Payment payment = new Payment(getContext());
-
 
                 payment.checkStatus(
                         App.appCode,
@@ -121,6 +144,12 @@ public class SplashFragment extends Fragment implements IV_Splash {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        checkVersion.checkActivityResult(requestCode,resultCode);
     }
 
     @Override
@@ -309,5 +338,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         void setResponseDailyPrize(ResponseGetDailyPrize responseGetDailyPrize);
 
         void setResponseMyPaints(ResponseGetMyPaints responseMyPaints);
+
+        void exit();
     }
 }
