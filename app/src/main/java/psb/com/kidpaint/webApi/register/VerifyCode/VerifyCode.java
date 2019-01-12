@@ -39,7 +39,7 @@ public class VerifyCode implements iVerifyCode {
         ParamsVerifyCode paramsVerifyCode=new ParamsVerifyCode();
         paramsVerifyCode.setPhoneNumber(phoneNumber);
         paramsVerifyCode.setCode(smsCode);
-        paramsVerifyCode.setAppVersion(""+ BuildConfig.VERSION_CODE);
+        paramsVerifyCode.setAppVersion(""+ BuildConfig.VERSION_NAME);
         paramsVerifyCode.setDeviceId(Utils.getDeviceId(App.getContext()));
         paramsVerifyCode.setOsType(Long.valueOf(0));
         paramsVerifyCode.setOsVersion(""+ Build.VERSION.SDK_INT);

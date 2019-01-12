@@ -39,7 +39,7 @@ public class FcmToken implements iFcmToken {
     public void startSendFcmToken(String jwt,String token, String phoneNumber) {
         ParamsFcmToken paramsVerifyCode=new ParamsFcmToken();
         paramsVerifyCode.setPhoneNumber(phoneNumber);
-        paramsVerifyCode.setAppVersion(""+ BuildConfig.VERSION_CODE);
+        paramsVerifyCode.setAppVersion(""+ BuildConfig.VERSION_NAME);
         paramsVerifyCode.setDeviceId(Utils.getDeviceId(App.getContext()));
 //        paramsVerifyCode.setDeviceModel(Value.getDeviceModel());
         paramsVerifyCode.setOsType(Long.valueOf(0));

@@ -40,7 +40,7 @@ public class VasVerifyCode implements iVasVerifyCode {
         paramsVasVerifyCode.setRefrenceCode(referenceCode);
         paramsVasVerifyCode.setIrancellToken(irancellToken);
 
-        paramsVasVerifyCode.setAppVersion(""+ BuildConfig.VERSION_CODE);
+        paramsVasVerifyCode.setAppVersion(""+ BuildConfig.VERSION_NAME);
         paramsVasVerifyCode.setDeviceId(Utils.getDeviceId(App.getContext()));
 //        paramsVasVerifyCode.setDeviceModel(Value.getDeviceModel());
         paramsVasVerifyCode.setOsType("0");
