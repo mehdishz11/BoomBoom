@@ -62,6 +62,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         pSplash = new P_Splash(this);
         pSplash.setFirstUserScore(2500);// give user 2500 score
         checkVersion();
+        //setContent();
         return view;
     }
 

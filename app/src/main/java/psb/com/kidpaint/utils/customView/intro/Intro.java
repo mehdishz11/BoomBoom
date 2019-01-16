@@ -79,7 +79,7 @@ public class Intro {
                     }
                 })
 
-                //.showOnce(srtid)
+                .showOnce(srtid)
                 .build();
 
         fancyShowCaseView.setSoundId(soundId);

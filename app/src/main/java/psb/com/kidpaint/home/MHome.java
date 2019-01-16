@@ -216,7 +216,7 @@ public class MHome implements IM_Home {
     @Override
     public void deletePaint(final int position) {
 
-        if (imageList.get(position).getFile()!=null) {
+        if (imageList.size()>position&&imageList.get(position).getFile()!=null) {
 
             File file=imageList.get(position).getFile();
             imageList.remove(position);

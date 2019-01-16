@@ -444,6 +444,7 @@ public class PaintActivity extends BaseActivity implements
         });
 
         if (editPath != null && editPath.contains("http")) {
+            Log.d("TAG", "initView: "+editPath);
             Picasso
                     .get()
                     .load(editPath)
@@ -719,6 +720,7 @@ public class PaintActivity extends BaseActivity implements
     }
 
     void saveImage(Bitmap finalBitmap) {
+        Log.d("Tag", "saveImage: "+editPath);
 
         if (editPath != null) {
             if (editPath.contains("http")) {

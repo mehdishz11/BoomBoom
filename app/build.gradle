@@ -62,7 +62,7 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
-    /////////////
+    ///////////////
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
     testImplementation 'junit:junit:4.12'
@@ -80,7 +80,7 @@ dependencies {
     implementation project(':sharecontent')
 
     // Dorsa payment library
-    implementation 'com.github.DorsaFamily:DorsaPayment:3.3.0'
+    implementation 'com.github.DorsaFamily:DorsaPayment:3.3.6'
 
     //Report user information
     implementation 'com.github.mehdishz11:RasaStatistics:0.0.3'

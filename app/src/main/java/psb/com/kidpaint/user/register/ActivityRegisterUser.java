@@ -133,8 +133,8 @@ public class ActivityRegisterUser extends BaseActivity implements
            }
 
             Intent intentDorsaPayment = payment.getPaymentIntent(
+                    400,300,
                     true,
-                    getString(R.string.msg_enter_phone_number),
                     App.appCode,
                     App.productCode,
                     App.irancellSku,

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Black"
     android:layoutDirection="ltr"
     >
 
@@ -38,12 +39,10 @@
         <LinearLayout
             android:id="@+id/rel_btn"
             android:layout_width="match_parent"
-            android:layout_alignParentRight="true"
             android:orientation="vertical"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:padding="@dimen/space_15">
+            android:padding="@dimen/space_large">
 
             <RelativeLayout
                 android:layout_width="match_parent"
