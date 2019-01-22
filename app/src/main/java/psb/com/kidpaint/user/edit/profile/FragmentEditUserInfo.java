@@ -401,6 +401,7 @@ public class FragmentEditUserInfo extends Fragment implements iVEditUserInfo {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult: "+requestCode);
         if(requestCode == REQUEST_SELECT_IMAGE && resultCode== Activity.RESULT_OK){
             byte[] byteArray = data.getByteArrayExtra("image");
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);

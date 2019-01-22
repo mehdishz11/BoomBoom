@@ -57,9 +57,9 @@ ext{
     releaseName="Cafebazarr"
 
 ////    Agrigator
-//    paymentMethod=":payment2"
-//    releaseName="Agrigator"
-//    marketerId=2 //2:rasa
+/* paymentMethod=":payment2"
+    releaseName="Agrigator"
+    marketerId=2 //2:rasa*/
 
 }
 
