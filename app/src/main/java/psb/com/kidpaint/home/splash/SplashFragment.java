@@ -101,7 +101,9 @@ public class SplashFragment extends Fragment implements IV_Splash {
                                 if (status) {//check successfully and user is active
                                     pSplash.updateFcmToken();
                                 } else if (!status && errorCode == Payment.ERROR_CODE_INTERNET_CONNECTION) {//internet connection problem
-                                    pSplash.getRank();
+                                  //  pSplash.getRank();
+                                    pSplash.updateFcmToken();
+
                                 }
                                    /* else if(!status && errorCode==Payment.ERROR_CODE_USER_HAS_NO_CHARGE){//user has no charge
 
@@ -112,7 +114,9 @@ public class SplashFragment extends Fragment implements IV_Splash {
                                     }
                                     UserProfile userProfile = new UserProfile(getContext());
                                     userProfile.REMOVE_KEY_USER_INFO();
-                                    pSplash.getRank();
+                                   // pSplash.getRank();
+                                    pSplash.updateFcmToken();
+
                                 }
                             }
                         }
@@ -124,7 +128,9 @@ public class SplashFragment extends Fragment implements IV_Splash {
             }
 
         } else {
-            pSplash.getRank();
+           // pSplash.getRank();
+            pSplash.updateFcmToken();
+
         }
     }
 

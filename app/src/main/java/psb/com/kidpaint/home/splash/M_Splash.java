@@ -146,9 +146,9 @@ public class M_Splash implements IM_Splash {
 
     @Override
     public void updateFcmToken() {
-        if (userProfile.get_KEY_FCM("").isEmpty()) {
+      /*  if (userProfile.get_KEY_FCM("").isEmpty()) {
             ipSplash.onSuccessUpdateFcmToken();
-        } else {
+        } else {*/
             new Register().fcmToken(new iFcmToken.iResult() {
                 @Override
                 public void onSuccessSendFcmToken() {
@@ -161,38 +161,46 @@ public class M_Splash implements IM_Splash {
                     ipSplash.onFailedUpdateFcmToken(ErrorId, ErrorMessage);
                 }
             }).startSendFcmToken(userProfile.get_KEY_JWT(""), userProfile.get_KEY_FCM(""), userProfile.get_KEY_PHONE_NUMBER(""));
-        }
+       // }
     }
 
     @Override
     public void getOfferPackage() {
-        new OfferPackage().getOfferPackage(new iGetOfferPackage.iResult() {
-            @Override
-            public void onSuccessGetOfferPackage(ResponseGetOfferPackage responseGetOfferPackage) {
-                ipSplash.onSuccessGetOfferPackage(responseGetOfferPackage);
-            }
+        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            ipSplash.onFailedGetOfferPackage(0, "");
+        } else {
+            new OfferPackage().getOfferPackage(new iGetOfferPackage.iResult() {
+                @Override
+                public void onSuccessGetOfferPackage(ResponseGetOfferPackage responseGetOfferPackage) {
+                    ipSplash.onSuccessGetOfferPackage(responseGetOfferPackage);
+                }
 
-            @Override
-            public void onFailedGetOfferPackage(int errorCode, String ErrorMessage) {
-                ipSplash.onFailedGetOfferPackage(errorCode, ErrorMessage);
-            }
-        }).doGetOfferPackage(userProfile.get_KEY_PHONE_NUMBER(""));
+                @Override
+                public void onFailedGetOfferPackage(int errorCode, String ErrorMessage) {
+                    ipSplash.onFailedGetOfferPackage(errorCode, ErrorMessage);
+                }
+            }).doGetOfferPackage(userProfile.get_KEY_PHONE_NUMBER(""));
+        }
     }
 
     @Override
     public void getDailyPrize() {
-        new Prize().getDailyPrize(new iGetDailyPrize.iResult() {
-            @Override
-            public void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
-                ipSplash.onSuccessGetDailyPrize(responseGetDailyPrize);
+        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            ipSplash.onFailedGetDailyPrize(0, "");
+        } else {
+            new Prize().getDailyPrize(new iGetDailyPrize.iResult() {
+                @Override
+                public void onSuccessGetDailyPrize(ResponseGetDailyPrize responseGetDailyPrize) {
+                    ipSplash.onSuccessGetDailyPrize(responseGetDailyPrize);
 
-            }
+                }
 
-            @Override
-            public void onFailedGetDailyPrize(int errorCode, String ErrorMessage) {
-                ipSplash.onFailedGetDailyPrize(errorCode, ErrorMessage);
-            }
-        }).doGetDailyPrize(userProfile.get_KEY_PHONE_NUMBER("0"));
+                @Override
+                public void onFailedGetDailyPrize(int errorCode, String ErrorMessage) {
+                    ipSplash.onFailedGetDailyPrize(errorCode, ErrorMessage);
+                }
+            }).doGetDailyPrize(userProfile.get_KEY_PHONE_NUMBER("0"));
+        }
     }
 
     @Override

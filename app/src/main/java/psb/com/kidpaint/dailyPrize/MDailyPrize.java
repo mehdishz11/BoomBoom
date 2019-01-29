@@ -27,19 +27,26 @@ public class MDailyPrize implements IMDailyPrize {
 
     @Override
     public void doBuyDailyPrize(int id, final int prize) {
-        new Prize().buyDailyPrize(new iBuyDailyPrize.iResult() {
-            @Override
-            public void onSuccessBuyDailyPrize(ResponseBuyDailyPrize responseBuyDailyPrize) {
-                userProfile.set_KEY_SCORE(responseBuyDailyPrize.getExtra());
-                 ipDailyPrize.onSuccessBuyDailyPrize(prize,responseBuyDailyPrize);
-            }
 
-            @Override
-            public void onFailedBuyDailyPrize(int errorCode, String ErrorMessage) {
-                ipDailyPrize.onFailedBuyDailyPrize(errorCode, ErrorMessage);
+        if (userProfile.get_KEY_PHONE_NUMBER("").isEmpty()) {
+            userProfile.set_KEY_SCORE((userProfile.get_KEY_SCORE(0)+prize));
 
-            }
-        }).doBuyDailyPrize(userProfile.get_KEY_PHONE_NUMBER(""),id);
+        }else{
+
+            new Prize().buyDailyPrize(new iBuyDailyPrize.iResult() {
+                @Override
+                public void onSuccessBuyDailyPrize(ResponseBuyDailyPrize responseBuyDailyPrize) {
+                    userProfile.set_KEY_SCORE(responseBuyDailyPrize.getExtra());
+                    ipDailyPrize.onSuccessBuyDailyPrize(prize,responseBuyDailyPrize);
+                }
+
+                @Override
+                public void onFailedBuyDailyPrize(int errorCode, String ErrorMessage) {
+                    ipDailyPrize.onFailedBuyDailyPrize(errorCode, ErrorMessage);
+
+                }
+            }).doBuyDailyPrize(userProfile.get_KEY_PHONE_NUMBER(""),id);
+        }
 
     }
 }

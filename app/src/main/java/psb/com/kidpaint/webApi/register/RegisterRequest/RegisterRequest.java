@@ -3,6 +3,10 @@ package psb.com.kidpaint.webApi.register.RegisterRequest;
 
 
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+
 import psb.com.kidpaint.utils.ErrorMessage;
 import psb.com.kidpaint.utils.WebService;
 import psb.com.kidpaint.webApi.register.RegisterRequest.ModelRegisterRequest.ResponseRegisterRequest;
@@ -26,12 +30,15 @@ public class RegisterRequest  implements iRegisterRequest {
 
     @Override
     public void startSendPhoneNumber(String phoneNumber) {
+        Log.d("TAG", "startSendPhoneNumber: "+phoneNumber);
 
         Call<ResponseRegisterRequest> call = new WebService().getClient().create(apiRequest.class).registerRequest(phoneNumber);
 
         call.enqueue(new Callback<ResponseRegisterRequest>() {
             @Override
             public void onResponse(Call<ResponseRegisterRequest> call, Response<ResponseRegisterRequest> response) {
+
+                Log.d("TAG", "onResponse: "+new Gson().toJson(response.body()));
                 if (response.code() == 200) {
 
 

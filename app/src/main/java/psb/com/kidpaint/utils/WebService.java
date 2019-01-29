@@ -32,8 +32,8 @@ public class WebService {
                         Request.Builder ongoing = chain.request().newBuilder();
                         if (userProfile.get_KEY_JWT( "-1")!=null && !userProfile.get_KEY_JWT( "-1").equals("-1")) {
                             ongoing.addHeader("Authorization", "Bearer "+userProfile.get_KEY_JWT("-1"));
-                          ongoing.addHeader("DeviceId", Utils.getDeviceId(App.getContext()));
                         }
+                        ongoing.addHeader("DeviceId", Utils.getDeviceId(App.getContext()));
                         return chain.proceed(ongoing.build());
                     }
                 })
