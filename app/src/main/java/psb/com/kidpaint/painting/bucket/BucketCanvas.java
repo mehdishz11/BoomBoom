@@ -1,12 +1,12 @@
 package psb.com.kidpaint.painting.bucket;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class BucketCanvas extends android.support.v7.widget.AppCompatImageView {
+public class BucketCanvas extends androidx.appcompat.widget.AppCompatImageView {
     private OnBucketPointSelected onBucketPointSelected;
     public BucketCanvas(Context context) {
         super(context);

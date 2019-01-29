@@ -7,7 +7,7 @@
     android:layoutDirection="ltr"
     android:alpha="0.95">
 
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardBackgroundColor="@color/brown_1"
@@ -108,7 +108,7 @@
 
 
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>
 
 
     <ImageView

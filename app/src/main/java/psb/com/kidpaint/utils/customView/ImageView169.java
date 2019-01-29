@@ -3,7 +3,7 @@ package psb.com.kidpaint.utils.customView;
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class ImageView169 extends android.support.v7.widget.AppCompatImageView {
+public class ImageView169 extends androidx.appcompat.widget.AppCompatImageView {
 
     public ImageView169(Context context) {
         super(context);

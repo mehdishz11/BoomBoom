@@ -2,7 +2,7 @@ package psb.com.kidpaint.utils.sharePrefrence;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;

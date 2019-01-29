@@ -2,14 +2,14 @@ package psb.com.customView;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 
 /**
  * Created by Mehdi on 4/11/2017 AD.
  */
 
-public class CustomTextView extends android.support.v7.widget.AppCompatTextView {
+public class CustomTextView extends androidx.appcompat.widget.AppCompatTextView {
     public CustomTextView(Context context) {
         super(context);
         Typeface face = Typeface.createFromAsset(context.getAssets(), "fonts/IRANSansDN_FaNum_Light.ttf");

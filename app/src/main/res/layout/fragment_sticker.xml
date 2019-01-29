@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:weightSum="10">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_stickers"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -30,12 +30,12 @@
             android:paddingLeft="@dimen/margin_15"
             android:paddingRight="@dimen/margin_15"
             >
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_cat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/pallet_drop"
-                ></android.support.v7.widget.RecyclerView>
+                ></androidx.recyclerview.widget.RecyclerView>
 
             <psb.com.customView.CButton
                 android:id="@+id/refreshStickers"

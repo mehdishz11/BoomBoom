@@ -1,11 +1,9 @@
 package psb.com.kidpaint.utils.customView;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.support.v7.widget.SearchView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.widget.EditText;
+
+import androidx.appcompat.widget.SearchView;
 
 
 /**
@@ -19,10 +17,10 @@ public class cSearchView extends SearchView {
 
     public cSearchView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        EditText txtSearch = (findViewById(android.support.v7.appcompat.R.id.search_src_text));
+     /*   EditText txtSearch = (findViewById(android.R.id.search_src_text));
         Typeface face = Typeface.createFromAsset(getContext().getAssets(), "fonts/IRANSansMobile(FaNum)_Light.ttf");
         txtSearch.setTypeface(face);
-        txtSearch.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+        txtSearch.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);*/
 
     }
 

@@ -3,8 +3,6 @@ package psb.com.kidpaint.utils.customView;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import psb.com.kidpaint.utils.toolbarHandler.ToolbarHandler;
 
 
@@ -23,6 +23,7 @@ public class BaseActivity extends AppCompatActivity {
         ToolbarHandler.makeFullScreen(getWindow());
         ToolbarHandler.makeTansluteNavigation(this, getWindow(), getWindow().getDecorView());
         createHelperWnd();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState);
     }
 

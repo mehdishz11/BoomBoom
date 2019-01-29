@@ -5,12 +5,12 @@ import android.app.Application;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
 
 import com.helper.PaymentHelper;
 import com.helper.tapsel.TapselHelper;
 import com.rasa.statistics.Statistics;
 
+import androidx.multidex.MultiDex;
 import psb.com.kidpaint.activityMessage.MessageActivity;
 import psb.com.kidpaint.home.HomeActivity_2;
 
@@ -59,8 +59,8 @@ public class App extends Application {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 if (activity instanceof HomeActivity_2) {
-                    AudioManager mgr = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-                    mgr.setStreamVolume(AudioManager.STREAM_MUSIC, mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+                   /* AudioManager mgr = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+                    mgr.setStreamVolume(AudioManager.STREAM_MUSIC, mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);*/
                 }
             }
 

@@ -3,7 +3,6 @@ package psb.com.kidpaint.home.splash;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,13 @@ import android.widget.ProgressBar;
 import com.helper.PaymentHelper;
 import com.psb.versioncontrol.CheckVersion;
 
+import androidx.fragment.app.Fragment;
 import ir.dorsa.totalpayment.payment.Payment;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.BuildConfig;
 import psb.com.kidpaint.R;
 import psb.com.kidpaint.utils.UserProfile;
+import psb.com.kidpaint.utils.sharePrefrence.SharePrefrenceHelper;
 import psb.com.kidpaint.webApi.offerPackage.Get.model.ResponseGetOfferPackage;
 import psb.com.kidpaint.webApi.paint.getLeaderShip.model.ResponseGetLeaderShip;
 import psb.com.kidpaint.webApi.paint.getMyPaints.model.ResponseGetMyPaints;
@@ -89,7 +90,7 @@ public class SplashFragment extends Fragment implements IV_Splash {
         if (pSplash.userIsRegistered()) {
             if (PaymentHelper.isAgrigator()) {
                 Payment payment = new Payment(getContext());
-
+                final boolean isRegisteredBefor=payment.isUserPremium();
                 payment.checkStatus(
                         App.appCode,
                         App.productCode,
@@ -106,6 +107,9 @@ public class SplashFragment extends Fragment implements IV_Splash {
 
                                     }*/
                                 else {//user not enable anymore
+                                    if(isRegisteredBefor){
+                                        SharePrefrenceHelper.setIntroIsShowBefore(false);
+                                    }
                                     UserProfile userProfile = new UserProfile(getContext());
                                     userProfile.REMOVE_KEY_USER_INFO();
                                     pSplash.getRank();

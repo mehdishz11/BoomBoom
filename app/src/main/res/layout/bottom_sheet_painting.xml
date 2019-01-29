@@ -9,7 +9,7 @@
     android:layoutDirection="ltr"
 
     app:behavior_peekHeight="40dp"
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
     <RelativeLayout

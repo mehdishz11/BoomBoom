@@ -10,8 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.StrictMode;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -99,7 +99,7 @@ public class NotificationCreator {
         if (contentText != null && !contentText.isEmpty()) {
             notificationBuilder.setContentText(contentText);
         }
-        notificationBuilder.setStyle(new android.support.v4.app.NotificationCompat.BigTextStyle()
+        notificationBuilder.setStyle(new androidx.core.app.NotificationCompat.BigTextStyle()
                 .bigText(bigText));
         notificationManager.notify(notificationId, notificationBuilder.build());
 

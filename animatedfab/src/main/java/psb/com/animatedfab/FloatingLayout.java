@@ -6,14 +6,16 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by robertlevonyan on 11/20/17.
@@ -105,13 +107,13 @@ public class FloatingLayout extends FrameLayout {
             View childView = getChildAt(i);
 
             if (childView instanceof FloatingActionButton
-                    || childView instanceof android.support.design.widget.FloatingActionButton) {
+                    || childView instanceof com.google.android.material.floatingactionbutton.FloatingActionButton) {
                 if (i == 0) {
                     if (childView instanceof FloatingActionButton) {
                         FloatingActionButton fab = (FloatingActionButton) childView;
                         fab.setFabElevation(11);
-                    } else if (childView instanceof android.support.design.widget.FloatingActionButton) {
-                        android.support.design.widget.FloatingActionButton fab = (android.support.design.widget.FloatingActionButton) childView;
+                    } else if (childView instanceof com.google.android.material.floatingactionbutton.FloatingActionButton) {
+                        com.google.android.material.floatingactionbutton.FloatingActionButton fab = (com.google.android.material.floatingactionbutton.FloatingActionButton) childView;
                         fab.setCompatElevation(11);
                     }
                 } else {
@@ -119,8 +121,8 @@ public class FloatingLayout extends FrameLayout {
                     if (childView instanceof FloatingActionButton) {
                         FloatingActionButton fab = (FloatingActionButton) childView;
                         fab.setFabElevation(9);
-                    } else if (childView instanceof android.support.design.widget.FloatingActionButton) {
-                        android.support.design.widget.FloatingActionButton fab = (android.support.design.widget.FloatingActionButton) childView;
+                    } else if (childView instanceof com.google.android.material.floatingactionbutton.FloatingActionButton) {
+                        com.google.android.material.floatingactionbutton.FloatingActionButton fab = (com.google.android.material.floatingactionbutton.FloatingActionButton) childView;
                         fab.setCompatElevation(9);
                     }
                 }

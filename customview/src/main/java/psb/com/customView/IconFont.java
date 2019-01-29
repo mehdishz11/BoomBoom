@@ -9,7 +9,7 @@ import android.util.AttributeSet;
  * Created by Mehdi on 6/29/2017 AD.
  */
 
-public class IconFont extends android.support.v7.widget.AppCompatTextView {
+public class IconFont extends androidx.appcompat.widget.AppCompatTextView {
 
     public IconFont(Context context) {
         super(context);

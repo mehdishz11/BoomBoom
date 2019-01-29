@@ -1,11 +1,11 @@
 package psb.com.customView;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 
 
-public class CImageView extends android.support.v7.widget.AppCompatImageView {
+public class CImageView extends androidx.appcompat.widget.AppCompatImageView {
     public CImageView(Context context) {
         super(context);
     }

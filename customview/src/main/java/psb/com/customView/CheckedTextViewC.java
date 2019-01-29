@@ -8,7 +8,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
-public class CheckedTextViewC extends android.support.v7.widget.AppCompatCheckedTextView {
+public class CheckedTextViewC extends androidx.appcompat.widget.AppCompatCheckedTextView {
 
     public CheckedTextViewC(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

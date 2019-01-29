@@ -22,9 +22,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.mohamadamin.persianmaterialdatetimepicker.R;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
@@ -32,7 +31,7 @@ import com.mohamadamin.persianmaterialdatetimepicker.utils.LanguageUtils;
 /**
  * A text view which, when pressed or activated, displays a colored circle around the text.
  */
-public class TextViewWithCircularIndicator extends android.support.v7.widget.AppCompatTextView {
+public class TextViewWithCircularIndicator extends androidx.appcompat.widget.AppCompatTextView {
 
     private static final int SELECTED_CIRCLE_ALPHA = 255;
 

@@ -11,8 +11,8 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -23,7 +23,7 @@ import android.view.ViewGroup;
  * Created by robert on 3/1/2017.
  */
 
-public class FloatingActionButton extends android.support.v7.widget.AppCompatTextView {
+public class FloatingActionButton extends androidx.appcompat.widget.AppCompatTextView {
     public static final int FAB_TYPE_CIRCLE = 0;
     public static final int FAB_TYPE_SQUARE = 1;
     public static final int FAB_TYPE_ROUNDED_SQUARE = 2;

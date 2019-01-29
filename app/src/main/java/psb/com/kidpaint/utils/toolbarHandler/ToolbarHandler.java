@@ -2,10 +2,11 @@ package psb.com.kidpaint.utils.toolbarHandler;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.core.content.ContextCompat;
 
 
 public class ToolbarHandler {
