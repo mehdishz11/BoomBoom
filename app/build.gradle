@@ -8,7 +8,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName+rootProject.ext.marketerId
+        versionName rootProject.ext.versionName+rootProject.ext.marketerId+rootProject.ext.dorsaMarketId
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -19,11 +19,13 @@ android {
         debug {
             
             buildConfigField "int", "marketerId", "${rootProject.ext.marketerId}"
+            buildConfigField "String", "dorsaMarketId", "\"${rootProject.ext.dorsaMarketId}\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "int", "marketerId", "${rootProject.ext.marketerId}"
+            buildConfigField "String", "dorsaMarketId", "\"${rootProject.ext.dorsaMarketId}\""
         }
     }
 

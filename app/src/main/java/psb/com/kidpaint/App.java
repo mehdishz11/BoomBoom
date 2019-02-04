@@ -27,6 +27,7 @@ public class App extends Application {
 
 
     public static final int MARKET_ID = BuildConfig.marketerId;
+    public static final String DORSA_MARKET_ID = BuildConfig.dorsaMarketId;
 
 
     public static boolean isHomeActivityStarted = false;

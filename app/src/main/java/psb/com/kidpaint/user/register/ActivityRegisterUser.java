@@ -9,16 +9,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 
 import com.helper.PaymentHelper;
 import com.rasa.statistics.Statistics;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import ir.dorsa.totalpayment.payment.Payment;
 import psb.com.kidpaint.App;
 import psb.com.kidpaint.R;
@@ -124,6 +124,10 @@ public class ActivityRegisterUser extends BaseActivity implements
 
         if(PaymentHelper.isAgrigator()){
             Payment payment=new Payment(this);
+
+            if(App.DORSA_MARKET_ID!=null && !App.DORSA_MARKET_ID.isEmpty()){
+                payment.setMarketId(App.DORSA_MARKET_ID.replace(".",""));
+            }
 
             payment.setEnableIrancell(App.isEnableIrancell);
 

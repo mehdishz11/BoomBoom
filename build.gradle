@@ -49,18 +49,20 @@ ext{
     targetSdkVersion=28
     supportLibVersion = '1.0.0-beta01'
 
-    versionCode=29
-    versionName="1.1.9."
+    versionCode=30
+    versionName="1.2.0."
 
 /*//    CafeBazar
     paymentMethod=":payment"
     marketerId=3
-    releaseName="Cafebazarr"*/
+    releaseName="Cafebazarr"
+    dorsaMarketId=""*/
 
 //    Agrigator
  paymentMethod=":payment2"
     releaseName="Agrigator"
     marketerId=2 //2:rasa
+    dorsaMarketId=".C30"
 
 }
 
