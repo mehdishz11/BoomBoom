@@ -8,7 +8,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName+rootProject.ext.marketerId+rootProject.ext.dorsaMarketId
+        versionName rootProject.ext.versionName+rootProject.ext.dorsaMarketId
         multiDexEnabled true
         testInstrumentationRunner "android.support.intro_step_1.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

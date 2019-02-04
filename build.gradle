@@ -62,7 +62,7 @@ ext{
  paymentMethod=":payment2"
     releaseName="Agrigator"
     marketerId=2 //2:rasa
-    dorsaMarketId=".C30"
+    dorsaMarketId="C30"
 
 }
 
